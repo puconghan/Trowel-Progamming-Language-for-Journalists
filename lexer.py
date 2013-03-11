@@ -5,6 +5,7 @@ tokens = (
    'AND',
    'OR',
    'NOT',
+   'WITH',
    'RIGHTSQUAREBRACKET',
    'LEFTSQAREBRACKET',
    'PLUS',
@@ -29,18 +30,22 @@ tokens = (
 )
 
 t_PLUS    = r'\+'
-t_MINUS   = r'\-'
+t_MINUS   = r'-'
 
 def t_AND(t):
-    r'and'   
+    r'(and) | (AND)'   
     return t
 
 def t_OR(t):
-    r'or'   
+    r'(or) | (OR)'   
     return t
 
 def t_NOT(t):
-    r'not'   
+    r'(not) | (NOT)'   
+    return t
+
+def t_WITH(t):
+    r'(with) | (WITH)'
     return t
 
 def t_LEFTSQAREBRACKET(t):
@@ -52,67 +57,67 @@ def t_RIGHTSQUAREBRACKET(t):
     return t
 
 def t_URL(t):
-    r'url'   
+    r'(url) | (URL)'   
     return t
 
 def t_TEXT(t):
-    r'text'   
+    r'(text) | (TEXT)'   
     return t
 
 def t_NUMBER(t):
-    r'number'   
+    r'(number) | (NUMBER)'   
     return t
 
 def t_URLLIST(t):
-    r'urllist'   
+    r'(urllist) | (URLLIST) | (urlList)'   
     return t
 
 def t_TEXTLIST(t):
-    r'textlist'   
+    r'(textlist) | (TEXTLIST) | (textList)'   
     return t
 
 def t_NUMLIST(t):
-    r'numlist'   
+    r'(numlist) | (NUMLIST) | (numList)'   
     return t
 
 def t_PRINT(t):
-    r'print'   
+    r'(print) | (PRINT)'   
     return t
 
 def t_READ(t):
-    r'read'   
+    r'(read) | (READ)'   
     return t
 
 def t_SAVE(t):
-    r'save'   
+    r'(save) | (SAVE)'   
     return t
 
 def t_APPEND(t):
-    r'append'   
+    r'(append) | (APPEND)'   
     return t
 
 def t_ADD(t):
-    r'add'   
+    r'(add) | (ADD)'   
     return t
 
 def t_FINDURL(t):
-    r'findurl'   
+    r'(findurl) | (FINDURL) | (findURL)'   
     return t
 
 def t_COMBINE(t):
-    r'combine'   
+    r'(combine) | (COMBINE)'   
     return t
 
 def t_IF(t):
-    r'if'   
+    r'(if) | (IF)'   
     return t
 
 def t_ELSE(t):
-    r'else'   
+    r'(else) | (ELSE)'   
     return t
 
 def t_FOR(t):
-    r'for'   
+    r'(for) | (FOR)'   
     return t
 
 # A string containing ignored characters (spaces and tabs)
@@ -127,7 +132,7 @@ def t_error(t):
 lexer = lex.lex()
 
 # Give the lexer some input
-lexer.input("add if for append")
+lexer.input("filterresult is findURL in stotries with term1 and term2")
 
 while True:
     tok = lexer.token()
