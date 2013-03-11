@@ -2,17 +2,21 @@ import ply.yacc as yacc
 import ply.lex as lex
 
 tokens = (
+   #Logical Operators
    'AND',
    'OR',
    'NOT',
+   #Arithmetic Operators
    'PLUS',
    'MINUS',
+   #Data Types
    'URL',
    'TEXT',
    'NUMBER',
    'URLLIST',
    'TEXTLIST',
    'NUMLIST',
+   #Functions
    'PRINT',
    'READ',
    'SAVE',
@@ -22,9 +26,11 @@ tokens = (
    'FINDTEXR',
    'COMBINE',
    'DEF'
+   #Control Operators
    'IF',
    'ELSE',
    'FOR',
+   #Reserved Keywords
    'IS',
    'WITH',
    'INTO',
