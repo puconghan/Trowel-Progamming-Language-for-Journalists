@@ -7,6 +7,8 @@ tokens = (
    'OR',
    'NOT',
    #Arithmetic Operators
+   'MULTIPLY',
+   'DIVISION',
    'PLUS',
    'MINUS',
    #Data Types
@@ -21,11 +23,11 @@ tokens = (
    'READ',
    'SAVE',
    'APPEND',
-   'ADD',
+   'INSERT',
    'FINDURL',
    'FINDTEXR',
    'COMBINE',
-   'DEF'
+   'DEFINE'
    #Control Operators
    'IF',
    'ELSE',
@@ -35,13 +37,25 @@ tokens = (
    'WITH',
    'INTO',
    'IN',
+   'EMPTY',
+   #Reserved Operators
+   'COMMA',
+   'SINGLECOLON',
+   'DOUBLECOLON',
    'RIGHTSQUAREBRACKET',
    'LEFTSQAREBRACKET',
-   'EMPTY',
+   'EXPRESSION',
 )
 
+t_MULTIPLY = r'\*'
+t_DIVISION = r'\/'
 t_PLUS    = r'\+'
 t_MINUS   = r'-'
+t_COMMA   = r','
+t_SINGLECOLON   = r'"'
+t_DOUBLECOLON   = r"'"
+t_RIGHTSQUAREBRACKET   = r'\]'
+t_LEFTSQAREBRACKET   = r'\['
 
 def t_AND(t):
     r'(?<=\s)((and) | (AND))(?=\s)'   
@@ -95,8 +109,8 @@ def t_APPEND(t):
     r'((append) | (APPEND))(?=\s)'   
     return t
 
-def t_ADD(t):
-    r'((add) | (ADD))(?=\s)'   
+def t_INSERT(t):
+    r'((insert) | (ADD))(?=\s)'   
     return t
 
 def t_FINDURL(t):
@@ -107,8 +121,8 @@ def t_COMBINE(t):
     r'((combine) | (COMBINE))(?=\s)'   
     return t
 
-def t_DEF(t):
-    r'((def) | (DEF))(?=\s)'   
+def t_DEFINE(t):
+    r'((define) | (DEF))(?=\s)'   
     return t
 
 def t_IF(t):
@@ -139,16 +153,12 @@ def t_IN(t):
     r'(?<=\s)((in) | (IN))(?=\s)'
     return t
 
-def t_LEFTSQAREBRACKET(t):
-    r'\['
-    return t
-
-def t_RIGHTSQUAREBRACKET(t):
-    r'\]'
-    return t
-
 def t_EMPTY(t):
     r'(empty) | (EMPTY)'
+    return t
+
+def t_EXPRESSION(t):
+    r'[a-zA-Z0-9]*(?=\s)'
     return t
 
 # A string containing ignored characters (spaces and tabs)
@@ -163,7 +173,7 @@ def t_error(t):
 lexer = lex.lex()
 
 # Give the lexer some input
-lexer.input("filterresult is findURL in stotries with term1 and term2 intothis into ")
+lexer.input("filterresult is findURL in stotries with term1 and term2 intothis into ' \" , [ ] * / + -")
 
 while True:
     tok = lexer.token()
