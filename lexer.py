@@ -27,7 +27,7 @@ tokens = (
    'FINDURL',
    'FINDTEXR',
    'COMBINE',
-   'DEFINE'
+   'DEFINE',
    #Control Operators
    'IF',
    'ELSE',
@@ -37,7 +37,6 @@ tokens = (
    'WITH',
    'INTO',
    'IN',
-   'EMPTY',
    #Reserved Operators
    'COMMA',
    'SINGLECOLON',
@@ -122,7 +121,7 @@ def t_COMBINE(t):
     return t
 
 def t_DEFINE(t):
-    r'((define) | (DEF))(?=\s)'   
+    r'((define) | (DEFINE))(?=\s)'   
     return t
 
 def t_IF(t):
@@ -153,10 +152,6 @@ def t_IN(t):
     r'(?<=\s)((in) | (IN))(?=\s)'
     return t
 
-def t_EMPTY(t):
-    r'(empty) | (EMPTY)'
-    return t
-
 def t_EXPRESSION(t):
     r'[a-zA-Z0-9]*(?=\s)'
     return t
@@ -173,7 +168,7 @@ def t_error(t):
 lexer = lex.lex()
 
 # Give the lexer some input
-lexer.input("filterresult is findURL in stotries with term1 and term2 intothis into ' \" , [ ] * / + -")
+lexer.input("define filterresult is findURL in stotries with term1 and term2 intothis into ' \" , [ ] * / + -")
 
 while True:
     tok = lexer.token()
