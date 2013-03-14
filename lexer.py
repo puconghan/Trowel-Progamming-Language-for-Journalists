@@ -2,7 +2,7 @@ import ply.yacc as yacc
 import ply.lex as lex
 
 tokens = (
-   #Comment Operators (#)
+   #Comment (#)
    'COMMENTS',
    #Logical Operators (AND OR NOT)
    'AND',
@@ -13,6 +13,8 @@ tokens = (
    'DIVISION',
    'PLUS',
    'MINUS',
+   'EQUAL',
+   'NOTEQUAL',
    #Data Types (URL TEXT NUMBER URLLIST TEXTLIST NUMLIST)
    'URL',
    'TEXT',
@@ -39,31 +41,37 @@ tokens = (
    'WITH',
    'INTO',
    'IN',
-   #Reserved Operators (, ' " [ ])
+   #Reserved Deliminators (, ' " [ ])
    'COMMA',
    'SINGLECOLON',
    'DOUBLECOLON',
    'RIGHTSQUAREBRACKET',
    'LEFTSQAREBRACKET',
-   #Expression captures everything else
-   'EXPRESSION',
+   #Identifier captures everything else
+   'IDENTIFIER',
 )
 
-# t_COMMENTS = r'\#'
+#Arithmetic Operators (* / + -)
 t_MULTIPLY = r'\*'
 t_DIVISION = r'\/'
-t_PLUS    = r'\+'
-t_MINUS   = r'-'
-t_COMMA   = r','
-t_SINGLECOLON   = r'"'
-t_DOUBLECOLON   = r"'"
-t_RIGHTSQUAREBRACKET   = r'\]'
+t_PLUS     = r'\+'
+t_MINUS    = r'-'
+t_EQUAL    = r'=='
+t_NOTEQUAL = r'!='
+
+#Reserved Deliminators (, ' " [ ])
+t_COMMA              = r','
+t_SINGLECOLON        = r'"'
+t_DOUBLECOLON        = r"'"
+t_RIGHTSQUAREBRACKET = r'\]'
 t_LEFTSQAREBRACKET   = r'\['
 
+#Comment (#)
 def t_COMMENTS(t):
     r'\#.*'
     return t
 
+#Logical Operators (AND OR NOT)
 def t_AND(t):
     r'(?<=\s)((and) | (AND))(?=\s)'   
     return t
@@ -76,6 +84,7 @@ def t_NOT(t):
     r'(?<=\s)((not) | (NOT))(?=\s)'   
     return t
 
+#Data Types (URL TEXT NUMBER URLLIST TEXTLIST NUMLIST)
 def t_URL(t):
     r'((url) | (URL))(?=\s)'   
     return t
@@ -100,6 +109,7 @@ def t_NUMLIST(t):
     r'((numlist) | (NUMLIST) | (numList))(?=\s)'   
     return t
 
+#Functions (PRINT READ SAVE APPEND INSERT FINDURL FINDTEXT COMBINE)
 def t_PRINT(t):
     r'((print) | (PRINT))(?=\s)'   
     return t
@@ -132,6 +142,7 @@ def t_DEFINE(t):
     r'((define) | (DEFINE))(?=\s)'   
     return t
 
+#Control Operators (IF ELSE FOR)
 def t_IF(t):
     r'((if) | (IF))(?=\s)'   
     return t
@@ -144,6 +155,7 @@ def t_FOR(t):
     r'((for) | (FOR))(?=\s)'   
     return t
 
+#Reserved Keywords (IS WITH INTO IN)
 def t_IS(t):
     r'(?<=\s)((is) | (IS))(?=\s)'
     return t
@@ -160,8 +172,9 @@ def t_IN(t):
     r'(?<=\s)((in) | (IN))(?=\s)'
     return t
 
-def t_EXPRESSION(t):
-    r'[a-zA-Z0-9]*(?=\s)'
+#Identifier captures everything else
+def t_IDENTIFIER(t):
+    r'[a-zA-Z_][a-zA-Z0-9_]*(?=\s)'
     return t
 
 # A string containing ignored characters (spaces and tabs)
@@ -176,7 +189,7 @@ def t_error(t):
 lexer = lex.lex()
 
 # Give the lexer some input
-lexer.input("define filterresult is findURL in stotries with term1 and term2 intothis into ' \" , [ ] * / + - #this")
+lexer.input("define _filter_result001 is findURL in stotries with term1 and term2 intothis into ' \" , [ ] * / + - == != #this")
 
 while True:
     tok = lexer.token()
