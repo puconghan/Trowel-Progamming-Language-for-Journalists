@@ -2,23 +2,25 @@ import ply.yacc as yacc
 import ply.lex as lex
 
 tokens = (
-   #Logical Operators
+   #Comment Operators (#)
+   'COMMENTS',
+   #Logical Operators (AND OR NOT)
    'AND',
    'OR',
    'NOT',
-   #Arithmetic Operators
+   #Arithmetic Operators (* / + -)
    'MULTIPLY',
    'DIVISION',
    'PLUS',
    'MINUS',
-   #Data Types
+   #Data Types (URL TEXT NUMBER URLLIST TEXTLIST NUMLIST)
    'URL',
    'TEXT',
    'NUMBER',
    'URLLIST',
    'TEXTLIST',
    'NUMLIST',
-   #Functions
+   #Functions (PRINT READ SAVE APPEND INSERT FINDURL FINDTEXT COMBINE)
    'PRINT',
    'READ',
    'SAVE',
@@ -28,24 +30,26 @@ tokens = (
    'FINDTEXR',
    'COMBINE',
    'DEFINE',
-   #Control Operators
+   #Control Operators (IF ELSE FOR)
    'IF',
    'ELSE',
    'FOR',
-   #Reserved Keywords
+   #Reserved Keywords (IS WITH INTO IN)
    'IS',
    'WITH',
    'INTO',
    'IN',
-   #Reserved Operators
+   #Reserved Operators (, ' " [ ])
    'COMMA',
    'SINGLECOLON',
    'DOUBLECOLON',
    'RIGHTSQUAREBRACKET',
    'LEFTSQAREBRACKET',
+   #Expression captures everything else
    'EXPRESSION',
 )
 
+# t_COMMENTS = r'\#'
 t_MULTIPLY = r'\*'
 t_DIVISION = r'\/'
 t_PLUS    = r'\+'
@@ -55,6 +59,10 @@ t_SINGLECOLON   = r'"'
 t_DOUBLECOLON   = r"'"
 t_RIGHTSQUAREBRACKET   = r'\]'
 t_LEFTSQAREBRACKET   = r'\['
+
+def t_COMMENTS(t):
+    r'\#.*'
+    return t
 
 def t_AND(t):
     r'(?<=\s)((and) | (AND))(?=\s)'   
@@ -168,7 +176,7 @@ def t_error(t):
 lexer = lex.lex()
 
 # Give the lexer some input
-lexer.input("define filterresult is findURL in stotries with term1 and term2 intothis into ' \" , [ ] * / + -")
+lexer.input("define filterresult is findURL in stotries with term1 and term2 intothis into ' \" , [ ] * / + - #this")
 
 while True:
     tok = lexer.token()
