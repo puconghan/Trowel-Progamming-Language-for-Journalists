@@ -203,11 +203,17 @@ class Node:
               self.children = [ ]
          self.value = value
 
+    def printrec(self):
+        for child in self.children:
+            self.printrec(child)
+        print self.type, self.value
+
 def p_expression_print(p):
     'expression : PRINT IDENTIFIER'
     p[0] = Node(p[1], p[2],[])
-    print p[0].type
-    print p[0].children
+    return p[0]
 
 yacc.yacc()
-yacc.parse("print 5")
+output = yacc.parse("print 5")
+
+output.printrec()
