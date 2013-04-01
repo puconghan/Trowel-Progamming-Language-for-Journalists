@@ -1,3 +1,4 @@
 from lexer import *
 
-lexing()
+x = lexing()
+print x

@@ -192,11 +192,13 @@ def t_error(t):
 # Build the lexer
 def lexing():
     lexer = lex.lex()
+    tok = []
 
     # Give the lexer some input
     lexer.input("print 5")
 
     while True:
-        tok = lexer.token()
-        if not tok: break
-        print tok
+        breaker = lexer.token()
+        if not breaker: break
+        tok.append(breaker)
+    return tok
