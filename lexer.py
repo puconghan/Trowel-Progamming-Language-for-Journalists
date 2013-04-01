@@ -35,6 +35,7 @@ tokens = (
    #Control Operators (IF ELSE FOR)
    'IF',
    'ELSE',
+   'ELSEIF',
    'FOR',
    #Reserved Keywords (IS WITH INTO IN)
    'IS',
@@ -57,7 +58,7 @@ t_DIVISION = r'\/'
 t_PLUS     = r'\+'
 t_MINUS    = r'-'
 t_EQUAL    = r'=='
-t_NOTEQUAL = r'!='
+t_NOTEQUAL = r'=/='
 
 #Reserved Deliminators (, ' " [ ])
 t_COMMA              = r','
@@ -151,6 +152,10 @@ def t_ELSE(t):
     r'((else) | (ELSE))(?=\s)'   
     return t
 
+def t_ELSEIF(t):
+    r'((elseif) | (ELSEIF))(?=\s)'   
+    return t
+
 def t_FOR(t):
     r'((for) | (FOR))(?=\s)'   
     return t
@@ -174,7 +179,7 @@ def t_IN(t):
 
 #Identifier captures everything else
 def t_IDENTIFIER(t):
-    r'[a-zA-Z_][a-zA-Z0-9_]*(?=\s)'
+    r'[a-zA-Z0-9_]+'
     return t
 
 # A string containing ignored characters (spaces and tabs)
@@ -189,7 +194,7 @@ def t_error(t):
 lexer = lex.lex()
 
 # Give the lexer some input
-lexer.input("define _filter_result001 is findURL in stotries with term1 and term2 intothis into ' \" , [ ] * / + - == != #this")
+lexer.input("define _filter_result001 is findURL in stotries else elseif with term1 and term2 intothis into ' \" , [ ] * / + - == =/= #this")
 
 while True:
     tok = lexer.token()
