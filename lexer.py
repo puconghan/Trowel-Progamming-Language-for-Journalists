@@ -46,7 +46,7 @@ tokens = (
    'SINGLECOLON',
    'DOUBLECOLON',
    'RIGHTSQUAREBRACKET',
-   'LEFTSQAREBRACKET',
+   'LEFTSQUAREBRACKET',
    #Identifier captures everything else
    'IDENTIFIER',
 )
@@ -64,7 +64,7 @@ t_COMMA              = r','
 t_SINGLECOLON        = r'"'
 t_DOUBLECOLON        = r"'"
 t_RIGHTSQUAREBRACKET = r'\]'
-t_LEFTSQAREBRACKET   = r'\['
+t_LEFTSQUAREBRACKET   = r'\['
 
 #Comment (#)
 def t_COMMENTS(t):
@@ -177,6 +177,8 @@ def t_IN(t):
     return t
 
 #Identifier captures everything else
+
+
 def t_IDENTIFIER(t):
     r'[a-zA-Z0-9_]+'
     return t
@@ -204,17 +206,39 @@ class Node:
          self.value = value
 
     def printrec(self):
-        print self
         for child in self.children:
-            print child
-            self.printrec(child)
+            child.printrec()
         print self.type, self.value
 
 def p_expression_print(p):
-    'expression : PRINT IDENTIFIER'
-    p[0] = Node(p[1], [], p[2])
+    'expression : PRINT LIST'
+    print "Found a print statement"
+    p[0] = Node(p[1], [p[2]],'list')
     return p[0]
 
+def p_expression_list(p):
+    'LIST : LEFTSQUAREBRACKET LISTITEMS RIGHTSQUAREBRACKET'
+    p[0] = Node("list", [], p[2:-1])
+    for item in p:
+        print item
+
+def p_expression_listitems(p):
+    '''LISTITEMS : IDENTIFIER EXTRALIST
+                 | empty'''
+    p[0] = p[1:]
+
+def p_expression_extralist(p):
+    '''EXTRALIST : COMMA IDENTIFIER EXTRALIST
+                 | empty'''
+    p[0] = p[1:]
+
+def p_empty(p):
+    'empty :'
+    pass
+
+
+
+
 yacc.yacc()
-output = yacc.parse("print 5")
+output = yacc.parse("print [5, 3]")
 output.printrec()
