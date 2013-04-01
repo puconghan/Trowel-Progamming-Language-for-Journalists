@@ -189,16 +189,25 @@ def t_error(t):
     print "Illegal character '%s'" % t.value[0]
     t.lexer.skip(1)
 
-# Build the lexer
-def lexing():
-    lexer = lex.lex()
-    tok = []
+lex.lex()
 
-    # Give the lexer some input
-    lexer.input("print 5")
 
-    while True:
-        breaker = lexer.token()
-        if not breaker: break
-        tok.append(breaker)
-    return tok
+import ply.yacc as yacc
+
+class Node:
+    def __init__(self,type,children=None,value=None):
+         self.type = type
+         if children:
+              self.children = children
+         else:
+              self.children = [ ]
+         self.value = value
+
+def p_expression_print(p):
+    'expression : PRINT IDENTIFIER'
+    p[0] = Node(p[1], p[2],[])
+    print p[0].type
+    print p[0].children
+
+yacc.yacc()
+yacc.parse("print 5")
