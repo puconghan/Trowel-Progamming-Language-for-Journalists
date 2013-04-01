@@ -1,4 +1,3 @@
-import ply.yacc as yacc
 import ply.lex as lex
 
 tokens = (
@@ -191,12 +190,13 @@ def t_error(t):
     t.lexer.skip(1)
 
 # Build the lexer
-lexer = lex.lex()
+def lexing():
+    lexer = lex.lex()
 
-# Give the lexer some input
-lexer.input("define _filter_result001 is findURL in stotries else elseif with term1 and term2 intothis into ' \" , [ ] * / + - == =/= #this")
+    # Give the lexer some input
+    lexer.input("print 5")
 
-while True:
-    tok = lexer.token()
-    if not tok: break
-    print tok
+    while True:
+        tok = lexer.token()
+        if not tok: break
+        print tok
