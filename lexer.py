@@ -1,4 +1,6 @@
-import ply.lex as lex
+#! /usr/bin/python
+
+import lex
 
 tokens = (
    #Comment (#)
@@ -194,7 +196,7 @@ def t_error(t):
 lex.lex()
 
 
-import ply.yacc as yacc
+import yacc
 
 class Node:
     def __init__(self,type,children=None,value=None):
