@@ -25,6 +25,8 @@ def main(argv):
         program = []
 	inputs = str(argv[1])
 	output = parser.parse(inputs)
+        typelist.printHash()
+        typelist.printLocal()
 	print output
 	if (output[0]) == "func":
                 if (output[1]) == "printvals":
