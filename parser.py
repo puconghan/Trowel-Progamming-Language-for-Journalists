@@ -46,7 +46,7 @@ def p_expression_printvals(p):
     'expression : PRINT VALS'
     print "Found a val print statement"
     print p[0:]
-    p[0] = ("print vals", p[2])
+    p[0] = ("func","print vals", p[2]) #using the word func instead of call
 
 # def p_expression_list(p):
 #     'LIST : LEFTSQUAREBRACKET LISTITEMS RIGHTSQUAREBRACKET'
@@ -113,3 +113,4 @@ def p_expression_number(p):
 
 
 parser = yacc.yacc()
+    
