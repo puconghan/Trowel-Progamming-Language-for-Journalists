@@ -38,7 +38,7 @@ def main(argv):
 					printlist = printlist + (str(entry[1][1:-1]))
 				else:
 					printlist = printlist + (str(entry[1])) + "\""
-					program.append(printlist)
+			program.append(printlist)
 	print program[0]
         
 if __name__ == "__main__":
