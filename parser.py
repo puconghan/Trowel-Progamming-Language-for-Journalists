@@ -28,33 +28,42 @@ def p_expression_urllist(p):
     'expression : URLLIST IDENTIFIER additionalurl'
     # Adding variable name and type to the typelist.
     typelist.addNewType(p[2], "URLLIST")
-    # Building the sementic list
-    temp = typelist.returnLocalVariables()
-    listofURLLIST = []
-    for item in temp:
-        listofURLLIST.append((item, ("urllist", "[]")))
-    p[0] = ("dec", "urllist", listofURLLIST)
-    typelist.locallist = []
 
 def p_additionalurl(p):
     'additionalurl : COMMA IDENTIFIER additionalurl'
     # Adding variable name and type to the typelist.
     typelist.addNewType(p[2], "URLLIST")
 
-def p_additionalempty(p):
+def p_additional(p):
     'additionalurl : empty'
     pass
 
-# The next statements are for printing a list
+# class Node:
+#     def __init__(self,type,children=None,value=None):
+#          self.type = type
+#          if children:
+#               self.children = children
+#          else:
+#               self.children = [ ]
+#          self.value = value
+
+#     def printrec(self):
+#         for child in self.children:
+#             child.printrec()
+#         print self.type, self.value
 
 def p_expression_printlist(p):
     'expression : PRINT LIST'
     print "Found a list print statement"
     p[0] = ("func", "printlist", p[2])
 
+def p_expression_printvals(p):
+    'expression : PRINT VALS'
+    p[0] = ("func", "printvals", p[2])
+
 def p_expression_list(p):
     'LIST : LEFTSQUAREBRACKET LISTITEMS RIGHTSQUAREBRACKET'
-    p[0] = p[2]
+    p[0] = ("list", p[2])
 
 def p_expression_listitems(p):
     'LISTITEMS : LISTVALS COMMA LISTITEMS'
@@ -65,43 +74,41 @@ def p_expression_extralist(p):
     p[0] = p[1]
 
 def p_expression_listvals(p):
-    '''LISTVALS : URLEXP LISTVALS
-                | TEXTEXP LISTVALS'''
+    '''LISTVALS : URL LISTVALS
+                | TEXT LISTVALS'''
     p[0] = [p[1]] + p[2]
 
 def p_expression_listvals_last(p):
-    '''LISTVALS : URLEXP
-                | TEXTEXP'''
+    '''LISTVALS : URL
+                | TEXT
+                | NUM'''
     p[0] = [p[1]]
 
-# The next statements are for printing values
-
-def p_expression_printvals(p):
-    'expression : PRINT VALS'
-    p[0] = ("func", "printvals", p[2])
-
 def p_expression_vals(p):
-    '''VALS : URLEXP VALS
-            | TEXTEXP VALS
-            | NUMEXP VALS'''
+    '''VALS : URL VALS
+            | TEXT VALS
+            | NUM VALS'''
+    print p[0]
+    print p[1:]
+    print "This line"
     p[0] = [p[1]] + p[2]
 
 def p_expression_vals_last(p):
-    '''VALS : URLEXP
-            | TEXTEXP
-            | NUMEXP'''
+    '''VALS : URL
+            | TEXT
+            | NUM'''
     p[0] = [p[1]]
 
 def p_expression_text(p):
-    'TEXTEXP : TEXTVAL'
+    'NUM : TEXTVAL'
     p[0] = ('text', p[1])
 
 def p_expression_url(p):
-    'URLEXP : URLVAL'
+    'NUM : URLVAL'
     p[0] = ('url', p[1])
 
 def p_expression_number(p):
-    'NUMEXP : NUMVAL'
+    'NUM : NUMVAL'
     p[0] = ('number', p[1])
 
 def p_empty(p):

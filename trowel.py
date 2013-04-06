@@ -25,33 +25,22 @@ def main(argv):
 	program = []
 	inputs = str(argv[1])
 	output = parser.parse(inputs)
-	print output
 	typelist.printHash()
+	typelist.printLocal()
 	
-	if output[0] == "func":
-		if output[1] == "printvals":
-			printlist = "print \""
-			for entry in output[2]:
+	if (output[0]) == "func":
+		if (output[1]) == "printvals":
+			list_to_print = "print \""
+			for entry in (output[2]):
 				if entry[0] == "text" or entry[0] == "url":
-					printlist = printlist + (str(entry[1][1:-1]))
+					list_to_print = list_to_print + (str(entry[1][1:-1]))
 				else:
-					printlist = printlist + (str(entry[1])) + "\""
-			program.append(printlist)
-		elif output[1] == "printlist":
-			printlist = "print \""
+					list_to_print = list_to_print + (str(entry[1])) + "\""
+			program.append(list_to_print)
+		if output[1] == "printlist":
 			for entry in output[2]:
-				if entry[0] is "text" or entry[0] is "url":
-					printlist = printlist + str(entry[1][1] + "\n")
-			printlist = printlist + "\""
-			program.append(printlist)
 
-	if output[0] == "dec":
-		if output[1] == "urllist":
-			printlist = ""
-			output[2].reverse()
-			for entry in output[2]:
-				printlist = printlist + str(entry[0]) + "=" + str(entry[1][1]) + "\n"
-			program.append(printlist)
+
 	print program[0]
         
 if __name__ == "__main__":
