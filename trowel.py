@@ -21,8 +21,18 @@ import sys
 from parser import parser
 
 def main(argv):
+        program = []
 	inputs = str(argv[1])
 	output = parser.parse(inputs)
-
+	print output
+	if (output[0]) == "func":
+                if (output[1]) == "printvals":
+                        printlist = ""
+                        for entry in (output[2]):
+                                printlist = printlist + (str(entry[1]))
+                        program.append("print " + printlist)
+                
+        print program[0]
+        
 if __name__ == "__main__":
 	main(sys.argv)

@@ -46,7 +46,7 @@ from lexer import tokens
 
 def p_expression_printvals(p):
     'expression : PRINT VALS'
-    p[0] = ("printvals", p[2])
+    p[0] = ("func", "printvals", p[2])
 
 # def p_expression_list(p):
 #     'LIST : LEFTSQUAREBRACKET LISTITEMS RIGHTSQUAREBRACKET'
