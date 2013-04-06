@@ -1,13 +1,12 @@
 ################
 # PROGRAM:      Trowel
 # DESCRIPTION:  The Trowel programming language is intended to aid in the web scraping that we all do on a daily basis,
-#               but it is especially targeted to the needs and technical capacities of journalists.
+#               but it is especially targeted to the needs and technical capacities of journalists. This program is the
+#               lexer of Trowel used to break inputs into tokens
 # 
 # LICENSE:      ---OPTIONAL---
-# REFERENCES:   additional used information goes here
-# ALGORITHM:    Pseudocode describing the algorithm goes here
-# OUTPUT:       Trowel automagickally creates: (any print statements, files created, etc.)
-# RETURN:       Returns values go here
+# REFERENCES:   Python Lex-Yacc Documentation (http://www.dabeaz.com/ply/)
+# OUTPUT:       Tokens
 # 
 # AUTHOR(S):
 #               Pucong Han (ph2369@columbia.edu)
