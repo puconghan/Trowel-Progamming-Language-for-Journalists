@@ -28,11 +28,13 @@ def p_expression_urllist(p):
     'expression : URLLIST IDENTIFIER additionalurl'
     # Adding variable name and type to the typelist.
     typelist.addNewType(p[2], "URLLIST")
+    # Building the sementic list
     temp = typelist.returnLocalVariables()
     listofURLLIST = []
     for item in temp:
         listofURLLIST.append((item, ("urllist", "[]")))
     p[0] = ("dec", "urllist", listofURLLIST)
+    typelist.locallist = []
 
 def p_additionalurl(p):
     'additionalurl : COMMA IDENTIFIER additionalurl'
