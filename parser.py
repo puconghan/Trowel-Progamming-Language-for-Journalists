@@ -105,10 +105,9 @@ def p_expression_number(p):
     'NUM : NUMVAL'
     p[0] = ('number', p[1])
 
-# def p_empty(p):
-#     'empty :'
-#     print 'hereee'
-#     pass
+def p_empty(p):
+    'empty :'
+    pass
 
 # def p_exp_print(p):
 #     'exp : print optargs'
