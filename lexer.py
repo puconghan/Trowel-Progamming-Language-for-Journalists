@@ -73,6 +73,8 @@ tokens = (
    #Identifier captures everything else
    'IDENTIFIER',
    'NUMVAL',
+   'TEXTVAL',
+   'URLVAL'
 )
 
 #Arithmetic Operators (* / + - == =/=)
@@ -199,6 +201,14 @@ def t_INTO(t):
 def t_IN(t):
     r'(?<=\s)((in) | (IN))(?=\s)'
     return t
+
+def t_TEXTVAL(t):
+  r'".*"'
+  return t
+
+##def t_URLVAL(t):
+##  r'\'(^\').*\''
+##  return t
 
 def t_NUMVAL(t):
   r'[0-9]+'

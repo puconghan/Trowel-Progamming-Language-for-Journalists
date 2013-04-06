@@ -27,11 +27,12 @@ def main(argv):
 	print output
 	if (output[0]) == "func":
                 if (output[1]) == "printvals":
-                        printlist = ""
+                        printlist = "print "
                         for entry in (output[2]):
+                                print entry
                                 printlist = printlist + (str(entry[1]))
-                        program.append("print " + printlist)
-                
+                        program.append(printlist)
+                        
         print program[0]
         
 if __name__ == "__main__":

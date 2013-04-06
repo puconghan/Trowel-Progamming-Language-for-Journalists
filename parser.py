@@ -76,6 +76,14 @@ def p_expression_vals_last(p):
             | NUM'''
     p[0] = [p[1]]
 
+def p_expression_text(p):
+    'NUM : TEXTVAL'
+    p[0] = ('text', p[1])
+
+def p_expression_url(p):
+    'NUM : URLVAL'
+    p[0] = ('url', p[1])
+
 def p_expression_number(p):
     'NUM : NUMVAL'
     p[0] = ('number', p[1])
