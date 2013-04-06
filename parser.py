@@ -42,11 +42,11 @@ from lexer import tokens
 #     print "Found a list print statement"
 #     p[0] = ("print", p[2])
 
+# Needs fixing for more than 2 variables
+
 def p_expression_printvals(p):
     'expression : PRINT VALS'
-    print "Found a val print statement"
-    print p[0:]
-    p[0] = ("print vals", p[2])
+    p[0] = ("printvals", p[2])
 
 # def p_expression_list(p):
 #     'LIST : LEFTSQUAREBRACKET LISTITEMS RIGHTSQUAREBRACKET'
@@ -67,9 +67,6 @@ def p_expression_vals(p):
     '''VALS : URL VALS
             | TEXT VALS
             | NUM VALS'''
-    print p[0]
-    print p[1:]
-    print "This line"
     p[0] = p[1:]
 
 def p_expression_vals_last(p):
