@@ -41,7 +41,7 @@ def p_additionalurl(p):
     # Adding variable name and type to the typelist.
     typelist.addNewType(p[2], "URLLIST")
 
-def p_additionalurl(p):
+def p_additional(p):
     'additionalurl : empty'
     pass
 
