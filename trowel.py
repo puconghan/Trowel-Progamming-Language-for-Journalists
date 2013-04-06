@@ -25,19 +25,24 @@ def main(argv):
 	program = []
 	inputs = str(argv[1])
 	output = parser.parse(inputs)
-	print output
-	print "this is here"
-	typelist.printHash()
-	typelist.printLocal()
+	# typelist.printHash()
+	# typelist.printLocal()
 	
-	if (output[0]) == "func":
-		if (output[1]) == "printvals":
+	if output[0] == "func":
+		if output[1] == "printvals":
 			printlist = "print \""
-			for entry in (output[2]):
+			for entry in output[2]:
 				if entry[0] == "text" or entry[0] == "url":
 					printlist = printlist + (str(entry[1][1:-1]))
 				else:
 					printlist = printlist + (str(entry[1])) + "\""
+			program.append(printlist)
+	if output[0] == "dec":
+		if output[1] == "urllist":
+			printlist = ""
+			output[2].reverse()
+			for entry in output[2]:
+				printlist = printlist + str(entry[0]) + "=" + str(entry[1][1]) + "\n"
 			program.append(printlist)
 	print program[0]
         

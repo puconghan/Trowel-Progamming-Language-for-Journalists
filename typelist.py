@@ -26,9 +26,17 @@ def addNewType(variablename, typename):
 	typelist[variablename] = typename
 	locallist.append(variablename)
 
-# Function returnType return the type of the passed variable
+# Function returnType returns the type of the passed variable.
 def returnType(variablename):
 	return typelist[variablename]
+
+# Function returnLocalVariables returns all local variable in a list.
+def returnLocalVariables():
+	temp = []
+	for item in locallist:
+		temp.append(item)
+	return temp
+
 
 # Function cleanLocalList resets locallist.
 def cleanLocalList():

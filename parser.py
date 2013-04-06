@@ -28,6 +28,11 @@ def p_expression_urllist(p):
     'expression : URLLIST IDENTIFIER additionalurl'
     # Adding variable name and type to the typelist.
     typelist.addNewType(p[2], "URLLIST")
+    temp = typelist.returnLocalVariables()
+    listofURLLIST = []
+    for item in temp:
+        listofURLLIST.append((item, ("urllist", "[]")))
+    p[0] = ("dec", "urllist", listofURLLIST)
 
 def p_additionalurl(p):
     'additionalurl : COMMA IDENTIFIER additionalurl'
@@ -80,9 +85,6 @@ def p_expression_vals(p):
     '''VALS : URL VALS
             | TEXT VALS
             | NUM VALS'''
-    print p[0]
-    print p[1:]
-    print "This line"
     p[0] = [p[1]] + p[2]
 
 def p_expression_vals_last(p):
