@@ -22,24 +22,24 @@ from parser import parser
 import typelist
 
 def main(argv):
-        program = []
+	program = []
 	inputs = str(argv[1])
 	output = parser.parse(inputs)
 	print output
-    typelist.printHash()
-    typelist.printLocal()
-        
+	print "this is here"
+	typelist.printHash()
+	typelist.printLocal()
+	
 	if (output[0]) == "func":
-                if (output[1]) == "printvals":
-                        printlist = "print \""
-                        for entry in (output[2]):
-                                if entry[0] == "text" or entry[0] == "url":
-                                    printlist = printlist + (str(entry[1][1:-1]))
-                                else:
-                                    printlist = printlist + (str(entry[1])) + "\""
-                        program.append(printlist)
-                        
-        print program[0]
+		if (output[1]) == "printvals":
+			printlist = "print \""
+			for entry in (output[2]):
+				if entry[0] == "text" or entry[0] == "url":
+					printlist = printlist + (str(entry[1][1:-1]))
+				else:
+					printlist = printlist + (str(entry[1])) + "\""
+					program.append(printlist)
+	print program[0]
         
 if __name__ == "__main__":
 	main(sys.argv)
