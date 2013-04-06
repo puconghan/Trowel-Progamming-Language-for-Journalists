@@ -73,5 +73,5 @@ def p_empty(p):
     pass
 
 trparser = yacc.yacc()
-output = trparser.parse("print [5, 3]")
-print output
+# output = trparser.parse("print [5, 3]")
+# print output
