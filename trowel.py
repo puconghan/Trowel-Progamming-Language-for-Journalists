@@ -19,6 +19,7 @@
 ################
 import sys
 from parser import parser
+import typelist
 
 def main(argv):
         program = []

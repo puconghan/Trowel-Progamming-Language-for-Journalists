@@ -22,6 +22,23 @@
 
 import yacc
 from lexer import tokens
+import typelist
+
+def p_expression_urllist(p):
+    'expression : URLLIST IDENTIFIER additionalurl'
+    print "Found a urllist declaration"
+    print (p[2], "[]")
+    typelist.addNewType(p[2], "URLLIST")
+
+def p_additionalurl(p):
+    'additionalurl : COMMA IDENTIFIER additionalurl'
+    print "More than one variable"
+    print (p[2], "[]")
+    typelist.addNewType(p[2], "URLLIST")
+
+def p_additional(p):
+    'additionalurl : empty'
+    pass
 
 # class Node:
 #     def __init__(self,type,children=None,value=None):
