@@ -19,13 +19,16 @@
 ################
 import sys
 from parser import parser
+import typelist
 
 def main(argv):
         program = []
 	inputs = str(argv[1])
 	output = parser.parse(inputs)
 	print output
-	
+    typelist.printHash()
+    typelist.printLocal()
+        
 	if (output[0]) == "func":
                 if (output[1]) == "printvals":
                         printlist = "print \""

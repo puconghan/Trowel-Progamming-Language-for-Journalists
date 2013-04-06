@@ -22,6 +22,21 @@
 
 import yacc
 from lexer import tokens
+import typelist
+
+def p_expression_urllist(p):
+    'expression : URLLIST IDENTIFIER additionalurl'
+    # Adding variable name and type to the typelist.
+    typelist.addNewType(p[2], "URLLIST")
+
+def p_additionalurl(p):
+    'additionalurl : COMMA IDENTIFIER additionalurl'
+    # Adding variable name and type to the typelist.
+    typelist.addNewType(p[2], "URLLIST")
+
+def p_additional(p):
+    'additionalurl : empty'
+    pass
 
 # class Node:
 #     def __init__(self,type,children=None,value=None):
@@ -88,10 +103,9 @@ def p_expression_number(p):
     'NUM : NUMVAL'
     p[0] = ('number', p[1])
 
-# def p_empty(p):
-#     'empty :'
-#     print 'hereee'
-#     pass
+def p_empty(p):
+    'empty :'
+    pass
 
 # def p_exp_print(p):
 #     'exp : print optargs'
