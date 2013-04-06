@@ -70,13 +70,13 @@ def p_expression_vals(p):
     print p[0]
     print p[1:]
     print "This line"
-    p[0] = p[1:]
+    p[0] = [p[1]] + p[2]
 
 def p_expression_vals_last(p):
     '''VALS : URL
             | TEXT
             | NUM'''
-    p[0] = p[1]
+    p[0] = [p[1]]
 
 def p_expression_number(p):
     'NUM : NUMVAL'
