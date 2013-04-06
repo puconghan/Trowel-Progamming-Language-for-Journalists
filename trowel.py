@@ -1,3 +1,5 @@
+#! /usr/bin/python
+
 ################
 # PROGRAM:      Trowel
 # DESCRIPTION:  The Trowel programming language is intended to aid in the web scraping that we all do on a daily basis,
@@ -17,6 +19,7 @@
 # MODIFICATIONS:
 #               Created by Pucong Han and Robert Walport on April 6, 2013
 ################
+
 import sys
 from parser import parser
 import typelist

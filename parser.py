@@ -20,7 +20,7 @@
 #               Modified by all team authors on April 6, 2013
 ################
 
-import yacc
+import ply.yacc as yacc
 from lexer import tokens
 import typelist
 

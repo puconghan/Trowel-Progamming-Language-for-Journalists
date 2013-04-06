@@ -20,7 +20,7 @@
 #               Modified by all team authors on April 6, 2013
 ################
 
-import lex
+import ply.lex as lex
 
 #This is the list of lexer tokens for Trowel
 tokens = (
