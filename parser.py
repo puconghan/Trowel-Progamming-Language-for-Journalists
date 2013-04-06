@@ -63,6 +63,6 @@ def p_empty(p):
     'empty :'
     pass
 
-yacc.yacc()
-output = yacc.parse("print [5, 3]")
-output.printrec()
+trparser = yacc.yacc()
+output = trparser.parse("print [5, 3]")
+print output

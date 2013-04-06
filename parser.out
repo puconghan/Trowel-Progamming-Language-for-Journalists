@@ -1,0 +1,124 @@
+Created by PLY version 3.4 (http://www.dabeaz.com/ply)
+
+Unused terminals:
+
+    NOTEQUAL
+    SINGLECOLON
+    READ
+    TEXT
+    EQUAL
+    RIGHTSQUAREBRACKET
+    MULTIPLY
+    FINDURL
+    COMBINE
+    WITH
+    MINUS
+    APPEND
+    INSERT
+    PLUS
+    DOUBLECOLON
+    URLLIST
+    COMMA
+    IF
+    INTO
+    DEFINE
+    DIVISION
+    FOR
+    URL
+    LEFTSQAREBRACKET
+    IS
+    NUMBER
+    ELSEIF
+    IN
+    ELSE
+    NUMLIST
+    AND
+    FINDTEXR
+    COMMENTS
+    OR
+    NOT
+    SAVE
+    TEXTLIST
+
+Grammar
+
+Rule 0     S' -> expression
+Rule 1     expression -> PRINT IDENTIFIER
+
+Terminals, with rules where they appear
+
+AND                  : 
+APPEND               : 
+COMBINE              : 
+COMMA                : 
+COMMENTS             : 
+DEFINE               : 
+DIVISION             : 
+DOUBLECOLON          : 
+ELSE                 : 
+ELSEIF               : 
+EQUAL                : 
+FINDTEXR             : 
+FINDURL              : 
+FOR                  : 
+IDENTIFIER           : 1
+IF                   : 
+IN                   : 
+INSERT               : 
+INTO                 : 
+IS                   : 
+LEFTSQAREBRACKET     : 
+MINUS                : 
+MULTIPLY             : 
+NOT                  : 
+NOTEQUAL             : 
+NUMBER               : 
+NUMLIST              : 
+OR                   : 
+PLUS                 : 
+PRINT                : 1
+READ                 : 
+RIGHTSQUAREBRACKET   : 
+SAVE                 : 
+SINGLECOLON          : 
+TEXT                 : 
+TEXTLIST             : 
+URL                  : 
+URLLIST              : 
+WITH                 : 
+error                : 
+
+Nonterminals, with rules where they appear
+
+expression           : 0
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . expression
+    (1) expression -> . PRINT IDENTIFIER
+
+    PRINT           shift and go to state 1
+
+    expression                     shift and go to state 2
+
+state 1
+
+    (1) expression -> PRINT . IDENTIFIER
+
+    IDENTIFIER      shift and go to state 3
+
+
+state 2
+
+    (0) S' -> expression .
+
+
+
+state 3
+
+    (1) expression -> PRINT IDENTIFIER .
+
+    $end            reduce using rule 1 (expression -> PRINT IDENTIFIER .)
+
