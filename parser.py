@@ -43,43 +43,37 @@ def p_additional(p):
     'additionalurl : empty'
     pass
 
-# class Node:
-#     def __init__(self,type,children=None,value=None):
-#          self.type = type
-#          if children:
-#               self.children = children
-#          else:
-#               self.children = [ ]
-#          self.value = value
+def p_expression_printlist(p):
+    'expression : PRINT LIST'
+    print "Found a list print statement"
+    p[0] = ("func", "printlist", p[2])
 
-#     def printrec(self):
-#         for child in self.children:
-#             child.printrec()
-#         print self.type, self.value
+def p_expression_list(p):
+    'LIST : LEFTSQUAREBRACKET LISTITEMS RIGHTSQUAREBRACKET'
+    p[0] = p[2]
 
-# def p_expression_printlist(p):
-#     'expression : PRINT LIST'
-#     print "Found a list print statement"
-#     p[0] = ("print", p[2])
+def p_expression_listitems(p):
+    'LISTITEMS : LISTVALS COMMA LISTITEMS'
+    p[0] = p[1] + p[3]
+
+def p_expression_extralist(p):
+    'LISTITEMS : LISTVALS'
+    p[0] = p[1]
+
+def p_expression_listvals(p):
+    '''LISTVALS : URL LISTVALS
+                | TEXT LISTVALS'''
+    p[0] = [p[1]] + p[2]
+
+def p_expression_listvals_last(p):
+    '''LISTVALS : URL
+                | TEXT
+                | NUM'''
+    p[0] = [p[1]]
 
 def p_expression_printvals(p):
     'expression : PRINT VALS'
     p[0] = ("func", "printvals", p[2])
-
-# def p_expression_list(p):
-#     'LIST : LEFTSQUAREBRACKET LISTITEMS RIGHTSQUAREBRACKET'
-#     p[0] = ("list", p[2:-1])
-
-# def p_expression_listitems(p):
-#     '''LISTITEMS : IDENTIFIER EXTRALIST
-#                  | empty'''
-#     p[0] = p[1:]
-
-# def p_expression_extralist(p):
-#     '''EXTRALIST : COMMA IDENTIFIER EXTRALIST
-#                  | empty'''
-#     p[0] = p[1:]
-
 
 def p_expression_vals(p):
     '''VALS : URL VALS
