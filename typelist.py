@@ -24,8 +24,11 @@ locallist = []
 # Function addNewType associates variable with variable type using the hashtable.
 def addNewType(variablename, typename):
 	typelist[variablename] = typename
-	locallist.append([typename, variablename])
-	print "added"
+	locallist.append(variablename)
+
+# Function returnType return the type of the passed variable
+def returnType(variablename):
+	return typelist[variablename]
 
 # Function cleanLocalList resets locallist.
 def cleanLocalList():

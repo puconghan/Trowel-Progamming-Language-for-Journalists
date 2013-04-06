@@ -27,7 +27,7 @@ def main(argv):
 	output = parser.parse(inputs)
         typelist.printHash()
         typelist.printLocal()
-	print output
+        
 	if (output[0]) == "func":
                 if (output[1]) == "printvals":
                         printlist = "print "
