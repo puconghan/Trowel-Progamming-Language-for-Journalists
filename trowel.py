@@ -25,12 +25,15 @@ def main(argv):
 	inputs = str(argv[1])
 	output = parser.parse(inputs)
 	print output
+	
 	if (output[0]) == "func":
                 if (output[1]) == "printvals":
-                        printlist = "print "
+                        printlist = "print \""
                         for entry in (output[2]):
-                                print entry
-                                printlist = printlist + (str(entry[1]))
+                                if entry[0] == "text" or entry[0] == "url":
+                                    printlist = printlist + (str(entry[1][1:-1]))
+                                else:
+                                    printlist = printlist + (str(entry[1])) + "\""
                         program.append(printlist)
                         
         print program[0]

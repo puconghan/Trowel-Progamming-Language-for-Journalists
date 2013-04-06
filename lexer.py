@@ -203,12 +203,12 @@ def t_IN(t):
     return t
 
 def t_TEXTVAL(t):
-  r'".*"'
+  r'"[^"]+"'
   return t
 
-##def t_URLVAL(t):
-##  r'\'(^\').*\''
-##  return t
+def t_URLVAL(t):
+  r'\'[^\']+\''
+  return t
 
 def t_NUMVAL(t):
   r'[0-9]+'
