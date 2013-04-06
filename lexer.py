@@ -1,7 +1,29 @@
-#! /usr/bin/python
+################
+# PROGRAM:      Trowel
+# DESCRIPTION:  The Trowel programming language is intended to aid in the web scraping that we all do on a daily basis,
+#               but it is especially targeted to the needs and technical capacities of journalists.
+# 
+# LICENSE:      ---OPTIONAL---
+# REFERENCES:   additional used information goes here
+# ALGORITHM:    Pseudocode describing the algorithm goes here
+# OUTPUT:       Trowel automagickally creates: (any print statements, files created, etc.)
+# RETURN:       Returns values go here
+# 
+# AUTHOR(S):
+#               Pucong Han (ph2369@columbia.edu)
+#               Victoria Mo (vm2355@columbia.edu)
+#               Hareesh Radhakrishnan (hr2318@columbia.edu)
+#               David Tagatac (dtagatac@cs.columbia.edu)
+#               Robert Walport (robertwalport@gmail.com)
+# MODIFICATIONS:
+#               Created by Pucong Han on Mar 11, 2013
+#               Modified by all team authors on April 1, 2013
+#               Modified by all team authors on April 6, 2013
+################
 
 import lex
 
+#This is the list of lexer tokens for Trowel
 tokens = (
    #Comment (#)
    'COMMENTS',
@@ -53,7 +75,7 @@ tokens = (
    'IDENTIFIER',
 )
 
-#Arithmetic Operators (* / + -)
+#Arithmetic Operators (* / + - == =/=)
 t_MULTIPLY = r'\*'
 t_DIVISION = r'\/'
 t_PLUS     = r'\+'
@@ -68,7 +90,7 @@ t_DOUBLECOLON        = r"'"
 t_RIGHTSQUAREBRACKET = r'\]'
 t_LEFTSQUAREBRACKET   = r'\['
 
-#Comment (#)
+#Comments (#)
 def t_COMMENTS(t):
     r'\#.*'
     return t
@@ -111,7 +133,7 @@ def t_NUMLIST(t):
     r'((numlist) | (NUMLIST) | (numList))(?=\s)'   
     return t
 
-#Functions (PRINT READ SAVE APPEND INSERT FINDURL FINDTEXT COMBINE)
+#Functions (PRINT READ SAVE APPEND ADD FINDURL COMBINE DEFINE)
 def t_PRINT(t):
     r'((print) | (PRINT))(?=\s)'   
     return t
@@ -144,7 +166,7 @@ def t_DEFINE(t):
     r'((define) | (DEFINE))(?=\s)'   
     return t
 
-#Control Operators (IF ELSE FOR)
+#Control Operators (IF ELSE ELSEIF FOR)
 def t_IF(t):
     r'((if) | (IF))(?=\s)'   
     return t
@@ -179,7 +201,6 @@ def t_IN(t):
     return t
 
 #Identifier captures everything else
-
 
 def t_IDENTIFIER(t):
     r'[a-zA-Z0-9_]+'
@@ -237,9 +258,6 @@ def p_expression_extralist(p):
 def p_empty(p):
     'empty :'
     pass
-
-
-
 
 yacc.yacc()
 output = yacc.parse("print [5, 3]")
