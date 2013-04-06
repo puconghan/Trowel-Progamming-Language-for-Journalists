@@ -37,11 +37,6 @@ def returnLocalVariables():
 		temp.append(item)
 	return temp
 
-
-# Function cleanLocalList resets locallist.
-def cleanLocalList():
-	locallist = []
-
 # Function printHash prints typelist.
 def printHash():
 	print "Type list"
