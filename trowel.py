@@ -23,7 +23,7 @@ from parser import parser
 def main(argv):
 	inputs = str(argv[1])
 	output = parser.parse(inputs)
-	output.printrec()
+	print output
 
 if __name__ == "__main__":
 	main(sys.argv)

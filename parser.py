@@ -112,6 +112,4 @@ def p_expression_number(p):
 #     p[0] = [p[1]]
 
 
-trparser = yacc.yacc()
-output = trparser.parse("print 5 4")
-print output
+parser = yacc.yacc()
