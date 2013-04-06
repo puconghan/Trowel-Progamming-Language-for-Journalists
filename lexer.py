@@ -72,6 +72,7 @@ tokens = (
    'LEFTSQUAREBRACKET',
    #Identifier captures everything else
    'IDENTIFIER',
+   'NUMVAL',
 )
 
 #Arithmetic Operators (* / + - == =/=)
@@ -199,7 +200,11 @@ def t_IN(t):
     r'(?<=\s)((in) | (IN))(?=\s)'
     return t
 
-#Identifier captures everything else
+def t_NUMVAL(t):
+  r'[0-9]+'
+  return t
+
+#Identifier captures everything else, essentially variable names
 
 def t_IDENTIFIER(t):
     r'[a-zA-Z0-9_]+'

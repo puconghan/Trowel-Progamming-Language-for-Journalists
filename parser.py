@@ -37,41 +37,81 @@ from lexer import tokens
 #             child.printrec()
 #         print self.type, self.value
 
-def p_expression_printlist(p):
-    'expression : PRINT LIST'
-    print "Found a list print statement"
-    p[0] = ("print", p[2])
+# def p_expression_printlist(p):
+#     'expression : PRINT LIST'
+#     print "Found a list print statement"
+#     p[0] = ("print", p[2])
 
 def p_expression_printvals(p):
     'expression : PRINT VALS'
     print "Found a val print statement"
-    p[0] = ("print", p[2])
+    print p[0:]
+    p[0] = ("print vals", p[2])
 
-def p_expression_list(p):
-    'LIST : LEFTSQUAREBRACKET LISTITEMS RIGHTSQUAREBRACKET'
-    p[0] = ("list", p[2:-1])
+# def p_expression_list(p):
+#     'LIST : LEFTSQUAREBRACKET LISTITEMS RIGHTSQUAREBRACKET'
+#     p[0] = ("list", p[2:-1])
 
-def p_expression_listitems(p):
-    '''LISTITEMS : IDENTIFIER EXTRALIST
-                 | empty'''
-    p[0] = p[1:]
+# def p_expression_listitems(p):
+#     '''LISTITEMS : IDENTIFIER EXTRALIST
+#                  | empty'''
+#     p[0] = p[1:]
 
-def p_expression_extralist(p):
-    '''EXTRALIST : COMMA IDENTIFIER EXTRALIST
-                 | empty'''
-    p[0] = p[1:]
+# def p_expression_extralist(p):
+#     '''EXTRALIST : COMMA IDENTIFIER EXTRALIST
+#                  | empty'''
+#     p[0] = p[1:]
+
 
 def p_expression_vals(p):
     '''VALS : URL VALS
             | TEXT VALS
-            | NUMBER VALS
-            | empty'''
-    p[0] = ("vals", p[])
+            | NUM VALS'''
+    print p[0]
+    print p[1:]
+    print "This line"
+    p[0] = p[1:]
 
-def p_empty(p):
-    'empty :'
-    pass
+def p_expression_vals_last(p):
+    '''VALS : URL
+            | TEXT
+            | NUM'''
+    p[0] = p[1]
+
+def p_expression_number(p):
+    'NUM : NUMVAL'
+    p[0] = ('number', p[1])
+
+# def p_empty(p):
+#     'empty :'
+#     print 'hereee'
+#     pass
+
+# def p_exp_print(p):
+#     'exp : print optargs'
+#     p[0] = ("func", p[1], p[2])
+
+# def p_exp_number(p):
+#     'exp : NUMVAL'
+#     p[0] = ("number", p[1])
+
+# def p_optargs(p):
+#     'optargs : args'
+#     p[0] = p[1] # the work happens in "args"
+
+# def p_optargsempty(p):
+#     'optargs : '
+#     p[0] = [] # no arguments -> return the empy list
+
+# def p_args(p):
+#     'args : exp COMMA args'
+#     p[0] = [p[1]] + p[3]
+
+# def p_args_last(p): # one argument
+#     'args : exp'
+#     p[0] = [p[1]]
+
 
 trparser = yacc.yacc()
-# output = trparser.parse("print [5, 3]")
-# print output
+output = trparser.parse("print 5 4")
+print output
