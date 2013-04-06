@@ -1,3 +1,25 @@
+################
+# PROGRAM:      Trowel
+# DESCRIPTION:  The Trowel programming language is intended to aid in the web scraping that we all do on a daily basis,
+#               but it is especially targeted to the needs and technical capacities of journalists. This program is the
+#               parser of Trowel used to build the abstract syntax tree using tokens
+# 
+# LICENSE:      ---OPTIONAL---
+# REFERENCES:   Python Lex-Yacc Documentation (http://www.dabeaz.com/ply/)
+# OUTPUT:       Abstract syntax tree
+# 
+# AUTHOR(S):
+#               Pucong Han (ph2369@columbia.edu)
+#               Victoria Mo (vm2355@columbia.edu)
+#               Hareesh Radhakrishnan (hr2318@columbia.edu)
+#               David Tagatac (dtagatac@cs.columbia.edu)
+#               Robert Walport (robertwalport@gmail.com)
+# MODIFICATIONS:
+#               Created by Robert Walport on April 1, 2013
+#               Modified by all team authors on April 1, 2013
+#               Modified by all team authors on April 6, 2013
+################
+
 import yacc
 from lexer import tokens
 
