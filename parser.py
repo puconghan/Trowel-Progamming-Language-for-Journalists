@@ -19,7 +19,7 @@
 #               Modified by all team authors on April 1, 2013
 #               Modified by all team authors on April 6, 2013
 ################
-
+import sys
 import yacc
 from lexer import tokens
 import typelist
@@ -42,15 +42,23 @@ def p_expression_declaration(p):
     typelist.locallist = []
 
 #Parser for additional variable tokens.
-def p_additional(p):
+def p_expression_additional(p):
     'additional : COMMA IDENTIFIER additional'
     # Adding additional variables to the locallist.
     typelist.addNewVariable(p[2])
 
+#Printing error messages for missing comma between variables.
+def p_expression_additional_error(p):
+    'additional : COMMA IDENTIFIER IDENTIFIER additional'
+    print "Missing comma between: " + p[2] + " and " + p[3]
+    sys.exit()
+
 #Parser for empty additional variable tokens.
-def p_additionalempty(p):
+def p_expression_additional_empty(p):
     'additional : empty'
     pass
+
+
 
 ##Parser for variable types.
 # Implemented by Pucong on April 6, 2013.
