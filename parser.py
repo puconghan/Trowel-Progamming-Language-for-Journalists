@@ -60,18 +60,42 @@ def p_expression_additional_empty(p):
 
 ##Parser for assigning values to variables.
 # Implemented by Pucong on April 7, 2013
-# TODO: 1. Assignment error messages (type miss-matching).
-#       2. Assignment for all variable types (right now only capture three variable types).
 def p_expression_value_assignment(p):
     'EXPRESSION : IDENTIFIER IS VALS'
     if typelist.returnType(p[1]) == p[3][0][0]:
-        p[0] = ("assign", p[1], p[3])
+        p[0] = ("assign", typelist.returnType(p[1]), p[1], p[3])
+    elif typelist.returnType(p[1]) == "Not in typelist":
+        print "Variable: " + str(p[1]) + " is not declared."
+        sys.exit()
     else:
         print "Variable: " + str(p[1]) + " assigning type miss matching."
         sys.exit()
 
-##Parser for declaring varibale and assigning values.
+##Parser for assigning values to list variables.
 # Implemented by Pucong on April 7, 2013
+def p_expression_value_list_assignment(p):
+    'EXPRESSION : IDENTIFIER IS LIST'
+    typecheck = p[3][0][0]
+    listtype = ""
+    for item in p[3]:
+        if typecheck == item[0]:
+            typecheck = item[0]
+        else:
+            print "List item: " + item[1] + " type miss matching."
+            sys.exit()
+    if typecheck == "url":
+        listtype = "urllist"
+    elif typecheck == "text":
+        listtype = "textlist"
+    elif typecheck == "number":
+        listtype = "numlist"
+    else:
+        print "List: " + p[1] + " item type unrecognized."
+        sys.exit()
+    p[0] = ("assign", listtype, p[1], p[3])
+
+##Parser for declaring varibale and assigning values.
+# Implemented by Pucong on April 7, 2013.
 def p_expression_value_declaration_and_assignment(p):
     'EXPRESSION : VARTYPE IDENTIFIER IS VALS'
     if p[1] == p[4][0][0]:
@@ -80,6 +104,11 @@ def p_expression_value_declaration_and_assignment(p):
     else:
         print "Variable: " + str(p[2]) + " declaration type and assigning type miss matching."
         sys.exit()
+
+##Parser for declaring list of varibale and assigning values.
+# Implemented by Pucong on April 7, 2013.
+def p_expression_value_list_declaration_and_assignment(p):
+    'EXPRESSION : VARTYPE IDENTIFIER IS LIST'
 
 ##Parser for variable types.
 # Implemented by Pucong on April 6, 2013.
@@ -95,6 +124,7 @@ def p_expression_vartype(p):
 
 ##Parser for printing a list.
 # Implemented by Victoria Mo and Robert Walport on April 6, 2013.
+# Changed by Pucong Han on April 7, 2013.
 def p_expression_printlist(p):
     'EXPRESSION : PRINT LIST'
     print "Found a list print statement"
@@ -114,12 +144,14 @@ def p_expression_extralist(p):
 
 def p_expression_listvals(p):
     '''LISTVALS : URLEXP LISTVALS
-                | TEXTEXP LISTVALS'''
+                | TEXTEXP LISTVALS
+                | NUMEXP LISTVALS'''
     p[0] = [p[1]] + p[2]
 
 def p_expression_listvals_last(p):
     '''LISTVALS : URLEXP
-                | TEXTEXP'''
+                | TEXTEXP
+                | NUMEXP'''
     p[0] = [p[1]]
 
 ##Parser for printing values.
@@ -157,4 +189,3 @@ def p_empty(p):
     pass
     
 parser = yacc.yacc()
-    

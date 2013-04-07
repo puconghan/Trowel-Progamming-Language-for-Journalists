@@ -58,12 +58,24 @@ def main(argv):
 				printlist = printlist + str(entry[0]) + ' = ""' + "\n"
 			else:
 				printlist = printlist + str(entry[0]) + " = " + str(entry[1][1]) + "\n"
-		program.append(printlist)\
-		
+		program.append(printlist)
 	
 	if output[0] == "assign":
-		printlist = output[1] + " = " + output[2][0][1]
-		program.append(printlist)
+		if output[1] == "text" or output[1] == "url" or output[1] == "number":
+			printlist = output[2] + " = " + output[3][0][1]
+			program.append(printlist)
+		elif output[1] == "textlist" or output[1] == "urllist" or output[1] == "numlist":
+			templist = []
+			for item in output[3]:
+				if output[1] == "numlist":
+					templist.append(int(item[1].replace("'", "")))
+				else:
+					templist.append(str(item[1].replace("'", "")))
+			printlist = ""
+			printlist = output[2] + " = " + str(templist)
+			program.append(printlist)
+
+	print program[0]
 
 	print program[0]
         
