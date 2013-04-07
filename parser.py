@@ -18,6 +18,7 @@
 #               Created by Robert Walport on April 1, 2013
 #               Modified by all team authors on April 1, 2013
 #               Modified by all team authors on April 6, 2013
+#               Modified by Pucong Han on April 7, 2013
 ################
 import sys
 import yacc
@@ -65,9 +66,11 @@ def p_expression_value_assignment(p):
     if typelist.returnType(p[1]) == p[3][0][0]:
         p[0] = ("assign", typelist.returnType(p[1]), p[1], p[3])
     elif typelist.returnType(p[1]) == "Not in typelist":
+        #Print error message if type is not declared
         print "Variable: " + str(p[1]) + " is not declared."
         sys.exit()
     else:
+        #Print error message if type is miss-matched
         print "Variable: " + str(p[1]) + " assigning type miss matching."
         sys.exit()
 
@@ -75,14 +78,19 @@ def p_expression_value_assignment(p):
 # Implemented by Pucong on April 7, 2013
 def p_expression_value_list_assignment(p):
     'EXPRESSION : IDENTIFIER IS LIST'
+    #This variable stores and checks types in the list.
     typecheck = p[3][0][0]
+    #This variable stores predicted list type.
     listtype = ""
+    #Checking type consistency. Print error message if type is inconsistent
     for item in p[3]:
         if typecheck == item[0]:
             typecheck = item[0]
         else:
+            #Print error message if type is miss-matched.
             print "List item: " + item[1] + " type miss matching."
             sys.exit()
+    #Code for predicting list type using list item types.
     if typecheck == "url":
         listtype = "urllist"
     elif typecheck == "text":
@@ -95,9 +103,11 @@ def p_expression_value_list_assignment(p):
     if typelist.returnType(p[1]) == p[3][0][0]:
         p[0] = ("assign", listtype, p[1], p[3])
     elif typelist.returnType(p[1]) == "Not in typelist":
+        #Print error message if type is not declared.
         print "Variable: " + str(p[1]) + " is not declared."
         sys.exit()
     else:
+        #Print error message if type is miss-matched.
         print "Variable: " + str(p[1]) + " assigning type miss matching."
         sys.exit()
 
@@ -109,6 +119,7 @@ def p_expression_value_declaration_and_assignment(p):
         typelist.addNewType(p[2], p[1])
         p[0] = ("assign", p[1], p[2], p[4])
     else:
+        #Print error message if type is miss-matched.
         print "Variable: " + str(p[2]) + " declaration type and assigning type miss matching."
         sys.exit()
 
@@ -122,8 +133,10 @@ def p_expression_value_list_declaration_and_assignment(p):
         if typecheck == item[0]:
             typecheck = item[0]
         else:
+            #Print error message if type is miss-matched.
             print "List item: " + item[1] + " type miss matching."
             sys.exit()
+    #Code for predicting list type using list item types.
     if typecheck == "url":
         listtype = "urllist"
     elif typecheck == "text":
@@ -131,12 +144,14 @@ def p_expression_value_list_declaration_and_assignment(p):
     elif typecheck == "number":
         listtype = "numlist"
     else:
+        #Print error message if type is unrecognized (unpredictable from the list elements).
         print "List: " + p[2] + " item type unrecognized."
         sys.exit()
     if p[1] == listtype:
         typelist.addNewType(p[2], p[1])
         p[0] = ("assign", listtype, p[2], p[4])
     else:
+        #Print error message if type is miss-matched.
         print "Variable: " + str(p[2]) + " declaration type and assigning type miss matching."
         sys.exit()
 

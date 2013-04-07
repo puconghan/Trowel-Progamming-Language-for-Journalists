@@ -10,6 +10,7 @@
 #               Pucong Han (ph2369@columbia.edu)
 # MODIFICATIONS:
 #               Created by Pucong Han on April 6, 2013
+#				Modified by Pucong Han on April 7, 2013
 ################
 
 #Typelist is a hashtable storing variables and types.
