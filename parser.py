@@ -92,7 +92,14 @@ def p_expression_value_list_assignment(p):
     else:
         print "List: " + p[1] + " item type unrecognized."
         sys.exit()
-    p[0] = ("assign", listtype, p[1], p[3])
+    if typelist.returnType(p[1]) == p[3][0][0]:
+        p[0] = ("assign", listtype, p[1], p[3])
+    elif typelist.returnType(p[1]) == "Not in typelist":
+        print "Variable: " + str(p[1]) + " is not declared."
+        sys.exit()
+    else:
+        print "Variable: " + str(p[1]) + " assigning type miss matching."
+        sys.exit()
 
 ##Parser for declaring varibale and assigning values.
 # Implemented by Pucong on April 7, 2013.
@@ -109,6 +116,15 @@ def p_expression_value_declaration_and_assignment(p):
 # Implemented by Pucong on April 7, 2013.
 def p_expression_value_list_declaration_and_assignment(p):
     'EXPRESSION : VARTYPE IDENTIFIER IS LIST'
+    typecheck = p[4][0][0]
+    listtype = ""
+    for item in p[4]:
+        if typecheck == item[0]:
+            typecheck = item[0]
+        else:
+            print "List item: " + item[1] + " type miss matching."
+            sys.exit()
+    print typecheck
 
 ##Parser for variable types.
 # Implemented by Pucong on April 6, 2013.
