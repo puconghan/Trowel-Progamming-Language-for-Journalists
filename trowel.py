@@ -38,8 +38,13 @@ def main(argv):
 				else:
 					list_to_print = list_to_print + str(entry[1]) + "\""
 			program.append(list_to_print)
-		# if output[1] == "printlist":
-		# 	for entry in output[2]:
+		elif output[1] == "printlist":
+			printlist = "print \""
+			for entry in output[2]:
+				if entry[0] is "text" or entry[0] is "url":
+					printlist = printlist + str(entry[1][1] + "\n")
+			printlist = printlist + "\""
+			program.append(printlist)
 	if output[0] == "dec":
 		printlist = ""
 		output[2].reverse()
