@@ -58,6 +58,29 @@ def p_expression_additional_empty(p):
     'ADDITIONAL : EMPTY'
     pass
 
+##Parser for assigning values to variables.
+# Implemented by Pucong on April 7, 2013
+# TODO: 1. Assignment error messages (type miss-matching).
+#       2. Assignment for all variable types (right now only capture three variable types).
+def p_expression_value_assignment(p):
+    'EXPRESSION : IDENTIFIER IS VALS'
+    if typelist.returnType(p[1]) == p[3][0][0]:
+        p[0] = ("assign", p[1], p[3])
+    else:
+        print "Variable: " + str(p[1]) + " assigning type miss matching."
+        sys.exit()
+
+##Parser for declaring varibale and assigning values.
+# Implemented by Pucong on April 7, 2013
+def p_expression_value_declaration_and_assignment(p):
+    'EXPRESSION : VARTYPE IDENTIFIER IS VALS'
+    if p[1] == p[4][0][0]:
+        typelist.addNewType(p[2], p[1])
+        p[0] = ("assign", p[2], p[4])
+    else:
+        print "Variable: " + str(p[2]) + " declaration type and assigning type miss matching."
+        sys.exit()
+
 ##Parser for variable types.
 # Implemented by Pucong on April 6, 2013.
 def p_expression_vartype(p):
@@ -68,18 +91,6 @@ def p_expression_vartype(p):
                | TEXTLIST
                | NUMLIST'''
     p[0] = p[1]
-
-##Parser for assigning values to variables.
-# Implemented by Pucong on April 7, 2013
-# TODO: 1. Assignment error messages (type miss-matching).
-#       2. Assignment for all variable types (right now only capture three variable types).
-def p_expression_value_assignment(p):
-    'EXPRESSION : IDENTIFIER IS VALS'
-    if typelist.returnType(p[1]) == p[3][0][0]:
-        p[0] = ("assign", p[1], p[3])
-    else:
-        print "Variable: " + str(p[0]) + " assignment type miss matching"
-        sys.exit()
 
 
 ##Parser for printing a list.
