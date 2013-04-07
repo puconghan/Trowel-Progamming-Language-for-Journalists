@@ -16,7 +16,7 @@
 #               Robert Walport (robertwalport@gmail.com)
 # MODIFICATIONS:
 #               Created and Modified by Pucong Han, Robert Walport and Victoria Mo on April 6, 2013
-#				
+#				Modified by Pucong Han and Robert Walport on April 7, 2013
 ################
 import sys
 from parser import parser
@@ -27,6 +27,7 @@ def main(argv):
 	inputs = str(argv[1])
 	output = parser.parse(inputs)
 	typelist.printHash()
+	print output
 	
 	if output[0] == "func":
 		if output[1] == "printvals":
@@ -44,12 +45,22 @@ def main(argv):
 					printlist = printlist + str(entry[1][1] + "\n")
 			printlist = printlist + "\""
 			program.append(printlist)
+	
 	if output[0] == "dec":
 		printlist = ""
 		output[2].reverse()
 		for entry in output[2]:
-			printlist = printlist + str(entry[0]) + "=" + str(entry[1][1]) + "\n"
-		program.append(printlist)
+			if entry[1][0] == "number":
+				printlist = printlist + str(entry[0]) + " = 0" + "\n"
+			elif entry[1][0] == "url":
+				printlist = printlist + str(entry[0]) + " = ''" + "\n"
+			elif entry[1][0] == "text":
+				printlist = printlist + str(entry[0]) + ' = ""' + "\n"
+			else:
+				printlist = printlist + str(entry[0]) + " = " + str(entry[1][1]) + "\n"
+		program.append(printlist)\
+		
+	
 	if output[0] == "assign":
 		printlist = output[1] + " = " + output[2][0][1]
 		program.append(printlist)
