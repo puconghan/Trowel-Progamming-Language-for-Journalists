@@ -107,7 +107,7 @@ def p_expression_value_declaration_and_assignment(p):
     'EXPRESSION : VARTYPE IDENTIFIER IS VALS'
     if p[1] == p[4][0][0]:
         typelist.addNewType(p[2], p[1])
-        p[0] = ("assign", p[2], p[4])
+        p[0] = ("assign", p[1], p[2], p[4])
     else:
         print "Variable: " + str(p[2]) + " declaration type and assigning type miss matching."
         sys.exit()
@@ -124,7 +124,22 @@ def p_expression_value_list_declaration_and_assignment(p):
         else:
             print "List item: " + item[1] + " type miss matching."
             sys.exit()
-    print typecheck
+    if typecheck == "url":
+        listtype = "urllist"
+    elif typecheck == "text":
+        listtype = "textlist"
+    elif typecheck == "number":
+        listtype = "numlist"
+    else:
+        print "List: " + p[2] + " item type unrecognized."
+        sys.exit()
+    if p[1] == listtype:
+        typelist.addNewType(p[2], p[1])
+        p[0] = ("assign", listtype, p[2], p[4])
+    else:
+        print "Variable: " + str(p[2]) + " declaration type and assigning type miss matching."
+        sys.exit()
+
 
 ##Parser for variable types.
 # Implemented by Pucong on April 6, 2013.

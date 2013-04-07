@@ -76,8 +76,6 @@ def main(argv):
 			program.append(printlist)
 
 	print program[0]
-
-	print program[0]
         
 if __name__ == "__main__":
 	main(sys.argv)
