@@ -1,5 +1,5 @@
 ################
-# PROGRAM:      Trowel
+# PROGRAM:      Trowel Lexer
 # DESCRIPTION:  The Trowel programming language is intended to aid in the web scraping that we all do on a daily basis,
 #               but it is especially targeted to the needs and technical capacities of journalists. This program is the
 #               lexer of Trowel used to break inputs into tokens

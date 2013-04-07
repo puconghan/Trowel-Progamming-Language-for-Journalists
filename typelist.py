@@ -1,5 +1,5 @@
 ################
-# PROGRAM:      Typelist
+# PROGRAM:      Trowel Typelist
 # DESCRIPTION:  The typelist.py manages a list of declared variables and types.
 # 
 # LICENSE:      ---OPTIONAL---
