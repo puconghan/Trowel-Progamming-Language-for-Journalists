@@ -15,7 +15,8 @@
 #               David Tagatac (dtagatac@cs.columbia.edu)
 #               Robert Walport (robertwalport@gmail.com)
 # MODIFICATIONS:
-#               Created by Pucong Han and Robert Walport on April 6, 2013
+#               Created and Modified by Pucong Han, Robert Walport and Victoria Mo on April 6, 2013
+#				
 ################
 import sys
 from parser import parser
