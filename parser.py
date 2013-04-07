@@ -41,6 +41,17 @@ def p_expression_declaration(p):
     # Reset the locallist for future declaration tokens.
     typelist.locallist = []
 
+#Parser for additional variable tokens.
+def p_additional(p):
+    'additional : COMMA IDENTIFIER additional'
+    # Adding additional variables to the locallist.
+    typelist.addNewVariable(p[2])
+
+#Parser for empty additional variable tokens.
+def p_additionalempty(p):
+    'additional : empty'
+    pass
+
 ##Parser for variable types.
 # Implemented by Pucong on April 6, 2013.
 def p_expression_vartype(p):
@@ -52,21 +63,8 @@ def p_expression_vartype(p):
                | NUMLIST'''
     p[0] = p[1]
 
-##Parser for additional variable tokens in variable declaration block.
-# Implemented by Pucong on April 6, 2013.
-def p_additional(p):
-    'additional : COMMA IDENTIFIER additional'
-    # Adding additional variables to the locallist.
-    typelist.addNewVariable(p[2])
-
-##Parser for empty additional variable tokens in variable declaration block.
-# Implemented by Pucong on April 6, 2013
-def p_additionalempty(p):
-    'additional : empty'
-    pass
-
-# The next statements are for printing a list
-
+##Parser for printing a list.
+# Implemented by Victoria Mo and Robert Walport on April 6, 2013.
 def p_expression_printlist(p):
     'expression : PRINT LIST'
     print "Found a list print statement"
@@ -94,8 +92,8 @@ def p_expression_listvals_last(p):
                 | TEXTEXP'''
     p[0] = [p[1]]
 
-# The next statements are for printing values
-
+##Parser for printing values.
+# Implemented by Victoria Mo and Robert Walport on April 6, 2013.
 def p_expression_printvals(p):
     'expression : PRINT VALS'
     p[0] = ("func", "printvals", p[2])
