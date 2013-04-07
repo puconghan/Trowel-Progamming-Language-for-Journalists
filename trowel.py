@@ -50,6 +50,10 @@ def main(argv):
 		for entry in output[2]:
 			printlist = printlist + str(entry[0]) + "=" + str(entry[1][1]) + "\n"
 		program.append(printlist)
+	if output[0] == "assign":
+		printlist = output[1] + " = " + output[2][0][1]
+		program.append(printlist)
+
 	print program[0]
         
 if __name__ == "__main__":

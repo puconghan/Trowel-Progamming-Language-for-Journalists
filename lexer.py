@@ -10,9 +10,12 @@
 # 
 # AUTHOR(S):
 #               Pucong Han (ph2369@columbia.edu)
+#               Victoria Mo (vm2355@columbia.edu)
+#               Robert Walport (robertwalport@gmail.com)
 # MODIFICATIONS:
 #               Created by Pucong Han on Mar 11, 2013
-#               Modified by Pucong Han on April 6, 2013
+#               Initial version implemented by Pucong Han on Mar 30, 2013
+#               Modified by Pucong Han, Robert Walport and Victoria Mo on April 6, 2013
 ################
 
 import lex

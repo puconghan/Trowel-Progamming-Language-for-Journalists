@@ -72,10 +72,10 @@ def p_expression_vartype(p):
 ##Parser for assigning values to variables.
 # Implemented by Pucong on April 7, 2013
 # TODO: 1. Assignment error messages (type miss-matching).
-#       2. Assignment for all variable types.
+#       2. Assignment for all variable types (right now only capture three variable types).
 def p_expression_value_assignment(p):
-    'EXPRESSION : IDENTIFIER IS IDENTIFIER'
-    pass
+    'EXPRESSION : IDENTIFIER IS VALS'
+    p[0] = ("assign", p[1], p[3])
 
 ##Parser for printing a list.
 # Implemented by Victoria Mo and Robert Walport on April 6, 2013.
