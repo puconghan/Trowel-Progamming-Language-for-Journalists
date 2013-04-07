@@ -28,19 +28,23 @@ def main(argv):
 	typelist.printHash()
 	typelist.printLocal()
 	
-	if (output[0]) == "func":
-		if (output[1]) == "printvals":
+	if output[0] == "func":
+		if output[1] == "printvals":
 			list_to_print = "print \""
-			for entry in (output[2]):
-				if entry[0] == "text" or entry[0] == "url":
-					list_to_print = list_to_print + (str(entry[1][1:-1]))
-				else:
-					list_to_print = list_to_print + (str(entry[1])) + "\""
-			program.append(list_to_print)
-		if output[1] == "printlist":
 			for entry in output[2]:
-
-
+				if entry[0] == "text" or entry[0] == "url":
+					list_to_print = list_to_print + str(entry[1][1:-1])
+				else:
+					list_to_print = list_to_print + str(entry[1]) + "\""
+			program.append(list_to_print)
+		# if output[1] == "printlist":
+		# 	for entry in output[2]:
+	if output[0] == "dec":
+		printlist = ""
+		output[2].reverse()
+		for entry in output[2]:
+			printlist = printlist + str(entry[0]) + "=" + str(entry[1][1]) + "\n"
+		program.append(printlist)
 	print program[0]
         
 if __name__ == "__main__":

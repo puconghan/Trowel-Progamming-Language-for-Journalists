@@ -24,33 +24,46 @@ import yacc
 from lexer import tokens
 import typelist
 
-def p_expression_urllist(p):
-    'expression : URLLIST IDENTIFIER additionalurl'
-    # Adding variable name and type to the typelist.
-    typelist.addNewType(p[2], "URLLIST")
+##Parser for variable declaration.
+# Implemented by Pucong on April 6, 2013.
+def p_expression_declaration(p):
+    'expression : vartype IDENTIFIER additional'
+    # Adding the identifier variable to the locallist.
+    typelist.addNewVariable(p[2])
+    # Add all variables in the localist to the typelist hashtable with approprate variable types.
+    for item in typelist.locallist:
+        typelist.addNewType(item, p[1])
+    # Building a parser list.
+    listofVariable = []
+    for item in typelist.locallist:
+        listofVariable.append((item, (p[1], "[]")))
+    p[0] = ("dec", p[1], listofVariable)
+    # Reset the locallist for future declaration tokens.
+    typelist.locallist = []
 
-def p_additionalurl(p):
-    'additionalurl : COMMA IDENTIFIER additionalurl'
-    # Adding variable name and type to the typelist.
-    typelist.addNewType(p[2], "URLLIST")
+##Parser for variable types.
+# Implemented by Pucong on April 6, 2013.
+def p_expression_vartype(p):
+    '''vartype : URL
+               | TEXT
+               | NUMBER
+               | URLLIST
+               | TEXTLIST
+               | NUMLIST'''
+    p[0] = p[1]
 
+##Parser for additional variable tokens in variable declaration block.
+# Implemented by Pucong on April 6, 2013.
 def p_additional(p):
-    'additionalurl : empty'
+    'additional : COMMA IDENTIFIER additional'
+    # Adding additional variables to the locallist.
+    typelist.addNewVariable(p[2])
+
+##Parser for empty additional variable tokens in variable declaration block.
+# Implemented by Pucong on April 6, 2013
+def p_additionalempty(p):
+    'additional : empty'
     pass
-
-# class Node:
-#     def __init__(self,type,children=None,value=None):
-#          self.type = type
-#          if children:
-#               self.children = children
-#          else:
-#               self.children = [ ]
-#          self.value = value
-
-#     def printrec(self):
-#         for child in self.children:
-#             child.printrec()
-#         print self.type, self.value
 
 def p_expression_printlist(p):
     'expression : PRINT LIST'
@@ -114,31 +127,6 @@ def p_expression_number(p):
 def p_empty(p):
     'empty :'
     pass
-
-# def p_exp_print(p):
-#     'exp : print optargs'
-#     p[0] = ("func", p[1], p[2])
-
-# def p_exp_number(p):
-#     'exp : NUMVAL'
-#     p[0] = ("number", p[1])
-
-# def p_optargs(p):
-#     'optargs : args'
-#     p[0] = p[1] # the work happens in "args"
-
-# def p_optargsempty(p):
-#     'optargs : '
-#     p[0] = [] # no arguments -> return the empy list
-
-# def p_args(p):
-#     'args : exp COMMA args'
-#     p[0] = [p[1]] + p[3]
-
-# def p_args_last(p): # one argument
-#     'args : exp'
-#     p[0] = [p[1]]
-
 
 parser = yacc.yacc()
     
