@@ -75,7 +75,12 @@ def p_expression_vartype(p):
 #       2. Assignment for all variable types (right now only capture three variable types).
 def p_expression_value_assignment(p):
     'EXPRESSION : IDENTIFIER IS VALS'
-    p[0] = ("assign", p[1], p[3])
+    if typelist.returnType(p[1]) == p[3][0][0]:
+        p[0] = ("assign", p[1], p[3])
+    else:
+        print "Variable: " + str(p[0]) + " assignment type miss matching"
+        sys.exit()
+
 
 ##Parser for printing a list.
 # Implemented by Victoria Mo and Robert Walport on April 6, 2013.

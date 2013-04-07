@@ -12,8 +12,10 @@
 #               Created by Pucong Han on April 6, 2013
 ################
 
-#Typelist is a hashtable. It is used for checking variable types.
+#Typelist is a hashtable storing variables and types.
 typelist = {}
+#Varlist is a list storing variables
+varlist = []
 #Locallist is a list contains local variables.
 locallist = []
 
@@ -21,6 +23,7 @@ locallist = []
 # Implemented by Pucong Han on April 6, 2013
 def addNewType(variablename, typename):
 	typelist[variablename] = typename
+	varlist.append(variablename)
 
 ##Function addNewVariable add variable in parameter to the locallist.
 # Implemented by Pucong Han on April 6, 2013
@@ -30,7 +33,8 @@ def addNewVariable(variablename):
 ##Function returnType returns the type of the passed variable.
 # Implemented by Pucong Han on April 6, 2013
 def returnType(variablename):
-	return typelist[variablename]
+	if variablename in varlist:
+		return typelist[variablename]
 
 ##Function printHash prints the typelist (for testing purpose).
 # Implemented by Pucong Han on April 6, 2013
