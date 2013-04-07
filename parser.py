@@ -27,7 +27,7 @@ import typelist
 ##Parser for variable declaration.
 # Implemented by Pucong on April 6, 2013.
 def p_expression_declaration(p):
-    'expression : vartype IDENTIFIER additional'
+    'EXPRESSION : VARTYPE IDENTIFIER ADDITIONAL'
     # Adding the identifier variable to the locallist.
     typelist.addNewVariable(p[2])
     # Add all variables in the localist to the typelist hashtable with approprate variable types.
@@ -43,27 +43,25 @@ def p_expression_declaration(p):
 
 #Parser for additional variable tokens.
 def p_expression_additional(p):
-    'additional : COMMA IDENTIFIER additional'
+    'ADDITIONAL : COMMA IDENTIFIER ADDITIONAL'
     # Adding additional variables to the locallist.
     typelist.addNewVariable(p[2])
 
 #Printing error messages for missing comma between variables.
 def p_expression_additional_error(p):
-    'additional : COMMA IDENTIFIER IDENTIFIER additional'
+    'ADDITIONAL : COMMA IDENTIFIER IDENTIFIER ADDITIONAL'
     print "Missing comma between: " + p[2] + " and " + p[3]
     sys.exit()
 
 #Parser for empty additional variable tokens.
 def p_expression_additional_empty(p):
-    'additional : empty'
+    'ADDITIONAL : EMPTY'
     pass
-
-
 
 ##Parser for variable types.
 # Implemented by Pucong on April 6, 2013.
 def p_expression_vartype(p):
-    '''vartype : URL
+    '''VARTYPE : URL
                | TEXT
                | NUMBER
                | URLLIST
@@ -71,10 +69,18 @@ def p_expression_vartype(p):
                | NUMLIST'''
     p[0] = p[1]
 
+##Parser for assigning values to variables.
+# Implemented by Pucong on April 7, 2013
+# TODO: 1. Assignment error messages (type miss-matching).
+#       2. Assignment for all variable types.
+def p_expression_value_assignment(p):
+    'EXPRESSION : IDENTIFIER IS IDENTIFIER'
+    pass
+
 ##Parser for printing a list.
 # Implemented by Victoria Mo and Robert Walport on April 6, 2013.
 def p_expression_printlist(p):
-    'expression : PRINT LIST'
+    'EXPRESSION : PRINT LIST'
     print "Found a list print statement"
     p[0] = ("func", "printlist", p[2])
 
@@ -103,7 +109,7 @@ def p_expression_listvals_last(p):
 ##Parser for printing values.
 # Implemented by Victoria Mo and Robert Walport on April 6, 2013.
 def p_expression_printvals(p):
-    'expression : PRINT VALS'
+    'EXPRESSION : PRINT VALS'
     p[0] = ("func", "printvals", p[2])
 
 def p_expression_vals(p):
@@ -131,7 +137,7 @@ def p_expression_number(p):
     p[0] = ('number', p[1])
 
 def p_empty(p):
-    'empty :'
+    'EMPTY :'
     pass
     
 parser = yacc.yacc()
