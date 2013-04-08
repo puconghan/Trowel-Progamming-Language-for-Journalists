@@ -17,7 +17,8 @@
 #               David Tagatac (dtagatac@cs.columbia.edu)
 #               Robert Walport (robertwalport@gmail.com)
 # MODIFICATIONS:
-#               Created by Pucong Han and Robert Walport on April 6, 2013
+#               Created and Modified by Pucong Han, Robert Walport and Victoria Mo on April 6, 2013
+#				Modified by Pucong Han and Robert Walport on April 7, 2013
 ################
 
 import sys
@@ -28,20 +29,55 @@ def main(argv):
 	program = []
 	inputs = str(argv[1])
 	output = parser.parse(inputs)
-	print output
-	print "this is here"
 	typelist.printHash()
-	typelist.printLocal()
+	print output
 	
-	if (output[0]) == "func":
-		if (output[1]) == "printvals":
-			printlist = "print \""
-			for entry in (output[2]):
+	if output[0] == "func":
+		if output[1] == "printvals":
+			list_to_print = "print \""
+			for entry in output[2]:
 				if entry[0] == "text" or entry[0] == "url":
-					printlist = printlist + (str(entry[1][1:-1]))
+					list_to_print = list_to_print + str(entry[1][1:-1])
 				else:
-					printlist = printlist + (str(entry[1])) + "\""
+					list_to_print = list_to_print + str(entry[1]) + "\""
+			program.append(list_to_print)
+		elif output[1] == "printlist":
+			printlist = "print \""
+			for entry in output[2]:
+				if entry[0] is "text" or entry[0] is "url":
+					printlist = printlist + str(entry[1][1] + "\n")
+			printlist = printlist + "\""
 			program.append(printlist)
+	
+	if output[0] == "dec":
+		printlist = ""
+		output[2].reverse()
+		for entry in output[2]:
+			if entry[1][0] == "number":
+				printlist = printlist + str(entry[0]) + " = 0" + "\n"
+			elif entry[1][0] == "url":
+				printlist = printlist + str(entry[0]) + " = ''" + "\n"
+			elif entry[1][0] == "text":
+				printlist = printlist + str(entry[0]) + ' = ""' + "\n"
+			else:
+				printlist = printlist + str(entry[0]) + " = " + str(entry[1][1]) + "\n"
+		program.append(printlist)
+	
+	if output[0] == "assign":
+		if output[1] == "text" or output[1] == "url" or output[1] == "number":
+			printlist = output[2] + " = " + output[3][0][1]
+			program.append(printlist)
+		elif output[1] == "textlist" or output[1] == "urllist" or output[1] == "numlist":
+			templist = []
+			for item in output[3]:
+				if output[1] == "numlist":
+					templist.append(int(item[1].replace("'", "")))
+				else:
+					templist.append(str(item[1].replace("'", "")))
+			printlist = ""
+			printlist = output[2] + " = " + str(templist)
+			program.append(printlist)
+
 	print program[0]
 	return program[0]
         
