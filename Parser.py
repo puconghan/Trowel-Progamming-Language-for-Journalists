@@ -191,14 +191,12 @@ def p_expression_extralist(p):
 
 def p_expression_listvals(p):
     '''LISTVALS : URLEXP LISTVALS
-                | TEXTEXP LISTVALS
-                | NUMEXP LISTVALS'''
+                | TEXTEXP LISTVALS'''
     p[0] = [p[1]] + p[2]
 
 def p_expression_listvals_last(p):
     '''LISTVALS : URLEXP
-                | TEXTEXP
-                | NUMEXP'''
+                | TEXTEXP'''
     p[0] = [p[1]]
 
 ##Parser for printing values.
@@ -225,6 +223,7 @@ def p_expression_text(p):
 
 def p_expression_url(p):
     'URLEXP : URLVAL'
+    print 'url expression'
     p[0] = ('url', p[1])
 
 def p_expression_number(p):
