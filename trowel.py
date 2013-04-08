@@ -37,7 +37,8 @@ def main(argv):
 		print "this is a line"
 		print line
 		output = parser.parse(line)
-		typelist.printHash()
+		print output
+		# typelist.printHash()
 		
 		if output[0] == "func":
 			if output[1] == "printvals":
