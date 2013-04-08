@@ -43,6 +43,14 @@ def p_expression_declaration(p):
     # Reset the locallist for future declaration tokens.
     typelist.locallist = []
 
+def p_expression_check_variable(p):
+    'EXISTINGVAR : IDENTIFIER'
+    if typelist.returnType(p[1]) == "Not in typelist":
+        print "Not a variable"
+    else:
+        print "Find variable: " + str(p[1]) + " in the typelist."
+        p[0] = ("existingvar", p[1], typelist.returnValue(p[1]))
+
 #Parser for additional variable tokens.
 def p_expression_additional(p):
     'ADDITIONAL : COMMA IDENTIFIER ADDITIONAL'
@@ -65,6 +73,7 @@ def p_expression_additional_empty(p):
 def p_expression_value_assignment(p):
     'EXPRESSION : IDENTIFIER IS VALS'
     if typelist.returnType(p[1]) == p[3][0][0]:
+        typelist.addNewValue(p[1], p[3])
         p[0] = ("assign", typelist.returnType(p[1]), p[1], p[3])
     elif typelist.returnType(p[1]) == "Not in typelist":
         #Print error message if type is not declared
@@ -101,7 +110,8 @@ def p_expression_value_list_assignment(p):
     else:
         print "List: " + p[1] + " item type unrecognized."
         sys.exit()
-    if typelist.returnType(p[1]) == p[3][0][0]:
+    if typelist.returnType(p[1]) == listtype:
+        typelist.addNewValue(p[1], p[3])
         p[0] = ("assign", listtype, p[1], p[3])
     elif typelist.returnType(p[1]) == "Not in typelist":
         #Print error message if type is not declared.
@@ -118,6 +128,7 @@ def p_expression_value_declaration_and_assignment(p):
     'EXPRESSION : VARTYPE IDENTIFIER IS VALS'
     if p[1] == p[4][0][0]:
         typelist.addNewType(p[2], p[1])
+        typelist.addNewType(p[2], p[4])
         p[0] = ("assign", p[1], p[2], p[4])
     else:
         #Print error message if type is miss-matched.
@@ -150,6 +161,7 @@ def p_expression_value_list_declaration_and_assignment(p):
         sys.exit()
     if p[1] == listtype:
         typelist.addNewType(p[2], p[1])
+        typelist.addNewType(p[2], p[4])
         p[0] = ("assign", listtype, p[2], p[4])
     else:
         #Print error message if type is miss-matched.
@@ -190,13 +202,17 @@ def p_expression_extralist(p):
     p[0] = p[1]
 
 def p_expression_listvals(p):
-    '''LISTVALS : URLEXP LISTVALS
-                | TEXTEXP LISTVALS'''
+    '''LISTVALS : EXISTINGVAR VALS
+                | URLEXP LISTVALS
+                | TEXTEXP LISTVALS
+                | NUMEXP LISTVALS'''
     p[0] = [p[1]] + p[2]
 
 def p_expression_listvals_last(p):
-    '''LISTVALS : URLEXP
-                | TEXTEXP'''
+    '''LISTVALS : EXISTINGVAR
+                | URLEXP
+                | TEXTEXP
+                | NUMEXP'''
     p[0] = [p[1]]
 
 ##Parser for printing values.
@@ -223,7 +239,6 @@ def p_expression_text(p):
 
 def p_expression_url(p):
     'URLEXP : URLVAL'
-    print 'url expression'
     p[0] = ('url', p[1])
 
 def p_expression_number(p):
