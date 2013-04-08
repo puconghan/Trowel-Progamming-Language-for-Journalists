@@ -53,13 +53,13 @@ def main(argv):
 		output[2].reverse()
 		for entry in output[2]:
 			if entry[1][0] == "number":
-				printlist = printlist + str(entry[0]) + " = 0" + "\n"
+				printlist = printlist + str(entry[0]) + " = 0"
 			elif entry[1][0] == "url":
-				printlist = printlist + str(entry[0]) + " = ''" + "\n"
+				printlist = printlist + str(entry[0]) + " = ''"
 			elif entry[1][0] == "text":
-				printlist = printlist + str(entry[0]) + ' = ""' + "\n"
+				printlist = printlist + str(entry[0]) + ' = ""'
 			else:
-				printlist = printlist + str(entry[0]) + " = " + str(entry[1][1]) + "\n"
+				printlist = printlist + str(entry[0]) + " = " + str(entry[1][1])
 		program.append(printlist)
 	
 	if output[0] == "assign":
