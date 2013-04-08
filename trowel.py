@@ -42,11 +42,10 @@ def main(argv):
 					list_to_print = list_to_print + str(entry[1]) + "\""
 			program.append(list_to_print)
 		elif output[1] == "printlist":
-			printlist = "print \""
+			printlist = "print "
 			for entry in output[2]:
 				if entry[0] is "text" or entry[0] is "url":
-					printlist = printlist + str(entry[1][1] + "\n")
-			printlist = printlist + "\""
+					printlist = printlist + str(entry[1] + "\n")
 			program.append(printlist)
 	
 	if output[0] == "dec":
