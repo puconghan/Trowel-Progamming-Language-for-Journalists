@@ -70,9 +70,9 @@ def main(argv):
 			templist = []
 			for item in output[3]:
 				if output[1] == "numlist":
-					templist.append(int(item[1].replace("'", "")))
+					templist.append(int(item[1].replace("'", "").replace('"', "")))
 				else:
-					templist.append(str(item[1].replace("'", "")))
+					templist.append(str(item[1].replace("'", "").replace('"', "")))
 			printlist = ""
 			printlist = output[2] + " = " + str(templist)
 			program.append(printlist)

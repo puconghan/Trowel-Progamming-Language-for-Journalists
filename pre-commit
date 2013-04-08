@@ -14,6 +14,10 @@ import trowel
 class TestTrowel(unittest.TestCase):
 	def test_print_number(self):
 		self.assertEqual(trowel.main([None, "print 45"]), 'print "45"')
+	def test_list_declaration(self):
+		self.assertEqual(trowel.main([None, "urllist temp5 is ['www.cnn.com', 'www.bbc.com']"]), "temp5 = ['www.cnn.com', 'www.bbc.com']")
+		self.assertEqual(trowel.main([None, "numlist temp5 is [1, 2, 3]"]), "temp5 = [1, 2, 3]")
+		self.assertEqual(trowel.main([None, 'textlist temp5 is ["this", "is", "a", "list"]']), "temp5 = ['this', 'is', 'a', 'list']")
 
 if __name__ == '__main__':
 	unittest.main()
