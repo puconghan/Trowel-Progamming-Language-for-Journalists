@@ -9,11 +9,18 @@ import os, sys, unittest
 if os.getcwd().split('/')[-1] == 'hooks':
 	os.chdir('../..')
 sys.path.append(os.getcwd())
+from Parser import parser
 import trowel
 
+
 class TestTrowel(unittest.TestCase):
+
 	def test_print_number(self):
 		self.assertEqual(trowel.main([None, "print 45"]), 'print "45"')
+
+	def test_parse_print_number(self):
+		print 'second test'
+		self.assertEqual(parser.parse("print 45"), ('func', 'printvals', [('number', '45')]))
 
 if __name__ == '__main__':
 	unittest.main()
