@@ -21,7 +21,7 @@
 ################
 
 import sys
-from parser import parser
+from Parser import parser
 import typelist
 
 def main(argv):
@@ -43,6 +43,7 @@ def main(argv):
 					printlist = printlist + (str(entry[1])) + "\""
 			program.append(printlist)
 	print program[0]
+	return program[0]
         
 if __name__ == "__main__":
 	main(sys.argv)

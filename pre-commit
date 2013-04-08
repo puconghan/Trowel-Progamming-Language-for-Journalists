@@ -1,0 +1,19 @@
+#! /usr/bin/python
+
+# Git pre-commit hook
+#
+# Installation instructions:
+# Hard link this file to .git/hooks with `ln pre-commit .git/hooks/pre-commit'
+
+import os, sys, unittest
+if os.getcwd().split('/')[-1] == 'hooks':
+	os.chdir('../..')
+sys.path.append(os.getcwd())
+import trowel
+
+class TestTrowel(unittest.TestCase):
+	def test_print_number(self):
+		self.assertEqual(trowel.main([None, "print 45"]), 'print "45"')
+
+if __name__ == '__main__':
+	unittest.main()
