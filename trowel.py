@@ -37,16 +37,15 @@ def main(argv):
 			list_to_print = "print \""
 			for entry in output[2]:
 				if entry[0] == "text" or entry[0] == "url":
-					list_to_print = list_to_print + str(entry[1][1:-1])
+					list_to_print = list_to_print + str(entry[1][1:-1]) + "\""
 				else:
 					list_to_print = list_to_print + str(entry[1]) + "\""
 			program.append(list_to_print)
 		elif output[1] == "printlist":
-			printlist = "print \""
+			printlist = "print "
 			for entry in output[2]:
 				if entry[0] is "text" or entry[0] is "url":
-					printlist = printlist + str(entry[1][1] + "\n")
-			printlist = printlist + "\""
+					printlist = printlist + str(entry[1] + "\n")
 			program.append(printlist)
 	
 	if output[0] == "dec":
@@ -54,13 +53,13 @@ def main(argv):
 		output[2].reverse()
 		for entry in output[2]:
 			if entry[1][0] == "number":
-				printlist = printlist + str(entry[0]) + " = 0" + "\n"
+				printlist = printlist + str(entry[0]) + " = 0"
 			elif entry[1][0] == "url":
-				printlist = printlist + str(entry[0]) + " = ''" + "\n"
+				printlist = printlist + str(entry[0]) + " = ''"
 			elif entry[1][0] == "text":
-				printlist = printlist + str(entry[0]) + ' = ""' + "\n"
+				printlist = printlist + str(entry[0]) + ' = ""'
 			else:
-				printlist = printlist + str(entry[0]) + " = " + str(entry[1][1]) + "\n"
+				printlist = printlist + str(entry[0]) + " = " + str(entry[1][1])
 		program.append(printlist)
 	
 	if output[0] == "assign":
@@ -71,9 +70,9 @@ def main(argv):
 			templist = []
 			for item in output[3]:
 				if output[1] == "numlist":
-					templist.append(int(item[1].replace("'", "")))
+					templist.append(int(item[1].replace("'", "").replace('"', "")))
 				else:
-					templist.append(str(item[1].replace("'", "")))
+					templist.append(str(item[1].replace("'", "").replace('"', "")))
 			printlist = ""
 			printlist = output[2] + " = " + str(templist)
 			program.append(printlist)
