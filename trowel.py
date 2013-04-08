@@ -37,7 +37,7 @@ def main(argv):
 			list_to_print = "print \""
 			for entry in output[2]:
 				if entry[0] == "text" or entry[0] == "url":
-					list_to_print = list_to_print + str(entry[1][1:-1])
+					list_to_print = list_to_print + str(entry[1][1:-1]) + "\""
 				else:
 					list_to_print = list_to_print + str(entry[1]) + "\""
 			program.append(list_to_print)
