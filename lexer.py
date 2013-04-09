@@ -93,7 +93,7 @@ t_RIGHTSQUAREBRACKET = r'\]'
 t_LEFTSQUAREBRACKET   = r'\['
 
 ##Tab (\t)
-t_TAB = r'^\t'
+t_TAB = r'\t'
 
 ##Comments (#).
 def t_COMMENTS(t):

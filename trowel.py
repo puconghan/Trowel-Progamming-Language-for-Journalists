@@ -52,9 +52,7 @@ def operationChecker(item):
 
 	if item == "emptyline":
 		print "Empty Line Captured"
-
-	elif item == "tab":
-		print "Tab Captured"
+		program.append("\n")
 
 	elif item[0] == "func":
 		if item[1] == "printvals":
@@ -107,7 +105,7 @@ def main(argv):
 		line = line.rstrip('\n')
 		output = parser.parse(line)
 
-		# print output
+		print output
 		# typelist.printTypeList()
 		# typelist.printValList()
 

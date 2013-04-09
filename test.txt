@@ -5,8 +5,4 @@ text temp2
 temp2 is temp1
 textlist temp3
 temp3 is temp
-textlist temp4 is temp
-
-
-
-	
+	textlist temp4 is temp
