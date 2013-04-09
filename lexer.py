@@ -16,6 +16,7 @@
 #               Created by Pucong Han on Mar 11, 2013
 #               Initial version implemented by Pucong Han on Mar 30, 2013
 #               Modified by Pucong Han, Robert Walport and Victoria Mo on April 6, 2013
+#               Modified by Pucong Han on April 9, 2013
 ################
 
 import ply.lex as lex
@@ -24,6 +25,7 @@ import ply.lex as lex
 tokens = (
    #Comment (#)
    'COMMENTS',
+   'TAB',
    #Logical Operators (AND OR NOT).
    'AND',
    'OR',
@@ -89,6 +91,9 @@ t_SINGLECOLON        = r'"'
 t_DOUBLECOLON        = r"'"
 t_RIGHTSQUAREBRACKET = r'\]'
 t_LEFTSQUAREBRACKET   = r'\['
+
+##Tab (\t)
+t_TAB = r'^\t'
 
 ##Comments (#).
 def t_COMMENTS(t):
@@ -218,7 +223,7 @@ def t_IDENTIFIER(t):
     return t
 
 ##A string containing ignored characters (spaces and tabs).
-t_ignore  = ' \t'
+t_ignore  = ' '
 
 ##Error handling rule for lexer.
 def t_error(t):

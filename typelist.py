@@ -59,12 +59,12 @@ def returnValue(variablename):
 
 ##Function printHash prints the typelist (for testing purpose).
 # Implemented by Pucong Han on April 6, 2013.
-def printHash():
+def printTypeList():
 	print "Type list"
 	print typelist
 
-##Function printLocal prints locallist (for testing purpose).
-# Implemented by Pucong Han on April 6, 2013.
-def printLocal():
-	print "Local list"
-	print locallist
+##Function printValList prints the vallist (for testing purpose).
+# Implemented by Pucong Han on April 9, 2013.
+def printValList():
+	print "Type list"
+	print vallist

@@ -20,6 +20,7 @@
 #               Modified by all team authors on April 6, 2013
 #               Modified by Pucong Han on April 7, 2013
 #               Modified by Pucong Han, Robert Walport and Victoria Mo on April 8, 2013
+#               Modified by Pucong Han on April 9, 2013
 ################
 
 import sys
@@ -241,17 +242,6 @@ def p_expression_value_declaration_and_assignment_between_variables(p):
     else:
         print "Wrong assignment." + "Variable: " + p[3] + " does not contain values."
 
-##Parser for variable types.
-# Implemented by Pucong on April 6, 2013.
-def p_expression_vartype(p):
-    '''VARTYPE : URL
-               | TEXT
-               | NUMBER
-               | URLLIST
-               | TEXTLIST
-               | NUMLIST'''
-    p[0] = p[1]
-
 ##Parser for printing a list.
 # Implemented by Victoria Mo and Robert Walport on April 6, 2013.
 def p_expression_printlist(p):
@@ -265,6 +255,16 @@ def p_expression_printvals(p):
     'EXPRESSION : PRINT VALS'
     p[0] = ("func", "printvals", p[2])
 
+##Parser for tab input.
+# Implemented by Pucong on April 9, 2013
+# Todo: Need to figure out a way to keep track of tabs:)
+def p_expression_tab(p):
+    'EXPRESSION : TAB'
+    p[0] = ("tab")
+
+def p_expression_empty_line(p):
+    'EXPRESSION : EMPTY'
+    p[0] = ("emptyline")
 
 ##Basic building blocks
 # Created by Victoria Mo and Robert Walport on April 6, 2013.
@@ -276,6 +276,17 @@ def p_expression_check_variable(p):
     else:
         print "Find variable: " + str(p[1]) + " in the typelist."
         p[0] = ("existingvar", p[1], typelist.returnValue(p[1]))
+
+##Parser for variable types.
+# Implemented by Pucong on April 6, 2013.
+def p_expression_vartype(p):
+    '''VARTYPE : URL
+               | TEXT
+               | NUMBER
+               | URLLIST
+               | TEXTLIST
+               | NUMLIST'''
+    p[0] = p[1]
 
 def p_expression_list(p):
     'LIST : LEFTSQUAREBRACKET LISTITEMS RIGHTSQUAREBRACKET'

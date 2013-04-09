@@ -50,7 +50,13 @@ def operationChecker(item):
 	if type(item) is list:
 		item = item[0]
 
-	if item[0] == "func":
+	if item == "emptyline":
+		print "Empty Line Captured"
+
+	elif item == "tab":
+		print "Tab Captured"
+
+	elif item[0] == "func":
 		if item[1] == "printvals":
 			printvals(item[2])
 		elif item[1] == "printlist":
@@ -102,11 +108,11 @@ def main(argv):
 		output = parser.parse(line)
 
 		# print output
-		# typelist.printHash()
+		# typelist.printTypeList()
+		# typelist.printValList()
 
 		#Calling operation checker when output is not null (not empty line).
-		if output != None:
-			operationChecker(output)
+		operationChecker(output)
 		
 
 	for entry in program:
