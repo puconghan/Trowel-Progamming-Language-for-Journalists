@@ -1,2 +1,2 @@
-numlist temp
-temp is [1, 2, 3]
+textlist temp
+temp is ["this", "is", "a", "test"]

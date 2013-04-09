@@ -49,7 +49,7 @@ def printList(item):
 def operationChecker(item):
 	if type(item) is list:
 		item = item[0]
-	print item[0]
+
 	if item[0] == "func":
 		if item[1] == "printvals":
 			printvals(item[2])
@@ -71,17 +71,18 @@ def operationChecker(item):
 			else:
 				printlist = printlist + str(entry[0]) + " = " + str(entry[1][1])
 		program.append(printlist)
+	
 	elif item[0] == "assign":
 		if item[1] == "text" or item[1] == "url" or item[1] == "number":
 			printlist = item[2] + " = " + item[3][0][1]
 			program.append(printlist)
 		elif item[1] == "textlist" or item[1] == "urllist" or item[1] == "numlist":
 			templist = []
-			for item in item[3]:
-				if item[1] == "numlist":
-					templist.append(int(item[1].replace("'", "").replace('"', "")))
+			for subitem in item[3]:
+				if subitem[1] == "numlist":
+					templist.append(int(subitem[1].replace("'", "").replace('"', "")))
 				else:
-					templist.append(str(item[1].replace("'", "").replace('"', "")))
+					templist.append(str(subitem[1].replace("'", "").replace('"', "")))
 			printlist = ""
 			printlist = item[2] + " = " + str(templist)
 			program.append(printlist)
@@ -99,7 +100,7 @@ def main(argv):
 	for line in f:
 		line = line.rstrip('\n')
 		output = parser.parse(line)
-		print output
+		# print output
 		# typelist.printHash()
 		operationChecker(output)
 		
