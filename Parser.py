@@ -193,8 +193,7 @@ def p_expression_value_list_declaration_and_assignment(p):
         print "List: " + p[2] + " item type unrecognized."
         sys.exit()
     if p[1] == listtype:
-        typelist.addNewType(
-            p[2], p[1])
+        typelist.addNewType(p[2], p[1])
         typelist.addNewValue(p[2], p[4])
         p[0] = ("assign", listtype, p[2], p[4])
     else:
