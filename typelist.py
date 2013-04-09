@@ -20,6 +20,7 @@ typelist = {}
 vallist = {}
 #Varlist is a list storing variables
 varlist = []
+
 #Locallist is a list contains local variables.
 locallist = []
 
@@ -60,11 +61,17 @@ def returnValue(variablename):
 ##Function printHash prints the typelist (for testing purpose).
 # Implemented by Pucong Han on April 6, 2013.
 def printTypeList():
-	print "Type list"
+	print ""
+	print "-----Type list-----"
 	print typelist
+	print "-------------------"
+	print ""
 
 ##Function printValList prints the vallist (for testing purpose).
 # Implemented by Pucong Han on April 9, 2013.
 def printValList():
-	print "Type list"
+	print ""
+	print "-----Value list-----"
 	print vallist
+	print "-------------------"
+	print ""

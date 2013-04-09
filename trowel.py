@@ -47,6 +47,7 @@ def printList(item):
 
 #Recursive definitions of functions allowing for functions within functions
 def operationChecker(item):
+	printlist = ""
 	if type(item) is list:
 		item = item[0]
 
@@ -63,7 +64,6 @@ def operationChecker(item):
 			print "Not yet implemented/error"
 	
 	elif item[0] == "dec":
-		printlist = ""
 		item[2].reverse()
 		for entry in item[2]:
 			if entry[1][0] == "number":
@@ -87,8 +87,10 @@ def operationChecker(item):
 					templist.append(int(subitem[1].replace("'", "").replace('"', "")))
 				else:
 					templist.append(str(subitem[1].replace("'", "").replace('"', "")))
-			printlist = ""
 			printlist = item[2] + " = " + str(templist)
+			program.append(printlist)
+		elif item[1] == "variable":
+			printlist = item[2] + " = " + item[3]
 			program.append(printlist)
 	else:
 		return item
@@ -105,12 +107,13 @@ def main(argv):
 		line = line.rstrip('\n')
 		output = parser.parse(line)
 
-		print output
-		# typelist.printTypeList()
-		# typelist.printValList()
-
 		#Calling operation checker when output is not null (not empty line).
 		operationChecker(output)
+
+		# print output
+	typelist.printTypeList()
+	typelist.printValList()
+
 		
 
 	for entry in program:

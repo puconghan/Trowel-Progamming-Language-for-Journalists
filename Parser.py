@@ -152,7 +152,7 @@ def p_expression_value_assignment_between_variables(p):
                 sys.exit()
 
         typelist.addNewValue(p[2], p[4][2])
-        p[0] = ("assign", typelist.returnType(p[2]), p[2], typelist.returnValue(p[2]))
+        p[0] = ("assign", "variable", p[2], p[4][1])
     else:
         print "Wrong assignment." + "Variable: " + p[4] + " does not contain values."
 
@@ -238,7 +238,7 @@ def p_expression_value_declaration_and_assignment_between_variables(p):
                 sys.exit()
         typelist.addNewType(p[3], p[2])
         typelist.addNewValue(p[3], p[5][2])
-        p[0] = ("assign", typelist.returnType(p[3]), p[3], typelist.returnValue(p[3]))
+        p[0] = ("assign", "variable", p[3], p[5][1])
     else:
         print "Wrong assignment." + "Variable: " + p[5] + " does not contain values."
 
