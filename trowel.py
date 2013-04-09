@@ -34,7 +34,6 @@ def printvals(item):
 		if entry[0] == "text" or entry[0] == "url":
 			list_to_print = list_to_print + str(entry[1][1:-1]) + "\""
 		else: #print number
-			print "number!"
 			list_to_print = list_to_print + str(entry[1]) + "\""
 	program.append(list_to_print)
 	
@@ -43,12 +42,14 @@ def printList(item):
 	operationChecker(item)
 	printlist = ""
 	for entry in item:
-		if entry[0] is "text" or entry[0] is "url":
-			printlist = printlist + "print" + str(entry[1] + "\n")
-	program.append(printlist[:-2])
+		printlist = printlist + "print " + str(entry[1] + "\n")
+	program.append(printlist[:-1])
 
 #Recursive definitions of functions allowing for functions within functions
 def operationChecker(item):
+	if type(item) is list:
+		item = item[0]
+	print item[0]
 	if item[0] == "func":
 		if item[1] == "printvals":
 			printvals(item[2])
