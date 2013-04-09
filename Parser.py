@@ -333,7 +333,7 @@ def p_expression_number(p):
 # Implemented by Pucong on April 9, 2013
 # TODO: Need to implement local scope of indentation.
 def p_expression_tab(p):
-    'INDENTATION : TAB'
+    'INDENTATION : TAB INDENTATION'
     pass
 
 def p_expression_tab_empty(p):
