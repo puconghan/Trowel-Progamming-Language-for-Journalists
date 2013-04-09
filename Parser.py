@@ -44,14 +44,6 @@ def p_expression_declaration(p):
     # Reset the locallist for future declaration tokens.
     typelist.locallist = []
 
-def p_expression_check_variable(p):
-    'EXISTINGVAR : IDENTIFIER'
-    if typelist.returnType(p[1]) == "Not in typelist":
-        print "Not a variable"
-    else:
-        print "Find variable: " + str(p[1]) + " in the typelist."
-        p[0] = ("existingvar", p[1], typelist.returnValue(p[1]))
-
 #Parser for additional variable tokens.
 def p_expression_additional(p):
     'ADDITIONAL : COMMA IDENTIFIER ADDITIONAL'
@@ -129,12 +121,22 @@ def p_expression_value_declaration_and_assignment(p):
     'EXPRESSION : VARTYPE IDENTIFIER IS VALS'
     if p[1] == p[4][0][0]:
         typelist.addNewType(p[2], p[1])
-        typelist.addNewType(p[2], p[4])
+        typelist.addNewValue(p[2], p[4])
         p[0] = ("assign", p[1], p[2], p[4])
     else:
         #Print error message if type is miss-matched.
         print "Variable: " + str(p[2]) + " declaration type and assigning type miss matching."
         sys.exit()
+
+##Parser for declaring varibale and assigning values.
+# Implemented by Pucong on April 8, 2013.
+def p_expression_value_declaration_and_assignment_between_variables(p):
+    'EXPRESSION : IDENTIFIER IS EXISTINGVAR'
+    if p[3][0] == "existingvar":
+        typelist.addNewValue(p[1], p[3][2])
+        p[0] = ("assign", typelist.returnType(p[1]), p[1], typelist.returnValue(p[1]))
+    else:
+        print "Wrong assignment." + "Variable: " + p[3] + " does not contain values."
 
 ##Parser for declaring list of varibale and assigning values.
 # Implemented by Pucong on April 7, 2013.
@@ -161,8 +163,9 @@ def p_expression_value_list_declaration_and_assignment(p):
         print "List: " + p[2] + " item type unrecognized."
         sys.exit()
     if p[1] == listtype:
-        typelist.addNewType(p[2], p[1])
-        typelist.addNewType(p[2], p[4])
+        typelist.addNewType(
+            p[2], p[1])
+        typelist.addNewValue(p[2], p[4])
         p[0] = ("assign", listtype, p[2], p[4])
     else:
         #Print error message if type is miss-matched.
@@ -181,14 +184,23 @@ def p_expression_vartype(p):
                | NUMLIST'''
     p[0] = p[1]
 
-
 ##Parser for printing a list.
 # Implemented by Victoria Mo and Robert Walport on April 6, 2013.
-# Changed by Pucong Han on April 7, 2013.
 def p_expression_printlist(p):
     'EXPRESSION : PRINT LIST'
     print "Found a list print statement"
     p[0] = ("func", "printlist", p[2])
+
+##Basic building blocks
+# Created by Victoria Mo and Robert Walport on April 6, 2013.
+# Modified by Pucong Han on April 8, 2013
+def p_expression_check_variable(p):
+    'EXISTINGVAR : IDENTIFIER'
+    if typelist.returnType(p[1]) == "Not in typelist":
+        print "Not a variable"
+    else:
+        print "Find variable: " + str(p[1]) + " in the typelist."
+        p[0] = ("existingvar", p[1], typelist.returnValue(p[1]))
 
 def p_expression_list(p):
     'LIST : LEFTSQUAREBRACKET LISTITEMS RIGHTSQUAREBRACKET'
@@ -203,15 +215,13 @@ def p_expression_extralist(p):
     p[0] = p[1]
 
 def p_expression_listvals(p):
-    '''LISTVALS : EXISTINGVAR VALS
-                | URLEXP LISTVALS
+    '''LISTVALS : URLEXP LISTVALS
                 | TEXTEXP LISTVALS
                 | NUMEXP LISTVALS'''
     p[0] = [p[1]] + p[2]
 
 def p_expression_listvals_last(p):
-    '''LISTVALS : EXISTINGVAR
-                | URLEXP
+    '''LISTVALS : URLEXP
                 | TEXTEXP
                 | NUMEXP'''
     p[0] = [p[1]]

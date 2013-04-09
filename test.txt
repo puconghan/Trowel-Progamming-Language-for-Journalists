@@ -1,2 +1,5 @@
 textlist temp
 temp is ["this", "is", "a", "test"]
+text temp1 is "see that works"
+text temp2
+temp2 is temp1
