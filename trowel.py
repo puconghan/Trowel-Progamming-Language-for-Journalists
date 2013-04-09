@@ -77,21 +77,29 @@ def operationChecker(item):
 		program.append(printlist)
 	
 	elif item[0] == "assign":
-		if item[1] == "text" or item[1] == "url" or item[1] == "number":
+		if item[1] == "number":
 			printlist = item[2] + " = " + item[3][0][1]
+			program.append(printlist)
+		elif item[1] == "text":
+			printlist = item[2] + ' = "' + item[3][0][1] + '"'
+			program.append(printlist)
+		elif item[1] == "url":
+			printlist = item[2] + " = '" + item[3][0][1] + "'"
 			program.append(printlist)
 		elif item[1] == "textlist" or item[1] == "urllist" or item[1] == "numlist":
 			templist = []
 			for subitem in item[3]:
 				if subitem[1] == "numlist":
-					templist.append(int(subitem[1].replace("'", "").replace('"', "")))
+					templist.append(int(subitem[1]))
 				else:
-					templist.append(str(subitem[1].replace("'", "").replace('"', "")))
+					templist.append(str(subitem[1]))
 			printlist = item[2] + " = " + str(templist)
 			program.append(printlist)
 		elif item[1] == "variable":
 			printlist = item[2] + " = " + item[3]
 			program.append(printlist)
+		else:
+			print "Unrecognized assignment tokens."
 	else:
 		return item
 

@@ -267,7 +267,6 @@ def p_expression_check_variable(p):
     if typelist.returnType(p[1]) == "Not in typelist":
         print "Not a variable"
     else:
-        print "Find variable: " + str(p[1]) + " in the typelist."
         p[0] = ("existingvar", p[1], typelist.returnValue(p[1]))
 
 ##Parser for variable types.
@@ -319,15 +318,15 @@ def p_expression_vals_last(p):
 
 def p_expression_text(p):
     'TEXTEXP : TEXTVAL'
-    p[0] = ('text', p[1])
+    p[0] = ('text', p[1].replace("'", "").replace('"', ""))
 
 def p_expression_url(p):
     'URLEXP : URLVAL'
-    p[0] = ('url', p[1])
+    p[0] = ('url', p[1].replace("'", "").replace('"', ""))
 
 def p_expression_number(p):
     'NUMEXP : NUMVAL'
-    p[0] = ('number', p[1])
+    p[0] = ('number', p[1].replace("'", "").replace('"', ""))
 
 ##Parser for tab input.
 # Implemented by Pucong on April 9, 2013
