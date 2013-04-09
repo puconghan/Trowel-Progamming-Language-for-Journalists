@@ -115,6 +115,46 @@ def p_expression_value_list_assignment(p):
         print "Variable: " + str(p[1]) + " assigning type miss matching."
         sys.exit()
 
+##Parser for declaring varibale and assigning values from another variable.
+# Implemented by Pucong on April 8, 2013.
+def p_expression_value_assignment_between_variables(p):
+    'EXPRESSION : IDENTIFIER IS EXISTINGVAR'
+    if p[3][0] == "existingvar":
+        if len(p[3][2]) == 1:
+            if typelist.returnType(p[1]) != p[3][2][0][0]:
+                #Print error message if variable is miss-matched.
+                print "Type miss-matched of variable: " + p[1]
+                sys.exit()
+        else:
+            typecheck = p[3][2][0][0]
+            listtype = ""
+            for subitem in p[3][2]:
+                if subitem[0] == typecheck:
+                    typecheck = subitem[0]
+                else:
+                    #Print error message if list contains inconsistant types.
+                    print "List contains illegal or inconsistant types or values."
+                    sys.exit()
+            #Code for predicting list type using list item types.
+            if typecheck == "url":
+                listtype = "urllist"
+            elif typecheck == "text":
+                listtype = "textlist"
+            elif typecheck == "number":
+                listtype = "numlist"
+            else:
+                print "List: " + p[1] + " item type unrecognized."
+                sys.exit()
+            if typelist.returnType(p[1]) != listtype:
+                #Print error message if variable is miss-matched.
+                print "Type miss-matched of variable: " + p[1]
+                sys.exit()
+
+        typelist.addNewValue(p[1], p[3][2])
+        p[0] = ("assign", typelist.returnType(p[1]), p[1], typelist.returnValue(p[1]))
+    else:
+        print "Wrong assignment." + "Variable: " + p[3] + " does not contain values."
+
 ##Parser for declaring varibale and assigning values.
 # Implemented by Pucong on April 7, 2013.
 def p_expression_value_declaration_and_assignment(p):
@@ -127,16 +167,6 @@ def p_expression_value_declaration_and_assignment(p):
         #Print error message if type is miss-matched.
         print "Variable: " + str(p[2]) + " declaration type and assigning type miss matching."
         sys.exit()
-
-##Parser for declaring varibale and assigning values.
-# Implemented by Pucong on April 8, 2013.
-def p_expression_value_declaration_and_assignment_between_variables(p):
-    'EXPRESSION : IDENTIFIER IS EXISTINGVAR'
-    if p[3][0] == "existingvar":
-        typelist.addNewValue(p[1], p[3][2])
-        p[0] = ("assign", typelist.returnType(p[1]), p[1], typelist.returnValue(p[1]))
-    else:
-        print "Wrong assignment." + "Variable: " + p[3] + " does not contain values."
 
 ##Parser for declaring list of varibale and assigning values.
 # Implemented by Pucong on April 7, 2013.
@@ -172,6 +202,45 @@ def p_expression_value_list_declaration_and_assignment(p):
         print "Variable: " + str(p[2]) + " declaration type and assigning type miss matching."
         sys.exit()
 
+##Parser for declaring varibale and assigning values from another variable.
+# Implemented by Pucong on April 8, 2013.
+def p_expression_value_declaration_and_assignment_between_variables(p):
+    'EXPRESSION : VARTYPE IDENTIFIER IS EXISTINGVAR'
+    if p[4][0] == "existingvar":
+        if len(p[4][2]) == 1:
+            if typelist.returnType(p[2]) != p[4][2][0][0]:
+                #Print error message if variable is miss-matched.
+                print "Type miss-matched of variable: " + p[2]
+                sys.exit()
+        else:
+            typecheck = p[4][2][0][0]
+            listtype = ""
+            for subitem in p[4][2]:
+                if subitem[0] == typecheck:
+                    typecheck = subitem[0]
+                else:
+                    #Print error message if list contains inconsistant types.
+                    print "List contains illegal or inconsistant types or values."
+                    sys.exit()
+            #Code for predicting list type using list item types.
+            if typecheck == "url":
+                listtype = "urllist"
+            elif typecheck == "text":
+                listtype = "textlist"
+            elif typecheck == "number":
+                listtype = "numlist"
+            else:
+                print "List: " + p[2] + " item type unrecognized."
+                sys.exit()
+            if listtype != p[1]:
+                #Print error message if variable is miss-matched.
+                print "Type miss-matched of variable: " + p[1]
+                sys.exit()
+        typelist.addNewType(p[2], p[1])
+        typelist.addNewValue(p[2], p[4][2])
+        p[0] = ("assign", typelist.returnType(p[2]), p[2], typelist.returnValue(p[2]))
+    else:
+        print "Wrong assignment." + "Variable: " + p[3] + " does not contain values."
 
 ##Parser for variable types.
 # Implemented by Pucong on April 6, 2013.
