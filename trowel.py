@@ -100,9 +100,13 @@ def main(argv):
 	for line in f:
 		line = line.rstrip('\n')
 		output = parser.parse(line)
+
 		# print output
 		# typelist.printHash()
-		operationChecker(output)
+
+		#Calling operation checker when output is not null (not empty line).
+		if output != None:
+			operationChecker(output)
 		
 
 	for entry in program:

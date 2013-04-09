@@ -191,6 +191,13 @@ def p_expression_printlist(p):
     print "Found a list print statement"
     p[0] = ("func", "printlist", p[2])
 
+##Parser for printing values.
+# Implemented by Victoria Mo and Robert Walport on April 6, 2013.
+def p_expression_printvals(p):
+    'EXPRESSION : PRINT VALS'
+    p[0] = ("func", "printvals", p[2])
+
+
 ##Basic building blocks
 # Created by Victoria Mo and Robert Walport on April 6, 2013.
 # Modified by Pucong Han on April 8, 2013
@@ -225,12 +232,6 @@ def p_expression_listvals_last(p):
                 | TEXTEXP
                 | NUMEXP'''
     p[0] = [p[1]]
-
-##Parser for printing values.
-# Implemented by Victoria Mo and Robert Walport on April 6, 2013.
-def p_expression_printvals(p):
-    'EXPRESSION : PRINT VALS'
-    p[0] = ("func", "printvals", p[2])
 
 def p_expression_vals(p):
     '''VALS : URLEXP VALS
