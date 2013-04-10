@@ -242,6 +242,17 @@ def p_expression_value_declaration_and_assignment_between_variables(p):
     else:
         print "Wrong assignment." + "Variable: " + p[5] + " does not contain values."
 
+def p_expression_function(p):
+    'EXPRESSION : FUNCTION'
+    p[0] = p[1]
+
+##Parser for combining a url and text or number
+# need to be able to do combine combine urlexp and textexp and numexp
+def p_expression_combine(p):
+    '''FUNCTION : COMBINE URLEXP AND TEXTEXP
+                | COMBINE URLEXP AND NUMEXP'''
+    p[0] = ("func", "combine", ('url',p[2][1]+p[4][1]))
+
 ##Parser for printing a list.
 # Implemented by Victoria Mo and Robert Walport on April 6, 2013.
 def p_expression_printlist(p):
@@ -267,7 +278,7 @@ def p_expression_check_variable(p):
     if typelist.returnType(p[1]) == "Not in typelist":
         print "Not a variable"
     else:
-        p[0] = ("existingvar", p[1], typelist.returnValue(p[1]))
+        p[0] = ("existingvar", typelist.returnValue(p[1])[0][1]) #multi-indexing because of the way typelist is stored
 
 ##Parser for variable types.
 # Implemented by Pucong on April 6, 2013.
@@ -307,13 +318,17 @@ def p_expression_listvals_last(p):
 def p_expression_vals(p):
     '''VALS : URLEXP VALS
             | TEXTEXP VALS
-            | NUMEXP VALS'''
+            | NUMEXP VALS
+            | EXISTINGVAR VALS
+            | FUNCTION VALS'''
     p[0] = [p[1]] + p[2]
 
 def p_expression_vals_last(p):
     '''VALS : URLEXP
             | TEXTEXP
-            | NUMEXP'''
+            | NUMEXP
+            | EXISTINGVAR
+            | FUNCTION'''
     p[0] = [p[1]]
 
 def p_expression_text(p):
