@@ -1,0 +1,22 @@
+Printing with variables:
+
+Currently we correctly detect which tokens are variables and detect their value. However the output of:
+	number x is 5
+	print x
+	
+	should be:
+	
+	x = 5
+	print x
+	
+	currently it is:
+	
+	x = 5
+	print "5"
+
+	Failing tests:
+	
+	def test_two_line_assign_print(self):
+		self.assertEqual(trowel.main([None, r'number temp is 5\nprint temp']), ["temp = 5", "print temp"])
+		self.assertEqual(trowel.main([None, r'text temp is "this is text"\nprint temp']), ["temp = \"this is temp\""])
+		self.assertEqual(trowel.main([None, r'url temp is \'this is text\'\nprint temp']), ["temp = \"this is text\"", "print temp"])
