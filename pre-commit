@@ -38,6 +38,10 @@ class TestTrowel(unittest.TestCase):
 	def test_print_mixedVal(self):
 		self.assertEqual(trowel.main([None, "print \"I am a text object \" 45"]), ['print "I am a text object 45"'])
 		self.assertEqual(trowel.main([None, "print \"I am a text object \" 'www.bbc.co.uk' \" \" 45"]), ['print "I am a text object www.bbc.co.uk 45"'])
+	
+	def test_print_combine(self):
+		self.assertEqual(trowel.main([None, "print 5 combine ( 'www.bbc.co.uk?' and 5 )"]), ['print "5www.bbc.co.uk?5"'])
+		self.assertEqual(trowel.main([None, "print combine ( 'www.bbc.co.uk?' and \"text\" )"]), ['print "www.bbc.co.uk?text"'])
 		
 	def test_variable_declaration(self):
 		self.assertEqual(trowel.main([None, "url temp"]), ["temp = ''"])
@@ -54,16 +58,21 @@ class TestTrowel(unittest.TestCase):
 		self.assertEqual(trowel.main([None, "numlist temp5 is [1, 2, 3]"]), ["temp5 = [1, 2, 3]"])
 		self.assertEqual(trowel.main([None, 'textlist temp5 is ["this", "is", "a", "list"]']), ["temp5 = ['this', 'is', 'a', 'list']"])
 		
-	def test_list_one_line_declaration_and_assignment(self):
+	def test_variable_one_line_declaration_and_assignment(self):
 		self.assertEqual(trowel.main([None, "url temp is 'www.cnn.com'"]), ["temp = 'www.cnn.com'"])
 		self.assertEqual(trowel.main([None, "number temp is 10"]), ["temp = 10"])
-		self.assertEqual(trowel.main([None, 'text temp is "variable"']), ['temp = "variable"'])
+		self.assertEqual(trowel.main([None, 'text temp is "variable"']), ['temp = "variable"'])		
 		
 	# Multiline input tests
 	def test_two_line_declare_assign(self):
 		self.assertEqual(trowel.main([None, r'text temp\ntemp is "This is text"']), ["temp = \"\"", "temp = \"This is text\""])
 		self.assertEqual(trowel.main([None, r'number temp\ntemp is 5']), ["temp = 0", "temp = 5"])
 		self.assertEqual(trowel.main([None, r"url temp\ntemp is 'www.bbc.co.uk'"]), ["temp = ''", "temp = 'www.bbc.co.uk'"])
+	
+#	def test_two_line_assign_print(self):
+#		self.assertEqual(trowel.main([None, r'number temp is 5\nprint temp']), ["temp = 5", "print temp"])
+#		self.assertEqual(trowel.main([None, r'text temp is "this is text"\nprint temp']), ["temp = \"this is temp\""])
+#		self.assertEqual(trowel.main([None, r'url temp is \'this is text\'\nprint temp']), ["temp = \"this is text\"", "print temp"])
 	
 	# Sample program tests
 

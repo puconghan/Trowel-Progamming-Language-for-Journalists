@@ -94,7 +94,7 @@ def operationChecker(item):
 		elif item[1] == "textlist" or item[1] == "urllist" or item[1] == "numlist":
 			templist = []
 			for subitem in item[3]:
-				if subitem[1] == "numlist":
+				if subitem[0] == "number":
 					templist.append(int(subitem[1]))
 				else:
 					templist.append(str(subitem[1]))
@@ -117,9 +117,9 @@ def main(argv):
 	except:
 		f = inputs.split(r'\n')
 	for line in f:
-		print line
 		line = line.rstrip('\n')
 		output = parser.parse(line)
+		print output
 
 		#Calling operation checker when output is not null (not empty line).
 		operationChecker(output)
@@ -132,7 +132,6 @@ def main(argv):
 
 	for entry in program:
 		print entry
-	print program
 	return program
         
 if __name__ == "__main__":
