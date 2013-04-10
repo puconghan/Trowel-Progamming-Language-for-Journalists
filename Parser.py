@@ -248,9 +248,10 @@ def p_expression_function(p):
 
 ##Parser for combining a url and text or number
 # need to be able to do combine combine urlexp and textexp and numexp
+# embedded functions are in parentheses
 def p_expression_combine(p):
     '''FUNCTION : COMBINE URLEXP AND TEXTEXP
-                | COMBINE URLEXP AND NUMEXP'''
+                   | COMBINE URLEXP AND NUMEXP'''
     p[0] = ("func", "combine", ('url',p[2][1]+p[4][1]))
 
 ##Parser for printing a list.
@@ -319,17 +320,23 @@ def p_expression_vals(p):
     '''VALS : URLEXP VALS
             | TEXTEXP VALS
             | NUMEXP VALS
-            | EXISTINGVAR VALS
-            | FUNCTION VALS'''
+            | EXISTINGVAR VALS'''
     p[0] = [p[1]] + p[2]
+
+def p_expression_vals_func(p):
+    'VALS : LEFTPAREN FUNCTION RIGHTPAREN VALS'
+    p[0] = [p[2]] + p[4]
 
 def p_expression_vals_last(p):
     '''VALS : URLEXP
             | TEXTEXP
             | NUMEXP
-            | EXISTINGVAR
-            | FUNCTION'''
+            | EXISTINGVAR'''
     p[0] = [p[1]]
+
+def p_expression_vals_last_func(p):
+    'VALS : LEFTPAREN FUNCTION RIGHTPAREN'
+    p[0] = [p[2]]
 
 def p_expression_text(p):
     'TEXTEXP : TEXTVAL'

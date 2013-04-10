@@ -70,6 +70,8 @@ tokens = (
    'DOUBLECOLON',
    'RIGHTSQUAREBRACKET',
    'LEFTSQUAREBRACKET',
+   'LEFTPAREN',
+   'RIGHTPAREN',
    #Identifier captures everything else.
    'IDENTIFIER',
    'NUMVAL',
@@ -89,8 +91,10 @@ t_NOTEQUAL = r'=/='
 t_COMMA              = r','
 t_SINGLECOLON        = r'"'
 t_DOUBLECOLON        = r"'"
-t_RIGHTSQUAREBRACKET = r'\]'
 t_LEFTSQUAREBRACKET   = r'\['
+t_RIGHTSQUAREBRACKET = r'\]'
+t_LEFTPAREN   = r'\('
+t_RIGHTPAREN = r'\)'
 
 ##Tab (\t)
 t_TAB = r'\t'
