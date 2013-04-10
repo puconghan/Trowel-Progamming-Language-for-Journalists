@@ -26,9 +26,11 @@ import sys
 from Parser import parser
 import typelist
 
-def printvals(item):
+def printvals(i):
+	item = []
 	global program
-	operationChecker(item)
+	for val in i:
+		item.append(operationChecker(val))
 	list_to_print = "print \""
 	for entry in item:
 		if entry[0] == "text" or entry[0] == "url":
@@ -61,6 +63,8 @@ def operationChecker(item):
 			printvals(item[2])
 		elif item[1] == "printlist":
 			printList(item[2])
+		elif item[1] == "combine":
+			return item[2]
 		else:
 			print "Not yet implemented/error"
 	
