@@ -119,7 +119,6 @@ def main(argv):
 	for line in f:
 		line = line.rstrip('\n')
 		output = parser.parse(line)
-		print output
 
 		#Calling operation checker when output is not null (not empty line).
 		operationChecker(output)
