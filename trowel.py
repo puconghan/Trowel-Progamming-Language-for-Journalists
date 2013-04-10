@@ -20,6 +20,7 @@
 #               Created and Modified by Pucong Han, Robert Walport and Victoria Mo on April 6, 2013
 #				Modified by Pucong Han and Robert Walport on April 7, 2013
 #				Modified by Pucong Han, Robert Walport, Victoria Mo and David Tagatac on April 8, 2013
+#               Modified by Pucong Han on April 9, 2013
 ################
 
 import sys
@@ -56,16 +57,24 @@ def operationChecker(item):
 		program.append("\n")
 
 	elif item[0] == "func":
+		temp = item[2]
+		while temp != 0:
+			printlist = printlist + "\t"
+			temp -= 1
 		if item[1] == "printvals":
-			printvals(item[2])
+			printvals(item[3])
 		elif item[1] == "printlist":
-			printList(item[2])
+			printList(item[3])
 		else:
 			print "Not yet implemented/error"
 	
 	elif item[0] == "dec":
-		item[2].reverse()
-		for entry in item[2]:
+		temp = item[2]
+		while temp != 0:
+			printlist = printlist + "\t"
+			temp -= 1
+		item[3].reverse()
+		for entry in item[3]:
 			if entry[1][0] == "number":
 				printlist = printlist + str(entry[0]) + " = 0"
 			elif entry[1][0] == "url":
@@ -77,26 +86,30 @@ def operationChecker(item):
 		program.append(printlist)
 	
 	elif item[0] == "assign":
+		temp = item[2]
+		while temp != 0:
+			printlist = printlist + "\t"
+			temp -= 1
 		if item[1] == "number":
-			printlist = item[2] + " = " + item[3][0][1]
+			printlist = item[3] + " = " + item[4][0][1]
 			program.append(printlist)
 		elif item[1] == "text":
-			printlist = item[2] + ' = "' + item[3][0][1] + '"'
+			printlist = item[3] + ' = "' + item[4][0][1] + '"'
 			program.append(printlist)
 		elif item[1] == "url":
-			printlist = item[2] + " = '" + item[3][0][1] + "'"
+			printlist = item[3] + " = '" + item[4][0][1] + "'"
 			program.append(printlist)
 		elif item[1] == "textlist" or item[1] == "urllist" or item[1] == "numlist":
 			templist = []
-			for subitem in item[3]:
+			for subitem in item[4]:
 				if subitem[1] == "numlist":
 					templist.append(int(subitem[1]))
 				else:
 					templist.append(str(subitem[1]))
-			printlist = item[2] + " = " + str(templist)
+			printlist = printlist + item[3] + " = " + str(templist)
 			program.append(printlist)
 		elif item[1] == "variable":
-			printlist = item[2] + " = " + item[3]
+			printlist = printlist + item[3] + " = " + item[4]
 			program.append(printlist)
 		else:
 			print "Unrecognized assignment tokens."
@@ -118,12 +131,9 @@ def main(argv):
 		#Calling operation checker when output is not null (not empty line).
 		operationChecker(output)
 
-		# print output
 	typelist.printTypeList()
 	typelist.printValList()
-
 		
-
 	for entry in program:
 		print entry
 	return program
