@@ -32,9 +32,10 @@ def printvals(item):
 	list_to_print = "print \""
 	for entry in item:
 		if entry[0] == "text" or entry[0] == "url":
-			list_to_print = list_to_print + str(entry[1][1:-1]) + "\""
+			list_to_print = list_to_print + str(entry[1])
 		else: #print number
-			list_to_print = list_to_print + str(entry[1]) + "\""
+			list_to_print = list_to_print + str(entry[1])
+	list_to_print = list_to_print + "\""
 	program.append(list_to_print)
 	
 def printList(item):
