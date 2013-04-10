@@ -111,8 +111,9 @@ def main(argv):
 	try:
 		f = open(inputs,"rb+").readlines()
 	except:
-		f = [inputs]
+		f = inputs.split(r'\n')
 	for line in f:
+		print line
 		line = line.rstrip('\n')
 		output = parser.parse(line)
 
@@ -127,6 +128,7 @@ def main(argv):
 
 	for entry in program:
 		print entry
+	print program
 	return program
         
 if __name__ == "__main__":

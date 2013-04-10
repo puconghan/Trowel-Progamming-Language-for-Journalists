@@ -60,6 +60,10 @@ class TestTrowel(unittest.TestCase):
 		self.assertEqual(trowel.main([None, 'text temp is "variable"']), ['temp = "variable"'])
 		
 	# Multiline input tests
+	def test_two_line_declare_assign(self):
+		self.assertEqual(trowel.main([None, r'text temp\ntemp is "This is text"']), ["temp = \"\"", "temp = \"This is text\""])
+		self.assertEqual(trowel.main([None, r'number temp\ntemp is 5']), ["temp = 0", "temp = 5"])
+		self.assertEqual(trowel.main([None, r"url temp\ntemp is 'www.bbc.co.uk'"]), ["temp = ''", "temp = 'www.bbc.co.uk'"])
 	
 	# Sample program tests
 
