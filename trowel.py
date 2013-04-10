@@ -27,15 +27,18 @@ import sys
 from Parser import parser
 import typelist
 
-def printvals(item):
+def printvals(i):
+	item = []
 	global program
-	operationChecker(item)
+	for val in i:
+		item.append(operationChecker(val))
 	list_to_print = "print \""
 	for entry in item:
 		if entry[0] == "text" or entry[0] == "url":
-			list_to_print = list_to_print + str(entry[1][1:-1]) + "\""
+			list_to_print = list_to_print + str(entry[1])
 		else: #print number
-			list_to_print = list_to_print + str(entry[1]) + "\""
+			list_to_print = list_to_print + str(entry[1])
+	list_to_print = list_to_print + "\""
 	program.append(list_to_print)
 	
 def printList(item):
@@ -57,10 +60,7 @@ def operationChecker(item):
 		program.append("\n")
 
 	elif item[0] == "func":
-		temp = item[2]
-		while temp != 0:
-			printlist = printlist + "\t"
-			temp -= 1
+		
 		if item[1] == "printvals":
 			printvals(item[3])
 		elif item[1] == "printlist":
@@ -91,7 +91,7 @@ def operationChecker(item):
 			printlist = printlist + "\t"
 			temp -= 1
 		if item[1] == "number":
-			printlist = item[3] + " = " + item[4][0][1]
+			printlist = item[3] + " = " + str(item[4][0][1])
 			program.append(printlist)
 		elif item[1] == "text":
 			printlist = item[3] + ' = "' + item[4][0][1] + '"'
@@ -102,10 +102,7 @@ def operationChecker(item):
 		elif item[1] == "textlist" or item[1] == "urllist" or item[1] == "numlist":
 			templist = []
 			for subitem in item[4]:
-				if subitem[1] == "numlist":
-					templist.append(int(subitem[1]))
-				else:
-					templist.append(str(subitem[1]))
+				templist.append(subitem[1])
 			printlist = printlist + item[3] + " = " + str(templist)
 			program.append(printlist)
 		elif item[1] == "variable":
@@ -123,7 +120,7 @@ def main(argv):
 	try:
 		f = open(inputs,"rb+").readlines()
 	except:
-		f = [inputs]
+		f = inputs.split(r'\n')
 	for line in f:
 		line = line.rstrip('\n')
 		output = parser.parse(line)
