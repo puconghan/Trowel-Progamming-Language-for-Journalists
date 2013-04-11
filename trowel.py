@@ -21,6 +21,7 @@
 #				Modified by Pucong Han and Robert Walport on April 7, 2013
 #				Modified by Pucong Han, Robert Walport, Victoria Mo and David Tagatac on April 8, 2013
 #               Modified by Pucong Han on April 9, 2013
+#				Modified by Pucong Han and Robert Walport on April 10, 2013
 ################
 
 import sys
@@ -138,6 +139,12 @@ def main(argv):
 	printlist = ""
 	list_to_print = ""
 	program = []
+	program.append("import os")
+	program.append("from bs4 import BeautifulSoup")
+	program.append("import urllib2")
+	program.append("import re")
+	program.append("import glob")
+	program.append("\n")
 	inputs = str(argv[1])
 	try:
 		f = open(inputs,"rb+").readlines()
