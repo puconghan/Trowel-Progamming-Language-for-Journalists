@@ -21,6 +21,7 @@
 #               Modified by Pucong Han on April 7, 2013
 #               Modified by Pucong Han, Robert Walport and Victoria Mo on April 8, 2013
 #               Modified by Pucong Han on April 9, 2013
+#               Modified by Pucong Han, Robert Walport and Victoria Mo on April 10, 2013
 ################
 
 import sys
@@ -31,6 +32,7 @@ import typelist
 ##Parser for variable declaration.
 # Implemented by Pucong on April 6, 2013.
 # Modified by Pucong on April 9, 2013.
+# Modified by Pucong on April 10, 2013.
 def p_expression_declaration(p):
     'EXPRESSION : INDENTATION VARTYPE IDENTIFIER ADDITIONAL'
     # Adding the identifier variable to the locallist.
@@ -67,9 +69,10 @@ def p_expression_additional_empty(p):
 ##Parser for assigning values to variables.
 # Implemented by Pucong on April 7, 2013
 # Modified by Pucong on April 9, 2013.
+# Modified by Pucong on April 10, 2013.
 def p_expression_value_assignment(p):
     'EXPRESSION : INDENTATION IDENTIFIER IS VALS'
-    if typelist.returnType(p[2]) == p[4][0][0]:
+    if typelist.returnType(p[2], p[1][1]) == p[4][0][0]:
         typelist.addNewValue(p[2], p[4], p[1][1])
         p[0] = ("assign", typelist.returnType(p[2], p[1][1]), p[1][1], p[2], p[4])
     elif typelist.returnType(p[2], p[1][1]) == "Not in typelist":
@@ -84,6 +87,7 @@ def p_expression_value_assignment(p):
 ##Parser for assigning values to list variables.
 # Implemented by Pucong on April 7, 2013
 # Modified by Pucong on April 9, 2013.
+# Modified by Pucong on April 10, 2013.
 def p_expression_value_list_assignment(p):
     'EXPRESSION : INDENTATION IDENTIFIER IS LIST'
     #This variable stores and checks types in the list.
@@ -123,6 +127,7 @@ def p_expression_value_list_assignment(p):
 ##Parser for declaring varibale and assigning values from another variable.
 # Implemented by Pucong on April 8, 2013.
 # Modified by Pucong on April 9, 2013.
+# Modified by Pucong on April 10, 2013.
 def p_expression_value_assignment_between_variables(p):
     'EXPRESSION : INDENTATION IDENTIFIER IS EXISTINGVAR'
     if typelist.returnType(p[4][1], p[1][1]) == "Not in typelist":
@@ -136,6 +141,7 @@ def p_expression_value_assignment_between_variables(p):
 ##Parser for declaring varibale and assigning values.
 # Implemented by Pucong on April 7, 2013.
 # Modified by Pucong on April 9, 2013.
+# Modified by Pucong on April 10, 2013.
 def p_expression_value_declaration_and_assignment(p):
     'EXPRESSION : INDENTATION VARTYPE IDENTIFIER IS VALS'
     if p[2] == p[5][0][0]:
@@ -150,6 +156,7 @@ def p_expression_value_declaration_and_assignment(p):
 ##Parser for declaring list of varibale and assigning values.
 # Implemented by Pucong on April 7, 2013.
 # Modified by Pucong on April 9, 2013.
+# Modified by Pucong on April 10, 2013.
 def p_expression_value_list_declaration_and_assignment(p):
     'EXPRESSION : INDENTATION VARTYPE IDENTIFIER IS LIST'
     typecheck = p[5][0][0]
@@ -184,6 +191,7 @@ def p_expression_value_list_declaration_and_assignment(p):
 ##Parser for declaring varibale and assigning values from another variable.
 # Implemented by Pucong on April 8, 2013.
 # Modified by Pucong on April 9, 2013.
+# Modified by Pucong on April 10, 2013.
 def p_expression_value_declaration_and_assignment_between_variables(p):
     'EXPRESSION : INDENTATION VARTYPE IDENTIFIER IS EXISTINGVAR'
     if typelist.returnType(p[5][1], p[1][1]) == "Not in typelist":
@@ -205,8 +213,8 @@ def p_expression_function(p):
 # embedded functions are in parentheses
 def p_expression_combine(p):
     '''FUNCTION : COMBINE URLEXP AND TEXTEXP
-                   | COMBINE URLEXP AND NUMEXP'''
-    p[0] = ("func", "combine", ('url', str(p[2][1]) + str(p[4][1])))
+                | COMBINE URLEXP AND NUMEXP'''
+    p[0] = ("func", "combine", 0, ('url', str(p[2][1]) + str(p[4][1])))
 
 ##Parser for printing a list.
 # Implemented by Victoria Mo and Robert Walport on April 6, 2013.
@@ -273,8 +281,7 @@ def p_expression_listvals_last(p):
 def p_expression_vals(p):
     '''VALS : URLEXP VALS
             | TEXTEXP VALS
-            | NUMEXP VALS
-            | EXISTINGVAR VALS'''
+            | NUMEXP VALS'''
     p[0] = [p[1]] + p[2]
 
 def p_expression_vals_func(p):
@@ -284,8 +291,7 @@ def p_expression_vals_func(p):
 def p_expression_vals_last(p):
     '''VALS : URLEXP
             | TEXTEXP
-            | NUMEXP
-            | EXISTINGVAR'''
+            | NUMEXP'''
     p[0] = [p[1]]
 
 def p_expression_vals_last_func(p):

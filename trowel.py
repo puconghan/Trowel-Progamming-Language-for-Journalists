@@ -60,11 +60,12 @@ def operationChecker(item):
 		program.append("\n")
 
 	elif item[0] == "func":
-		
 		if item[1] == "printvals":
 			printvals(item[3])
 		elif item[1] == "printlist":
 			printList(item[3])
+		elif item[1] == "combine":
+			return item[3]
 		else:
 			print "Not yet implemented/error"
 	
