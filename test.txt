@@ -1,7 +1,11 @@
 textlist temp
-	textlist temp1
-	textlist temp2
-		url this1 is 'www.bbc.com'
-		urllist this2
-	textlist temp3
-text temp4 is "Text local scope pop"
+temp is ["this", "is", "a", "test"]
+urllist urltemp is ['www.bbc.com', 'www.cnn.com']
+text temp1 is "see that works"
+text temp2
+temp2 is temp1
+textlist temp3
+temp3 is temp
+	textlist temp4 is temp
+	urllist newlistofurl is urltemp
+print 5

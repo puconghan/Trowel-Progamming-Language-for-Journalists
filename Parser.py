@@ -137,7 +137,10 @@ def p_expression_value_assignment_between_variables(p):
     if typelist.returnType(p[4][1], p[1][1]) == "Not in typelist":
         print "Variable: " + p[4][1] + " is not a valid variable."
     if p[4][0] == "existingvar":
-        typelist.addNewValue(p[2], typelist.returnValue(p[4][1], p[1][1]), p[1][1])
+        indentationUp = p[1][1]
+        while typelist.returnValue(p[4][1], indentationUp) == "Not in vallist" and indentationUp >= 0:
+            indentationUp -= 1
+        typelist.addNewValue(p[2], typelist.returnValue(p[4][1], indentationUp), p[1][1])
         p[0] = ("assign", "variable", p[1][1], p[2], p[4][1])
     else:
         print "Wrong assignment." + "Variable: " + p[4] + " does not contain values."
@@ -205,7 +208,10 @@ def p_expression_value_declaration_and_assignment_between_variables(p):
         print "Variable: " + p[5][1] + " is not a valid variable."
     if p[5][0] == "existingvar":
         typelist.addNewType(p[3], p[2], p[1][1])
-        typelist.addNewValue(p[3], typelist.returnValue(p[5][1], p[1][1]), p[1][1])
+        indentationUp = p[1][1]
+        while typelist.returnValue(p[5][1], indentationUp) == "Not in vallist" and indentationUp >= 0:
+            indentationUp -= 1
+        typelist.addNewValue(p[3], typelist.returnValue(p[5][1], indentationUp), p[1][1])
         p[0] = ("assign", "variable", p[1][1], p[3], p[5][1])
     else:
         print "Wrong assignment." + "Variable: " + p[5] + " does not contain values."
@@ -248,13 +254,13 @@ def p_expression_empty_line(p):
 ##Basic building blocks
 # Created by Victoria Mo and Robert Walport on April 6, 2013.
 # Modified by Pucong Han on April 8, 2013
-# Modified by Pucong on April 9, 2013.
+# Modified by Pucong Han on April 9, 2013.
 def p_expression_check_variable(p):
     'EXISTINGVAR : IDENTIFIER'
     p[0] = ("existingvar", p[1])
 
 ##Parser for variable types.
-# Implemented by Pucong on April 6, 2013.
+# Implemented by Pucong Han on April 6, 2013.
 def p_expression_vartype(p):
     '''VARTYPE : URL
                | TEXT
@@ -321,7 +327,7 @@ def p_expression_number(p):
     p[0] = ('number', int(p[1].replace("'", "").replace('"', "")))
 
 ##Parser for tab input.
-# Implemented by Pucong on April 9, 2013
+# Implemented by Pucong Han on April 9, 2013
 def p_expression_tab(p):
     'INDENTATION : TAB INDENTATION'
     p[0] = ("indented", p[2][1] + 1)
