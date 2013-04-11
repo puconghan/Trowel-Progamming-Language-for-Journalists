@@ -23,8 +23,7 @@ vallist = {}
 #Variablelist is a list storing variables
 variablelist = []
 
-indentationValue = []
-indentationValue.append(0)
+indentationValue = 0
 
 # #indenttypelist is a hashtable storing variables and types for indented declarations and assignments.
 # indenttypelist = {}
@@ -81,27 +80,21 @@ def returnValue(variablename, indentlevel):
 ##Function indentationCheck check for indentations and pop variables in local scope.
 # Implemented by Pucong Han on April 10, 2013.
 def indentationCheck(indentlevel):
-	if indentlevel >= indentationValue[0]:
-		indentationValue[0] = indentlevel
+	global indentationValue
+	if indentlevel >= indentationValue:
+		indentationValue = indentlevel
 	else:
 		templist = []
-		while indentationValue[0] != indentlevel:
+		while indentationValue != indentlevel:
 			for item in variablelist:
-				if item[1] == indentationValue[0]:
-					del typelist[(item[0], indentationValue[0])]
+				if item[1] == indentationValue:
+					del typelist[(item[0], indentationValue)]
 					templist.append(item)
-			indentationValue[0] -= 1
+			indentationValue -= 1
 		for removeditem in templist:
 			if (removeditem[0], removeditem[1]) in vallist.keys():
 				del vallist[(removeditem[0], removeditem[1])]
 			variablelist.remove(removeditem)
-
-def indentationDisplay():
-	print indentationValue[0]
-	print typelist
-	print vallist
-	print variablelist
-
 
 ##Function printHash prints the typelist (for testing purpose).
 # Implemented by Pucong Han on April 6, 2013.

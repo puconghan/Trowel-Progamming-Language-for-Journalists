@@ -11,5 +11,6 @@ temp3 is temp
 		urllist newlistofurl is urltemp
 		urllist newlist is newlistofurl
 	print [1, 2]
+	number thisnumber is 5
 print 3
 print "hello" 3
