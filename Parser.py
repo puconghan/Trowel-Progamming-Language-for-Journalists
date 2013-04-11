@@ -134,12 +134,13 @@ def p_expression_value_list_assignment(p):
 def p_expression_value_assignment_between_variables(p):
     'EXPRESSION : INDENTATION IDENTIFIER IS EXISTINGVAR'
     typelist.indentationCheck(p[1][1])
-    if typelist.returnType(p[4][1], p[1][1]) == "Not in typelist":
-        print "Variable: " + p[4][1] + " is not a valid variable."
     if p[4][0] == "existingvar":
         indentationUp = p[1][1]
         while typelist.returnValue(p[4][1], indentationUp) == "Not in vallist" and indentationUp >= 0:
             indentationUp -= 1
+        if typelist.returnValue(p[4][1], indentationUp) == "Not in vallist":
+            print "Variable: " + str(p[4][1]) + " is not not accessible. Could not find it from local and global scope."
+            sys.exit()
         typelist.addNewValue(p[2], typelist.returnValue(p[4][1], indentationUp), p[1][1])
         p[0] = ("assign", "variable", p[1][1], p[2], p[4][1])
     else:
@@ -204,15 +205,14 @@ def p_expression_value_list_declaration_and_assignment(p):
 def p_expression_value_declaration_and_assignment_between_variables(p):
     'EXPRESSION : INDENTATION VARTYPE IDENTIFIER IS EXISTINGVAR'
     typelist.indentationCheck(p[1][1])
-    if typelist.returnType(p[5][1], p[1][1]) == "Not in typelist":
-        print "Variable: " + p[5][1] + " is not a valid variable."
     if p[5][0] == "existingvar":
         typelist.addNewType(p[3], p[2], p[1][1])
         indentationUp = p[1][1]
         while typelist.returnValue(p[5][1], indentationUp) == "Not in vallist" and indentationUp >= 0:
             indentationUp -= 1
         if typelist.returnValue(p[5][1], indentationUp) == "Not in vallist":
-            print "Variable: " + p[5] + " is not not accessible. Could not find it from local and global scope."
+            print "Variable: " + str(p[5][1]) + " is not not accessible. Could not find it from local and global scope."
+            sys.exit()
         typelist.addNewValue(p[3], typelist.returnValue(p[5][1], indentationUp), p[1][1])
         p[0] = ("assign", "variable", p[1][1], p[3], p[5][1])
     else:
