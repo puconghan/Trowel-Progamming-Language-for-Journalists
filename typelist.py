@@ -107,17 +107,21 @@ def indentationDisplay():
 # Implemented by Pucong Han on April 6, 2013.
 def printTypeList():
 	print ""
-	print "-----Type list-----"
+	print "Note: Variables in local scope will be removed from these lists once found expression in unindented or decreased indented newline."
+	print "Note: Global variables will remain in these lists"
+	print ""
+	print "-------Type list-------"
 	print typelist
-	print "-------------------"
+	print "-----Variable list-----"
+	print variablelist
+	print "-----------------------"
 	print ""
 
 ##Function printValList prints the vallist (for testing purpose).
 # Implemented by Pucong Han on April 9, 2013.
 def printValList():
 	print ""
-	print "-----Value list-----"
+	print "-------Value list-------"
 	print vallist
-	print variablelist
-	print "-------------------"
+	print "------------------------"
 	print ""
