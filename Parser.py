@@ -22,6 +22,7 @@
 #               Modified by Pucong Han, Robert Walport and Victoria Mo on April 8, 2013
 #               Modified by Pucong Han on April 9, 2013
 #               Modified by Pucong Han, Robert Walport and Victoria Mo on April 10, 2013
+#               Modified by Pucong on April 11, 2013.
 ################
 
 import sys
@@ -131,6 +132,7 @@ def p_expression_value_list_assignment(p):
 # Implemented by Pucong on April 8, 2013.
 # Modified by Pucong on April 9, 2013.
 # Modified by Pucong on April 10, 2013.
+# Modified by Pucong on April 11, 2013.
 def p_expression_value_assignment_between_variables(p):
     'EXPRESSION : INDENTATION IDENTIFIER IS EXISTINGVAR'
     typelist.indentationCheck(p[1][1])
@@ -202,6 +204,7 @@ def p_expression_value_list_declaration_and_assignment(p):
 # Implemented by Pucong on April 8, 2013.
 # Modified by Pucong on April 9, 2013.
 # Modified by Pucong on April 10, 2013.
+# Modified by Pucong on April 11, 2013.
 def p_expression_value_declaration_and_assignment_between_variables(p):
     'EXPRESSION : INDENTATION VARTYPE IDENTIFIER IS EXISTINGVAR'
     typelist.indentationCheck(p[1][1])
