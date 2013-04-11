@@ -211,6 +211,8 @@ def p_expression_value_declaration_and_assignment_between_variables(p):
         indentationUp = p[1][1]
         while typelist.returnValue(p[5][1], indentationUp) == "Not in vallist" and indentationUp >= 0:
             indentationUp -= 1
+        if typelist.returnValue(p[5][1], indentationUp) == "Not in vallist":
+            print "Variable: " + p[5] + " is not not accessible. Could not find it from local and global scope."
         typelist.addNewValue(p[3], typelist.returnValue(p[5][1], indentationUp), p[1][1])
         p[0] = ("assign", "variable", p[1][1], p[3], p[5][1])
     else:
