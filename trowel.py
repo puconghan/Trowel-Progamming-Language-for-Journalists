@@ -30,28 +30,35 @@ import typelist
 def printvals(i):
 	item = []
 	global program
+	global printlist
+	global list_to_print
 	for val in i:
 		item.append(operationChecker(val))
-	list_to_print = "print \""
+	list_to_print = list_to_print + "print \""
 	for entry in item:
 		if entry[0] == "text" or entry[0] == "url":
 			list_to_print = list_to_print + str(entry[1])
 		else: #print number
 			list_to_print = list_to_print + str(entry[1])
+			print list_to_print
 	list_to_print = list_to_print + "\""
 	program.append(list_to_print)
 	
 def printList(item):
 	global program
+	global printlist
+	global list_to_print
+	global indentation
 	operationChecker(item)
-	printlist = ""
 	for entry in item:
-		printlist = printlist + "print " + str(entry[1] + "\n")
+		printlist = indentation + "print " + str(str(entry[1]) + "\n")
 	program.append(printlist[:-1])
 
 #Recursive definitions of functions allowing for functions within functions
 def operationChecker(item):
-	printlist = ""
+	global printlist
+	global list_to_print
+	global indentation
 	if type(item) is list:
 		item = item[0]
 
@@ -60,9 +67,14 @@ def operationChecker(item):
 		program.append("\n")
 
 	elif item[0] == "func":
+		temp = item[2]
+		while temp != 0:
+			indentation = indentation + "\t"
+			temp -= 1
 		if item[1] == "printvals":
 			printvals(item[3])
 		elif item[1] == "printlist":
+			print item
 			printList(item[3])
 		elif item[1] == "combine":
 			return item[3]
@@ -70,10 +82,11 @@ def operationChecker(item):
 			print "Not yet implemented/error"
 	
 	elif item[0] == "dec":
-		temp = item[2]
-		while temp != 0:
-			printlist = printlist + "\t"
-			temp -= 1
+		if item[2] != 0:
+			temp = item[2]
+			while temp != 0:
+				printlist = printlist + "\t"
+				temp -= 1
 		item[3].reverse()
 		for entry in item[3]:
 			if entry[1][0] == "number":
@@ -113,9 +126,17 @@ def operationChecker(item):
 			print "Unrecognized assignment tokens."
 	else:
 		return item
+	printlist = ""
+	list_to_print = ""
+	indentation = ""
 
 def main(argv):
-	global program 
+	global program
+	global printlist
+	global list_to_print
+	global indentation
+	printlist = ""
+	list_to_print = ""
 	program = []
 	inputs = str(argv[1])
 	try:
