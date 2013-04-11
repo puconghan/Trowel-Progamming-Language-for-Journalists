@@ -35,6 +35,7 @@ import typelist
 # Modified by Pucong on April 10, 2013.
 def p_expression_declaration(p):
     'EXPRESSION : INDENTATION VARTYPE IDENTIFIER ADDITIONAL'
+    typelist.indentationCheck(p[1][1])
     # Adding the identifier variable to the locallist.
     typelist.addNewVariable(p[3])
     # Add all variables in the localist to the typelist hashtable with approprate variable types.
@@ -72,6 +73,7 @@ def p_expression_additional_empty(p):
 # Modified by Pucong on April 10, 2013.
 def p_expression_value_assignment(p):
     'EXPRESSION : INDENTATION IDENTIFIER IS VALS'
+    typelist.indentationCheck(p[1][1])
     if typelist.returnType(p[2], p[1][1]) == p[4][0][0]:
         typelist.addNewValue(p[2], p[4], p[1][1])
         p[0] = ("assign", typelist.returnType(p[2], p[1][1]), p[1][1], p[2], p[4])
@@ -90,6 +92,7 @@ def p_expression_value_assignment(p):
 # Modified by Pucong on April 10, 2013.
 def p_expression_value_list_assignment(p):
     'EXPRESSION : INDENTATION IDENTIFIER IS LIST'
+    typelist.indentationCheck(p[1][1])
     #This variable stores and checks types in the list.
     typecheck = p[4][0][0]
     #This variable stores predicted list type.
@@ -130,10 +133,11 @@ def p_expression_value_list_assignment(p):
 # Modified by Pucong on April 10, 2013.
 def p_expression_value_assignment_between_variables(p):
     'EXPRESSION : INDENTATION IDENTIFIER IS EXISTINGVAR'
+    typelist.indentationCheck(p[1][1])
     if typelist.returnType(p[4][1], p[1][1]) == "Not in typelist":
         print "Variable: " + p[4][1] + " is not a valid variable."
     if p[4][0] == "existingvar":
-        typelist.addNewValue(p[2], typelist.returnType(p[4][1], p[1][1]), p[1][1])
+        typelist.addNewValue(p[2], typelist.returnValue(p[4][1], p[1][1]), p[1][1])
         p[0] = ("assign", "variable", p[1][1], p[2], p[4][1])
     else:
         print "Wrong assignment." + "Variable: " + p[4] + " does not contain values."
@@ -144,6 +148,7 @@ def p_expression_value_assignment_between_variables(p):
 # Modified by Pucong on April 10, 2013.
 def p_expression_value_declaration_and_assignment(p):
     'EXPRESSION : INDENTATION VARTYPE IDENTIFIER IS VALS'
+    typelist.indentationCheck(p[1][1])
     if p[2] == p[5][0][0]:
         typelist.addNewType(p[3], p[2], p[1][1])
         typelist.addNewValue(p[3], p[5], p[1][1])
@@ -159,6 +164,7 @@ def p_expression_value_declaration_and_assignment(p):
 # Modified by Pucong on April 10, 2013.
 def p_expression_value_list_declaration_and_assignment(p):
     'EXPRESSION : INDENTATION VARTYPE IDENTIFIER IS LIST'
+    typelist.indentationCheck(p[1][1])
     typecheck = p[5][0][0]
     listtype = ""
     for item in p[5]:
@@ -194,19 +200,20 @@ def p_expression_value_list_declaration_and_assignment(p):
 # Modified by Pucong on April 10, 2013.
 def p_expression_value_declaration_and_assignment_between_variables(p):
     'EXPRESSION : INDENTATION VARTYPE IDENTIFIER IS EXISTINGVAR'
+    typelist.indentationCheck(p[1][1])
     if typelist.returnType(p[5][1], p[1][1]) == "Not in typelist":
         print "Variable: " + p[5][1] + " is not a valid variable."
     if p[5][0] == "existingvar":
         typelist.addNewType(p[3], p[2], p[1][1])
-        typelist.addNewValue(p[3], typelist.returnType(p[5][1], p[1][1]), p[1][1])
+        typelist.addNewValue(p[3], typelist.returnValue(p[5][1], p[1][1]), p[1][1])
         p[0] = ("assign", "variable", p[1][1], p[3], p[5][1])
-        print p[0]
     else:
         print "Wrong assignment." + "Variable: " + p[5] + " does not contain values."
 
 def p_expression_function(p):
-    'EXPRESSION : FUNCTION'
-    p[0] = p[1]
+    'EXPRESSION : INDENTATION FUNCTION'
+    typelist.indentationCheck(p[1][1])
+    p[0] = p[2]
 
 ##Parser for combining a url and text or number
 # need to be able to do combine combine urlexp and textexp and numexp
@@ -221,6 +228,7 @@ def p_expression_combine(p):
 # Modified by Pucong on April 9, 2013.
 def p_expression_printlist(p):
     'EXPRESSION : INDENTATION PRINT LIST'
+    typelist.indentationCheck(p[1][1])
     print "Found a list print statement"
     p[0] = ("func", "printlist", p[1][1], p[3])
 
@@ -229,10 +237,12 @@ def p_expression_printlist(p):
 # Modified by Pucong on April 9, 2013.
 def p_expression_printvals(p):
     'EXPRESSION : INDENTATION PRINT VALS'
+    typelist.indentationCheck(p[1][1])
     p[0] = ("func", "printvals", p[1][1], p[3])
 
 def p_expression_empty_line(p):
     'EXPRESSION : INDENTATION EMPTY'
+    typelist.indentationCheck(p[1][1])
     p[0] = ("emptyline")
 
 ##Basic building blocks

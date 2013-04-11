@@ -92,13 +92,13 @@ def operationChecker(item):
 			printlist = printlist + "\t"
 			temp -= 1
 		if item[1] == "number":
-			printlist = item[3] + " = " + str(item[4][0][1])
+			printlist = printlist + item[3] + " = " + str(item[4][0][1])
 			program.append(printlist)
 		elif item[1] == "text":
-			printlist = item[3] + ' = "' + item[4][0][1] + '"'
+			printlist = printlist + item[3] + ' = "' + item[4][0][1] + '"'
 			program.append(printlist)
 		elif item[1] == "url":
-			printlist = item[3] + " = '" + item[4][0][1] + "'"
+			printlist = printlist + item[3] + " = '" + item[4][0][1] + "'"
 			program.append(printlist)
 		elif item[1] == "textlist" or item[1] == "urllist" or item[1] == "numlist":
 			templist = []
