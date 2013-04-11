@@ -51,7 +51,8 @@ def printList(item):
 	global indentation
 	operationChecker(item)
 	for entry in item:
-		printlist = indentation + "print " + str(str(entry[1]) + "\n")
+		print entry
+		printlist = printlist + "print \"" + str(entry[1]) + "\"\n"
 	program.append(printlist[:-1])
 
 #Recursive definitions of functions allowing for functions within functions
@@ -74,7 +75,6 @@ def operationChecker(item):
 		if item[1] == "printvals":
 			printvals(item[3])
 		elif item[1] == "printlist":
-			print item
 			printList(item[3])
 		elif item[1] == "combine":
 			return item[3]

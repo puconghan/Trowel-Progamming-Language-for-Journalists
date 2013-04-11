@@ -20,3 +20,20 @@ Currently we correctly detect which tokens are variables and detect their value.
 		self.assertEqual(trowel.main([None, r'number temp is 5\nprint temp']), ["temp = 5", "print temp"])
 		self.assertEqual(trowel.main([None, r'text temp is "this is text"\nprint temp']), ["temp = \"this is temp\""])
 		self.assertEqual(trowel.main([None, r'url temp is \'this is text\'\nprint temp']), ["temp = \"this is text\"", "print temp"])
+		
+Indentation:
+
+I've had to remove the "+ indentation +" from printlist:
+
+	dyn-160-39-142-18:plt RWalport$ python trowel.py "print [\"This\", \"is\", \"3 texts\"]"
+	Found a list print statement
+	Traceback (most recent call last):
+	  File "trowel.py", line 161, in <module>
+		main(sys.argv)
+	  File "trowel.py", line 151, in main
+		operationChecker(output)
+	  File "trowel.py", line 78, in operationChecker
+		printList(item[3])
+	  File "trowel.py", line 54, in printList
+		printlist = printlist + indentation + "print \"" + str(str(entry[1]) + "\"\n")
+	NameError: global name 'indentation' is not defined

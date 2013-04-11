@@ -18,8 +18,8 @@ class TestTrowel(unittest.TestCase):
 
 	# Parse tests
 	def test_parse_print_number(self):
-		print 'second test'
 		self.assertEqual(parser.parse("print 45"), ('func', 'printvals', 0, [('number', 45)]))
+		
 
 	# Single line input tests
 	def test_print_number(self):
@@ -38,6 +38,11 @@ class TestTrowel(unittest.TestCase):
 	def test_print_mixedVal(self):
 		self.assertEqual(trowel.main([None, "print \"I am a text object \" 45"]), ['print "I am a text object 45"'])
 		self.assertEqual(trowel.main([None, "print \"I am a text object \" 'www.bbc.co.uk' \" \" 45"]), ['print "I am a text object www.bbc.co.uk 45"'])
+		
+	def test_listprinting(self):
+		self.assertEqual(trowel.main([None, "print [4, 5, 6]"]), ['print "4"\nprint "5"\nprint "6"'])
+		self.assertEqual(trowel.main([None, "print [\"This\", \"is\", \"3 texts\"]"]), ['print "This"\nprint "is"\nprint "3 texts"'])
+		self.assertEqual(trowel.main([None, "print [\'This\', \'is\', \'3 urls\']"]), ['print "This"\nprint "is"\nprint "3 urls"'])
 	
 	def test_print_combine(self):
 		self.assertEqual(trowel.main([None, "print 5 ( combine 'www.bbc.co.uk?' and 5 )"]), ['print "5www.bbc.co.uk?5"'])
