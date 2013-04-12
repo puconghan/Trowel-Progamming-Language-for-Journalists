@@ -125,6 +125,13 @@ def operationChecker(item):
 			program.append(printlist)
 		else:
 			print "Unrecognized assignment tokens."
+	elif item[0] == "save":
+		temp = item[2]
+		while temp != 0:
+			printlist = printlist + "\t"
+			temp -= 1
+		printlist =  printlist + "outfile = open(\"" + item[5] + "\", 'w')" + "\n" + "for item in " + item[3] + ":\n\t" + "outfile.write(item + \"\\n\")"
+		program.append(printlist)
 	else:
 		return item
 	printlist = ""

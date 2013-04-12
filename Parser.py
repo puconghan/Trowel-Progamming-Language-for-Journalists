@@ -160,7 +160,6 @@ def p_expression_value_assignment_from_read_function(p):
         try:
             read_url_list = []
             with open(p[5], "r") as inputfile:
-                print inputfile
                 for item in inputfile:
                     read_url_list.append(("url", item.rstrip('\r\n')))
             typelist.addNewValue(p[2], read_url_list, p[1][1])
@@ -255,7 +254,6 @@ def p_expression_value_assignment_from_read_function(p):
         try:
             read_url_list = []
             with open(p[6], "r") as inputfile:
-                print inputfile
                 for item in inputfile:
                     read_url_list.append(("url", item.rstrip('\r\n')))
             typelist.addNewValue(p[3], read_url_list, p[1][1])
@@ -263,6 +261,17 @@ def p_expression_value_assignment_from_read_function(p):
         except IOError:
             print "Error: can\'t find file or read data"
             sys.exit()
+
+##Parser for saving urllist to a file.
+# Implemented by Pucong on April 10, 2013.
+def p_expression_save_to_file(p):
+    'EXPRESSION : INDENTATION SAVE IDENTIFIER INTO FILENAME'
+    typelist.indentationCheck(p[1][1])
+    if typelist.returnType(p[3], p[1][1]) != "urllist":
+        print "Variable: " + p[3] + " must be a urllist. Save function must save a urllist to an external txt file."
+        sys.exit()
+    else:
+        p[0] = ("save", "urllist", p[1][1], p[3], typelist.returnValue(p[3], p[1][1]), p[5])
 
 def p_expression_function(p):
     'EXPRESSION : INDENTATION FUNCTION'

@@ -1,1 +1,16 @@
+textlist temp
+temp is ["this", "is", "a", "test"]
+urllist urltemp is ['www.bbc.com', 'www.cnn.com']
+text temp1 is "see that works"
+text temp2
+temp2 is temp1
+textlist temp3
+temp3 is temp
+	textlist temp4
+	temp4 is temp
+		urllist newlistofurl is urltemp
+		urllist newlist is newlistofurl
+	number thisnumber is 5
 urllist temp is read testpress.txt
+urllist templist is read testpress.txt
+save templist into outputlist.txt
