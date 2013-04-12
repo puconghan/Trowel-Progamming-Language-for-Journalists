@@ -271,7 +271,32 @@ def p_expression_save_to_file(p):
         print "Variable: " + p[3] + " must be a urllist. Save function must save a urllist to an external txt file."
         sys.exit()
     else:
-        p[0] = ("save", "urllist", p[1][1], p[3], typelist.returnValue(p[3], p[1][1]), p[5])
+        p[0] = ("save", "urllist", p[1][1], p[3], p[5])
+
+
+##Parser for appending an url into a file.
+# Implemented by Pucong Han on April 10, 2013.
+def p_expression_append_url_to_file(p):
+    'EXPRESSION : INDENTATION APPEND URLVAL INTO FILENAME'
+    typelist.indentationCheck(p[1][1])
+    p[0] = ("append", "url", p[1][1], p[3].replace("'", ""), p[5])
+
+##Parser for appending an url variable into a file.
+# Implemented by Pucong Han on April 10, 2013.
+def p_expression_append_urlvariable_to_file(p):
+    'EXPRESSION : INDENTATION APPEND EXISTINGVAR INTO FILENAME'
+    typelist.indentationCheck(p[1][1])
+    indentationUp = p[1][1]
+    while typelist.returnValue(p[3][1], indentationUp) == "Not in vallist" and indentationUp > 0:
+        indentationUp -= 1
+    if typelist.returnValue(p[3][1], indentationUp) == "Not in vallist":
+        print "Variable: " + str(p[3][1]) + " is not not accessible. Could not find it from local and global scope."
+        sys.exit()
+    if typelist.returnType(p[3][1], indentationUp) != "url":
+        print "Variable: " + str(p[3][1]) + " must be a urllist. Must append a url variable to an existing txt file."
+        sys.exit()
+    p[0] = ("append", "url", p[1][1], typelist.returnValue(p[3][1], indentationUp)[0][1], p[5])
+    print p[0]
 
 def p_expression_function(p):
     'EXPRESSION : INDENTATION FUNCTION'

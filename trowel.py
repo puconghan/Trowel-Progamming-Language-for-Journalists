@@ -130,10 +130,19 @@ def operationChecker(item):
 		temp = item[2]
 		while temp != 0:
 			printlist = printlist + "\t"
+			indentation = indentation + "\t"
 			temp -= 1
-		printlist =  printlist + "outfile = open(\"" + item[5] + "\", 'w')" + "\n" + "for item in " + item[3] + ":\n\t" + "outfile.write(item + \"\\n\")"
+		printlist =  printlist + "outfile = open(\"" + item[4] + "\", 'w')" + "\n" + "for item in " + item[3] + ":\n\t" + indentation + "outfile.write(item + \"\\n\")"
 		program.append(printlist)
 	
+	elif item[0] == "append":
+		temp = item[2]
+		while temp != 0:
+			printlist = printlist + "\t"
+			indentation = indentation + "\t"
+			temp -= 1
+		printlist = printlist + "with open(\"" + item[4] + "\", \"a\") as modifiedfile:\n\t" + indentation + "modifiedfile.write(\"" + item[3] + "\" + \"\\n\")"
+		program.append(printlist)
 	else:
 		return item
 	printlist = ""
