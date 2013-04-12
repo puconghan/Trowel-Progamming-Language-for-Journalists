@@ -128,7 +128,7 @@ def p_expression_value_list_assignment(p):
         print "Variable: " + str(p[2]) + " assigning type miss matching."
         sys.exit()
 
-##Parser for declaring varibale and assigning values from another variable.
+##Parser for assigning values from another variable.
 # Implemented by Pucong on April 8, 2013.
 # Modified by Pucong on April 9, 2013.
 # Modified by Pucong on April 10, 2013.
@@ -147,6 +147,27 @@ def p_expression_value_assignment_between_variables(p):
         p[0] = ("assign", "variable", p[1][1], p[2], p[4][1])
     else:
         print "Wrong assignment." + "Variable: " + p[4] + " does not contain values."
+
+##Parser for assigning values from the read function.
+# Implemented by Pucong on April 10, 2013.
+def p_expression_value_assignment_from_read_function(p):
+    'EXPRESSION : INDENTATION IDENTIFIER IS READ FILENAME'
+    typelist.indentationCheck(p[1][1])
+    if typelist.returnType(p[2], p[1][1]) != "urllist":
+        print "Variable: " + p[2] + " must be an urllist. Read function return a list."
+        sys.exit()
+    else:
+        try:
+            read_url_list = []
+            with open(p[5], "r") as inputfile:
+                print inputfile
+                for item in inputfile:
+                    read_url_list.append(("url", item.rstrip('\r\n')))
+            typelist.addNewValue(p[2], read_url_list, p[1][1])
+            p[0] = ("assign", "urllist", p[1][1], p[2], read_url_list)
+        except IOError:
+            print "Error: can\'t find file or read data"
+            sys.exit()
 
 ##Parser for declaring varibale and assigning values.
 # Implemented by Pucong on April 7, 2013.
@@ -220,6 +241,28 @@ def p_expression_value_declaration_and_assignment_between_variables(p):
         p[0] = ("assign", "variable", p[1][1], p[3], p[5][1])
     else:
         print "Wrong assignment." + "Variable: " + p[5] + " does not contain values."
+
+##Parser for declaring and assigning values from the read function.
+# Implemented by Pucong on April 10, 2013.
+def p_expression_value_assignment_from_read_function(p):
+    'EXPRESSION : INDENTATION VARTYPE IDENTIFIER IS READ FILENAME'
+    typelist.indentationCheck(p[1][1])
+    if p[2] != "urllist":
+        print "Variable: " + p[3] + " must be a urllist. Read function returns a urllist."
+        sys.exit()
+    else:
+        typelist.addNewType(p[3], p[2], p[1][1])
+        try:
+            read_url_list = []
+            with open(p[6], "r") as inputfile:
+                print inputfile
+                for item in inputfile:
+                    read_url_list.append(("url", item.rstrip('\r\n')))
+            typelist.addNewValue(p[3], read_url_list, p[1][1])
+            p[0] = ("assign", "urllist", p[1][1], p[3], read_url_list)
+        except IOError:
+            print "Error: can\'t find file or read data"
+            sys.exit()
 
 def p_expression_function(p):
     'EXPRESSION : INDENTATION FUNCTION'
@@ -331,7 +374,7 @@ def p_expression_number(p):
     'NUMEXP : NUMVAL'
     p[0] = ('number', int(p[1].replace("'", "").replace('"', "")))
 
-##Parser for tab input.
+##Parser for tab input (indentation).
 # Implemented by Pucong Han on April 9, 2013
 def p_expression_tab(p):
     'INDENTATION : TAB INDENTATION'

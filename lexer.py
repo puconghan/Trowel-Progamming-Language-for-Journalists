@@ -17,6 +17,7 @@
 #               Initial version implemented by Pucong Han on Mar 30, 2013
 #               Modified by Pucong Han, Robert Walport and Victoria Mo on April 6, 2013
 #               Modified by Pucong Han on April 9, 2013
+#               Modified by Pucong Han on April 10, 2013
 ################
 
 import ply.lex as lex
@@ -76,7 +77,8 @@ tokens = (
    'IDENTIFIER',
    'NUMVAL',
    'TEXTVAL',
-   'URLVAL'
+   'URLVAL',
+   'FILENAME'
 )
 
 ##Arithmetic Operators (* / + - == =/=).
@@ -89,8 +91,8 @@ t_NOTEQUAL = r'=/='
 
 ##Reserved Deliminators (, ' " [ ]).
 t_COMMA              = r','
-t_SINGLECOLON        = r'"'
-t_DOUBLECOLON        = r"'"
+t_SINGLECOLON        = r"'"
+t_DOUBLECOLON        = r'"'
 t_LEFTSQUAREBRACKET   = r'\['
 t_RIGHTSQUAREBRACKET = r'\]'
 t_LEFTPAREN   = r'\('
@@ -219,6 +221,10 @@ def t_URLVAL(t):
 
 def t_NUMVAL(t):
   r'[0-9]+'
+  return t
+
+def t_FILENAME(t):
+  r'[a-zA-Z0-9_]+\.txt'
   return t
 
 ##Identifier captures everything else, essentially variable names.
