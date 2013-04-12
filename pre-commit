@@ -3,7 +3,7 @@
 # Git pre-commit hook
 #
 # Installation instructions:
-# Hard link this file to .git/hooks with `cd .git/hooks; ln -s ../../pre-commit pre-commit'
+# Symbolically link this file to .git/hooks with `cd .git/hooks; ln -s ../../pre-commit pre-commit'
 
 import os, sys, unittest
 if os.getcwd().split('/')[-1] == 'hooks':
