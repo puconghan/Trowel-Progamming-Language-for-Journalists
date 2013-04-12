@@ -296,7 +296,6 @@ def p_expression_append_urlvariable_to_file(p):
         print "Variable: " + str(p[3][1]) + " must be a urllist. Must append a url variable to an existing txt file."
         sys.exit()
     p[0] = ("append", "url", p[1][1], typelist.returnValue(p[3][1], indentationUp)[0][1], p[5])
-    print p[0]
 
 def p_expression_function(p):
     'EXPRESSION : INDENTATION FUNCTION'
