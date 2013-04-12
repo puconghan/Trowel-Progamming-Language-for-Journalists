@@ -23,6 +23,7 @@
 #               Modified by Pucong Han on April 9, 2013
 #               Modified by Pucong Han, Robert Walport and Victoria Mo on April 10, 2013
 #               Modified by Pucong on April 11, 2013.
+#               Modified by Pucong Han on April 10, 2013
 ################
 
 import sys
@@ -296,6 +297,38 @@ def p_expression_append_urlvariable_to_file(p):
         print "Variable: " + str(p[3][1]) + " must be a urllist. Must append a url variable to an existing txt file."
         sys.exit()
     p[0] = ("append", "url", p[1][1], typelist.returnValue(p[3][1], indentationUp)[0][1], p[5])
+
+##Parser for for-loop traversing a list.
+# Implemented by Pucong Han on April 11, 2013.
+def p_expression_for_loop_list(p):
+    'EXPRESSION : INDENTATION FOR IDENTIFIER IN LIST COLON'
+    typelist.indentationCheck(p[1][1])
+    typelist.addNewType(p[3], "listitem", p[1][1] + 1)
+    typelist.addNewValue(p[3], p[5], p[1][1] + 1)
+    p[0] = ("forloop", "list", p[1][1], p[3], p[5])
+
+##Parser for for-loop traversing a list variable.
+# Implemented by Pucong Han on April 11, 2013.
+# TODO: check existing variable before do anything else
+def p_expression_for_loop_list_variable(p):
+    'EXPRESSION : INDENTATION FOR IDENTIFIER IN EXISTINGVAR COLON'
+    typelist.indentationCheck(p[1][1])
+    if p[5][0] == "existingvar":
+        indentationUp = p[1][1]
+        while typelist.returnValue(p[5][1], indentationUp) == "Not in vallist" and indentationUp > 0:
+            indentationUp -= 1
+        if typelist.returnValue(p[5][1], indentationUp) == "Not in vallist":
+            print "Variable: " + str(p[5][1]) + " is not not accessible. Could not find it from local and global scope."
+            sys.exit()
+        if typelist.returnType(p[5][1], indentationUp) != "urllist":
+            print "Variable: " + str(p[5][1]) + " must be a urllist. Loop can access only list."
+            sys.exit()
+        typelist.addNewType(p[3], "listitem", p[1][1] + 1)
+        typelist.addNewValue(p[3], p[5][1], p[1][1] + 1)
+        p[0] = ("forloop", "listvariable", p[1][1], p[3], p[5][1])
+    else:
+        print "Wrong assignment." + "Variable: " + p[5][1] + " does not contain values."
+        sys.exit()
 
 def p_expression_function(p):
     'EXPRESSION : INDENTATION FUNCTION'

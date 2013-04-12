@@ -17,3 +17,5 @@ save templist into outputlist.txt
 append 'www.puconghan.com' into testpress.txt
 url myurl is 'www.robertwalport.com'
 	append myurl into testpress.txt
+urllist templist is ['www.bbc.com', 'www.cnn.com']
+for item in templist:

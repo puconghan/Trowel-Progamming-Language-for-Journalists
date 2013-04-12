@@ -22,6 +22,7 @@
 #				Modified by Pucong Han, Robert Walport, Victoria Mo and David Tagatac on April 8, 2013
 #               Modified by Pucong Han on April 9, 2013
 #				Modified by Pucong Han and Robert Walport on April 10, 2013
+#				Modified by Pucong Han on April 10, 2013
 ################
 
 import sys
@@ -125,6 +126,23 @@ def operationChecker(item):
 			program.append(printlist)
 		else:
 			print "Unrecognized assignment tokens."
+
+	elif item[0] == "forloop":
+		temp = item[2]
+		while temp != 0:
+			printlist = printlist + "\t"
+			temp -= 1
+		if item[1] == "list":
+			temp_list = []
+			for subitem in item[4]:
+				temp_list.append(subitem[1])
+			printlist = printlist + "for " + item[3] + " in " + str(temp_list) + ":"
+			program.append(printlist)
+		elif item[1] == "listvariable":
+			printlist = printlist + "for " + item[3] + " in " + item[4] + ":"
+			program.append(printlist)
+			
+
 	
 	elif item[0] == "save":
 		temp = item[2]

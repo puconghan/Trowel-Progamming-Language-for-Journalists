@@ -27,6 +27,7 @@ tokens = (
    #Comment (#)
    'COMMENTS',
    'TAB',
+   'COLON',
    #Logical Operators (AND OR NOT).
    'AND',
    'OR',
@@ -97,6 +98,7 @@ t_LEFTSQUAREBRACKET   = r'\['
 t_RIGHTSQUAREBRACKET = r'\]'
 t_LEFTPAREN   = r'\('
 t_RIGHTPAREN = r'\)'
+t_COLON = r':'
 
 ##Tab (\t)
 t_TAB = r'\t'
