@@ -1,0 +1,13 @@
+Add parsing rules
+- Indentation
+- Control flows
+- Booleans
+- Special functions
+- Custom functions
+- Arithmetic operations
+
+Trowel wrapper
+- Input files
+- Error handling
+
+AST to Python Converter

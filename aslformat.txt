@@ -1,0 +1,11 @@
+error: ['error','error description']
+variable: ['variable','variabletype']
+
+functionname: ['functionname',['returntype1','returntype2']]
+functioncall: ['functioncall',functionname:,'arguments',expressionset:]
+
+expression: ['expression',variable:|functioncall:|value:]
+expressionset: [expression:,expression:,expression:]
+
+value: ['text','textvalue']
+valuelist: ['numlist',[1,2,3,4,5]]

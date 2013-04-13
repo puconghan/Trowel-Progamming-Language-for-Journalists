@@ -1,0 +1,3 @@
+number x is 5
+urllist ul is read "file.txt"
+print x 500 "hello" (findurl in ul with "obama")

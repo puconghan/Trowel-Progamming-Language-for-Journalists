@@ -1,0 +1,3 @@
+['declaration', ['datatype', 'number'], [['x', ['expression', ['number', 5]]]]]
+['declaration', ['datatype', 'urllist'], [['ul', ['expression', ['functioncall', ['functionname', 'read'], 'arguments', [['expression', ['text', 'file.txt']]]]]]]]
+['expression', ['functioncall', ['functionname', 'print'], 'arguments', [['expression', ['variable', 'x']], ['expression', ['number', 500]], ['expression', ['text', 'hello']], ['expression', ['functioncall', ['functionname', 'findurl'], 'arguments', [['expression', ['error', 'variable in not found']], ['expression', ['variable', 'ul']], ['expression', ['error', 'variable with not found']], ['expression', ['text', 'obama']]]]]]]]

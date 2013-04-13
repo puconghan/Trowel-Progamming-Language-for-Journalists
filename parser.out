@@ -1,0 +1,878 @@
+Created by PLY version 3.4 (http://www.dabeaz.com/ply)
+
+Unused terminals:
+
+    NOTEQUAL
+    SINGLECOLON
+    EQUAL
+    MULTIPLY
+    MINUS
+    COMMENT
+    PLUS
+    TAB
+    DOUBLECOLON
+    DIVISION
+    FOR
+    ELSE
+    ELSEIF
+    IF
+    AND
+    NOT
+    OR
+
+Grammar
+
+Rule 0     S' -> STATEMENT
+Rule 1     STATEMENT -> ROOTEXPRESSION
+Rule 2     ROOTEXPRESSION -> EXPRESSION
+Rule 3     ROOTEXPRESSION -> FUNCTION
+Rule 4     ROOTEXPRESSION -> DECLARATION
+Rule 5     ROOTEXPRESSION -> ASSIGNMENT
+Rule 6     EXPRESSION -> IDENTIFIER
+Rule 7     EXPRESSION -> VALUE
+Rule 8     EXPRESSION -> LEFTPAREN FUNCTION RIGHTPAREN
+Rule 9     IDENTIFIER -> UNKNOWNWORD
+Rule 10    FUNCTION -> IDENTIFIER EXPRESSIONSET
+Rule 11    EXPRESSIONSET -> EXPRESSIONSET EXPRESSION
+Rule 12    EXPRESSIONSET -> EXPRESSION
+Rule 13    VALUE -> _URLVAL
+Rule 14    VALUE -> _TEXTVAL
+Rule 15    VALUE -> _NUMVAL
+Rule 16    VALUE -> VALUELIST
+Rule 17    _URLVAL -> URLVAL
+Rule 18    _TEXTVAL -> TEXTVAL
+Rule 19    _NUMVAL -> NUMVAL
+Rule 20    VALUESET -> VALUE COMMA VALUESET
+Rule 21    VALUESET -> VALUE
+Rule 22    VALUELIST -> LEFTSQUAREBRACKET VALUESET RIGHTSQUAREBRACKET
+Rule 23    DECLARATION -> DATATYPE DECLARATIONSET
+Rule 24    DATATYPE -> URL
+Rule 25    DATATYPE -> TEXT
+Rule 26    DATATYPE -> NUMBER
+Rule 27    DATATYPE -> URLLIST
+Rule 28    DATATYPE -> TEXTLIST
+Rule 29    DATATYPE -> NUMLIST
+Rule 30    DECLARATIONSET -> DECLAREDVAR COMMA DECLARATIONSET
+Rule 31    DECLARATIONSET -> DECLAREDVAR
+Rule 32    DECLAREDVAR -> UNKNOWNWORD IS ROOTEXPRESSION
+Rule 33    DECLAREDVAR -> UNKNOWNWORD
+Rule 34    ASSIGNMENT -> IDENTIFIER IS ROOTEXPRESSION
+Rule 35    EMPTY -> <empty>
+
+Terminals, with rules where they appear
+
+AND                  : 
+COMMA                : 20 30
+COMMENT              : 
+DIVISION             : 
+DOUBLECOLON          : 
+ELSE                 : 
+ELSEIF               : 
+EQUAL                : 
+FOR                  : 
+IF                   : 
+IS                   : 32 34
+LEFTPAREN            : 8
+LEFTSQUAREBRACKET    : 22
+MINUS                : 
+MULTIPLY             : 
+NOT                  : 
+NOTEQUAL             : 
+NUMBER               : 26
+NUMLIST              : 29
+NUMVAL               : 19
+OR                   : 
+PLUS                 : 
+RIGHTPAREN           : 8
+RIGHTSQUAREBRACKET   : 22
+SINGLECOLON          : 
+TAB                  : 
+TEXT                 : 25
+TEXTLIST             : 28
+TEXTVAL              : 18
+UNKNOWNWORD          : 9 32 33
+URL                  : 24
+URLLIST              : 27
+URLVAL               : 17
+error                : 
+
+Nonterminals, with rules where they appear
+
+ASSIGNMENT           : 5
+DATATYPE             : 23
+DECLARATION          : 4
+DECLARATIONSET       : 23 30
+DECLAREDVAR          : 30 31
+EMPTY                : 
+EXPRESSION           : 2 11 12
+EXPRESSIONSET        : 10 11
+FUNCTION             : 3 8
+IDENTIFIER           : 6 10 34
+ROOTEXPRESSION       : 1 32 34
+STATEMENT            : 0
+VALUE                : 7 20 21
+VALUELIST            : 16
+VALUESET             : 20 22
+_NUMVAL              : 15
+_TEXTVAL             : 14
+_URLVAL              : 13
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . STATEMENT
+    (1) STATEMENT -> . ROOTEXPRESSION
+    (2) ROOTEXPRESSION -> . EXPRESSION
+    (3) ROOTEXPRESSION -> . FUNCTION
+    (4) ROOTEXPRESSION -> . DECLARATION
+    (5) ROOTEXPRESSION -> . ASSIGNMENT
+    (6) EXPRESSION -> . IDENTIFIER
+    (7) EXPRESSION -> . VALUE
+    (8) EXPRESSION -> . LEFTPAREN FUNCTION RIGHTPAREN
+    (10) FUNCTION -> . IDENTIFIER EXPRESSIONSET
+    (23) DECLARATION -> . DATATYPE DECLARATIONSET
+    (34) ASSIGNMENT -> . IDENTIFIER IS ROOTEXPRESSION
+    (9) IDENTIFIER -> . UNKNOWNWORD
+    (13) VALUE -> . _URLVAL
+    (14) VALUE -> . _TEXTVAL
+    (15) VALUE -> . _NUMVAL
+    (16) VALUE -> . VALUELIST
+    (24) DATATYPE -> . URL
+    (25) DATATYPE -> . TEXT
+    (26) DATATYPE -> . NUMBER
+    (27) DATATYPE -> . URLLIST
+    (28) DATATYPE -> . TEXTLIST
+    (29) DATATYPE -> . NUMLIST
+    (17) _URLVAL -> . URLVAL
+    (18) _TEXTVAL -> . TEXTVAL
+    (19) _NUMVAL -> . NUMVAL
+    (22) VALUELIST -> . LEFTSQUAREBRACKET VALUESET RIGHTSQUAREBRACKET
+
+    LEFTPAREN       shift and go to state 14
+    UNKNOWNWORD     shift and go to state 18
+    URL             shift and go to state 13
+    TEXT            shift and go to state 8
+    NUMBER          shift and go to state 3
+    URLLIST         shift and go to state 9
+    TEXTLIST        shift and go to state 25
+    NUMLIST         shift and go to state 17
+    URLVAL          shift and go to state 19
+    TEXTVAL         shift and go to state 21
+    NUMVAL          shift and go to state 6
+    LEFTSQUAREBRACKET shift and go to state 4
+
+    ROOTEXPRESSION                 shift and go to state 12
+    FUNCTION                       shift and go to state 1
+    VALUELIST                      shift and go to state 7
+    _TEXTVAL                       shift and go to state 20
+    DATATYPE                       shift and go to state 5
+    ASSIGNMENT                     shift and go to state 2
+    VALUE                          shift and go to state 15
+    _URLVAL                        shift and go to state 22
+    STATEMENT                      shift and go to state 16
+    DECLARATION                    shift and go to state 23
+    _NUMVAL                        shift and go to state 24
+    IDENTIFIER                     shift and go to state 10
+    EXPRESSION                     shift and go to state 11
+
+state 1
+
+    (3) ROOTEXPRESSION -> FUNCTION .
+
+    $end            reduce using rule 3 (ROOTEXPRESSION -> FUNCTION .)
+    COMMA           reduce using rule 3 (ROOTEXPRESSION -> FUNCTION .)
+
+
+state 2
+
+    (5) ROOTEXPRESSION -> ASSIGNMENT .
+
+    $end            reduce using rule 5 (ROOTEXPRESSION -> ASSIGNMENT .)
+    COMMA           reduce using rule 5 (ROOTEXPRESSION -> ASSIGNMENT .)
+
+
+state 3
+
+    (26) DATATYPE -> NUMBER .
+
+    UNKNOWNWORD     reduce using rule 26 (DATATYPE -> NUMBER .)
+
+
+state 4
+
+    (22) VALUELIST -> LEFTSQUAREBRACKET . VALUESET RIGHTSQUAREBRACKET
+    (20) VALUESET -> . VALUE COMMA VALUESET
+    (21) VALUESET -> . VALUE
+    (13) VALUE -> . _URLVAL
+    (14) VALUE -> . _TEXTVAL
+    (15) VALUE -> . _NUMVAL
+    (16) VALUE -> . VALUELIST
+    (17) _URLVAL -> . URLVAL
+    (18) _TEXTVAL -> . TEXTVAL
+    (19) _NUMVAL -> . NUMVAL
+    (22) VALUELIST -> . LEFTSQUAREBRACKET VALUESET RIGHTSQUAREBRACKET
+
+    URLVAL          shift and go to state 19
+    TEXTVAL         shift and go to state 21
+    NUMVAL          shift and go to state 6
+    LEFTSQUAREBRACKET shift and go to state 4
+
+    VALUESET                       shift and go to state 26
+    _TEXTVAL                       shift and go to state 20
+    _URLVAL                        shift and go to state 22
+    VALUE                          shift and go to state 27
+    VALUELIST                      shift and go to state 7
+    _NUMVAL                        shift and go to state 24
+
+state 5
+
+    (23) DECLARATION -> DATATYPE . DECLARATIONSET
+    (30) DECLARATIONSET -> . DECLAREDVAR COMMA DECLARATIONSET
+    (31) DECLARATIONSET -> . DECLAREDVAR
+    (32) DECLAREDVAR -> . UNKNOWNWORD IS ROOTEXPRESSION
+    (33) DECLAREDVAR -> . UNKNOWNWORD
+
+    UNKNOWNWORD     shift and go to state 28
+
+    DECLARATIONSET                 shift and go to state 29
+    DECLAREDVAR                    shift and go to state 30
+
+state 6
+
+    (19) _NUMVAL -> NUMVAL .
+
+    $end            reduce using rule 19 (_NUMVAL -> NUMVAL .)
+    COMMA           reduce using rule 19 (_NUMVAL -> NUMVAL .)
+    LEFTPAREN       reduce using rule 19 (_NUMVAL -> NUMVAL .)
+    UNKNOWNWORD     reduce using rule 19 (_NUMVAL -> NUMVAL .)
+    URLVAL          reduce using rule 19 (_NUMVAL -> NUMVAL .)
+    TEXTVAL         reduce using rule 19 (_NUMVAL -> NUMVAL .)
+    NUMVAL          reduce using rule 19 (_NUMVAL -> NUMVAL .)
+    LEFTSQUAREBRACKET reduce using rule 19 (_NUMVAL -> NUMVAL .)
+    RIGHTPAREN      reduce using rule 19 (_NUMVAL -> NUMVAL .)
+    RIGHTSQUAREBRACKET reduce using rule 19 (_NUMVAL -> NUMVAL .)
+
+
+state 7
+
+    (16) VALUE -> VALUELIST .
+
+    LEFTPAREN       reduce using rule 16 (VALUE -> VALUELIST .)
+    UNKNOWNWORD     reduce using rule 16 (VALUE -> VALUELIST .)
+    URLVAL          reduce using rule 16 (VALUE -> VALUELIST .)
+    TEXTVAL         reduce using rule 16 (VALUE -> VALUELIST .)
+    NUMVAL          reduce using rule 16 (VALUE -> VALUELIST .)
+    LEFTSQUAREBRACKET reduce using rule 16 (VALUE -> VALUELIST .)
+    $end            reduce using rule 16 (VALUE -> VALUELIST .)
+    COMMA           reduce using rule 16 (VALUE -> VALUELIST .)
+    RIGHTPAREN      reduce using rule 16 (VALUE -> VALUELIST .)
+    RIGHTSQUAREBRACKET reduce using rule 16 (VALUE -> VALUELIST .)
+
+
+state 8
+
+    (25) DATATYPE -> TEXT .
+
+    UNKNOWNWORD     reduce using rule 25 (DATATYPE -> TEXT .)
+
+
+state 9
+
+    (27) DATATYPE -> URLLIST .
+
+    UNKNOWNWORD     reduce using rule 27 (DATATYPE -> URLLIST .)
+
+
+state 10
+
+    (6) EXPRESSION -> IDENTIFIER .
+    (10) FUNCTION -> IDENTIFIER . EXPRESSIONSET
+    (34) ASSIGNMENT -> IDENTIFIER . IS ROOTEXPRESSION
+    (11) EXPRESSIONSET -> . EXPRESSIONSET EXPRESSION
+    (12) EXPRESSIONSET -> . EXPRESSION
+    (6) EXPRESSION -> . IDENTIFIER
+    (7) EXPRESSION -> . VALUE
+    (8) EXPRESSION -> . LEFTPAREN FUNCTION RIGHTPAREN
+    (9) IDENTIFIER -> . UNKNOWNWORD
+    (13) VALUE -> . _URLVAL
+    (14) VALUE -> . _TEXTVAL
+    (15) VALUE -> . _NUMVAL
+    (16) VALUE -> . VALUELIST
+    (17) _URLVAL -> . URLVAL
+    (18) _TEXTVAL -> . TEXTVAL
+    (19) _NUMVAL -> . NUMVAL
+    (22) VALUELIST -> . LEFTSQUAREBRACKET VALUESET RIGHTSQUAREBRACKET
+
+    $end            reduce using rule 6 (EXPRESSION -> IDENTIFIER .)
+    COMMA           reduce using rule 6 (EXPRESSION -> IDENTIFIER .)
+    IS              shift and go to state 32
+    LEFTPAREN       shift and go to state 14
+    UNKNOWNWORD     shift and go to state 18
+    URLVAL          shift and go to state 19
+    TEXTVAL         shift and go to state 21
+    NUMVAL          shift and go to state 6
+    LEFTSQUAREBRACKET shift and go to state 4
+
+    IDENTIFIER                     shift and go to state 31
+    _TEXTVAL                       shift and go to state 20
+    _URLVAL                        shift and go to state 22
+    VALUE                          shift and go to state 15
+    VALUELIST                      shift and go to state 7
+    _NUMVAL                        shift and go to state 24
+    EXPRESSIONSET                  shift and go to state 33
+    EXPRESSION                     shift and go to state 34
+
+state 11
+
+    (2) ROOTEXPRESSION -> EXPRESSION .
+
+    $end            reduce using rule 2 (ROOTEXPRESSION -> EXPRESSION .)
+    COMMA           reduce using rule 2 (ROOTEXPRESSION -> EXPRESSION .)
+
+
+state 12
+
+    (1) STATEMENT -> ROOTEXPRESSION .
+
+    $end            reduce using rule 1 (STATEMENT -> ROOTEXPRESSION .)
+
+
+state 13
+
+    (24) DATATYPE -> URL .
+
+    UNKNOWNWORD     reduce using rule 24 (DATATYPE -> URL .)
+
+
+state 14
+
+    (8) EXPRESSION -> LEFTPAREN . FUNCTION RIGHTPAREN
+    (10) FUNCTION -> . IDENTIFIER EXPRESSIONSET
+    (9) IDENTIFIER -> . UNKNOWNWORD
+
+    UNKNOWNWORD     shift and go to state 18
+
+    FUNCTION                       shift and go to state 35
+    IDENTIFIER                     shift and go to state 36
+
+state 15
+
+    (7) EXPRESSION -> VALUE .
+
+    LEFTPAREN       reduce using rule 7 (EXPRESSION -> VALUE .)
+    UNKNOWNWORD     reduce using rule 7 (EXPRESSION -> VALUE .)
+    URLVAL          reduce using rule 7 (EXPRESSION -> VALUE .)
+    TEXTVAL         reduce using rule 7 (EXPRESSION -> VALUE .)
+    NUMVAL          reduce using rule 7 (EXPRESSION -> VALUE .)
+    LEFTSQUAREBRACKET reduce using rule 7 (EXPRESSION -> VALUE .)
+    RIGHTPAREN      reduce using rule 7 (EXPRESSION -> VALUE .)
+    $end            reduce using rule 7 (EXPRESSION -> VALUE .)
+    COMMA           reduce using rule 7 (EXPRESSION -> VALUE .)
+
+
+state 16
+
+    (0) S' -> STATEMENT .
+
+
+
+state 17
+
+    (29) DATATYPE -> NUMLIST .
+
+    UNKNOWNWORD     reduce using rule 29 (DATATYPE -> NUMLIST .)
+
+
+state 18
+
+    (9) IDENTIFIER -> UNKNOWNWORD .
+
+    IS              reduce using rule 9 (IDENTIFIER -> UNKNOWNWORD .)
+    LEFTPAREN       reduce using rule 9 (IDENTIFIER -> UNKNOWNWORD .)
+    UNKNOWNWORD     reduce using rule 9 (IDENTIFIER -> UNKNOWNWORD .)
+    URLVAL          reduce using rule 9 (IDENTIFIER -> UNKNOWNWORD .)
+    TEXTVAL         reduce using rule 9 (IDENTIFIER -> UNKNOWNWORD .)
+    NUMVAL          reduce using rule 9 (IDENTIFIER -> UNKNOWNWORD .)
+    LEFTSQUAREBRACKET reduce using rule 9 (IDENTIFIER -> UNKNOWNWORD .)
+    $end            reduce using rule 9 (IDENTIFIER -> UNKNOWNWORD .)
+    COMMA           reduce using rule 9 (IDENTIFIER -> UNKNOWNWORD .)
+    RIGHTPAREN      reduce using rule 9 (IDENTIFIER -> UNKNOWNWORD .)
+
+
+state 19
+
+    (17) _URLVAL -> URLVAL .
+
+    LEFTPAREN       reduce using rule 17 (_URLVAL -> URLVAL .)
+    UNKNOWNWORD     reduce using rule 17 (_URLVAL -> URLVAL .)
+    URLVAL          reduce using rule 17 (_URLVAL -> URLVAL .)
+    TEXTVAL         reduce using rule 17 (_URLVAL -> URLVAL .)
+    NUMVAL          reduce using rule 17 (_URLVAL -> URLVAL .)
+    LEFTSQUAREBRACKET reduce using rule 17 (_URLVAL -> URLVAL .)
+    $end            reduce using rule 17 (_URLVAL -> URLVAL .)
+    COMMA           reduce using rule 17 (_URLVAL -> URLVAL .)
+    RIGHTPAREN      reduce using rule 17 (_URLVAL -> URLVAL .)
+    RIGHTSQUAREBRACKET reduce using rule 17 (_URLVAL -> URLVAL .)
+
+
+state 20
+
+    (14) VALUE -> _TEXTVAL .
+
+    LEFTPAREN       reduce using rule 14 (VALUE -> _TEXTVAL .)
+    UNKNOWNWORD     reduce using rule 14 (VALUE -> _TEXTVAL .)
+    URLVAL          reduce using rule 14 (VALUE -> _TEXTVAL .)
+    TEXTVAL         reduce using rule 14 (VALUE -> _TEXTVAL .)
+    NUMVAL          reduce using rule 14 (VALUE -> _TEXTVAL .)
+    LEFTSQUAREBRACKET reduce using rule 14 (VALUE -> _TEXTVAL .)
+    $end            reduce using rule 14 (VALUE -> _TEXTVAL .)
+    COMMA           reduce using rule 14 (VALUE -> _TEXTVAL .)
+    RIGHTPAREN      reduce using rule 14 (VALUE -> _TEXTVAL .)
+    RIGHTSQUAREBRACKET reduce using rule 14 (VALUE -> _TEXTVAL .)
+
+
+state 21
+
+    (18) _TEXTVAL -> TEXTVAL .
+
+    LEFTPAREN       reduce using rule 18 (_TEXTVAL -> TEXTVAL .)
+    UNKNOWNWORD     reduce using rule 18 (_TEXTVAL -> TEXTVAL .)
+    URLVAL          reduce using rule 18 (_TEXTVAL -> TEXTVAL .)
+    TEXTVAL         reduce using rule 18 (_TEXTVAL -> TEXTVAL .)
+    NUMVAL          reduce using rule 18 (_TEXTVAL -> TEXTVAL .)
+    LEFTSQUAREBRACKET reduce using rule 18 (_TEXTVAL -> TEXTVAL .)
+    RIGHTPAREN      reduce using rule 18 (_TEXTVAL -> TEXTVAL .)
+    $end            reduce using rule 18 (_TEXTVAL -> TEXTVAL .)
+    COMMA           reduce using rule 18 (_TEXTVAL -> TEXTVAL .)
+    RIGHTSQUAREBRACKET reduce using rule 18 (_TEXTVAL -> TEXTVAL .)
+
+
+state 22
+
+    (13) VALUE -> _URLVAL .
+
+    LEFTPAREN       reduce using rule 13 (VALUE -> _URLVAL .)
+    UNKNOWNWORD     reduce using rule 13 (VALUE -> _URLVAL .)
+    URLVAL          reduce using rule 13 (VALUE -> _URLVAL .)
+    TEXTVAL         reduce using rule 13 (VALUE -> _URLVAL .)
+    NUMVAL          reduce using rule 13 (VALUE -> _URLVAL .)
+    LEFTSQUAREBRACKET reduce using rule 13 (VALUE -> _URLVAL .)
+    $end            reduce using rule 13 (VALUE -> _URLVAL .)
+    COMMA           reduce using rule 13 (VALUE -> _URLVAL .)
+    RIGHTPAREN      reduce using rule 13 (VALUE -> _URLVAL .)
+    RIGHTSQUAREBRACKET reduce using rule 13 (VALUE -> _URLVAL .)
+
+
+state 23
+
+    (4) ROOTEXPRESSION -> DECLARATION .
+
+    $end            reduce using rule 4 (ROOTEXPRESSION -> DECLARATION .)
+    COMMA           reduce using rule 4 (ROOTEXPRESSION -> DECLARATION .)
+
+
+state 24
+
+    (15) VALUE -> _NUMVAL .
+
+    LEFTPAREN       reduce using rule 15 (VALUE -> _NUMVAL .)
+    UNKNOWNWORD     reduce using rule 15 (VALUE -> _NUMVAL .)
+    URLVAL          reduce using rule 15 (VALUE -> _NUMVAL .)
+    TEXTVAL         reduce using rule 15 (VALUE -> _NUMVAL .)
+    NUMVAL          reduce using rule 15 (VALUE -> _NUMVAL .)
+    LEFTSQUAREBRACKET reduce using rule 15 (VALUE -> _NUMVAL .)
+    $end            reduce using rule 15 (VALUE -> _NUMVAL .)
+    COMMA           reduce using rule 15 (VALUE -> _NUMVAL .)
+    RIGHTPAREN      reduce using rule 15 (VALUE -> _NUMVAL .)
+    RIGHTSQUAREBRACKET reduce using rule 15 (VALUE -> _NUMVAL .)
+
+
+state 25
+
+    (28) DATATYPE -> TEXTLIST .
+
+    UNKNOWNWORD     reduce using rule 28 (DATATYPE -> TEXTLIST .)
+
+
+state 26
+
+    (22) VALUELIST -> LEFTSQUAREBRACKET VALUESET . RIGHTSQUAREBRACKET
+
+    RIGHTSQUAREBRACKET shift and go to state 37
+
+
+state 27
+
+    (20) VALUESET -> VALUE . COMMA VALUESET
+    (21) VALUESET -> VALUE .
+
+    COMMA           shift and go to state 38
+    RIGHTSQUAREBRACKET reduce using rule 21 (VALUESET -> VALUE .)
+
+
+state 28
+
+    (32) DECLAREDVAR -> UNKNOWNWORD . IS ROOTEXPRESSION
+    (33) DECLAREDVAR -> UNKNOWNWORD .
+
+    IS              shift and go to state 39
+    $end            reduce using rule 33 (DECLAREDVAR -> UNKNOWNWORD .)
+    COMMA           reduce using rule 33 (DECLAREDVAR -> UNKNOWNWORD .)
+
+
+state 29
+
+    (23) DECLARATION -> DATATYPE DECLARATIONSET .
+
+    $end            reduce using rule 23 (DECLARATION -> DATATYPE DECLARATIONSET .)
+    COMMA           reduce using rule 23 (DECLARATION -> DATATYPE DECLARATIONSET .)
+
+
+state 30
+
+    (30) DECLARATIONSET -> DECLAREDVAR . COMMA DECLARATIONSET
+    (31) DECLARATIONSET -> DECLAREDVAR .
+
+  ! shift/reduce conflict for COMMA resolved as shift
+    COMMA           shift and go to state 40
+    $end            reduce using rule 31 (DECLARATIONSET -> DECLAREDVAR .)
+
+  ! COMMA           [ reduce using rule 31 (DECLARATIONSET -> DECLAREDVAR .) ]
+
+
+state 31
+
+    (6) EXPRESSION -> IDENTIFIER .
+
+    LEFTPAREN       reduce using rule 6 (EXPRESSION -> IDENTIFIER .)
+    UNKNOWNWORD     reduce using rule 6 (EXPRESSION -> IDENTIFIER .)
+    URLVAL          reduce using rule 6 (EXPRESSION -> IDENTIFIER .)
+    TEXTVAL         reduce using rule 6 (EXPRESSION -> IDENTIFIER .)
+    NUMVAL          reduce using rule 6 (EXPRESSION -> IDENTIFIER .)
+    LEFTSQUAREBRACKET reduce using rule 6 (EXPRESSION -> IDENTIFIER .)
+    RIGHTPAREN      reduce using rule 6 (EXPRESSION -> IDENTIFIER .)
+    $end            reduce using rule 6 (EXPRESSION -> IDENTIFIER .)
+    COMMA           reduce using rule 6 (EXPRESSION -> IDENTIFIER .)
+
+
+state 32
+
+    (34) ASSIGNMENT -> IDENTIFIER IS . ROOTEXPRESSION
+    (2) ROOTEXPRESSION -> . EXPRESSION
+    (3) ROOTEXPRESSION -> . FUNCTION
+    (4) ROOTEXPRESSION -> . DECLARATION
+    (5) ROOTEXPRESSION -> . ASSIGNMENT
+    (6) EXPRESSION -> . IDENTIFIER
+    (7) EXPRESSION -> . VALUE
+    (8) EXPRESSION -> . LEFTPAREN FUNCTION RIGHTPAREN
+    (10) FUNCTION -> . IDENTIFIER EXPRESSIONSET
+    (23) DECLARATION -> . DATATYPE DECLARATIONSET
+    (34) ASSIGNMENT -> . IDENTIFIER IS ROOTEXPRESSION
+    (9) IDENTIFIER -> . UNKNOWNWORD
+    (13) VALUE -> . _URLVAL
+    (14) VALUE -> . _TEXTVAL
+    (15) VALUE -> . _NUMVAL
+    (16) VALUE -> . VALUELIST
+    (24) DATATYPE -> . URL
+    (25) DATATYPE -> . TEXT
+    (26) DATATYPE -> . NUMBER
+    (27) DATATYPE -> . URLLIST
+    (28) DATATYPE -> . TEXTLIST
+    (29) DATATYPE -> . NUMLIST
+    (17) _URLVAL -> . URLVAL
+    (18) _TEXTVAL -> . TEXTVAL
+    (19) _NUMVAL -> . NUMVAL
+    (22) VALUELIST -> . LEFTSQUAREBRACKET VALUESET RIGHTSQUAREBRACKET
+
+    LEFTPAREN       shift and go to state 14
+    UNKNOWNWORD     shift and go to state 18
+    URL             shift and go to state 13
+    TEXT            shift and go to state 8
+    NUMBER          shift and go to state 3
+    URLLIST         shift and go to state 9
+    TEXTLIST        shift and go to state 25
+    NUMLIST         shift and go to state 17
+    URLVAL          shift and go to state 19
+    TEXTVAL         shift and go to state 21
+    NUMVAL          shift and go to state 6
+    LEFTSQUAREBRACKET shift and go to state 4
+
+    ROOTEXPRESSION                 shift and go to state 41
+    FUNCTION                       shift and go to state 1
+    _TEXTVAL                       shift and go to state 20
+    DATATYPE                       shift and go to state 5
+    ASSIGNMENT                     shift and go to state 2
+    VALUE                          shift and go to state 15
+    _URLVAL                        shift and go to state 22
+    VALUELIST                      shift and go to state 7
+    DECLARATION                    shift and go to state 23
+    _NUMVAL                        shift and go to state 24
+    IDENTIFIER                     shift and go to state 10
+    EXPRESSION                     shift and go to state 11
+
+state 33
+
+    (10) FUNCTION -> IDENTIFIER EXPRESSIONSET .
+    (11) EXPRESSIONSET -> EXPRESSIONSET . EXPRESSION
+    (6) EXPRESSION -> . IDENTIFIER
+    (7) EXPRESSION -> . VALUE
+    (8) EXPRESSION -> . LEFTPAREN FUNCTION RIGHTPAREN
+    (9) IDENTIFIER -> . UNKNOWNWORD
+    (13) VALUE -> . _URLVAL
+    (14) VALUE -> . _TEXTVAL
+    (15) VALUE -> . _NUMVAL
+    (16) VALUE -> . VALUELIST
+    (17) _URLVAL -> . URLVAL
+    (18) _TEXTVAL -> . TEXTVAL
+    (19) _NUMVAL -> . NUMVAL
+    (22) VALUELIST -> . LEFTSQUAREBRACKET VALUESET RIGHTSQUAREBRACKET
+
+    $end            reduce using rule 10 (FUNCTION -> IDENTIFIER EXPRESSIONSET .)
+    COMMA           reduce using rule 10 (FUNCTION -> IDENTIFIER EXPRESSIONSET .)
+    RIGHTPAREN      reduce using rule 10 (FUNCTION -> IDENTIFIER EXPRESSIONSET .)
+    LEFTPAREN       shift and go to state 14
+    UNKNOWNWORD     shift and go to state 18
+    URLVAL          shift and go to state 19
+    TEXTVAL         shift and go to state 21
+    NUMVAL          shift and go to state 6
+    LEFTSQUAREBRACKET shift and go to state 4
+
+    IDENTIFIER                     shift and go to state 31
+    _TEXTVAL                       shift and go to state 20
+    _URLVAL                        shift and go to state 22
+    VALUE                          shift and go to state 15
+    VALUELIST                      shift and go to state 7
+    _NUMVAL                        shift and go to state 24
+    EXPRESSION                     shift and go to state 42
+
+state 34
+
+    (12) EXPRESSIONSET -> EXPRESSION .
+
+    LEFTPAREN       reduce using rule 12 (EXPRESSIONSET -> EXPRESSION .)
+    UNKNOWNWORD     reduce using rule 12 (EXPRESSIONSET -> EXPRESSION .)
+    URLVAL          reduce using rule 12 (EXPRESSIONSET -> EXPRESSION .)
+    TEXTVAL         reduce using rule 12 (EXPRESSIONSET -> EXPRESSION .)
+    NUMVAL          reduce using rule 12 (EXPRESSIONSET -> EXPRESSION .)
+    LEFTSQUAREBRACKET reduce using rule 12 (EXPRESSIONSET -> EXPRESSION .)
+    $end            reduce using rule 12 (EXPRESSIONSET -> EXPRESSION .)
+    COMMA           reduce using rule 12 (EXPRESSIONSET -> EXPRESSION .)
+    RIGHTPAREN      reduce using rule 12 (EXPRESSIONSET -> EXPRESSION .)
+
+
+state 35
+
+    (8) EXPRESSION -> LEFTPAREN FUNCTION . RIGHTPAREN
+
+    RIGHTPAREN      shift and go to state 43
+
+
+state 36
+
+    (10) FUNCTION -> IDENTIFIER . EXPRESSIONSET
+    (11) EXPRESSIONSET -> . EXPRESSIONSET EXPRESSION
+    (12) EXPRESSIONSET -> . EXPRESSION
+    (6) EXPRESSION -> . IDENTIFIER
+    (7) EXPRESSION -> . VALUE
+    (8) EXPRESSION -> . LEFTPAREN FUNCTION RIGHTPAREN
+    (9) IDENTIFIER -> . UNKNOWNWORD
+    (13) VALUE -> . _URLVAL
+    (14) VALUE -> . _TEXTVAL
+    (15) VALUE -> . _NUMVAL
+    (16) VALUE -> . VALUELIST
+    (17) _URLVAL -> . URLVAL
+    (18) _TEXTVAL -> . TEXTVAL
+    (19) _NUMVAL -> . NUMVAL
+    (22) VALUELIST -> . LEFTSQUAREBRACKET VALUESET RIGHTSQUAREBRACKET
+
+    LEFTPAREN       shift and go to state 14
+    UNKNOWNWORD     shift and go to state 18
+    URLVAL          shift and go to state 19
+    TEXTVAL         shift and go to state 21
+    NUMVAL          shift and go to state 6
+    LEFTSQUAREBRACKET shift and go to state 4
+
+    IDENTIFIER                     shift and go to state 31
+    _TEXTVAL                       shift and go to state 20
+    _URLVAL                        shift and go to state 22
+    VALUE                          shift and go to state 15
+    VALUELIST                      shift and go to state 7
+    _NUMVAL                        shift and go to state 24
+    EXPRESSIONSET                  shift and go to state 33
+    EXPRESSION                     shift and go to state 34
+
+state 37
+
+    (22) VALUELIST -> LEFTSQUAREBRACKET VALUESET RIGHTSQUAREBRACKET .
+
+    $end            reduce using rule 22 (VALUELIST -> LEFTSQUAREBRACKET VALUESET RIGHTSQUAREBRACKET .)
+    COMMA           reduce using rule 22 (VALUELIST -> LEFTSQUAREBRACKET VALUESET RIGHTSQUAREBRACKET .)
+    LEFTPAREN       reduce using rule 22 (VALUELIST -> LEFTSQUAREBRACKET VALUESET RIGHTSQUAREBRACKET .)
+    UNKNOWNWORD     reduce using rule 22 (VALUELIST -> LEFTSQUAREBRACKET VALUESET RIGHTSQUAREBRACKET .)
+    URLVAL          reduce using rule 22 (VALUELIST -> LEFTSQUAREBRACKET VALUESET RIGHTSQUAREBRACKET .)
+    TEXTVAL         reduce using rule 22 (VALUELIST -> LEFTSQUAREBRACKET VALUESET RIGHTSQUAREBRACKET .)
+    NUMVAL          reduce using rule 22 (VALUELIST -> LEFTSQUAREBRACKET VALUESET RIGHTSQUAREBRACKET .)
+    LEFTSQUAREBRACKET reduce using rule 22 (VALUELIST -> LEFTSQUAREBRACKET VALUESET RIGHTSQUAREBRACKET .)
+    RIGHTPAREN      reduce using rule 22 (VALUELIST -> LEFTSQUAREBRACKET VALUESET RIGHTSQUAREBRACKET .)
+    RIGHTSQUAREBRACKET reduce using rule 22 (VALUELIST -> LEFTSQUAREBRACKET VALUESET RIGHTSQUAREBRACKET .)
+
+
+state 38
+
+    (20) VALUESET -> VALUE COMMA . VALUESET
+    (20) VALUESET -> . VALUE COMMA VALUESET
+    (21) VALUESET -> . VALUE
+    (13) VALUE -> . _URLVAL
+    (14) VALUE -> . _TEXTVAL
+    (15) VALUE -> . _NUMVAL
+    (16) VALUE -> . VALUELIST
+    (17) _URLVAL -> . URLVAL
+    (18) _TEXTVAL -> . TEXTVAL
+    (19) _NUMVAL -> . NUMVAL
+    (22) VALUELIST -> . LEFTSQUAREBRACKET VALUESET RIGHTSQUAREBRACKET
+
+    URLVAL          shift and go to state 19
+    TEXTVAL         shift and go to state 21
+    NUMVAL          shift and go to state 6
+    LEFTSQUAREBRACKET shift and go to state 4
+
+    VALUESET                       shift and go to state 44
+    _TEXTVAL                       shift and go to state 20
+    _URLVAL                        shift and go to state 22
+    VALUE                          shift and go to state 27
+    VALUELIST                      shift and go to state 7
+    _NUMVAL                        shift and go to state 24
+
+state 39
+
+    (32) DECLAREDVAR -> UNKNOWNWORD IS . ROOTEXPRESSION
+    (2) ROOTEXPRESSION -> . EXPRESSION
+    (3) ROOTEXPRESSION -> . FUNCTION
+    (4) ROOTEXPRESSION -> . DECLARATION
+    (5) ROOTEXPRESSION -> . ASSIGNMENT
+    (6) EXPRESSION -> . IDENTIFIER
+    (7) EXPRESSION -> . VALUE
+    (8) EXPRESSION -> . LEFTPAREN FUNCTION RIGHTPAREN
+    (10) FUNCTION -> . IDENTIFIER EXPRESSIONSET
+    (23) DECLARATION -> . DATATYPE DECLARATIONSET
+    (34) ASSIGNMENT -> . IDENTIFIER IS ROOTEXPRESSION
+    (9) IDENTIFIER -> . UNKNOWNWORD
+    (13) VALUE -> . _URLVAL
+    (14) VALUE -> . _TEXTVAL
+    (15) VALUE -> . _NUMVAL
+    (16) VALUE -> . VALUELIST
+    (24) DATATYPE -> . URL
+    (25) DATATYPE -> . TEXT
+    (26) DATATYPE -> . NUMBER
+    (27) DATATYPE -> . URLLIST
+    (28) DATATYPE -> . TEXTLIST
+    (29) DATATYPE -> . NUMLIST
+    (17) _URLVAL -> . URLVAL
+    (18) _TEXTVAL -> . TEXTVAL
+    (19) _NUMVAL -> . NUMVAL
+    (22) VALUELIST -> . LEFTSQUAREBRACKET VALUESET RIGHTSQUAREBRACKET
+
+    LEFTPAREN       shift and go to state 14
+    UNKNOWNWORD     shift and go to state 18
+    URL             shift and go to state 13
+    TEXT            shift and go to state 8
+    NUMBER          shift and go to state 3
+    URLLIST         shift and go to state 9
+    TEXTLIST        shift and go to state 25
+    NUMLIST         shift and go to state 17
+    URLVAL          shift and go to state 19
+    TEXTVAL         shift and go to state 21
+    NUMVAL          shift and go to state 6
+    LEFTSQUAREBRACKET shift and go to state 4
+
+    ROOTEXPRESSION                 shift and go to state 45
+    FUNCTION                       shift and go to state 1
+    _TEXTVAL                       shift and go to state 20
+    DATATYPE                       shift and go to state 5
+    ASSIGNMENT                     shift and go to state 2
+    VALUE                          shift and go to state 15
+    _URLVAL                        shift and go to state 22
+    VALUELIST                      shift and go to state 7
+    DECLARATION                    shift and go to state 23
+    _NUMVAL                        shift and go to state 24
+    IDENTIFIER                     shift and go to state 10
+    EXPRESSION                     shift and go to state 11
+
+state 40
+
+    (30) DECLARATIONSET -> DECLAREDVAR COMMA . DECLARATIONSET
+    (30) DECLARATIONSET -> . DECLAREDVAR COMMA DECLARATIONSET
+    (31) DECLARATIONSET -> . DECLAREDVAR
+    (32) DECLAREDVAR -> . UNKNOWNWORD IS ROOTEXPRESSION
+    (33) DECLAREDVAR -> . UNKNOWNWORD
+
+    UNKNOWNWORD     shift and go to state 28
+
+    DECLAREDVAR                    shift and go to state 30
+    DECLARATIONSET                 shift and go to state 46
+
+state 41
+
+    (34) ASSIGNMENT -> IDENTIFIER IS ROOTEXPRESSION .
+
+    $end            reduce using rule 34 (ASSIGNMENT -> IDENTIFIER IS ROOTEXPRESSION .)
+    COMMA           reduce using rule 34 (ASSIGNMENT -> IDENTIFIER IS ROOTEXPRESSION .)
+
+
+state 42
+
+    (11) EXPRESSIONSET -> EXPRESSIONSET EXPRESSION .
+
+    LEFTPAREN       reduce using rule 11 (EXPRESSIONSET -> EXPRESSIONSET EXPRESSION .)
+    UNKNOWNWORD     reduce using rule 11 (EXPRESSIONSET -> EXPRESSIONSET EXPRESSION .)
+    URLVAL          reduce using rule 11 (EXPRESSIONSET -> EXPRESSIONSET EXPRESSION .)
+    TEXTVAL         reduce using rule 11 (EXPRESSIONSET -> EXPRESSIONSET EXPRESSION .)
+    NUMVAL          reduce using rule 11 (EXPRESSIONSET -> EXPRESSIONSET EXPRESSION .)
+    LEFTSQUAREBRACKET reduce using rule 11 (EXPRESSIONSET -> EXPRESSIONSET EXPRESSION .)
+    $end            reduce using rule 11 (EXPRESSIONSET -> EXPRESSIONSET EXPRESSION .)
+    COMMA           reduce using rule 11 (EXPRESSIONSET -> EXPRESSIONSET EXPRESSION .)
+    RIGHTPAREN      reduce using rule 11 (EXPRESSIONSET -> EXPRESSIONSET EXPRESSION .)
+
+
+state 43
+
+    (8) EXPRESSION -> LEFTPAREN FUNCTION RIGHTPAREN .
+
+    LEFTPAREN       reduce using rule 8 (EXPRESSION -> LEFTPAREN FUNCTION RIGHTPAREN .)
+    UNKNOWNWORD     reduce using rule 8 (EXPRESSION -> LEFTPAREN FUNCTION RIGHTPAREN .)
+    URLVAL          reduce using rule 8 (EXPRESSION -> LEFTPAREN FUNCTION RIGHTPAREN .)
+    TEXTVAL         reduce using rule 8 (EXPRESSION -> LEFTPAREN FUNCTION RIGHTPAREN .)
+    NUMVAL          reduce using rule 8 (EXPRESSION -> LEFTPAREN FUNCTION RIGHTPAREN .)
+    LEFTSQUAREBRACKET reduce using rule 8 (EXPRESSION -> LEFTPAREN FUNCTION RIGHTPAREN .)
+    RIGHTPAREN      reduce using rule 8 (EXPRESSION -> LEFTPAREN FUNCTION RIGHTPAREN .)
+    $end            reduce using rule 8 (EXPRESSION -> LEFTPAREN FUNCTION RIGHTPAREN .)
+    COMMA           reduce using rule 8 (EXPRESSION -> LEFTPAREN FUNCTION RIGHTPAREN .)
+
+
+state 44
+
+    (20) VALUESET -> VALUE COMMA VALUESET .
+
+    RIGHTSQUAREBRACKET reduce using rule 20 (VALUESET -> VALUE COMMA VALUESET .)
+
+
+state 45
+
+    (32) DECLAREDVAR -> UNKNOWNWORD IS ROOTEXPRESSION .
+
+    $end            reduce using rule 32 (DECLAREDVAR -> UNKNOWNWORD IS ROOTEXPRESSION .)
+    COMMA           reduce using rule 32 (DECLAREDVAR -> UNKNOWNWORD IS ROOTEXPRESSION .)
+
+
+state 46
+
+    (30) DECLARATIONSET -> DECLAREDVAR COMMA DECLARATIONSET .
+
+    $end            reduce using rule 30 (DECLARATIONSET -> DECLAREDVAR COMMA DECLARATIONSET .)
+    COMMA           reduce using rule 30 (DECLARATIONSET -> DECLAREDVAR COMMA DECLARATIONSET .)
+
+WARNING: 
+WARNING: Conflicts:
+WARNING: 
+WARNING: shift/reduce conflict for COMMA in state 30 resolved as shift
