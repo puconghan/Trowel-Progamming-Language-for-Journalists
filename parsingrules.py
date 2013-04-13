@@ -7,7 +7,7 @@ def p_statement(p):
 	'''
 	STATEMENT : ROOTEXPRESSION
 	'''
-	p[0] = p[1]
+	p[0] = p[2]
 		
 def p_error(p):
 	print "Syntax error at '%s'" % p.value
@@ -23,7 +23,7 @@ def p_rootexpression(p):
 				| ASSIGNMENT
 	'''
 	if p[1][0] == 'functioncall':
-		p[1] = ['expression', p[1]]
+		p[1] = ['expression',p[1]]
 	p[0] = p[1]
 
 def p_expression_1(p):
@@ -168,6 +168,18 @@ def p_assignment(p):
 	p[0] = ['assignment', p[1], p[3]]
 
 #-----------------------------------------------------
+
+##Parser for tab input (indentation).
+# Implemented by Pucong Han on April 9, 2013
+def p_expression_tab(p):
+    'INDENTATION : TAB INDENTATION'
+    p[0] = ("indented", p[2][1] + 1)
+    pass
+
+def p_expression_tab_empty(p):
+    'INDENTATION : EMPTY'
+    p[0] = ("empty", 0)
+    pass
 
 ##Empty handle
 def p_empty(p):
