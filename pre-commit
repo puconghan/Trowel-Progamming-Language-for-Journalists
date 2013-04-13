@@ -10,15 +10,28 @@ if os.getcwd().split('/')[-1] == 'hooks':
 	os.chdir('../..')
 sys.path.append(os.getcwd())
 from epicparser import *
+from glob import glob
 
 
 class TestTrowel(unittest.TestCase):
 
 
 	# Lexer tests
+	# Print tests
 	def test_lexer_print_number(self):
 		self.assertEqual(parsewrapper().gettokens("print 45"), [['UNKNOWNWORD', 'print', 1], ['NUMVAL', '45', 1]])
 		self.assertEqual(parsewrapper().gettokens("print 4 5"), [['UNKNOWNWORD', 'print', 1], ['NUMVAL', '4', 1], ['NUMVAL', '5', 1]])
+		
+	def test_lexer_print_url(self):
+		self.assertEqual(parsewrapper().gettokens("print 'this is a url'"), [['UNKNOWNWORD', 'print', 1], ['URLVAL', '\'this is a url\'', 1]])
+		
+	def test_lexer_print_text(self):
+		self.assertEqual(parsewrapper().gettokens("print \"this is a text\""), [['UNKNOWNWORD', 'print', 1], ['TEXTVAL', '"this is a text"', 1]])
+		
+	#Error checking Lexer tests
+	# Print tests
+	def test_lexer_print_variable_Error(self):
+		self.assertEqual(parsewrapper().gettokens("print x"), [['UNKNOWNWORD', 'print', 1], ['UNKNOWNWORD', 'x', 1]])
 
 	# Parser tests
 	def test_parser_print_number(self):
@@ -26,4 +39,6 @@ class TestTrowel(unittest.TestCase):
 		self.assertEqual(parsewrapper().getabstractlist("print 4 5"), ['expression', ['functioncall', ['functionname', 'print'], 'arguments', [['expression', ['number', 4]], ['expression', ['number', 5]]]]])
 
 if __name__ == '__main__':
+	for f in glob ('*.pyc'):
+   		os.unlink(f)
 	unittest.main()
