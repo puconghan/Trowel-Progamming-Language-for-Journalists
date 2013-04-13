@@ -23,7 +23,7 @@ def p_rootexpression(p):
 				| ASSIGNMENT
 	'''
 	if p[1][0] == 'functioncall':
-		p[1] = ['expression',p[1]]
+		p[1] = ['expression', p[1]]
 	p[0] = p[1]
 
 def p_expression_1(p):
