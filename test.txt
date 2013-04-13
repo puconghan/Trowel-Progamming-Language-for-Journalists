@@ -13,7 +13,7 @@ temp3 is temp
 	number thisnumber is 5
 urllist temp is read testpress.txt
 urllist templist is read testpress.txt
-save templist into outputlist.txt
+save into outputlist.txt
 append 'www.puconghan.com' into testpress.txt
 url myurl is 'www.robertwalport.com'
 	append myurl into testpress.txt

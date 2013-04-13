@@ -73,6 +73,11 @@ class TestTrowel(unittest.TestCase):
 		self.assertEqual(trowel.main([None, r'text temp\ntemp is "This is text"']), ['import os', 'from bs4 import BeautifulSoup', 'import urllib2', 'import re', 'import glob', '\n', "temp = \"\"", "temp = \"This is text\""])
 		self.assertEqual(trowel.main([None, r'number temp\ntemp is 5']), ['import os', 'from bs4 import BeautifulSoup', 'import urllib2', 'import re', 'import glob', '\n', "temp = 0", "temp = 5"])
 		self.assertEqual(trowel.main([None, r"url temp\ntemp is 'www.bbc.co.uk'"]), ['import os', 'from bs4 import BeautifulSoup', 'import urllib2', 'import re', 'import glob', '\n', "temp = ''", "temp = 'www.bbc.co.uk'"])
+		
+	def test_two_line_assign_print(self):
+		self.assertEqual(trowel.main([None, r'number temp is 5\nprint temp']), ['import os', 'from bs4 import BeautifulSoup', 'import urllib2', 'import re', 'import glob', '\n', "temp = 5", "print \"\" + str(temp) + \"\""])
+		self.assertEqual(trowel.main([None, r'text temp is "this is text"\nprint temp']), ['import os', 'from bs4 import BeautifulSoup', 'import urllib2', 'import re', 'import glob', '\n', "temp = \"this is text\"", "print \"\" + str(temp) + \"\""])
+		self.assertEqual(trowel.main([None, r"url temp is 'this is text'\nprint temp"]), ['import os', 'from bs4 import BeautifulSoup', 'import urllib2', 'import re', 'import glob', '\n', "temp = 'this is text'", "print \"\" + str(temp) + \"\""])
 	
 	# Sample program tests
 

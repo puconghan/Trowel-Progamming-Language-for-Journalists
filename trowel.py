@@ -30,6 +30,8 @@ from Parser import parser
 import typelist
 
 def printvals(i):
+	print "start of printvals"
+	print i
 	item = []
 	global program
 	global printlist
@@ -37,8 +39,11 @@ def printvals(i):
 	for val in i:
 		item.append(operationChecker(val))
 	list_to_print = list_to_print + "print \""
+	print item
 	for entry in item:
-		if entry[0] == "text" or entry[0] == "url":
+		if entry[0] == "existingvar":
+			list_to_print = list_to_print + "\" + str(" + str(entry[1]) + ") + \""
+		elif entry[0] == "text" or entry[0] == "url":
 			list_to_print = list_to_print + str(entry[1])
 		else: #print number
 			list_to_print = list_to_print + str(entry[1])

@@ -342,6 +342,11 @@ def p_expression_combine(p):
     '''FUNCTION : COMBINE URLEXP AND TEXTEXP
                 | COMBINE URLEXP AND NUMEXP'''
     p[0] = ("func", "combine", 0, ('url', str(p[2][1]) + str(p[4][1])))
+    
+def p_expression_printexistingvar(p):
+    'EXPRESSION : INDENTATION PRINT EXISTINGVAR'
+    typelist.indentationCheck(p[1][1])
+    p[0] = ("func", "printvals", p[1][1], [p[3]])
 
 ##Parser for printing a list.
 # Implemented by Victoria Mo and Robert Walport on April 6, 2013.
