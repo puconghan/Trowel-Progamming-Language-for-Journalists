@@ -33,8 +33,8 @@ def append(arglist):
 				with open(filename, "a") as modifiedfile:
 					modifiedfile.write(listitem + "\n")
 		else:
-			if tgl.varlist.get((tgl.intentlevel, data)) != None:
-				storedurllist = tgl.varlist.get((tgl.intentlevel, data))
+			if tgl.varlist.get((tgl.indentlevel, data)) != None:
+				storedurllist = tgl.varlist.get((tgl.indentlevel, data))
 				for storeditem in storedurllist:
 					with open(filename, "a") as modifiedfile:
 						modifiedfile.write(storeditem + "\n")
@@ -79,24 +79,24 @@ def insert(arglist):
 	else:
 		data = arglist[0]
 		listname = arglist[2]
-		if tgl.typelist.get((tgl.intentlevel, listname)) == "urllist":
+		if tgl.typelist.get((tgl.indentlevel, listname)) == "urllist":
 			if str(type(data)) == str("<type 'list'>"):
 				for listitem in data:
-					tgl.varlist[(tgl.intentlevel, listname)].append(listitem)
+					tgl.varlist[(tgl.indentlevel, listname)].append(listitem)
 			else:
-				if tgl.typelist.get((tgl.intentlevel, data)) == "url":
-					tgl.varlist[(tgl.intentlevel, listname)].append(tgl.varlist.get((tgl.intentlevel, data)))
+				if tgl.typelist.get((tgl.indentlevel, data)) == "url":
+					tgl.varlist[(tgl.indentlevel, listname)].append(tgl.varlist.get((tgl.indentlevel, data)))
 				else:
-					tgl.varlist[(tgl.intentlevel, listname)].append(data)
-		elif tgl.typelist.get((tgl.intentlevel, listname)) == "textlist":
+					tgl.varlist[(tgl.indentlevel, listname)].append(data)
+		elif tgl.typelist.get((tgl.indentlevel, listname)) == "textlist":
 			if str(type(data)) == str("<type 'list'>"):
 				for listitem in data:
-					tgl.varlist[(tgl.intentlevel, listname)].append(listitem)
+					tgl.varlist[(tgl.indentlevel, listname)].append(listitem)
 			else:
-				if tgl.typelist.get((tgl.intentlevel, data)) == "text":
-					tgl.varlist[(tgl.intentlevel, listname)].append(tgl.varlist.get((tgl.intentlevel, data)))
+				if tgl.typelist.get((tgl.indentlevel, data)) == "text":
+					tgl.varlist[(tgl.indentlevel, listname)].append(tgl.varlist.get((tgl.indentlevel, data)))
 				else:
-					tgl.varlist[(tgl.intentlevel, listname)].append(data)
+					tgl.varlist[(tgl.indentlevel, listname)].append(data)
 		else:
 			print "Wrong format for insert function. " + listname + " should be a list."
 			sys.exit()

@@ -3,11 +3,18 @@ from lexingrules import *
 
 start = 'STATEMENT'
 
+##Header statement of the parser.
+# Modified by Pucong Han on April 14, 2013.
 def p_statement(p):
 	'''
-	STATEMENT : INDENTATION ROOTEXPRESSION
+	STATEMENT : ROOTEXPRESSION
 	'''
-	p[0] = p[2]
+	p[0] = p[1]
+	
+	print "----------Type List--------------"
+	print tgl.typelist
+	print "----------Value List-------------"
+	print tgl.varlist
 		
 def p_error(p):
 	print "Syntax error at '%s'" % p.value
@@ -46,7 +53,7 @@ def p_identifier(p):
 	'IDENTIFIER : UNKNOWNWORD'
 	if tgl.funclist.get(p[1]) != None:
 		p[0] = ['functionname',p[1]]
-	elif tgl.typelist.get((tgl.intentlevel, p[1])) != None:
+	elif tgl.typelist.get((tgl.indentlevel, p[1])) != None:
 		p[0] = ['variable',p[1]]
 	else:
 		p[0] = ['error','variable ' + p[1] + ' not found']
@@ -126,9 +133,8 @@ def p_declaration(p):
 	'DECLARATION : DATATYPE DECLARATIONSET'
 	p[0] = ['declaration',p[1],p[2]]
 	for varobj in p[2]:
-		if (tgl.reservedlist.get(varobj[0]) == None) and (tgl.funclist.get(varobj[0]) == None) and (tgl.typelist.get((tgl.intentlevel,varobj[0])) == None):
-			tgl.varlist[(tgl.intentlevel, varobj[0])] = p[2][0][0]
-			tgl.typelist[(tgl.intentlevel, varobj[0])] = p[1][1]
+		if (tgl.reservedlist.get(varobj[0]) == None) and (tgl.funclist.get(varobj[0]) == None) and (tgl.typelist.get((tgl.indentlevel,varobj[0])) == None):
+			tgl.typelist[(tgl.indentlevel, varobj[0])] = p[1][1]
 
 def p_datatype(p):
 	'''
@@ -168,10 +174,12 @@ def p_assignment(p):
 	'ASSIGNMENT : IDENTIFIER IS ROOTEXPRESSION'
 	p[0] = ['assignment', p[1], p[3]]
 
+	##Need to do this here -> tgl.varlist[(tgl.indentlevel, varobj[0])] = p[2][0][0]
+
 #-----------------------------------------------------
 
 ##Parser for tab input (indentation).
-# Implemented by Pucong Han on April 9, 2013
+# Implemented by Pucong Han on April 14, 2013
 def p_expression_tab(p):
     'INDENTATION : TAB INDENTATION'
     p[0] = ("indented", p[2][1] + 1)
