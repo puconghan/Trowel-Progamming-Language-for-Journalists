@@ -5,7 +5,7 @@ start = 'STATEMENT'
 
 def p_statement(p):
 	'''
-	STATEMENT : ROOTEXPRESSION
+	STATEMENT : INDENTATION ROOTEXPRESSION
 	'''
 	p[0] = p[2]
 		
@@ -18,9 +18,9 @@ def p_error(p):
 def p_rootexpression(p):
 	'''
 	ROOTEXPRESSION	: EXPRESSION
-				| FUNCTION
-				| DECLARATION
-				| ASSIGNMENT
+					| FUNCTION
+					| DECLARATION
+					| ASSIGNMENT
 	'''
 	if p[1][0] == 'functioncall':
 		p[1] = ['expression',p[1]]
@@ -61,7 +61,7 @@ def p_function(p):
 def p_expressionset(p):
 	'''
 	EXPRESSIONSET	: EXPRESSIONSET EXPRESSION
-				| EXPRESSION
+					| EXPRESSION
 	'''
 	if len(p) == 3:
 		p[0] = p[1] + [p[2]]
@@ -95,7 +95,7 @@ def p_numval(p):
 def p_valueset(p):
 	'''
 	VALUESET	: VALUE COMMA VALUESET
-			| VALUE
+				| VALUE
 	'''
 	if len(p) == 2:
 		p[0] = [p[1]]
@@ -132,18 +132,18 @@ def p_declaration(p):
 def p_datatype(p):
 	'''
 	DATATYPE	: URL
-			| TEXT
-			| NUMBER
-			| URLLIST
-			| TEXTLIST
-			| NUMLIST
+				| TEXT
+				| NUMBER
+				| URLLIST
+				| TEXTLIST
+				| NUMLIST
 	'''
 	p[0] = ['datatype',p[1]]
 	
 def p_declarationset(p):
 	'''
 	DECLARATIONSET	: DECLAREDVAR COMMA DECLARATIONSET
-				| DECLAREDVAR
+					| DECLAREDVAR
 	'''
 	if len(p) == 2:
 		p[0] = [p[1]]
