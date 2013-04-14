@@ -173,8 +173,8 @@ def p_declarationassign(p):
 def p_assignment(p):
 	'ASSIGNMENT : IDENTIFIER IS ROOTEXPRESSION'
 	p[0] = ['assignment', p[1], p[3]]
-
-	##Need to do this here -> tgl.varlist[(tgl.indentlevel, varobj[0])] = p[2][0][0]
+	if p[3][1][0] in ['urllist', 'textlist', 'numlist', 'number', 'text', 'url']:
+		tgl.varlist[(tgl.indentlevel, p[1][1])] = p[3][1][1]
 
 #-----------------------------------------------------
 
