@@ -64,6 +64,7 @@ class TestTrowel(unittest.TestCase):
 	def test_function_insert(self):
 		self.assertEqual(insert(["text","into",["text","list"]]), ["text","list","text"])
 		self.assertEqual(insert([1,"into",[2,3]]), [2,3,1])
+		self.assertEqual(insert([1,"into",[2,3], "extra arg"]), 0)
 
 if __name__ == '__main__':
 	for f in glob ('*.pyc'):

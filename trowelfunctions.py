@@ -23,6 +23,9 @@ def combine(arglist):
 #takes a url or text and adds it to the end of a urllist/textlist
 #arglist is ['url'/"text", "into", urllist/textlist]
 def insert(arglist):
+	if len(arglist) != 3:
+		print "Format for insert in \"url/text\" into \"urllist/textlist\""
+		return 0
 	arglist[2].append(arglist[0])
 	return arglist[2]
 
