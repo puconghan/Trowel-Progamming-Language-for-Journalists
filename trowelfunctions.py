@@ -66,7 +66,7 @@ def read(arglist):
 	return read_url_list
 
 ##Testing for read urls from an external txt file
-#print read(['temp.txt'])
+print read(['temp.txt'])
 
 ##Insert function for Trowel.
 # Insert url or text (either a list or text/url) and addes it to the end of a urllist or textlist.
