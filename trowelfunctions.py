@@ -1,6 +1,33 @@
 import sys
 import trowelglobals as tgl
 
+#takes a list of number/url/text
+def printvars(arglist):
+	to_print = ''
+	for entry in arglist:
+		to_print = to_print + str(entry)
+	print to_print
+	return 1 #success
+
+#takes a list of urllists/textlists
+def printlist(arglist):
+	for list_to_print in arglist: #can print multiple lists
+		for entry in list_to_print:
+			print entry
+	return 1 #sucess
+
+#arglist is ['url',"with","text"/number]
+def combine(arglist):
+	return str(arglist[0]) + str(arglist[2])
+
+#takes a url or text and adds it to the end of a urllist/textlist
+#arglist is ['url'/"text", "into", urllist/textlist]
+def insert(arglist):
+	return arglist[2].append(arglist[0])
+
+def length(arglist):
+	return len(arglist[0])
+
 ##Save function for Trowel.
 # Save a list of urls to an external txt file.
 # Create and implemented by Pucong Han on April 13, 2013.
