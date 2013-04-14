@@ -1,4 +1,5 @@
 import trowelglobals as tgl
+
 ##Save function for Trowel.
 # Save a list of urls to an external txt file.
 # Create and implemented by Pucong Han on April 13, 2013.
@@ -26,17 +27,28 @@ def append(arglist):
 	else:
 		data = arglist[0]
 		filename = arglist[2]
-		if tgl.varlist[tgl.intentlevel].get(data) != None:
-			storedurllist = tgl.varlist[tgl.intentlevel].get(data)
-			for storeditem in storedurllist:
+		if str(type(data)) == str("<type 'list'>"):
+			for listitem in data:
 				with open(filename, "a") as modifiedfile:
-					modifiedfile.write(storeditem + "\n")
+					modifiedfile.write(listitem + "\n")
 		else:
-			with open(filename, "a") as modifiedfile:
-				modifiedfile.write(data + "\n")
+			if tgl.varlist.get((tgl.intentlevel, data)) != None:
+				storedurllist = tgl.varlist.get((tgl.intentlevel, data))
+				for storeditem in storedurllist:
+					with open(filename, "a") as modifiedfile:
+						modifiedfile.write(storeditem + "\n")
+			else:
+				with open(filename, "a") as modifiedfile:
+					modifiedfile.write(data + "\n")
 
-##Testing for append function (need to uncomment save function before uncomment the following code).
+##Testing for append one or more url to an external file (need to uncomment save function before uncomment the following code).
 #append(['www.puconghan.com', 'into', 'temp.txt'])
+#append([['www.columbia.edu', 'www.depauw.edu'], 'into', 'temp.txt'])
+
+##Testing for append an url list to an external file (need to uncomment save function before uncomment the following code).
+# tgl.varlist[(0, "testurllist")] = ['www.puconghan.com', 'www.robertwalport.com']
+# print tgl.varlist
+# append(["testurllist", 'into', 'temp.txt'])
 
 ##Read function for Trowel.
 # Read an external txt file and return a list of urls.
@@ -59,17 +71,18 @@ def read(arglist):
 ##Insert function for Trowel.
 # Insert url or text (either a list or text/url) and addes it to the end of a urllist or textlist.
 # Create and implemented by Pucong Han on April 13, 2013.
-def insert(arglist):
-	if(arglist[1] != 'into'):
-		print "Wrong format for append function. It should be 'insert (url, text, urllist or textlist) into (urllist or textlist)'."
-		sys.exit()
-	else:
-		data = arglist[0]
-		listname = arglist[2]
-		if tgl.varlist[tgl.intentlevel].get(listname) == "urllist":
-			if 
-		elif tgl.varlist[tgl.intentlevel].get(listname) == "textlist":
+# def insert(arglist):
+# 	if(arglist[1] != 'into'):
+# 		print "Wrong format for append function. It should be 'insert (url, text, urllist or textlist) into (urllist or textlist)'."
+# 		sys.exit()
+# 	else:
+# 		data = arglist[0]
+# 		listname = arglist[2]
+		
+# 		if tgl.varlist.get([tgl.intentlevel, listname]) == "urllist":
 
-		else:
-			print "Wrong format for insert function. " + listname + " should be a list."
-			sys.exit()
+# 		elif tgl.varlist.get([tgl.intentlevel, listname]) == "textlist":
+
+# 		else:
+# 			print "Wrong format for insert function. " + listname + " should be a list."
+# 			sys.exit()

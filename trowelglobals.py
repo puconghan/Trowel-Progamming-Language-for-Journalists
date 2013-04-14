@@ -1,5 +1,6 @@
 intentlevel = 0
-varlist = [dict()]
+varlist = dict()
+typelist = dict()
 funclist = dict()
 reservedlist = dict()
 

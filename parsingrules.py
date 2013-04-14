@@ -46,7 +46,7 @@ def p_identifier(p):
 	'IDENTIFIER : UNKNOWNWORD'
 	if tgl.funclist.get(p[1]) != None:
 		p[0] = ['functionname',p[1]]
-	elif tgl.varlist[tgl.intentlevel].get(p[1]) != None:
+	elif tgl.varlist.get((tgl.intentlevel, p[1])) != None:
 		p[0] = ['variable',p[1]]
 	else:
 		p[0] = ['error','variable ' + p[1] + ' not found']
@@ -126,8 +126,9 @@ def p_declaration(p):
 	'DECLARATION : DATATYPE DECLARATIONSET'
 	p[0] = ['declaration',p[1],p[2]]
 	for varobj in p[2]:
-		if (tgl.reservedlist.get(varobj[0]) == None) and (tgl.funclist.get(varobj[0]) == None) and (tgl.varlist[tgl.intentlevel].get(varobj[0]) == None):
-			tgl.varlist[tgl.intentlevel][varobj[0]] = p[1][1]
+		if (tgl.reservedlist.get(varobj[0]) == None) and (tgl.funclist.get(varobj[0]) == None) and (tgl.varlist.get((tgl.intentlevel,varobj[0])) == None):
+			tgl.varlist[(tgl.intentlevel, varobj[0])] = p[1][1]
+			tgl.typelist[(tgl.intentlevel, varobj[0])] = p[1][1]
 	
 def p_datatype(p):
 	'''
