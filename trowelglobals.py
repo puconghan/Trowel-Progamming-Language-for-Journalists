@@ -38,14 +38,15 @@ reservedlist = dict()
 
 #functionname : [returntype(s)]
 prebuiltfunctions = {
-	'print' : [None],
+	'print' : ['number'],
+	'combine' : ['url'],
+	'length' : ['number'],
+	'insert' : ['urllist','textlist'],
 	'read' : ['urllist','textlist'],
 	'save' : [None],
 	'append' : [None],
-	'insert' : [None],
 	'findurl' : ['urllist'],
-	'findtext' : ['textlist'],
-	'combine' : ['url'],
+	'findtext' : ['textlist']
 }
 
 funclist = prebuiltfunctions

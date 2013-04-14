@@ -14,7 +14,7 @@ def printlist(arglist):
 	for list_to_print in arglist: #can print multiple lists
 		for entry in list_to_print:
 			print entry
-	return 1 #sucess
+	return 1 #success
 
 #arglist is ['url',"with","text"/number]
 def combine(arglist):
@@ -23,8 +23,10 @@ def combine(arglist):
 #takes a url or text and adds it to the end of a urllist/textlist
 #arglist is ['url'/"text", "into", urllist/textlist]
 def insert(arglist):
-	return arglist[2].append(arglist[0])
+	arglist[2].append(arglist[0])
+	return arglist[2]
 
+#returns length of a list
 def length(arglist):
 	return len(arglist[0])
 
@@ -96,12 +98,12 @@ def read(arglist):
 ##Testing for read urls from an external txt file
 #print read(['temp.txt'])
 
-##Insert function for Trowel.
-# Insert url or text (either a list or text/url) and addes it to the end of a urllist or textlist.
+##Append function for Trowel.
+# Append url or text (either a list or text/url) and addes it to the end of a urllist or textlist.
 # Create and implemented by Pucong Han on April 13, 2013.
-def insert(arglist):
+def append(arglist):
 	if(arglist[1] != 'into'):
-		print "Wrong format for append function. It should be 'insert (url, text, urllist or textlist) into (urllist or textlist)'."
+		print "Wrong format for append function. It should be 'append (url, text, urllist or textlist) into (urllist or textlist)'."
 		sys.exit()
 	else:
 		data = arglist[0]
