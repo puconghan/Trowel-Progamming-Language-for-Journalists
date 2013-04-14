@@ -43,6 +43,8 @@ class TestTrowel(unittest.TestCase):
 	def test_parser_print_number(self):
 		self.assertEqual(parsewrapper().getabstractlist("print 45"), ['expression', ['functioncall', ['functionname', 'print'], 'arguments', [['expression', ['number', 45]]]]])
 		self.assertEqual(parsewrapper().getabstractlist("print 4 5"), ['expression', ['functioncall', ['functionname', 'print'], 'arguments', [['expression', ['number', 4]], ['expression', ['number', 5]]]]])
+		
+	
 	# Function tests
 	def test_function_printlist(self):
 		self.assertEqual(printlist([['this','is','a','list'],['url.com']]), 1)
@@ -52,12 +54,16 @@ class TestTrowel(unittest.TestCase):
 
 	def test_function_combine(self):
 		self.assertEqual(combine(['url.com', "with", 4]), 'url.com4')
+		self.assertEqual(combine(['url.com', "with", "this is text"]), 'url.comthis is text')
 
 	def test_function_length(self):
 		self.assertEqual(length([['1','2','3','4']]), 4)
+		self.assertEqual(length([[1,2,3,4]]), 4)
+		self.assertEqual(length([["1","2","3","4"]]), 4)
 
 	def test_function_insert(self):
-		self.assertEqual(insert(['text',"into",["text","list"]]), ["text","list","text"])
+		self.assertEqual(insert(["text","into",["text","list"]]), ["text","list","text"])
+		self.assertEqual(insert([1,"into",[2,3]]), [2,3,1])
 
 if __name__ == '__main__':
 	for f in glob ('*.pyc'):
