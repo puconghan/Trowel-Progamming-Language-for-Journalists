@@ -53,7 +53,7 @@ def save(arglist):
 ##Append function for Trowel.
 # Append an url to an existing external txt file.
 # Create and implemented by Pucong Han on April 13, 2013.
-def append(arglist):
+def appendToFile(arglist):
 	if(arglist[1] != 'into'):
 		print "Wrong format for append function. It should be 'append url (or variable contain an url) into filename'."
 		sys.exit()
@@ -104,7 +104,7 @@ def read(arglist):
 ##Append function for Trowel.
 # Append url or text (either a list or text/url) and addes it to the end of a urllist or textlist.
 # Create and implemented by Pucong Han on April 13, 2013.
-def append(arglist):
+def appendToList(arglist):
 	if(arglist[1] != 'into'):
 		print "Wrong format for append function. It should be 'append (url, text, urllist or textlist) into (urllist or textlist)'."
 		sys.exit()
