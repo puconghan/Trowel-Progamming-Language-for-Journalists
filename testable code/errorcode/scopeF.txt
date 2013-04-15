@@ -1,0 +1,7 @@
+number five is 5
+
+if five > 4:
+	number six is 6
+	print five
+	
+print six	#Out of scope...

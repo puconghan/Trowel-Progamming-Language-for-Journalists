@@ -1,0 +1,2 @@
+combine "text" with 5
+combine 6 with "text"

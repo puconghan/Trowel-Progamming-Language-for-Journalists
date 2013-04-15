@@ -1,0 +1,74 @@
+#Number based code
+
+numlist x, j
+number lengthCheck
+numlist z is [6,7,8,9,10]
+
+x is [1,2,3,4,5]
+
+#Code to check for loops and print functions
+
+for y in x:
+	print y
+for y in x:
+	print (combine 'www.thisisaurl.com' and y)
+for y in x:
+	for i in z:
+		print i y
+		
+#Code to check assignment and the length function work properly
+
+lengthCheck is length of x
+print lengthCheck
+
+j is x
+
+lengthCheck is length of j
+#Should be 5
+print lengthCheck
+
+#Code to check variable scope and if/else
+
+if lengthCheck > 2:
+	number localvariable is 999
+	print localvariable
+	print lengthCheck
+else:
+	lengthCheck is 30
+
+print lengthCheck
+	
+
+#After the following code is run both z and j should have same value
+
+for y in x:
+	insert y into z
+print z
+
+insert x into j
+print j
+
+#Nested combines
+
+print (combine 'www' and (combine '.bbc.' and 'co.uk'))
+print (combine 'www' and (combine '.bbc.' and 555))
+print (combine 'www' and (combine '.bbc.' and "textbits"))
+
+#Inputs and Outputs
+
+urllist aUrlList
+aTestList is read "urls.txt"
+
+print aUrlList
+
+#Should print 4
+print (length of aUrlList)
+
+for entry in aUrlList:
+	print (length of entry)
+	print (combine entry with 5)
+	
+for entry in aUrlList:
+	textlist aTextList is read "words.txt"
+	for word in aTextList:
+		append (combine entry with word) into "outputUrls.txt"
