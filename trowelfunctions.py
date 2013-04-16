@@ -133,6 +133,44 @@ def appendToList(arglist):
 			print "Wrong format for insert function. " + listname + " should be a list."
 			sys.exit()
 
+
+################
+# Find Functions
+################
+
+from urlgrabber import urlopen
+from bs4 import BeautifulSoup
+import re
+
+def findUrl(arglist):
+	# arglist[0] is the urlList to search (set() removes duplicates)
+	this_urllist = set(arglist[0])
+	# arglist[1] is the FE to find
+	this_FE = arglist[1]
+	result = []
+	for this_url in this_urllist:
+		soup = BeautifulSoup(urlopen(this_url))
+		if soup.find_all(text = re.compile(this_FE)): result.append(this_url)
+	return result
+
+def findText(arglist):
+	# arglist[0] is the urlList to search (set() removes duplicates)
+	this_urllist = set(arglist[0])
+	#arglist[1] is the FE to find
+	this_FE = arglist[1]
+	parents_visited = []
+	result = []
+	for this_url in this_urllist:
+		soup = BeautifulSoup(urlopen(this_url))
+		for this_tag in soup.find_all(text = re.compile(this_FE)):
+			this_parent = this_tag.parent
+			if this_parent in parents_visited: continue
+			parents_visited.append(this_parent)
+			this_text = ''
+			for this_sibling in this_tag.parent.children: this_text += this_sibling.string
+			result.append(this_text)
+	return result
+
 ##Testing for adding an url to an urllist variable
 # tgl.varlist[(0, "testurllist")] = ['www.puconghan.com', 'www.robertwalport.com']
 # tgl.typelist[(0, "testurllist")] = "urllist"
