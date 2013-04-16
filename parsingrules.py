@@ -3,18 +3,11 @@ from lexingrules import *
 
 start = 'STATEMENT'
 
-##Header statement of the parser.
-# Modified by Pucong Han on April 14, 2013.
 def p_statement(p):
 	'''
-	STATEMENT : ROOTEXPRESSION
+	STATEMENT	: ROOTEXPRESSION
 	'''
-	p[0] = p[1]
-	
-	print "----------Type List--------------"
-	print tgl.typelist
-	print "----------Value List-------------"
-	print tgl.varlist
+	p[0] = [['indentlevel',tgl.indentlevel],p[1]]
 		
 def p_error(p):
 	print "Syntax error at '%s'" % p.value
@@ -25,9 +18,9 @@ def p_error(p):
 def p_rootexpression(p):
 	'''
 	ROOTEXPRESSION	: EXPRESSION
-					| FUNCTION
-					| DECLARATION
-					| ASSIGNMENT
+				| FUNCTION
+				| DECLARATION
+				| ASSIGNMENT
 	'''
 	if p[1][0] == 'functioncall':
 		p[1] = ['expression',p[1]]
@@ -42,6 +35,7 @@ def p_expression_1(p):
 def p_expression_2(p):
 	'''
 	EXPRESSION	: VALUE
+				| LIST
 				| LEFTPAREN FUNCTION RIGHTPAREN
 	'''
 	if len(p) == 2:
@@ -53,7 +47,7 @@ def p_identifier(p):
 	'IDENTIFIER : UNKNOWNWORD'
 	if tgl.funclist.get(p[1]) != None:
 		p[0] = ['functionname',p[1]]
-	elif tgl.typelist.get((tgl.indentlevel, p[1])) != None:
+	elif tgl.varlist[tgl.indentlevel].get(p[1]) != None:
 		p[0] = ['variable',p[1]]
 	else:
 		p[0] = ['error','variable ' + p[1] + ' not found']
@@ -68,7 +62,7 @@ def p_function(p):
 def p_expressionset(p):
 	'''
 	EXPRESSIONSET	: EXPRESSIONSET EXPRESSION
-					| EXPRESSION
+				| EXPRESSION
 	'''
 	if len(p) == 3:
 		p[0] = p[1] + [p[2]]
@@ -83,48 +77,38 @@ def p_value(p):
 	VALUE	: _URLVAL
 			| _TEXTVAL
 			| _NUMVAL
-			| VALUELIST
 	'''
 	p[0] = p[1]
 	
 def p_urlval(p):
 	'_URLVAL : URLVAL'
-	p[0] = ['url',p[1][1:-1]]
+	p[0] = ['value',['url',p[1][1:-1]]]
 	
 def p_textval(p):
 	'_TEXTVAL : TEXTVAL'
-	p[0] = ['text',p[1][1:-1]]
+	p[0] = ['value',['text',p[1][1:-1]]]
 	
 def p_numval(p):
 	'_NUMVAL : NUMVAL'
-	p[0] = ['number',int(p[1])]
+	p[0] = ['value',['number',int(p[1])]]
 	
 def p_valueset(p):
 	'''
-	VALUESET	: VALUE COMMA VALUESET
-				| VALUE
+	LISTSET	: EXPRESSION COMMA LISTSET
+			| EXPRESSION
 	'''
+	#Add expression here
 	if len(p) == 2:
 		p[0] = [p[1]]
 	else:
-		if p[1][0] == p[3][0][0]:
-			p[0] = [p[1]] + p[3]
-		else:
-			p[0] = ['error','all values in a list must have the same type']
+		p[0] = [p[1]] + p[3]
 
 def p_valuelist(p):
-	'VALUELIST : LEFTSQUAREBRACKET VALUESET RIGHTSQUAREBRACKET'
-	type = p[2][0][0]
-	if type == 'url':
-		listtype = 'urllist'
-	elif type == 'text':
-		listtype = 'textlist'
-	else:
-		listtype = 'numlist'
+	'LIST : LEFTSQUAREBRACKET LISTSET RIGHTSQUAREBRACKET'
 	list = []
 	for item in p[2]:
 		list = list + [item[1]]
-	p[0] = [listtype,list]
+	p[0] = ['list',list]
 
 #-----------------------------------------------------
 
@@ -133,27 +117,24 @@ def p_declaration(p):
 	'DECLARATION : DATATYPE DECLARATIONSET'
 	p[0] = ['declaration',p[1],p[2]]
 	for varobj in p[2]:
-		if (tgl.reservedlist.get(varobj[0]) == None) and (tgl.funclist.get(varobj[0]) == None) and (tgl.typelist.get((tgl.indentlevel,varobj[0])) == None):
-			tgl.typelist[(tgl.indentlevel, varobj[0])] = p[1][1]
-		if len(varobj) > 1:
-			if varobj[1][0] == "expression":
-				tgl.varlist[(tgl.indentlevel, varobj[0])] = varobj[1][1][1]
-
+		if (tgl.reservedlist.get(varobj[0]) == None) and (tgl.funclist.get(varobj[0]) == None) and (tgl.varlist[tgl.indentlevel].get(varobj[0]) == None):
+			tgl.varlist[tgl.indentlevel][varobj[0]] = p[1][1]
+	
 def p_datatype(p):
 	'''
 	DATATYPE	: URL
-				| TEXT
-				| NUMBER
-				| URLLIST
-				| TEXTLIST
-				| NUMLIST
+			| TEXT
+			| NUMBER
+			| URLLIST
+			| TEXTLIST
+			| NUMLIST
 	'''
 	p[0] = ['datatype',p[1]]
 	
 def p_declarationset(p):
 	'''
 	DECLARATIONSET	: DECLAREDVAR COMMA DECLARATIONSET
-					| DECLAREDVAR
+				| DECLAREDVAR
 	'''
 	if len(p) == 2:
 		p[0] = [p[1]]
@@ -165,6 +146,9 @@ def p_declarationassign(p):
 	DECLAREDVAR	: UNKNOWNWORD IS ROOTEXPRESSION
 				| UNKNOWNWORD
 	'''
+	if (tgl.funclist.get(p[1]) != None) or (tgl.varlist[tgl.indentlevel].get(p[1]) != None):
+		#Error. Variable already defined.		
+		pass
 	if len(p) == 2:
 		p[0] = [p[1]]
 	else:
@@ -176,22 +160,8 @@ def p_declarationassign(p):
 def p_assignment(p):
 	'ASSIGNMENT : IDENTIFIER IS ROOTEXPRESSION'
 	p[0] = ['assignment', p[1], p[3]]
-	if p[3][0] == "expression":
-		tgl.varlist[(tgl.indentlevel, p[1][1])] = p[3][1][1]
 
 #-----------------------------------------------------
-
-##Parser for tab input (indentation).
-# Implemented by Pucong Han on April 14, 2013
-def p_expression_tab(p):
-    'INDENTATION : TAB INDENTATION'
-    p[0] = ("indented", p[2][1] + 1)
-    pass
-
-def p_expression_tab_empty(p):
-    'INDENTATION : EMPTY'
-    p[0] = ("empty", 0)
-    pass
 
 ##Empty handle
 def p_empty(p):

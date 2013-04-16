@@ -1,0 +1,8 @@
+[['indentlevel', 0], ['declaration', ['datatype', 'number'], [['x', ['expression', ['list', [['value', ['number', 5]], ['value', ['number', 4]], ['value', ['number', 3]], ['value', ['number', 6]]]]]], ['z']]]]
+[['indentlevel', 1], ['declaration', ['datatype', 'number'], [['y']]]]
+[['indentlevel', 1], ['expression', ['functioncall', ['functionname', 'print'], 'arguments', [['expression', ['variable', 'y']]]]]]
+[['indentlevel', 0], ['expression', ['functioncall', ['functionname', 'print'], 'arguments', [['expression', ['error', 'variable y not found']]]]]]
+[['indentlevel', 0], ['declaration', ['datatype', 'urllist'], [['ul', ['expression', ['functioncall', ['functionname', 'read'], 'arguments', [['expression', ['value', ['text', 'file.txt']]]]]]]]]]
+[['indentlevel', 0], ['expression', ['functioncall', ['functionname', 'print'], 'arguments', [['expression', ['variable', 'x']], ['expression', ['value', ['number', 500]]], ['expression', ['value', ['text', 'hello']]], ['expression', ['functioncall', ['functionname', 'findurl'], 'arguments', [['expression', ['error', 'variable in not found']], ['expression', ['variable', 'ul']], ['expression', ['error', 'variable with not found']], ['expression', ['value', ['text', 'obama']]]]]]]]]]
+[['indentlevel', 0], ['declaration', ['datatype', 'urllist'], [['temp']]]]
+[['indentlevel', 0], ['assignment', ['variable', 'temp'], ['expression', ['list', [['value', ['url', 'www.cnn.com']], ['value', ['url', 'www.bbc.com']]]]]]]
