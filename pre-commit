@@ -65,8 +65,8 @@ class TestTrowel(unittest.TestCase):
 
 	# Parser tests
 	def test_parser_print_number(self):
-		self.assertEqual(parsewrapper().getabstractlist("print 45"), ['expression', ['functioncall', ['functionname', 'print'], 'arguments', [['expression', ['number', 45]]]]])
-		self.assertEqual(parsewrapper().getabstractlist("print 4 5"), ['expression', ['functioncall', ['functionname', 'print'], 'arguments', [['expression', ['number', 4]], ['expression', ['number', 5]]]]])
+		self.assertEqual(parsewrapper().getabstractlist("print 45"), [['indentlevel', 0], ['expression', ['functioncall', ['functionname', 'print'], 'arguments', [['expression', ['value', ['number', 45]]]]]]])
+		self.assertEqual(parsewrapper().getabstractlist("print 4 5"), [['indentlevel', 0], ['expression', ['functioncall', ['functionname', 'print'], 'arguments', [['expression', ['value', ['number', 4]]], ['expression', ['value', ['number', 5]]]]]]])
 		
 	
 	# Function tests
