@@ -135,6 +135,9 @@ def p_declaration(p):
 	for varobj in p[2]:
 		if (tgl.reservedlist.get(varobj[0]) == None) and (tgl.funclist.get(varobj[0]) == None) and (tgl.typelist.get((tgl.indentlevel,varobj[0])) == None):
 			tgl.typelist[(tgl.indentlevel, varobj[0])] = p[1][1]
+		if len(varobj) > 1:
+			if varobj[1][0] == "expression":
+				tgl.varlist[(tgl.indentlevel, varobj[0])] = varobj[1][1][1]
 
 def p_datatype(p):
 	'''
@@ -173,7 +176,7 @@ def p_declarationassign(p):
 def p_assignment(p):
 	'ASSIGNMENT : IDENTIFIER IS ROOTEXPRESSION'
 	p[0] = ['assignment', p[1], p[3]]
-	if p[3][1][0] in ['urllist', 'textlist', 'numlist', 'number', 'text', 'url']:
+	if p[3][0] == "expression":
 		tgl.varlist[(tgl.indentlevel, p[1][1])] = p[3][1][1]
 
 #-----------------------------------------------------
