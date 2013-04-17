@@ -1,4 +1,7 @@
+import sys
+
 indentlevel = 0
+errorflag = False
 varlist = [dict()]
 funclist = dict()
 reservedlist = dict()
@@ -16,3 +19,10 @@ prebuiltfunctions = {
 }
 
 funclist = prebuiltfunctions
+
+def returnError(error_type, error_message, terminator):
+	global errorflag = True
+	print error_type
+	print error_message
+	if terminator == True:
+		sys.exit()
