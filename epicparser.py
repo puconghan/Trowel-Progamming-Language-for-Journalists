@@ -13,17 +13,22 @@ def main():
 	parsebox = parsewrapper()
 	pythonbox = pythonwrapper()
 	
+	pythonfile.write(pythonbox.headblock())
 	inputline = parsebox.getline(inputfile)
 	while inputline:
 		tokenline = parsebox.gettokens(inputline)
 		aslline = parsebox.getabstractlist(inputline)
-		pythonline = pythonbox.buildpython(aslline)
+		pythonblock = pythonbox.buildpython(aslline)
 
 		tokenfile.write(str(tokenline) + '\n')
 		aslfile.write(str(aslline) + '\n')
-		pythonfile.write(str(pythonline) + '\n')
+		pythonfile.write(pythonblock)
 		inputline = parsebox.getline(inputfile)
 
+	inputfile.close()
+	tokenfile.close()
+	aslfile.close()
+	pythonfile.close()	
 
 
 class parsewrapper:
@@ -70,10 +75,44 @@ class parsewrapper:
 		
 class pythonwrapper:
 	def __init__(self):
-		pass
+		self.tmpvarcount = 0
 		
-	def buildpython(self, inputline):
+	def headblock(self):
+		block = 'import trowelfunctions as tfs\n'
+		return block
+
+	def checkaslintegrity(self, inputline):
 		pass
+
+		
+	def buildpython(self, listobject):
+		self.checkaslintegrity(listobject)
+		indentlevel = listobject[0][1]
+		prodobject = listobject[1]
+		production = listobject[1][0]
+		block = ''
+		
+		if production == 'declaration':
+			block = block = block + self.prod_declaration(prodobject)
+		elif production == 'assignment':
+			block = block = block + self.prod_assignment(prodobject)
+		elif	production == 'expression':
+			block = block = block + self.prod_expression(prodobject)
+		return block
+
+			
+	def prod_declaration(self, listobject):
+		return ''
+
+		
+	def prod_assignment(self, listobject):
+		return ''
+
+		
+	def prod_expression(self, listobject):
+		return ''
+
+		
 	
 if __name__ == '__main__':
 	main()	
