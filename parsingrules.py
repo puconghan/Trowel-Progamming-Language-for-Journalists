@@ -5,7 +5,9 @@ start = 'STATEMENT'
 
 def p_statement(p):
 	'''
-	STATEMENT	: ROOTEXPRESSION
+	STATEMENT	: EXPRESSION
+			| DECLARATION
+			| ASSIGNMENT
 	'''
 	p[0] = [['indentlevel',tgl.indentlevel],p[1]]
 		
@@ -15,17 +17,6 @@ def p_error(p):
 #-----------------------------------------------------
 
 ##Parsing expressions
-def p_rootexpression(p):
-	'''
-	ROOTEXPRESSION	: EXPRESSION
-				| FUNCTION
-				| DECLARATION
-				| ASSIGNMENT
-	'''
-	if p[1][0] == 'functioncall':
-		p[1] = ['expression',p[1]]
-	p[0] = p[1]
-
 def p_expression_1(p):
 	'EXPRESSION	: IDENTIFIER'
 	if tgl.funclist.get(p[1][1]) != None:
@@ -37,6 +28,7 @@ def p_expression_2(p):
 	EXPRESSION	: VALUE
 				| LIST
 				| LEFTPAREN FUNCTION RIGHTPAREN
+				| FUNCTION
 	'''
 	if len(p) == 2:
 		p[0] = ['expression',p[1]]
@@ -50,7 +42,7 @@ def p_identifier(p):
 	elif tgl.varlist[tgl.indentlevel].get(p[1]) != None:
 		p[0] = ['variable',p[1]]
 	else:
-		p[0] = ['error','variable ' + p[1] + ' not found']
+		p[0] = ['insertword',p[1]]
 
 #-----------------------------------------------------
 
@@ -71,7 +63,7 @@ def p_expressionset(p):
 
 #-----------------------------------------------------
 
-##Parsing constants	
+##Parsing constants and lists
 def p_value(p):
 	'''
 	VALUE	: _URLVAL
@@ -143,7 +135,7 @@ def p_declarationset(p):
 	
 def p_declarationassign(p):
 	'''
-	DECLAREDVAR	: UNKNOWNWORD IS ROOTEXPRESSION
+	DECLAREDVAR	: UNKNOWNWORD IS EXPRESSION
 				| UNKNOWNWORD
 	'''
 	if (tgl.funclist.get(p[1]) != None) or (tgl.varlist[tgl.indentlevel].get(p[1]) != None):
@@ -158,7 +150,7 @@ def p_declarationassign(p):
 
 ##Parsing assignments
 def p_assignment(p):
-	'ASSIGNMENT : IDENTIFIER IS ROOTEXPRESSION'
+	'ASSIGNMENT : IDENTIFIER IS EXPRESSION'
 	p[0] = ['assignment', p[1], p[3]]
 
 #-----------------------------------------------------

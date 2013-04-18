@@ -1,6 +1,35 @@
 import sys
 import trowelglobals as tgl
 
+#--------------------------------------------------------------------------
+# Everyone please seperate your respective sections with #-----
+
+# Also, please use exactly this naming convention in lower case for the functions
+#	print -> r_print, save -> r_save, findurl -> r_findurl
+#--------------------------------------------------------------------------
+
+#Section added by Hareesh
+
+def isnumber(input):
+	return true
+	
+def isurl(input):
+	return true
+
+def istext(input):
+	return true
+
+def isnumlist(inputlist):
+	return true
+	
+def isurllist(inputlist):
+	return true
+	
+def istextlist(inputlist):
+	return true
+
+#--------------------------------------------------------------------------
+
 #takes a list of number/url/text
 def printvars(arglist):
 	to_print = ''
@@ -32,7 +61,7 @@ def insert(arglist):
 #returns length of a list
 def length(arglist):
 	return len(arglist[0])
-
+	
 ##Save function for Trowel.
 # Save a list of urls to an external txt file.
 # Create and implemented by Pucong Han on April 13, 2013.
@@ -86,6 +115,7 @@ def read(arglist):
 		sys.exit()
 	return read_url_list
 
+#--------------------------------------------------------------------------
 
 ################
 # Find Functions
