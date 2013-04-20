@@ -1,32 +1,84 @@
 import sys
 import trowelglobals as tgl
+import urlparse
 
-#--------------------------------------------------------------------------
-# Sections are delimited by #-----
-#--------------------------------------------------------------------------
-
-#Section added by Hareesh
+#Section created by Hareesh and implemented by Pucong Han on April 20, 2013
 
 def isnumber(input):
-	return true
+	if str(type(input)) == "<type 'int'>":
+		return True
+	else:
+		return False
 	
 def isurl(input):
-	return true
+	parts = urlparse.urlsplit(input)
+	if not parts.scheme or not parts.netloc:  
+	    return False
+	else:
+	    print True
 
 def istext(input):
-	return true
+	if str(type(input)) == "<type 'str'>":
+		return True
+	else:
+		return False
 
 def isnumlist(inputlist):
-	return true
+	if str(type(inputlist)) == "<type 'list'>":
+		if str(type(inputlist[0])) == "<type 'int'>":
+			return True
+		else:
+			return False
+	else:
+		return False
 	
 def isurllist(inputlist):
-	return true
+	if str(type(inputlist)) == "<type 'list'>":
+		parts = urlparse.urlsplit(inputlist[0])
+		if not parts.scheme or not parts.netloc:  
+		    return False
+		else:
+		    print True
+	else:
+		return False
 	
 def istextlist(inputlist):
-	return true
+	if str(type(inputlist)) == "<type 'list'>":
+		if str(type(inputlist[0])) == "<type 'str'>":
+			return True
+		else:
+			return False
+	else:
+		return False
 
 def checktype(typelist, inputlist):
-	return true
+	if len(typelist) == len(inputlist):
+		flag = True
+		for idx, val in typelist:
+			if var in ['number', 'url', 'text', 'numlist', 'textlist', 'urllist']:
+				if val == 'number':
+					flag = flag and isnumber(inputlist[idx])
+				if val == 'url':
+					flag = flag and isurl(inputlist[idx])
+				if val == 'text':
+					flag = flag and istext(inputlist[idx])
+				if val == 'numlist':
+					flag = flag and isnumlist(inputlist[idx])
+				if val == 'urllist':
+					flag = flag and isurllist(inputlist[idx])
+				if val == 'textlist':
+					flag = flag and istextlist(inputlist[idx])
+			else:
+				if var == inputlist[idx]:
+					flag = True
+				else:
+					flag = False
+		if flag == True:
+			return True
+		else:
+			return False
+	else:
+		return False
 
 #--------------------------------------------------------------------------
 
