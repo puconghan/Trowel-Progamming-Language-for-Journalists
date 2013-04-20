@@ -164,8 +164,10 @@ class pythonwrapper:
 			expval = str(listobject[1][1])
 		elif exptype == 'value':
 			expval = str(listobject[1][1][1])
+			if not expval.isdigit():
+				expval = '\'' + expval + '\''
 		elif exptype == 'insertword':
-			expval = str(listobject[1][1])
+			expval = '\'' + str(listobject[1][1]) + '\''
 		return [block,expval]
 		
 	def prod_functioncall(self, listobject):
