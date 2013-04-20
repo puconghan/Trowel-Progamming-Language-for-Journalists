@@ -1,1 +1,59 @@
 import trowelfunctions as tfs
+
+x = 0
+expval = 5
+tmp0 = expval
+expval = 4
+tmp1 = expval
+expval = 3
+tmp2 = expval
+expval = 6
+tmp3 = expval
+expval = [tmp0,tmp1,tmp2,tmp3]
+x = expval
+z = 0
+
+ul = ""
+ul = expval
+
+expval = x
+tmp0 = expval
+expval = 500
+tmp1 = expval
+expval = hello
+tmp2 = expval
+expval = in
+tmp3 = expval
+expval = ul
+tmp4 = expval
+expval = with
+tmp5 = expval
+expval = obama
+tmp6 = expval
+expval = tfl.r_findurl([tmp3,tmp4,tmp5,tmp6])
+tmp7 = expval
+expval = tfl.r_print([tmp0,tmp1,tmp2,tmp7])
+
+expval = x
+z = expval
+
+expval = 5
+z = expval
+
+expval = 4
+tmp0 = expval
+expval = 5
+tmp1 = expval
+expval = tfl.r_print([])
+tmp2 = expval
+expval = [tmp0,tmp1,tmp2]
+x = expval
+
+temp = ""
+
+expval = www.cnn.com
+tmp0 = expval
+expval = www.bbc.com
+tmp1 = expval
+expval = [tmp0,tmp1]
+temp = expval

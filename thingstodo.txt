@@ -1,13 +1,18 @@
-Add parsing rules
+Parser and AST
 - Indentation
 - Control flows
 - Booleans
-- Special functions
 - Custom functions
 - Arithmetic operations
 
-Trowel wrapper
-- Input files
-- Error handling
+Function
+- Standard function for argument checking
 
-AST to Python Converter
+
+Errors
+- Error types and handling
+
+
+Input
+- Remove blank lines and whitespaces except tabs
+- Convert whitespaces to tabs

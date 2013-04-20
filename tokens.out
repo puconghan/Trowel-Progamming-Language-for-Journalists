@@ -1,3 +1,0 @@
-[['NUMBER', 'number', 1], ['UNKNOWNWORD', 'x', 1], ['IS', 'is', 1], ['NUMVAL', '5', 1]]
-[['URLLIST', 'urllist', 1], ['UNKNOWNWORD', 'ul', 1], ['IS', 'is', 1], ['UNKNOWNWORD', 'read', 1], ['TEXTVAL', '"file.txt"', 1]]
-[['UNKNOWNWORD', 'print', 1], ['UNKNOWNWORD', 'x', 1], ['NUMVAL', '500', 1], ['TEXTVAL', '"hello"', 1], ['LEFTPAREN', '(', 1], ['UNKNOWNWORD', 'findurl', 1], ['UNKNOWNWORD', 'in', 1], ['UNKNOWNWORD', 'ul', 1], ['UNKNOWNWORD', 'with', 1], ['TEXTVAL', '"obama"', 1], ['RIGHTPAREN', ')', 1]]
