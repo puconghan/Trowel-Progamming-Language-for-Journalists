@@ -8,7 +8,7 @@ def main():
 	inputfile = file('input.twl','r')
 	tokenfile = file('tokens.twl','w')
 	aslfile = file('asl.twl','w')
-	pythonfile = file('python.twl','w')
+	pythonfile = file('python.py','w')
 	
 	parsebox = parsewrapper()
 	pythonbox = pythonwrapper()
