@@ -25,6 +25,9 @@ def isurllist(inputlist):
 def istextlist(inputlist):
 	return true
 
+def checktype(typelist, inputlist):
+	return true
+
 #--------------------------------------------------------------------------
 
 #Section created and implemented by Victoria Mo and Robert Walport.
