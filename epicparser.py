@@ -80,7 +80,7 @@ class pythonwrapper:
 		self.tmpvarcount = 0
 		
 	def headblock(self):
-		block = 'import trowelfunctions as tfs\n'
+		block = 'import trowelfunctions as tfl\n'
 		return block
 
 	def checkaslintegrity(self, inputline):
