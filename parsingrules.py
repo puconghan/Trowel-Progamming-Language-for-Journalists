@@ -5,9 +5,7 @@ start = 'STATEMENT'
 
 def p_statement(p):
 	'''
-	STATEMENT	: FUNCTION
-			| DECLARATION
-			| ASSIGNMENT
+	STATEMENT	: ROOTEXPRESSION
 	'''
 	p[0] = [['indentlevel',tgl.indentlevel],p[1]]
 		
@@ -17,6 +15,17 @@ def p_error(p):
 #-----------------------------------------------------
 
 ##Parsing expressions
+def p_rootexpression(p):
+	'''
+	ROOTEXPRESSION	: EXPRESSION
+				| FUNCTION
+				| DECLARATION
+				| ASSIGNMENT
+	'''
+	#if p[1][0] == 'functioncall':
+	#	p[1] = ['expression',p[1]]
+	p[0] = p[1]
+
 def p_expression_1(p):
 	'EXPRESSION	: IDENTIFIER'
 	if tgl.funclist.get(p[1][1]) != None:
@@ -28,7 +37,6 @@ def p_expression_2(p):
 	EXPRESSION	: VALUE
 				| LIST
 				| LEFTPAREN FUNCTION RIGHTPAREN
-				| FUNCTION
 	'''
 	if len(p) == 2:
 		p[0] = ['expression',p[1]]
@@ -136,7 +144,7 @@ def p_declarationset(p):
 	
 def p_declarationassign(p):
 	'''
-	DECLAREDVAR	: UNKNOWNWORD IS EXPRESSION
+	DECLAREDVAR	: UNKNOWNWORD IS ROOTEXPRESSION
 				| UNKNOWNWORD
 	'''
 	if (tgl.funclist.get(p[1]) != None) or (tgl.varlist[tgl.indentlevel].get(p[1]) != None):
@@ -151,7 +159,7 @@ def p_declarationassign(p):
 
 ##Parsing assignments
 def p_assignment(p):
-	'ASSIGNMENT : IDENTIFIER IS EXPRESSION'
+	'ASSIGNMENT : IDENTIFIER IS ROOTEXPRESSION'
 	p[0] = ['assignment', p[1], p[3]]
 
 #-----------------------------------------------------

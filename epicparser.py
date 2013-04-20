@@ -165,10 +165,19 @@ class pythonwrapper:
 		return block
 		
 	def prod_functioncall(self, listobject):
-		print listobject
-		return ''
-
+		block = ''
+		functionname = listobject[1][1]
+		argumentlist = listobject[3]	
+		tmplist = []
+		for item in argumentlist:
+			block = block + self.prod_expression(item)
+			block = block + 'tmp' + str(self.tmpvarcount) + ' = ' + 'expval' + '\n'
+			tmplist = tmplist + ['tmp' + str(self.tmpvarcount)]
+			self.tmpvarcount = self.tmpvarcount + 1
+			
+		pythonarglist = '([' + ','.join(tmplist) + '])'
+		block  = block + 'expval = tfl.r_' + functionname + pythonarglist + '\n'
+		return block
 		
-	
 if __name__ == '__main__':
 	main()
