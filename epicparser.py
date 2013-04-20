@@ -14,6 +14,7 @@ def main():
 	pythonbox = pythonwrapper()
 	
 	pythonfile.write(pythonbox.headblock())
+
 	inputline = parsebox.getline(inputfile)
 	while inputline:
 		tokenline = parsebox.gettokens(inputline)
