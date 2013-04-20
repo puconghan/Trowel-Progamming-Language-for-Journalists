@@ -121,7 +121,7 @@ def read(arglist):
 # Find Functions
 ################
 
-from urlgrabber import urlopen
+from urllib2 import urlopen
 from bs4 import BeautifulSoup
 import re
 
