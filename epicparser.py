@@ -50,11 +50,12 @@ class parsewrapper:
 
 	def getline(self, inputfile):
 		line = inputfile.readline()
-		if line:
-			line = line.rstrip()
-			line = line.lower()
-			line = self.filterindentation(line)
-		return line
+		if line != "\n":
+			if line:
+				line = line.rstrip()
+				line = line.lower()
+				line = self.filterindentation(line)
+			return line
 		
 	def filterindentation(self, inputline):
 		indentlevel = 0
