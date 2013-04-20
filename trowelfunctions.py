@@ -2,7 +2,7 @@ import sys
 import trowelglobals as tgl
 
 #--------------------------------------------------------------------------
-# Everyone please seperate your respective sections with #-----
+# Everyone please separate your respective sections with #-----
 
 # Also, please use exactly this naming convention in lower case for the functions
 #	print -> r_print, save -> r_save, findurl -> r_findurl
@@ -121,7 +121,7 @@ def read(arglist):
 # Find Functions
 ################
 
-from urlgrabber import urlopen
+from urllib2 import urlopen
 from bs4 import BeautifulSoup
 import re
 
