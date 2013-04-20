@@ -5,9 +5,9 @@ _tabversion = '3.2'
 
 _lr_method = 'LALR'
 
-_lr_signature = '+vkT\x1dt\xc8\xfd\x80\xd0\xfb\xd7F\xc2F\xd4'
+_lr_signature = '\xed\xff\xf7\xac\xfe\xed\xc6I\xca\x1e\xb4\xb0\x8d\xbb\x17\xff'
     
-_lr_action_items = {'UNKNOWNWORD':([0,2,3,4,6,7,8,9,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,33,35,38,39,40,41,42,],[2,-9,2,29,-25,-27,-23,-24,-26,-28,-8,2,-16,-14,-13,2,2,-6,-5,-18,-15,2,-12,-17,2,2,-11,2,29,-7,2,-21,]),'URLVAL':([2,3,14,15,16,17,18,20,21,22,23,24,25,26,27,28,33,35,38,40,41,42,],[-9,16,-8,16,-16,-14,-13,16,-6,-5,-18,-15,16,-12,-17,16,16,-11,16,-7,16,-21,]),'URL':([0,],[8,]),'TEXT':([0,],[9,]),'IS':([2,3,29,],[-9,20,38,]),'LEFTPAREN':([2,3,14,15,16,17,18,20,21,22,23,24,25,26,27,28,33,35,38,40,41,42,],[-9,19,-8,19,-16,-14,-13,19,-6,-5,-18,-15,19,-12,-17,19,19,-11,19,-7,19,-21,]),'NUMBER':([0,],[6,]),'RIGHTSQUAREBRACKET':([2,14,15,16,17,18,21,22,23,24,25,26,27,35,36,37,40,42,45,],[-9,-8,-4,-16,-14,-13,-6,-5,-18,-15,-10,-12,-17,-11,-20,42,-7,-21,-19,]),'NUMVAL':([2,3,14,15,16,17,18,20,21,22,23,24,25,26,27,28,33,35,38,40,41,42,],[-9,23,-8,23,-16,-14,-13,23,-6,-5,-18,-15,23,-12,-17,23,23,-11,23,-7,23,-21,]),'COMMA':([2,14,15,16,17,18,21,22,23,24,25,26,27,29,31,35,36,40,42,43,],[-9,-8,-4,-16,-14,-13,-6,-5,-18,-15,-10,-12,-17,-32,39,-11,41,-7,-21,-31,]),'TEXTVAL':([2,3,14,15,16,17,18,20,21,22,23,24,25,26,27,28,33,35,38,40,41,42,],[-9,27,-8,27,-16,-14,-13,27,-6,-5,-18,-15,27,-12,-17,27,27,-11,27,-7,27,-21,]),'URLLIST':([0,],[12,]),'RIGHTPAREN':([2,14,15,16,17,18,21,22,23,24,25,26,27,32,35,40,42,],[-9,-8,-4,-16,-14,-13,-6,-5,-18,-15,-10,-12,-17,40,-11,-7,-21,]),'$end':([1,2,5,10,11,14,15,16,17,18,21,22,23,24,25,26,27,29,30,31,34,35,40,42,43,44,],[-1,-9,-3,0,-2,-8,-4,-16,-14,-13,-6,-5,-18,-15,-10,-12,-17,-32,-22,-30,-33,-11,-7,-21,-31,-29,]),'LEFTSQUAREBRACKET':([2,3,14,15,16,17,18,20,21,22,23,24,25,26,27,28,33,35,38,40,41,42,],[-9,28,-8,28,-16,-14,-13,28,-6,-5,-18,-15,28,-12,-17,28,28,-11,28,-7,28,-21,]),'TEXTLIST':([0,],[7,]),'NUMLIST':([0,],[13,]),}
+_lr_action_items = {'UNKNOWNWORD':([0,3,4,5,6,7,8,11,12,13,15,16,17,18,19,20,21,22,24,25,29,30,31,32,34,37,38,40,41,42,43,],[17,-26,26,-19,-25,-27,17,-24,17,-7,17,-29,-10,-17,-15,-8,-18,-14,-16,-28,-6,17,17,-13,17,17,26,-12,-9,17,-22,]),'URLVAL':([0,5,8,13,15,17,18,19,20,21,22,24,29,30,31,32,34,37,40,41,42,43,],[18,-19,18,-7,18,-10,-17,-15,-8,-18,-14,-16,-6,18,18,-13,18,18,-12,-9,18,-22,]),'URL':([0,30,37,],[11,11,11,]),'TEXT':([0,30,37,],[6,6,6,]),'IS':([8,17,26,],[30,-10,37,]),'$end':([1,2,5,8,9,10,13,14,17,18,19,20,21,22,23,24,26,27,28,29,31,32,39,40,41,43,44,45,],[-3,-5,-19,-6,-2,-1,-7,0,-10,-17,-15,-8,-18,-14,-4,-16,-33,-23,-31,-6,-11,-13,-34,-12,-9,-22,-32,-30,]),'LEFTPAREN':([0,5,8,13,15,17,18,19,20,21,22,24,29,30,31,32,34,37,40,41,42,43,],[12,-19,12,-7,12,-10,-17,-15,-8,-18,-14,-16,-6,12,12,-13,12,12,-12,-9,12,-22,]),'NUMBER':([0,30,37,],[3,3,3,]),'TEXTLIST':([0,30,37,],[25,25,25,]),'NUMVAL':([0,5,8,13,15,17,18,19,20,21,22,24,29,30,31,32,34,37,40,41,42,43,],[5,-19,5,-7,5,-10,-17,-15,-8,-18,-14,-16,-6,5,5,-13,5,5,-12,-9,5,-22,]),'COMMA':([1,2,5,8,9,13,17,18,19,20,21,22,23,24,26,27,28,29,31,32,35,39,40,41,43,44,45,],[-3,-5,-19,-6,-2,-7,-10,-17,-15,-8,-18,-14,-4,-16,-33,-23,38,-6,-11,-13,42,-34,-12,-9,-22,-32,-30,]),'URLLIST':([0,30,37,],[7,7,7,]),'RIGHTPAREN':([5,13,17,18,19,20,21,22,24,29,31,32,33,40,41,43,],[-19,-7,-10,-17,-15,-8,-18,-14,-16,-6,-11,-13,41,-12,-9,-22,]),'LEFTSQUAREBRACKET':([0,5,8,13,15,17,18,19,20,21,22,24,29,30,31,32,34,37,40,41,42,43,],[15,-19,15,-7,15,-10,-17,-15,-8,-18,-14,-16,-6,15,15,-13,15,15,-12,-9,15,-22,]),'RIGHTSQUAREBRACKET':([5,13,17,18,19,20,21,22,24,29,35,36,41,43,46,],[-19,-7,-10,-17,-15,-8,-18,-14,-16,-6,-21,43,-9,-22,-20,]),'TEXTVAL':([0,5,8,13,15,17,18,19,20,21,22,24,29,30,31,32,34,37,40,41,42,43,],[21,-19,21,-7,21,-10,-17,-15,-8,-18,-14,-16,-6,21,21,-13,21,21,-12,-9,21,-22,]),'NUMLIST':([0,30,37,],[16,16,16,]),}
 
 _lr_action = { }
 for _k, _v in _lr_action_items.items():
@@ -16,7 +16,7 @@ for _k, _v in _lr_action_items.items():
       _lr_action[_x][_k] = _y
 del _lr_action_items
 
-_lr_goto_items = {'FUNCTION':([0,3,15,19,20,25,28,33,38,41,],[1,14,14,32,14,14,14,14,14,14,]),'EXPRESSIONSET':([3,15,33,],[25,25,25,]),'_TEXTVAL':([3,15,20,25,28,33,38,41,],[17,17,17,17,17,17,17,17,]),'DATATYPE':([0,],[4,]),'ASSIGNMENT':([0,],[5,]),'DECLARATIONSET':([4,39,],[30,44,]),'LIST':([3,15,20,25,28,33,38,41,],[21,21,21,21,21,21,21,21,]),'VALUE':([3,15,20,25,28,33,38,41,],[22,22,22,22,22,22,22,22,]),'_URLVAL':([3,15,20,25,28,33,38,41,],[18,18,18,18,18,18,18,18,]),'DECLAREDVAR':([4,39,],[31,31,]),'STATEMENT':([0,],[10,]),'DECLARATION':([0,],[11,]),'_NUMVAL':([3,15,20,25,28,33,38,41,],[24,24,24,24,24,24,24,24,]),'IDENTIFIER':([0,3,15,19,20,25,28,33,38,41,],[3,15,15,33,15,15,15,15,15,15,]),'EXPRESSION':([3,15,20,25,28,33,38,41,],[26,26,34,35,36,26,43,36,]),'LISTSET':([28,41,],[37,45,]),}
+_lr_goto_items = {'ROOTEXPRESSION':([0,30,37,],[10,39,44,]),'FUNCTION':([0,12,30,37,],[1,33,1,1,]),'EXPRESSIONSET':([8,34,],[31,31,]),'_TEXTVAL':([0,8,15,30,31,34,37,42,],[19,19,19,19,19,19,19,19,]),'DATATYPE':([0,30,37,],[4,4,4,]),'ASSIGNMENT':([0,30,37,],[2,2,2,]),'DECLARATIONSET':([4,38,],[27,45,]),'LIST':([0,8,15,30,31,34,37,42,],[20,20,20,20,20,20,20,20,]),'VALUE':([0,8,15,30,31,34,37,42,],[13,13,13,13,13,13,13,13,]),'_URLVAL':([0,8,15,30,31,34,37,42,],[22,22,22,22,22,22,22,22,]),'DECLAREDVAR':([4,38,],[28,28,]),'STATEMENT':([0,],[14,]),'DECLARATION':([0,30,37,],[23,23,23,]),'_NUMVAL':([0,8,15,30,31,34,37,42,],[24,24,24,24,24,24,24,24,]),'IDENTIFIER':([0,8,12,15,30,31,34,37,42,],[8,29,34,29,8,29,29,8,29,]),'EXPRESSION':([0,8,15,30,31,34,37,42,],[9,32,35,9,40,32,9,35,]),'LISTSET':([15,42,],[36,46,]),}
 
 _lr_goto = { }
 for _k, _v in _lr_goto_items.items():
@@ -26,38 +26,39 @@ for _k, _v in _lr_goto_items.items():
 del _lr_goto_items
 _lr_productions = [
   ("S' -> STATEMENT","S'",1,None,None,None),
-  ('STATEMENT -> FUNCTION','STATEMENT',1,'p_statement','/Users/RWalport/Desktop/Rob_CS/PLT/trowel/plt/parsingrules.py',8),
-  ('STATEMENT -> DECLARATION','STATEMENT',1,'p_statement','/Users/RWalport/Desktop/Rob_CS/PLT/trowel/plt/parsingrules.py',9),
-  ('STATEMENT -> ASSIGNMENT','STATEMENT',1,'p_statement','/Users/RWalport/Desktop/Rob_CS/PLT/trowel/plt/parsingrules.py',10),
-  ('EXPRESSION -> IDENTIFIER','EXPRESSION',1,'p_expression_1','/Users/RWalport/Desktop/Rob_CS/PLT/trowel/plt/parsingrules.py',21),
-  ('EXPRESSION -> VALUE','EXPRESSION',1,'p_expression_2','/Users/RWalport/Desktop/Rob_CS/PLT/trowel/plt/parsingrules.py',28),
-  ('EXPRESSION -> LIST','EXPRESSION',1,'p_expression_2','/Users/RWalport/Desktop/Rob_CS/PLT/trowel/plt/parsingrules.py',29),
-  ('EXPRESSION -> LEFTPAREN FUNCTION RIGHTPAREN','EXPRESSION',3,'p_expression_2','/Users/RWalport/Desktop/Rob_CS/PLT/trowel/plt/parsingrules.py',30),
-  ('EXPRESSION -> FUNCTION','EXPRESSION',1,'p_expression_2','/Users/RWalport/Desktop/Rob_CS/PLT/trowel/plt/parsingrules.py',31),
-  ('IDENTIFIER -> UNKNOWNWORD','IDENTIFIER',1,'p_identifier','/Users/RWalport/Desktop/Rob_CS/PLT/trowel/plt/parsingrules.py',39),
-  ('FUNCTION -> IDENTIFIER EXPRESSIONSET','FUNCTION',2,'p_function','/Users/RWalport/Desktop/Rob_CS/PLT/trowel/plt/parsingrules.py',51),
-  ('EXPRESSIONSET -> EXPRESSIONSET EXPRESSION','EXPRESSIONSET',2,'p_expressionset','/Users/RWalport/Desktop/Rob_CS/PLT/trowel/plt/parsingrules.py',56),
-  ('EXPRESSIONSET -> EXPRESSION','EXPRESSIONSET',1,'p_expressionset','/Users/RWalport/Desktop/Rob_CS/PLT/trowel/plt/parsingrules.py',57),
-  ('VALUE -> _URLVAL','VALUE',1,'p_value','/Users/RWalport/Desktop/Rob_CS/PLT/trowel/plt/parsingrules.py',69),
-  ('VALUE -> _TEXTVAL','VALUE',1,'p_value','/Users/RWalport/Desktop/Rob_CS/PLT/trowel/plt/parsingrules.py',70),
-  ('VALUE -> _NUMVAL','VALUE',1,'p_value','/Users/RWalport/Desktop/Rob_CS/PLT/trowel/plt/parsingrules.py',71),
-  ('_URLVAL -> URLVAL','_URLVAL',1,'p_urlval','/Users/RWalport/Desktop/Rob_CS/PLT/trowel/plt/parsingrules.py',76),
-  ('_TEXTVAL -> TEXTVAL','_TEXTVAL',1,'p_textval','/Users/RWalport/Desktop/Rob_CS/PLT/trowel/plt/parsingrules.py',80),
-  ('_NUMVAL -> NUMVAL','_NUMVAL',1,'p_numval','/Users/RWalport/Desktop/Rob_CS/PLT/trowel/plt/parsingrules.py',84),
-  ('LISTSET -> EXPRESSION COMMA LISTSET','LISTSET',3,'p_valueset','/Users/RWalport/Desktop/Rob_CS/PLT/trowel/plt/parsingrules.py',89),
-  ('LISTSET -> EXPRESSION','LISTSET',1,'p_valueset','/Users/RWalport/Desktop/Rob_CS/PLT/trowel/plt/parsingrules.py',90),
-  ('LIST -> LEFTSQUAREBRACKET LISTSET RIGHTSQUAREBRACKET','LIST',3,'p_valuelist','/Users/RWalport/Desktop/Rob_CS/PLT/trowel/plt/parsingrules.py',99),
-  ('DECLARATION -> DATATYPE DECLARATIONSET','DECLARATION',2,'p_declaration','/Users/RWalport/Desktop/Rob_CS/PLT/trowel/plt/parsingrules.py',110),
-  ('DATATYPE -> URL','DATATYPE',1,'p_datatype','/Users/RWalport/Desktop/Rob_CS/PLT/trowel/plt/parsingrules.py',118),
-  ('DATATYPE -> TEXT','DATATYPE',1,'p_datatype','/Users/RWalport/Desktop/Rob_CS/PLT/trowel/plt/parsingrules.py',119),
-  ('DATATYPE -> NUMBER','DATATYPE',1,'p_datatype','/Users/RWalport/Desktop/Rob_CS/PLT/trowel/plt/parsingrules.py',120),
-  ('DATATYPE -> URLLIST','DATATYPE',1,'p_datatype','/Users/RWalport/Desktop/Rob_CS/PLT/trowel/plt/parsingrules.py',121),
-  ('DATATYPE -> TEXTLIST','DATATYPE',1,'p_datatype','/Users/RWalport/Desktop/Rob_CS/PLT/trowel/plt/parsingrules.py',122),
-  ('DATATYPE -> NUMLIST','DATATYPE',1,'p_datatype','/Users/RWalport/Desktop/Rob_CS/PLT/trowel/plt/parsingrules.py',123),
-  ('DECLARATIONSET -> DECLAREDVAR COMMA DECLARATIONSET','DECLARATIONSET',3,'p_declarationset','/Users/RWalport/Desktop/Rob_CS/PLT/trowel/plt/parsingrules.py',129),
-  ('DECLARATIONSET -> DECLAREDVAR','DECLARATIONSET',1,'p_declarationset','/Users/RWalport/Desktop/Rob_CS/PLT/trowel/plt/parsingrules.py',130),
-  ('DECLAREDVAR -> UNKNOWNWORD IS EXPRESSION','DECLAREDVAR',3,'p_declarationassign','/Users/RWalport/Desktop/Rob_CS/PLT/trowel/plt/parsingrules.py',139),
-  ('DECLAREDVAR -> UNKNOWNWORD','DECLAREDVAR',1,'p_declarationassign','/Users/RWalport/Desktop/Rob_CS/PLT/trowel/plt/parsingrules.py',140),
-  ('ASSIGNMENT -> IDENTIFIER IS EXPRESSION','ASSIGNMENT',3,'p_assignment','/Users/RWalport/Desktop/Rob_CS/PLT/trowel/plt/parsingrules.py',154),
-  ('EMPTY -> <empty>','EMPTY',0,'p_empty','/Users/RWalport/Desktop/Rob_CS/PLT/trowel/plt/parsingrules.py',161),
+  ('STATEMENT -> ROOTEXPRESSION','STATEMENT',1,'p_statement','/Users/RWalport/Desktop/Rob_CS/PLT/plt/parsingrules.py',8),
+  ('ROOTEXPRESSION -> EXPRESSION','ROOTEXPRESSION',1,'p_rootexpression','/Users/RWalport/Desktop/Rob_CS/PLT/plt/parsingrules.py',20),
+  ('ROOTEXPRESSION -> FUNCTION','ROOTEXPRESSION',1,'p_rootexpression','/Users/RWalport/Desktop/Rob_CS/PLT/plt/parsingrules.py',21),
+  ('ROOTEXPRESSION -> DECLARATION','ROOTEXPRESSION',1,'p_rootexpression','/Users/RWalport/Desktop/Rob_CS/PLT/plt/parsingrules.py',22),
+  ('ROOTEXPRESSION -> ASSIGNMENT','ROOTEXPRESSION',1,'p_rootexpression','/Users/RWalport/Desktop/Rob_CS/PLT/plt/parsingrules.py',23),
+  ('EXPRESSION -> IDENTIFIER','EXPRESSION',1,'p_expression_1','/Users/RWalport/Desktop/Rob_CS/PLT/plt/parsingrules.py',30),
+  ('EXPRESSION -> VALUE','EXPRESSION',1,'p_expression_2','/Users/RWalport/Desktop/Rob_CS/PLT/plt/parsingrules.py',37),
+  ('EXPRESSION -> LIST','EXPRESSION',1,'p_expression_2','/Users/RWalport/Desktop/Rob_CS/PLT/plt/parsingrules.py',38),
+  ('EXPRESSION -> LEFTPAREN FUNCTION RIGHTPAREN','EXPRESSION',3,'p_expression_2','/Users/RWalport/Desktop/Rob_CS/PLT/plt/parsingrules.py',39),
+  ('IDENTIFIER -> UNKNOWNWORD','IDENTIFIER',1,'p_identifier','/Users/RWalport/Desktop/Rob_CS/PLT/plt/parsingrules.py',47),
+  ('FUNCTION -> IDENTIFIER EXPRESSIONSET','FUNCTION',2,'p_function','/Users/RWalport/Desktop/Rob_CS/PLT/plt/parsingrules.py',59),
+  ('EXPRESSIONSET -> EXPRESSIONSET EXPRESSION','EXPRESSIONSET',2,'p_expressionset','/Users/RWalport/Desktop/Rob_CS/PLT/plt/parsingrules.py',64),
+  ('EXPRESSIONSET -> EXPRESSION','EXPRESSIONSET',1,'p_expressionset','/Users/RWalport/Desktop/Rob_CS/PLT/plt/parsingrules.py',65),
+  ('VALUE -> _URLVAL','VALUE',1,'p_value','/Users/RWalport/Desktop/Rob_CS/PLT/plt/parsingrules.py',77),
+  ('VALUE -> _TEXTVAL','VALUE',1,'p_value','/Users/RWalport/Desktop/Rob_CS/PLT/plt/parsingrules.py',78),
+  ('VALUE -> _NUMVAL','VALUE',1,'p_value','/Users/RWalport/Desktop/Rob_CS/PLT/plt/parsingrules.py',79),
+  ('_URLVAL -> URLVAL','_URLVAL',1,'p_urlval','/Users/RWalport/Desktop/Rob_CS/PLT/plt/parsingrules.py',84),
+  ('_TEXTVAL -> TEXTVAL','_TEXTVAL',1,'p_textval','/Users/RWalport/Desktop/Rob_CS/PLT/plt/parsingrules.py',88),
+  ('_NUMVAL -> NUMVAL','_NUMVAL',1,'p_numval','/Users/RWalport/Desktop/Rob_CS/PLT/plt/parsingrules.py',92),
+  ('LISTSET -> EXPRESSION COMMA LISTSET','LISTSET',3,'p_valueset','/Users/RWalport/Desktop/Rob_CS/PLT/plt/parsingrules.py',97),
+  ('LISTSET -> EXPRESSION','LISTSET',1,'p_valueset','/Users/RWalport/Desktop/Rob_CS/PLT/plt/parsingrules.py',98),
+  ('LIST -> LEFTSQUAREBRACKET LISTSET RIGHTSQUAREBRACKET','LIST',3,'p_valuelist','/Users/RWalport/Desktop/Rob_CS/PLT/plt/parsingrules.py',107),
+  ('DECLARATION -> DATATYPE DECLARATIONSET','DECLARATION',2,'p_declaration','/Users/RWalport/Desktop/Rob_CS/PLT/plt/parsingrules.py',118),
+  ('DATATYPE -> URL','DATATYPE',1,'p_datatype','/Users/RWalport/Desktop/Rob_CS/PLT/plt/parsingrules.py',126),
+  ('DATATYPE -> TEXT','DATATYPE',1,'p_datatype','/Users/RWalport/Desktop/Rob_CS/PLT/plt/parsingrules.py',127),
+  ('DATATYPE -> NUMBER','DATATYPE',1,'p_datatype','/Users/RWalport/Desktop/Rob_CS/PLT/plt/parsingrules.py',128),
+  ('DATATYPE -> URLLIST','DATATYPE',1,'p_datatype','/Users/RWalport/Desktop/Rob_CS/PLT/plt/parsingrules.py',129),
+  ('DATATYPE -> TEXTLIST','DATATYPE',1,'p_datatype','/Users/RWalport/Desktop/Rob_CS/PLT/plt/parsingrules.py',130),
+  ('DATATYPE -> NUMLIST','DATATYPE',1,'p_datatype','/Users/RWalport/Desktop/Rob_CS/PLT/plt/parsingrules.py',131),
+  ('DECLARATIONSET -> DECLAREDVAR COMMA DECLARATIONSET','DECLARATIONSET',3,'p_declarationset','/Users/RWalport/Desktop/Rob_CS/PLT/plt/parsingrules.py',137),
+  ('DECLARATIONSET -> DECLAREDVAR','DECLARATIONSET',1,'p_declarationset','/Users/RWalport/Desktop/Rob_CS/PLT/plt/parsingrules.py',138),
+  ('DECLAREDVAR -> UNKNOWNWORD IS ROOTEXPRESSION','DECLAREDVAR',3,'p_declarationassign','/Users/RWalport/Desktop/Rob_CS/PLT/plt/parsingrules.py',147),
+  ('DECLAREDVAR -> UNKNOWNWORD','DECLAREDVAR',1,'p_declarationassign','/Users/RWalport/Desktop/Rob_CS/PLT/plt/parsingrules.py',148),
+  ('ASSIGNMENT -> IDENTIFIER IS ROOTEXPRESSION','ASSIGNMENT',3,'p_assignment','/Users/RWalport/Desktop/Rob_CS/PLT/plt/parsingrules.py',162),
+  ('EMPTY -> <empty>','EMPTY',0,'p_empty','/Users/RWalport/Desktop/Rob_CS/PLT/plt/parsingrules.py',169),
 ]

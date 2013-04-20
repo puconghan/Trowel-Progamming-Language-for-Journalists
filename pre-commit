@@ -74,6 +74,7 @@ class TestTrowel(unittest.TestCase):
 		
 	def test_parser_print_url(self):
 		self.assertEqual(parsewrapper().getabstractlist("print 'this is a url'"), [['indentlevel', 0], ['functioncall', ['functionname', 'print'], 'arguments', [['expression', ['value', ['url', 'this is a url']]]]]])
+	
 		
 	
 	# Function tests
