@@ -1,8 +1,8 @@
 number x is [5, 4, 3, 6], z
-	number y
-	print y
-print y
 urllist ul is read "file.txt"
 print x 500 "hello" (findurl in ul with "obama")
+z is x
+z is 5
+x is [4,5,print]
 urllist temp
 temp is ['www.cnn.com','www.bbc.com']

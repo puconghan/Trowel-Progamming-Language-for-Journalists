@@ -5,7 +5,7 @@ start = 'STATEMENT'
 
 def p_statement(p):
 	'''
-	STATEMENT	: EXPRESSION
+	STATEMENT	: FUNCTION
 			| DECLARATION
 			| ASSIGNMENT
 	'''
@@ -99,7 +99,8 @@ def p_valuelist(p):
 	'LIST : LEFTSQUAREBRACKET LISTSET RIGHTSQUAREBRACKET'
 	list = []
 	for item in p[2]:
-		list = list + [item[1]]
+		#list = list + [item[1]]
+		list = list + [item]
 	p[0] = ['list',list]
 
 #-----------------------------------------------------

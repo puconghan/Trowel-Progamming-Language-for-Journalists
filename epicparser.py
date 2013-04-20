@@ -28,7 +28,7 @@ def main():
 	inputfile.close()
 	tokenfile.close()
 	aslfile.close()
-	pythonfile.close()	
+	pythonfile.close()
 
 
 class parsewrapper:
@@ -90,29 +90,82 @@ class pythonwrapper:
 		indentlevel = listobject[0][1]
 		prodobject = listobject[1]
 		production = listobject[1][0]
+		self.tmpvarcount = 0
+		
 		block = ''
+		tab = ''
+		for i in range(indentlevel):
+			tab = tab + '\t'
 		
 		if production == 'declaration':
-			block = block = block + self.prod_declaration(prodobject)
+			block = block + self.prod_declaration(prodobject)
 		elif production == 'assignment':
-			block = block = block + self.prod_assignment(prodobject)
-		elif	production == 'expression':
-			block = block = block + self.prod_expression(prodobject)
-		return block
+			block = block + self.prod_assignment(prodobject)
+		elif	production == 'functioncall':
+			block = block + self.prod_functioncall(prodobject)
+			
+		block = block.strip()
+		blocklines = block.split('\n')
+		
+		block = ''
+		for line in blocklines:
+			if line != '':
+				block = block + tab + line + '\n'
+		
+		return '\n' + block
 
 			
 	def prod_declaration(self, listobject):
-		return ''
+		block = ''
+		datatype = listobject[1][1]
+		for varobject in listobject[2]:
+			block = block + varobject[0] + ' = '
+			if datatype == 'number':
+				block = block + '0'
+			elif datatype == 'text' or 'url':
+				block = block + '""'
+			else:
+				block = block + '[]'
+			block = block + '\n'
+			if  len(varobject) == 2:
+				assignobject = ['assignment', ['variable', varobject[0]], varobject[1]]
+				block = block + self.prod_assignment(assignobject)
+		return block
 
 		
 	def prod_assignment(self, listobject):
-		return ''
+		varname = listobject[1][1]
+		vartype = tgl.varlist[tgl.indentlevel][varname]
+		block = self.prod_expression(listobject[2])
+		block = block + varname + ' = ' + 'expval' + '\n'
+		return block
 
 		
 	def prod_expression(self, listobject):
+		exptype  = listobject[1][0]
+		block = ''
+		if exptype == 'funcall':
+			pass
+		elif exptype == 'list':
+			tmplist = []
+			for item in listobject[1][1]:
+				block = block + self.prod_expression(item)
+				block = block + 'tmp' + str(self.tmpvarcount) + ' = ' + 'expval' + '\n'
+				tmplist = tmplist + ['tmp' + str(self.tmpvarcount)]
+				self.tmpvarcount = self.tmpvarcount + 1
+			block  = block + 'expval = [' + ','.join(tmplist) + ']' + '\n'
+				
+		elif exptype == 'variable':
+			block = 'expval' + ' = ' + str(listobject[1][1]) + '\n'
+		elif exptype == 'value':
+			block = 'expval' + ' = ' + str(listobject[1][1][1]) + '\n'
+			
+		return block
+		
+	def prod_functioncall(self, listobject):
 		return ''
 
 		
 	
 if __name__ == '__main__':
-	main()	
+	main()
