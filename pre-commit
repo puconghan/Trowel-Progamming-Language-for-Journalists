@@ -54,6 +54,7 @@ class TestTrowel(unittest.TestCase):
 
 	def test_lexer_save(self):
 		self.assertEqual(parsewrapper().gettokens("save \"this is text\" into \"file.txt\""), [['UNKNOWNWORD', 'save', 1], ['TEXTVAL', '"this is text"', 1], ['UNKNOWNWORD', 'into', 1], ['TEXTVAL', '"file.txt"', 1]])
+		
 
 	#Error checking Lexer tests
 	# Print tests
@@ -65,8 +66,15 @@ class TestTrowel(unittest.TestCase):
 
 	# Parser tests
 	def test_parser_print_number(self):
-		self.assertEqual(parsewrapper().getabstractlist("print 45"), [['indentlevel', 0], ['expression', ['functioncall', ['functionname', 'print'], 'arguments', [['expression', ['value', ['number', 45]]]]]]])
-		self.assertEqual(parsewrapper().getabstractlist("print 4 5"), [['indentlevel', 0], ['expression', ['functioncall', ['functionname', 'print'], 'arguments', [['expression', ['value', ['number', 4]]], ['expression', ['value', ['number', 5]]]]]]])
+		self.assertEqual(parsewrapper().getabstractlist("print 45"), [['indentlevel', 0], ['functioncall', ['functionname', 'print'], 'arguments', [['expression', ['value', ['number', 45]]]]]])
+		self.assertEqual(parsewrapper().getabstractlist("print 4 5"), [['indentlevel', 0], ['functioncall', ['functionname', 'print'], 'arguments', [['expression', ['value', ['number', 4]]], ['expression', ['value', ['number', 5]]]]]])
+		
+	def test_parser_print_text(self):
+		self.assertEqual(parsewrapper().getabstractlist("print \"this is text\""), [['indentlevel', 0], ['functioncall', ['functionname', 'print'], 'arguments', [['expression', ['value', ['text', "this is text"]]]]]])
+		
+	def test_parser_print_url(self):
+		self.assertEqual(parsewrapper().getabstractlist("print 'this is a url'"), [['indentlevel', 0], ['functioncall', ['functionname', 'print'], 'arguments', [['expression', ['value', ['url', 'this is a url']]]]]])
+	
 		
 	
 	# Function tests

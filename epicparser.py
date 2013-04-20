@@ -14,6 +14,7 @@ def main():
 	pythonbox = pythonwrapper()
 	
 	pythonfile.write(pythonbox.headblock())
+
 	inputline = parsebox.getline(inputfile)
 	while inputline:
 		tokenline = parsebox.gettokens(inputline)
@@ -49,11 +50,12 @@ class parsewrapper:
 
 	def getline(self, inputfile):
 		line = inputfile.readline()
-		if line:
-			line = line.rstrip()
-			line = line.lower()
-			line = self.filterindentation(line)
-		return line
+		if line != "\n":
+			if line:
+				line = line.rstrip()
+				line = line.lower()
+				line = self.filterindentation(line)
+			return line
 		
 	def filterindentation(self, inputline):
 		indentlevel = 0
@@ -172,6 +174,7 @@ class pythonwrapper:
 		for item in argumentlist:
 			[blockval,expval] = self.prod_expression(item)
 			block = block + blockval
+			block = block + self.prod_expression(item)
 			block = block + 'tmp' + str(self.tmpvarcount) + ' = ' + 'expval' + '\n'
 			tmplist = tmplist + ['tmp' + str(self.tmpvarcount)]
 			self.tmpvarcount = self.tmpvarcount + 1

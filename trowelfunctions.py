@@ -2,7 +2,7 @@ import sys
 import trowelglobals as tgl
 
 #--------------------------------------------------------------------------
-# Everyone please seperate your respective sections with #-----
+# Everyone please separate your respective sections with #-----
 
 # Also, please use exactly this naming convention in lower case for the functions
 #	print -> r_print, save -> r_save, findurl -> r_findurl
@@ -30,6 +30,8 @@ def istextlist(inputlist):
 
 #--------------------------------------------------------------------------
 
+#Section created and implemented by Victoria Mo and Robert Walport.
+
 #takes a list of number/url/text
 def printvars(arglist):
 	to_print = ''
@@ -46,7 +48,7 @@ def printlist(arglist):
 	return 1 #success
 
 #arglist is ['url',"with","text"/number]
-def combine(arglist):
+def r_combine(arglist):
 	return str(arglist[0]) + str(arglist[2])
 
 #takes a url or text and adds it to the end of a urllist/textlist
@@ -62,13 +64,15 @@ def insert(arglist):
 def length(arglist):
 	return len(arglist[0])
 	
+#--------------------------------------------------------------------------
+
+#Section created and implemented by Pucong Han on April 13, 2013.
+
 ##Save function for Trowel.
 # Save a list of urls to an external txt file.
-# Create and implemented by Pucong Han on April 13, 2013.
 def save(arglist):
 	if(arglist[1] != 'into'):
-		print "Wrong format for save function. It should be 'save list of urls (or variables that contains list of urls) into filename'."
-		sys.exit()
+		tgl.returnError("Save Function Syntax Miss Match", "Wrong format for save function. It should be 'save list of urls (or variables that contains list of urls) into filename'.", True)
 	else:
 		data = arglist[0]
 		filename = arglist[2]
@@ -78,11 +82,9 @@ def save(arglist):
 
 ##Append function for Trowel.
 # Append an url to an existing external txt file.
-# Create and implemented by Pucong Han on April 13, 2013.
 def append(arglist):
 	if(arglist[1] != 'into'):
-		print "Wrong format for append function. It should be 'append url (or variable contain an url) into filename'."
-		sys.exit()
+		tgl.returnError("Append Function Syntax Miss Match", "Wrong format for append function. It should be 'append url (or variable contain an url) into filename'.", True)
 	else:
 		data = arglist[0]
 		filename = arglist[2]
@@ -102,7 +104,6 @@ def append(arglist):
 
 ##Read function for Trowel.
 # Read an external txt file and return a list of urls.
-# Create and implemented by Pucong Han on April 13, 2013.
 def read(arglist):
 	filename = arglist[0]
 	try:
@@ -111,17 +112,14 @@ def read(arglist):
 			for item in inputfile:
 				read_url_list.append(item.rstrip('\n'))
 	except IOError:
-		print "Error: can\'t find the txt file or read data from the txt file"
-		sys.exit()
+		tgl.returnError("Read Function Missing File Error", "Error: can\'t find the txt file or read data from the txt file", True)
 	return read_url_list
 
 #--------------------------------------------------------------------------
 
-################
-# Find Functions
-################
+#Section created and implemented by David Tagatac
 
-from urlgrabber import urlopen
+from urllib2 import urlopen
 from bs4 import BeautifulSoup
 import re
 
