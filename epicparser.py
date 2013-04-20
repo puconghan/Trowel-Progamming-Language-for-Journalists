@@ -104,7 +104,8 @@ class pythonwrapper:
 		elif production == 'assignment':
 			block = block + self.prod_assignment(prodobject)
 		elif	production == 'functioncall':
-			block = block + self.prod_functioncall(prodobject)
+			[blockval,expval] = self.prod_functioncall(prodobject)
+			block = block + blockval
 			
 		block = block.strip()
 		blocklines = block.split('\n')
@@ -139,32 +140,33 @@ class pythonwrapper:
 		varname = listobject[1][1]
 		vartype = tgl.varlist[tgl.indentlevel][varname]
 		[block,expval] = self.prod_expression(listobject[2])
-		block = block + varname + ' = ' + 'expval' + '\n'
+		block = block + varname + ' = ' + expval + '\n'
 		return block
 
 		
 	def prod_expression(self, listobject):
 		exptype  = listobject[1][0]
 		block = ''
+		expval = ''
 		if exptype == 'functioncall':
-			block = block + self.prod_functioncall(listobject[1])
+			[blockval,expval] = self.prod_functioncall(listobject[1])
+			block  = block + blockval
 		elif exptype == 'list':
 			tmplist = []
 			for item in listobject[1][1]:
 				[blockval,expval] = self.prod_expression(item)
 				block = block + blockval
-				block = block + 'tmp' + str(self.tmpvarcount) + ' = ' + 'expval' + '\n'
+				block = block + 'tmp' + str(self.tmpvarcount) + ' = ' + expval + '\n'
 				tmplist = tmplist + ['tmp' + str(self.tmpvarcount)]
 				self.tmpvarcount = self.tmpvarcount + 1
-			block  = block + 'expval = [' + ','.join(tmplist) + ']' + '\n'
-				
+			expval = '[' + ','.join(tmplist) + ']'
 		elif exptype == 'variable':
-			block = 'expval' + ' = ' + str(listobject[1][1]) + '\n'
+			expval = str(listobject[1][1])
 		elif exptype == 'value':
-			block = 'expval' + ' = ' + str(listobject[1][1][1]) + '\n'
+			expval = str(listobject[1][1][1])
 		elif exptype == 'insertword':
-			block = 'expval' + ' = ' + str(listobject[1][1]) + '\n'
-		return [block,'...']
+			expval = str(listobject[1][1])
+		return [block,expval]
 		
 	def prod_functioncall(self, listobject):
 		block = ''
@@ -174,13 +176,13 @@ class pythonwrapper:
 		for item in argumentlist:
 			[blockval,expval] = self.prod_expression(item)
 			block = block + blockval
-			block = block + 'tmp' + str(self.tmpvarcount) + ' = ' + 'expval' + '\n'
+			block = block + 'tmp' + str(self.tmpvarcount) + ' = ' + expval + '\n'
 			tmplist = tmplist + ['tmp' + str(self.tmpvarcount)]
 			self.tmpvarcount = self.tmpvarcount + 1
 			
 		pythonarglist = '([' + ','.join(tmplist) + '])'
-		block  = block + 'expval = tfl.r_' + functionname + pythonarglist + '\n'
-		return block
+		expval = 'tfl.r_' + functionname + pythonarglist
+		return [block,expval]
 		
 if __name__ == '__main__':
 	main()
