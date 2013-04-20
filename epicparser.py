@@ -138,7 +138,7 @@ class pythonwrapper:
 	def prod_assignment(self, listobject):
 		varname = listobject[1][1]
 		vartype = tgl.varlist[tgl.indentlevel][varname]
-		block = self.prod_expression(listobject[2])
+		[block,expval] = self.prod_expression(listobject[2])
 		block = block + varname + ' = ' + 'expval' + '\n'
 		return block
 
@@ -151,7 +151,8 @@ class pythonwrapper:
 		elif exptype == 'list':
 			tmplist = []
 			for item in listobject[1][1]:
-				block = block + self.prod_expression(item)
+				[blockval,expval] = self.prod_expression(item)
+				block = block + blockval
 				block = block + 'tmp' + str(self.tmpvarcount) + ' = ' + 'expval' + '\n'
 				tmplist = tmplist + ['tmp' + str(self.tmpvarcount)]
 				self.tmpvarcount = self.tmpvarcount + 1
@@ -163,8 +164,7 @@ class pythonwrapper:
 			block = 'expval' + ' = ' + str(listobject[1][1][1]) + '\n'
 		elif exptype == 'insertword':
 			block = 'expval' + ' = ' + str(listobject[1][1]) + '\n'
-			
-		return block
+		return [block,'...']
 		
 	def prod_functioncall(self, listobject):
 		block = ''
@@ -172,6 +172,8 @@ class pythonwrapper:
 		argumentlist = listobject[3]	
 		tmplist = []
 		for item in argumentlist:
+			[blockval,expval] = self.prod_expression(item)
+			block = block + blockval
 			block = block + self.prod_expression(item)
 			block = block + 'tmp' + str(self.tmpvarcount) + ' = ' + 'expval' + '\n'
 			tmplist = tmplist + ['tmp' + str(self.tmpvarcount)]
