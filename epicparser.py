@@ -174,7 +174,6 @@ class pythonwrapper:
 		for item in argumentlist:
 			[blockval,expval] = self.prod_expression(item)
 			block = block + blockval
-			block = block + self.prod_expression(item)
 			block = block + 'tmp' + str(self.tmpvarcount) + ' = ' + 'expval' + '\n'
 			tmplist = tmplist + ['tmp' + str(self.tmpvarcount)]
 			self.tmpvarcount = self.tmpvarcount + 1
