@@ -144,8 +144,8 @@ class pythonwrapper:
 	def prod_expression(self, listobject):
 		exptype  = listobject[1][0]
 		block = ''
-		if exptype == 'funcall':
-			pass
+		if exptype == 'functioncall':
+			block = block + self.prod_functioncall(listobject[1])
 		elif exptype == 'list':
 			tmplist = []
 			for item in listobject[1][1]:
@@ -159,10 +159,13 @@ class pythonwrapper:
 			block = 'expval' + ' = ' + str(listobject[1][1]) + '\n'
 		elif exptype == 'value':
 			block = 'expval' + ' = ' + str(listobject[1][1][1]) + '\n'
+		elif exptype == 'insertword':
+			block = 'expval' + ' = ' + str(listobject[1][1]) + '\n'
 			
 		return block
 		
 	def prod_functioncall(self, listobject):
+		print listobject
 		return ''
 
 		
