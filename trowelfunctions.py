@@ -2,10 +2,7 @@ import sys
 import trowelglobals as tgl
 
 #--------------------------------------------------------------------------
-# Everyone please separate your respective sections with #-----
-
-# Also, please use exactly this naming convention in lower case for the functions
-#	print -> r_print, save -> r_save, findurl -> r_findurl
+# Sections are delimited by #-----
 #--------------------------------------------------------------------------
 
 #Section added by Hareesh
@@ -33,7 +30,7 @@ def istextlist(inputlist):
 #Section created and implemented by Victoria Mo and Robert Walport.
 
 #takes a list of number/url/text
-def printvars(arglist):
+def r_printvars(arglist):
 	to_print = ''
 	for entry in arglist:
 		to_print = to_print + str(entry)
@@ -41,7 +38,7 @@ def printvars(arglist):
 	return 1 #success
 
 #takes a list of urllists/textlists
-def printlist(arglist):
+def r_printlist(arglist):
 	for list_to_print in arglist: #can print multiple lists
 		for entry in list_to_print:
 			print entry
@@ -53,7 +50,7 @@ def r_combine(arglist):
 
 #takes a url or text and adds it to the end of a urllist/textlist
 #arglist is ['url'/"text", "into", urllist/textlist]
-def insert(arglist):
+def r_insert(arglist):
 	if len(arglist) != 3:
 		print "Format for insert in \"url/text\" into \"urllist/textlist\""
 		return 0
@@ -61,7 +58,7 @@ def insert(arglist):
 	return arglist[2]
 
 #returns length of a list
-def length(arglist):
+def r_length(arglist):
 	return len(arglist[0])
 	
 #--------------------------------------------------------------------------
@@ -70,7 +67,7 @@ def length(arglist):
 
 ##Save function for Trowel.
 # Save a list of urls to an external txt file.
-def save(arglist):
+def r_save(arglist):
 	if(arglist[1] != 'into'):
 		tgl.returnError("Save Function Syntax Miss Match", "Wrong format for save function. It should be 'save list of urls (or variables that contains list of urls) into filename'.", True)
 	else:
@@ -82,7 +79,7 @@ def save(arglist):
 
 ##Append function for Trowel.
 # Append an url to an existing external txt file.
-def append(arglist):
+def r_append(arglist):
 	if(arglist[1] != 'into'):
 		tgl.returnError("Append Function Syntax Miss Match", "Wrong format for append function. It should be 'append url (or variable contain an url) into filename'.", True)
 	else:
@@ -104,7 +101,7 @@ def append(arglist):
 
 ##Read function for Trowel.
 # Read an external txt file and return a list of urls.
-def read(arglist):
+def r_read(arglist):
 	filename = arglist[0]
 	try:
 		read_url_list = []
@@ -123,7 +120,7 @@ from urllib2 import urlopen
 from bs4 import BeautifulSoup
 import re
 
-def findUrl(arglist):
+def r_findUrl(arglist):
 	# arglist[0] is the urlList to search (set() removes duplicates)
 	this_urllist = set(arglist[0])
 	# arglist[1] is the FE to find
@@ -134,7 +131,7 @@ def findUrl(arglist):
 		if soup.find_all(text = re.compile(this_FE)): result.append(this_url)
 	return result
 
-def findText(arglist):
+def r_findText(arglist):
 	# arglist[0] is the urlList to search (set() removes duplicates)
 	this_urllist = set(arglist[0])
 	#arglist[1] is the FE to find
