@@ -169,7 +169,7 @@ def r_read(arglist):
 
 #--------------------------------------------------------------------------
 
-#Section created and implemented by David Tagatac
+#Section created and implemented by David Tagatac and Robert Walport
 
 from urllib2 import urlopen
 from bs4 import BeautifulSoup
@@ -177,14 +177,24 @@ import re
 
 def r_findUrl(arglist):
 	# arglist[0] is the urlList to search (set() removes duplicates)
-	this_urllist = set(arglist[0])
+	this_urllist = list(set(arglist[0]))
 	# arglist[1] is the FE to find
-	this_FE = arglist[1]
+	keywords = []
+	for entry in arglist[1:]:
+		if entry != "and" and entry != "or" and entry != "not":
+			keywords.append(entry)
+			
 	result = []
 	for this_url in this_urllist:
+		print this_url
 		soup = BeautifulSoup(urlopen(this_url))
-		if soup.find_all(text = re.compile(this_FE)): result.append(this_url)
-	return result
+		truthiList = []
+		for keyword in keywords:
+			if soup.find_all(text = re.compile(keyword)):
+				truthiList.append(True)
+			else:
+				truthiList.append(False)
+		print truthiList
 
 def r_findText(arglist):
 	# arglist[0] is the urlList to search (set() removes duplicates)
