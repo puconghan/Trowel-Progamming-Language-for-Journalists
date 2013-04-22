@@ -6,3 +6,7 @@ z is 5
 x is [4,5,print]
 urllist temp
 temp is ['www.cnn.com','www.bbc.com']
+insert 'www.fb.com' into temp
+print temp
+urllist mylist
+mylist is read "temp.txt"

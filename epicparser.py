@@ -1,5 +1,5 @@
 import trowelglobals as tgl
-#import trowelfunctions as tfs
+#import trowelfunctions as tfl
 import ply.lex as lex, ply.yacc as yacc
 import lexingrules, parsingrules
 from copy import copy
@@ -30,7 +30,8 @@ def main():
 	tokenfile.close()
 	aslfile.close()
 	pythonfile.close()
-
+	print "----------Trowel Compiler----------"
+	print "Trowel source code has been compiled to Python targeted program"
 
 class parsewrapper:
 	def __init__(self):
@@ -50,6 +51,7 @@ class parsewrapper:
 
 	def getline(self, inputfile):
 		line = inputfile.readline()
+		tgl.linenumber = tgl.linenumber + 1
 		if line != "\n":
 			if line:
 				line = line.rstrip()
@@ -59,8 +61,10 @@ class parsewrapper:
 		
 	def filterindentation(self, inputline):
 		indentlevel = 0
-		if inputline[0] == '\t':
+		while inputline[0] == '\t':
 			inputline = inputline[1:]
+			indentlevel = indentlevel + 1
+		if len(inputline) > 6 and inputline[0:6] == 'define':
 			indentlevel = indentlevel + 1
 		tgl.indentlevel = indentlevel
 		if indentlevel < self.lastindentlevel:
@@ -72,8 +76,6 @@ class parsewrapper:
 			pass
 		self.lastindentlevel = indentlevel
 		return inputline
-
-
 		
 class pythonwrapper:
 	def __init__(self):
@@ -85,8 +87,7 @@ class pythonwrapper:
 
 	def checkaslintegrity(self, inputline):
 		pass
-
-		
+	
 	def buildpython(self, listobject):
 		self.checkaslintegrity(listobject)
 		indentlevel = listobject[0][1]
@@ -103,8 +104,8 @@ class pythonwrapper:
 			block = block + self.prod_declaration(prodobject)
 		elif production == 'assignment':
 			block = block + self.prod_assignment(prodobject)
-		elif	production == 'functioncall':
-			[blockval,expval] = self.prod_functioncall(prodobject)
+		elif	production == 'expression':
+			[blockval,expval] = self.prod_expression(prodobject)
 			block = block + blockval
 			
 		block = block.strip()
@@ -116,7 +117,6 @@ class pythonwrapper:
 				block = block + tab + line + '\n'
 		
 		return '\n' + block
-
 			
 	def prod_declaration(self, listobject):
 		block = ''
@@ -135,7 +135,6 @@ class pythonwrapper:
 				block = block + self.prod_assignment(assignobject)
 		return block
 
-		
 	def prod_assignment(self, listobject):
 		varname = listobject[1][1]
 		vartype = tgl.varlist[tgl.indentlevel][varname]
@@ -143,14 +142,13 @@ class pythonwrapper:
 		block = block + varname + ' = ' + expval + '\n'
 		return block
 
-		
 	def prod_expression(self, listobject):
 		exptype  = listobject[1][0]
 		block = ''
 		expval = ''
 		if exptype == 'functioncall':
 			[blockval,expval] = self.prod_functioncall(listobject[1])
-			block  = block + blockval
+			block  = block + blockval + expval + '\n'
 		elif exptype == 'list':
 			tmplist = []
 			for item in listobject[1][1]:

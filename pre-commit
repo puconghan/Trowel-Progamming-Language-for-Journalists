@@ -66,14 +66,14 @@ class TestTrowel(unittest.TestCase):
 
 	# Parser tests
 	def test_parser_print_number(self):
-		self.assertEqual(parsewrapper().getabstractlist("print 45"), [['indentlevel', 0], ['functioncall', ['functionname', 'print'], 'arguments', [['expression', ['value', ['number', 45]]]]]])
-		self.assertEqual(parsewrapper().getabstractlist("print 4 5"), [['indentlevel', 0], ['functioncall', ['functionname', 'print'], 'arguments', [['expression', ['value', ['number', 4]]], ['expression', ['value', ['number', 5]]]]]])
+		self.assertEqual(parsewrapper().getabstractlist("print 45"), [['indentlevel', 0], ['expression', ['functioncall', ['functionname', 'print'], 'arguments', [['expression', ['value', ['number', 45]]]]]]])
+		self.assertEqual(parsewrapper().getabstractlist("print 4 5"), [['indentlevel', 0], ['expression', ['functioncall', ['functionname', 'print'], 'arguments', [['expression', ['value', ['number', 4]]], ['expression', ['value', ['number', 5]]]]]]])
 		
 	def test_parser_print_text(self):
-		self.assertEqual(parsewrapper().getabstractlist("print \"this is text\""), [['indentlevel', 0], ['functioncall', ['functionname', 'print'], 'arguments', [['expression', ['value', ['text', "this is text"]]]]]])
+		self.assertEqual(parsewrapper().getabstractlist("print \"this is text\""), [['indentlevel', 0], ['expression', ['functioncall', ['functionname', 'print'], 'arguments', [['expression', ['value', ['text', 'this is text']]]]]]])
 		
 	def test_parser_print_url(self):
-		self.assertEqual(parsewrapper().getabstractlist("print 'this is a url'"), [['indentlevel', 0], ['functioncall', ['functionname', 'print'], 'arguments', [['expression', ['value', ['url', 'this is a url']]]]]])
+		self.assertEqual(parsewrapper().getabstractlist("print 'this is a url'"), [['indentlevel', 0], ['expression', ['functioncall', ['functionname', 'print'], 'arguments', [['expression', ['value', ['url', 'this is a url']]]]]]])
 	
 		
 	
@@ -83,6 +83,13 @@ class TestTrowel(unittest.TestCase):
 
 	def test_function_printvars(self):
 		self.assertEqual(r_printvars(['var1',"var2",3]), 1)
+
+	def test_function_print(self):
+		self.assertEqual(r_print([1, 2, 3, 4]), 1)
+		self.assertEqual(r_print(["this", "is", "a", "test"]), 1)
+		self.assertEqual(r_print(["www.cnn.com", "www.bbc.com", "www.reuters.com", "www.huffpost.com"]), 1)
+		self.assertEqual(r_print([["www.cnn.com", "www.bbc.com"], ["www.reuters.com", "www.huffpost.com"]]), 1)
+		self.assertEqual(r_print([["this", "is"], ["a", "test"]]), 1)
 
 	def test_function_combine(self):
 		self.assertEqual(r_combine(['url.com', "with", 4]), 'url.com4')
@@ -103,6 +110,23 @@ class TestTrowel(unittest.TestCase):
 		
 	def test_function_findUrl(self):
 		self.assertEqual(r_findText(['http://www.bbc.co.uk/news/business-22251756', '(', 'Boeing', 'and', 'Larry', ')']), ['The admission came from Boeing\'s Larry Loftis, the general manager of the company\'s 787 division.'])
+
+	def test_function_read(self):
+		self.assertEqual(r_read(["read_test_file.txt"]), ['http://www.cnn.com', 'http://www.bbc.com', 'http://www.reuters.com', 'http://www.sina.com', 'http://www.ap.com'])
+
+	def test_function_type_checking(self):
+		self.assertEqual(isnumber(1), True)
+		self.assertEqual(isnumber("string"), False)
+		self.assertEqual(isurl('http://www.bbc.com'), True)
+		self.assertEqual(isurl('cnn.com'), False)
+		self.assertEqual(istext('text'), True)
+		self.assertEqual(istext(1), False)
+		self.assertEqual(isnumlist([1,2,3,4,5]), True)
+		self.assertEqual(isnumlist(["this", "is", "a", "test"]), False)
+		self.assertEqual(isurllist(['http://www.cnn.com', 'http://www.bbc.com']), True)
+		self.assertEqual(isurllist(["this", "is", "not"]), False)
+		self.assertEqual(istextlist(["this", "is", "a", "test"]), True)
+		self.assertEqual(istextlist([1,2,3,4,5]), False)
 
 if __name__ == '__main__':
 	for f in glob ('*.pyc'):

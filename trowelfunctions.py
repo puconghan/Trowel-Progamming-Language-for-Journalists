@@ -15,7 +15,7 @@ def isurl(input):
 	if not parts.scheme or not parts.netloc:  
 	    return False
 	else:
-	    print True
+	    return True
 
 def istext(input):
 	if str(type(input)) == "<type 'str'>":
@@ -38,7 +38,7 @@ def isurllist(inputlist):
 		if not parts.scheme or not parts.netloc:  
 		    return False
 		else:
-		    print True
+		    return True
 	else:
 		return False
 	
@@ -82,7 +82,7 @@ def checktype(typelist, inputlist):
 
 #--------------------------------------------------------------------------
 
-#Section created and implemented by Victoria Mo and Robert Walport.
+#Section created and implemented by Victoria Mo, Robert Walport and Pucong Han.
 
 #takes a list of number/url/text
 def r_printvars(arglist):
@@ -99,6 +99,14 @@ def r_printlist(arglist):
 			print entry
 	return 1 #success
 
+#Print function handles both a list of number/url/text or a list of urllists/textlists
+def r_print(arglist):
+	if str(type(arglist[0])) == "<type 'list'>":
+		r_printlist(arglist)
+	else:
+		r_printvars(arglist)
+	return 1 #success
+
 #arglist is ['url',"with","text"/number]
 def r_combine(arglist):
 	return str(arglist[0]) + str(arglist[2])
@@ -107,7 +115,7 @@ def r_combine(arglist):
 #arglist is ['url'/"text", "into", urllist/textlist]
 def r_insert(arglist):
 	if len(arglist) != 3:
-		print "Format for insert in \"url/text\" into \"urllist/textlist\""
+		tgl.returnError("Insert Function Syntax Error", "Format for insert in \"url/text\" into \"urllist/textlist\"", False)
 		return 0
 	arglist[2].append(arglist[0])
 	return arglist[2]
@@ -124,7 +132,7 @@ def r_length(arglist):
 # Save a list of urls to an external txt file.
 def r_save(arglist):
 	if(arglist[1] != 'into'):
-		tgl.returnError("Save Function Syntax Miss Match", "Wrong format for save function. It should be 'save list of urls (or variables that contains list of urls) into filename'.", True)
+		tgl.returnError("Save Function Syntax Error", "Wrong format for save function. It should be 'save list of urls (or variables that contains list of urls) into filename'.", False)
 	else:
 		data = arglist[0]
 		filename = arglist[2]
@@ -136,7 +144,7 @@ def r_save(arglist):
 # Append an url to an existing external txt file.
 def r_append(arglist):
 	if(arglist[1] != 'into'):
-		tgl.returnError("Append Function Syntax Miss Match", "Wrong format for append function. It should be 'append url (or variable contain an url) into filename'.", True)
+		tgl.returnError("Append Function Syntax Error", "Wrong format for append function. It should be 'append url (or variable contain an url) into filename'.", False)
 	else:
 		data = arglist[0]
 		filename = arglist[2]
