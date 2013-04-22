@@ -194,7 +194,6 @@ def r_findUrl(arglist):
 		soup = BeautifulSoup(urlopen(this_url))
 		truthiList = ""
 		for entry in arglist[1:]:
-			print entry
 			if entry in LOGICALS:
 				truthiList = truthiList + " " + entry
 			elif soup.find_all(text = re.compile(entry)):
@@ -213,7 +212,6 @@ def r_findText(arglist):
 	keyparas = []
 	
 	for para in texts:
-		print para
 		para = para.get_text()
 		truthiList = ""
 		for entry in arglist[1:]:
@@ -223,7 +221,5 @@ def r_findText(arglist):
 				truthiList = truthiList + " True"
 			else:
 				truthiList = truthiList + " False"
-		print truthiList
 		if eval(truthiList): keyparas.append(para)
-	print keyparas
 	return keyparas
