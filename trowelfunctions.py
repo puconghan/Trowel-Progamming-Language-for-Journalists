@@ -175,47 +175,47 @@ from urllib2 import urlopen
 from bs4 import BeautifulSoup
 import re
 
+LOGICALS = ['and', 'or', 'not', '(', ')']
+
 def r_findUrl(arglist):
 	# arglist[0] is the urlList to search (set() removes duplicates)
-	this_urllist = list(set(arglist[0]))
-	# arglist[1] is the FE to find
-	keywords = []
-	for entry in arglist[1:]:
-		if entry != "and" and entry != "or" and entry != "not":
-			keywords.append(entry)
-			
+	this_urllist = set(arglist[0])
+
 	result = []
 	for this_url in this_urllist:
-		print this_url
 		soup = BeautifulSoup(urlopen(this_url))
-		truthiList = []
-		for keyword in keywords:
-			if soup.find_all(text = re.compile(keyword)):
-				truthiList.append(True)
+		truthiList = ""
+		for entry in arglist[1:]:
+			print entry
+			if entry in LOGICALS:
+				truthiList = truthiList + " " + entry
+			elif soup.find_all(text = re.compile(entry)):
+				truthiList = truthiList + " True"
 			else:
-				truthiList.append(False)
-		print truthiList
+				truthiList = truthiList + " False"
+		if eval(truthiList): result.append(this_url)
+		
+	return result
 
-def r_findText(arglist):
-	keywords = []
-	
-	for entry in arglist[1:]:
-		if entry != "and" and entry != "or" and entry != "not":
-			keywords.append(entry)
-	
+def r_findText(arglist):	
 	html = urlopen(arglist[0])			
 	soup = BeautifulSoup(html)
-	texts = soup.findAll('p')
+	texts = soup.find_all('p')
 	
 	keyparas = []
 	
 	for para in texts:
 		print para
 		para = para.get_text()
-		truthiList = []
-		for keyword in keywords:
-			if keyword in para:
-				truthiList.append(True)
+		truthiList = ""
+		for entry in arglist[1:]:
+			if entry in LOGICALS:
+				truthiList = truthiList + " " + entry
+			elif entry in para:
+				truthiList = truthiList + " True"
 			else:
-				truthiList.append(False)
+				truthiList = truthiList + " False"
 		print truthiList
+		if eval(truthiList): keyparas.append(para)
+	print keyparas
+	return keyparas
