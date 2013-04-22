@@ -197,19 +197,25 @@ def r_findUrl(arglist):
 		print truthiList
 
 def r_findText(arglist):
-	# arglist[0] is the urlList to search (set() removes duplicates)
-	this_urllist = set(arglist[0])
-	#arglist[1] is the FE to find
-	this_FE = arglist[1]
-	parents_visited = []
-	result = []
-	for this_url in this_urllist:
-		soup = BeautifulSoup(urlopen(this_url))
-		for this_tag in soup.find_all(text = re.compile(this_FE)):
-			this_parent = this_tag.parent
-			if this_parent in parents_visited: continue
-			parents_visited.append(this_parent)
-			this_text = ''
-			for this_sibling in this_tag.parent.children: this_text += this_sibling.string
-			result.append(this_text)
-	return result
+	keywords = []
+	
+	for entry in arglist[1:]:
+		if entry != "and" and entry != "or" and entry != "not":
+			keywords.append(entry)
+	
+	html = urlopen(arglist[0])			
+	soup = BeautifulSoup(html)
+	texts = soup.findAll('p')
+	
+	keyparas = []
+	
+	for para in texts:
+		print para
+		para = para.get_text()
+		truthiList = []
+		for keyword in keywords:
+			if keyword in para:
+				truthiList.append(True)
+			else:
+				truthiList.append(False)
+		print truthiList
