@@ -59,8 +59,6 @@ def p_identifier(p):
 def p_custom_function(p):
 	'CUSTOM : DEFINE UNKNOWNWORD CUSTOMARGS'
 	p[0] = ['custom',p[2],p[3]]
-	print 'here'
-	print p[0]
 
 def p_customargs(p):
 	'''
