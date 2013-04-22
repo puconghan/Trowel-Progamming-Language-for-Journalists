@@ -6,7 +6,7 @@ start = 'STATEMENT'
 def p_statement(p):
 	'''
 	STATEMENT	: CUSTOM
-				| ROOTEXPRESSION
+			| ROOTEXPRESSION
 	'''
 	p[0] = [['indentlevel',tgl.indentlevel],p[1]]
 		
@@ -23,8 +23,8 @@ def p_rootexpression(p):
 				| DECLARATION
 				| ASSIGNMENT
 	'''
-	#if p[1][0] == 'functioncall':
-	#	p[1] = ['expression',p[1]]
+	if p[1][0] == 'functioncall':
+		p[1] = ['expression',p[1]]
 	p[0] = p[1]
 
 def p_expression_1(p):

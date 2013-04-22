@@ -1,5 +1,5 @@
 import trowelglobals as tgl
-#import trowelfunctions as tfs
+#import trowelfunctions as tfl
 import ply.lex as lex, ply.yacc as yacc
 import lexingrules, parsingrules
 from copy import copy
