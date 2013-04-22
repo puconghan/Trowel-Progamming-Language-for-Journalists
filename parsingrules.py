@@ -5,7 +5,8 @@ start = 'STATEMENT'
 
 def p_statement(p):
 	'''
-	STATEMENT	: ROOTEXPRESSION
+	STATEMENT	: CUSTOM
+				| ROOTEXPRESSION
 	'''
 	p[0] = [['indentlevel',tgl.indentlevel],p[1]]
 		
@@ -51,6 +52,28 @@ def p_identifier(p):
 		p[0] = ['variable',p[1]]
 	else:
 		p[0] = ['insertword',p[1]]
+
+#-----------------------------------------------------
+
+##Parsing custom functions
+def p_custom_function(p):
+	'CUSTOM : DEFINE UNKNOWNWORD CUSTOMARGS'
+	p[0] = ['custom',p[2],p[3]]
+	print 'here'
+	print p[0]
+
+def p_customargs(p):
+	'''
+	CUSTOMARGS	: CUSTOMARGS LEFTPAREN DATATYPE UNKNOWNWORD RIGHTPAREN
+				| CUSTOMARGS UNKNOWNWORD
+				| EMPTY
+	'''
+	if p[1] is None:
+		p[0] = p[2:]
+	else:
+		p[0] = p[1] + [x for x in p[2:] if x is not '(' and x is not ')']
+
+
 
 #-----------------------------------------------------
 
