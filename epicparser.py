@@ -30,8 +30,8 @@ def main():
 	tokenfile.close()
 	aslfile.close()
 	pythonfile.close()
-	#print "----------Trowel Compiler----------"
-	#print "Trowel source code has been compiled to Python targeted program"
+	print "----------Trowel Compiler----------"
+	print "Trowel source code has been compiled to Python targeted program"
 
 class parsewrapper:
 	def __init__(self):
