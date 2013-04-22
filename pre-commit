@@ -119,7 +119,6 @@ class TestTrowel(unittest.TestCase):
 		self.assertEqual(istextlist(["this", "is", "a", "test"]), True)
 		self.assertEqual(istextlist([1,2,3,4,5]), False)
 
-
 if __name__ == '__main__':
 	for f in glob ('*.pyc'):
    		os.unlink(f)
