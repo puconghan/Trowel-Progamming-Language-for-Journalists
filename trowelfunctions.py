@@ -90,14 +90,14 @@ def r_printvars(arglist):
 	for entry in arglist:
 		to_print = to_print + str(entry)
 	print to_print
-	# return 1 #success
+	return 1 #success
 
 #takes a list of urllists/textlists
 def r_printlist(arglist):
 	for list_to_print in arglist: #can print multiple lists
 		for entry in list_to_print:
 			print entry
-	# return 1 #success
+	return 1 #success
 
 #Print function handles both a list of number/url/text or a list of urllists/textlists
 def r_print(arglist):
