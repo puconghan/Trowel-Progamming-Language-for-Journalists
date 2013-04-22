@@ -82,7 +82,7 @@ def checktype(typelist, inputlist):
 
 #--------------------------------------------------------------------------
 
-#Section created and implemented by Victoria Mo and Robert Walport.
+#Section created and implemented by Victoria Mo, Robert Walport and Pucong Han.
 
 #takes a list of number/url/text
 def r_printvars(arglist):
@@ -90,14 +90,21 @@ def r_printvars(arglist):
 	for entry in arglist:
 		to_print = to_print + str(entry)
 	print to_print
-	return 1 #success
+	# return 1 #success
 
 #takes a list of urllists/textlists
 def r_printlist(arglist):
 	for list_to_print in arglist: #can print multiple lists
 		for entry in list_to_print:
 			print entry
-	return 1 #success
+	# return 1 #success
+
+#Print function handles both a list of number/url/text or a list of urllists/textlists
+def r_print(arglist):
+	if str(type(arglist[0])) == "<type 'list'>":
+		r_printlist[arglist]
+	else:
+		r_printvars[arglist]
 
 #arglist is ['url',"with","text"/number]
 def r_combine(arglist):
