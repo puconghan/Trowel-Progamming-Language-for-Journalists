@@ -50,6 +50,7 @@ class parsewrapper:
 
 	def getline(self, inputfile):
 		line = inputfile.readline()
+		tgl.linenumber = tgl.linenumber + 1
 		if line != "\n":
 			if line:
 				line = line.rstrip()
