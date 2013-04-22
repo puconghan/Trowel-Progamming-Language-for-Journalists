@@ -115,7 +115,7 @@ def r_combine(arglist):
 #arglist is ['url'/"text", "into", urllist/textlist]
 def r_insert(arglist):
 	if len(arglist) != 3:
-		print "Format for insert in \"url/text\" into \"urllist/textlist\""
+		tgl.returnError("Insert Function Syntax Error", "Format for insert in \"url/text\" into \"urllist/textlist\"", False)
 		return 0
 	arglist[2].append(arglist[0])
 	return arglist[2]
@@ -132,7 +132,7 @@ def r_length(arglist):
 # Save a list of urls to an external txt file.
 def r_save(arglist):
 	if(arglist[1] != 'into'):
-		tgl.returnError("Save Function Syntax Miss Match", "Wrong format for save function. It should be 'save list of urls (or variables that contains list of urls) into filename'.", True)
+		tgl.returnError("Save Function Syntax Error", "Wrong format for save function. It should be 'save list of urls (or variables that contains list of urls) into filename'.", False)
 	else:
 		data = arglist[0]
 		filename = arglist[2]
@@ -144,7 +144,7 @@ def r_save(arglist):
 # Append an url to an existing external txt file.
 def r_append(arglist):
 	if(arglist[1] != 'into'):
-		tgl.returnError("Append Function Syntax Miss Match", "Wrong format for append function. It should be 'append url (or variable contain an url) into filename'.", True)
+		tgl.returnError("Append Function Syntax Error", "Wrong format for append function. It should be 'append url (or variable contain an url) into filename'.", False)
 	else:
 		data = arglist[0]
 		filename = arglist[2]
