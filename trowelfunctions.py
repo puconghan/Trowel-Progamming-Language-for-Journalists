@@ -102,9 +102,10 @@ def r_printlist(arglist):
 #Print function handles both a list of number/url/text or a list of urllists/textlists
 def r_print(arglist):
 	if str(type(arglist[0])) == "<type 'list'>":
-		r_printlist[arglist]
+		r_printlist(arglist)
 	else:
-		r_printvars[arglist]
+		r_printvars(arglist)
+	return 1 #success
 
 #arglist is ['url',"with","text"/number]
 def r_combine(arglist):

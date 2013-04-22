@@ -84,6 +84,13 @@ class TestTrowel(unittest.TestCase):
 	def test_function_printvars(self):
 		self.assertEqual(r_printvars(['var1',"var2",3]), 1)
 
+	def test_function_print(self):
+		self.assertEqual(r_print([1, 2, 3, 4]), 1)
+		self.assertEqual(r_print(["this", "is", "a", "test"]), 1)
+		self.assertEqual(r_print(["www.cnn.com", "www.bbc.com", "www.reuters.com", "www.huffpost.com"]), 1)
+		self.assertEqual(r_print([["www.cnn.com", "www.bbc.com"], ["www.reuters.com", "www.huffpost.com"]]), 1)
+		self.assertEqual(r_print([["this", "is"], ["a", "test"]]), 1)
+
 	def test_function_combine(self):
 		self.assertEqual(r_combine(['url.com', "with", 4]), 'url.com4')
 		self.assertEqual(r_combine(['url.com', "with", "this is text"]), 'url.comthis is text')
