@@ -105,6 +105,9 @@ class TestTrowel(unittest.TestCase):
 		self.assertEqual(r_insert([1,"into",[2,3]]), [2,3,1])
 		self.assertEqual(r_insert([1,"into",[2,3], "extra arg"]), 0)
 
+	def test_function_read(self):
+		self.assertEqual(r_read(["read_test_file.txt"]), ['http://www.cnn.com', 'http://www.bbc.com', 'http://www.reuters.com', 'http://www.sina.com', 'http://www.ap.com'])
+
 	def test_function_type_checking(self):
 		self.assertEqual(isnumber(1), True)
 		self.assertEqual(isnumber("string"), False)
