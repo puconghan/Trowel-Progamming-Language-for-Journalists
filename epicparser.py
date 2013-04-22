@@ -30,7 +30,8 @@ def main():
 	tokenfile.close()
 	aslfile.close()
 	pythonfile.close()
-
+	print "----------Trowel Compiler----------"
+	print "Trowel sourse code has been compiled to Python targeted program"
 
 class parsewrapper:
 	def __init__(self):
@@ -75,8 +76,6 @@ class parsewrapper:
 			pass
 		self.lastindentlevel = indentlevel
 		return inputline
-
-
 		
 class pythonwrapper:
 	def __init__(self):
@@ -88,8 +87,7 @@ class pythonwrapper:
 
 	def checkaslintegrity(self, inputline):
 		pass
-
-		
+	
 	def buildpython(self, listobject):
 		self.checkaslintegrity(listobject)
 		indentlevel = listobject[0][1]
@@ -119,7 +117,6 @@ class pythonwrapper:
 				block = block + tab + line + '\n'
 		
 		return '\n' + block
-
 			
 	def prod_declaration(self, listobject):
 		block = ''
@@ -138,7 +135,6 @@ class pythonwrapper:
 				block = block + self.prod_assignment(assignobject)
 		return block
 
-		
 	def prod_assignment(self, listobject):
 		varname = listobject[1][1]
 		vartype = tgl.varlist[tgl.indentlevel][varname]
@@ -146,7 +142,6 @@ class pythonwrapper:
 		block = block + varname + ' = ' + expval + '\n'
 		return block
 
-		
 	def prod_expression(self, listobject):
 		exptype  = listobject[1][0]
 		block = ''
