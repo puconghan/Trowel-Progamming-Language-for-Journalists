@@ -15,7 +15,7 @@ def isurl(input):
 	if not parts.scheme or not parts.netloc:  
 	    return False
 	else:
-	    print True
+	    return True
 
 def istext(input):
 	if str(type(input)) == "<type 'str'>":
@@ -38,7 +38,7 @@ def isurllist(inputlist):
 		if not parts.scheme or not parts.netloc:  
 		    return False
 		else:
-		    print True
+		    return True
 	else:
 		return False
 	
