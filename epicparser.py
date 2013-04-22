@@ -30,8 +30,8 @@ def main():
 	tokenfile.close()
 	aslfile.close()
 	pythonfile.close()
-	print "----------Trowel Compiler----------"
-	print "Trowel sourse code has been compiled to Python targeted program"
+	#print "----------Trowel Compiler----------"
+	#print "Trowel source code has been compiled to Python targeted program"
 
 class parsewrapper:
 	def __init__(self):
@@ -104,8 +104,8 @@ class pythonwrapper:
 			block = block + self.prod_declaration(prodobject)
 		elif production == 'assignment':
 			block = block + self.prod_assignment(prodobject)
-		elif	production == 'functioncall':
-			[blockval,expval] = self.prod_functioncall(prodobject)
+		elif	production == 'expression':
+			[blockval,expval] = self.prod_expression(prodobject)
 			block = block + blockval
 			
 		block = block.strip()
@@ -148,7 +148,7 @@ class pythonwrapper:
 		expval = ''
 		if exptype == 'functioncall':
 			[blockval,expval] = self.prod_functioncall(listobject[1])
-			block  = block + blockval
+			block  = block + blockval + expval + '\n'
 		elif exptype == 'list':
 			tmplist = []
 			for item in listobject[1][1]:
