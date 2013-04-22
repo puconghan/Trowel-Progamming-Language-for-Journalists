@@ -42,9 +42,17 @@ tokens = [
 	'NUMVAL',
 	'TEXTVAL',
 	'URLVAL',
+	#Custom Function
+	'DEFINE',
 	#Unknown word captures everything else.
 	'UNKNOWNWORD',
+
 ]
+
+##Custom function
+def t_DEFINE(t):
+	r'(define)'
+	return t
 
 ##Tab (\t)
 t_TAB = r'\t'
@@ -66,12 +74,30 @@ t_EQUAL    = r'=='
 t_NOTEQUAL = r'=/='
 
 ##Data Types (URL TEXT NUMBER URLLIST TEXTLIST NUMLIST).
-t_URL = r'(url)|(zzzzzzzzzzzzzzzzzzzzzzz)'
-t_TEXT = r'(text)|(zzzzzzzzzzzzzzzzzzzzzzz)'
-t_NUMBER = r'(number)|(zzzzzzzzzzzzzzzzzzzzzzz)'
-t_URLLIST = r'(urllist)|(zzzzzzzzzzzzzzzzzzzzzzz)'   
-t_TEXTLIST = r'(textlist)|(zzzzzzzzzzzzzzzzzzzzzzz)'
-t_NUMLIST = r'(numlist)|(zzzzzzzzzzzzzzzzzzzzzzz)'
+
+def t_URLLIST(t):
+	r'(urllist)'
+	return t
+
+def t_TEXTLIST(t):
+	r'(textlist)'
+	return t
+
+def t_URL(t):
+	r'(url)'
+	return t
+
+def t_TEXT(t):
+	r'(text)'
+	return t
+
+def t_NUMBER(t):
+	r'(number)'
+	return t
+
+def t_NUMLIST(t):
+	r'(numlist)'
+	return t
 
 #Control Operators (IF ELSE FOR).
 t_IF = r'(if)'
@@ -80,7 +106,9 @@ t_ELSEIF = r'(elseif)'
 t_FOR = r'(for)'
 
 ##Assignment Operator (IS).
-t_IS = r'(is)|(zzzzzzzzzzzzzzzzzzzzzzz)'
+def t_IS(t):
+	r'(is)'
+	return t
 
 ##Reserved Deliminators (, ' " [ ]).
 t_COMMA              = r','
@@ -90,6 +118,8 @@ t_LEFTSQUAREBRACKET   = r'\['
 t_RIGHTSQUAREBRACKET = r'\]'
 t_LEFTPAREN   = r'\('
 t_RIGHTPAREN = r'\)'
+
+
 
 ##Constants
 def t_TEXTVAL(t):
