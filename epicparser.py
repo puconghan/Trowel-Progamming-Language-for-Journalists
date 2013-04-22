@@ -60,8 +60,10 @@ class parsewrapper:
 		
 	def filterindentation(self, inputline):
 		indentlevel = 0
-		if inputline[0] == '\t':
+		while inputline[0] == '\t':
 			inputline = inputline[1:]
+			indentlevel = indentlevel + 1
+		if len(inputline) > 6 and inputline[0:6] == 'define':
 			indentlevel = indentlevel + 1
 		tgl.indentlevel = indentlevel
 		if indentlevel < self.lastindentlevel:
