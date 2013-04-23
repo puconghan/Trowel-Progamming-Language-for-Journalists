@@ -86,25 +86,22 @@ def checktype(typelist, inputlist):
 
 #takes a list of number/url/text
 def r_printvars(arglist):
-	to_print = ''
-	for entry in arglist:
-		to_print = to_print + str(entry)
-	print to_print
+	print arglist
 	return 1 #success
 
 #takes a list of urllists/textlists
 def r_printlist(arglist):
-	for list_to_print in arglist: #can print multiple lists
-		for entry in list_to_print:
-			print entry
+	for item in arglist: #can print multiple lists
+		print item
 	return 1 #success
 
 #Print function handles both a list of number/url/text or a list of urllists/textlists
 def r_print(arglist):
-	if str(type(arglist[0])) == "<type 'list'>":
-		r_printlist(arglist)
-	else:
-		r_printvars(arglist)
+	for item in arglist:
+		if str(type(item)) == "<type 'list'>":
+			r_printlist(item)
+		else:
+			r_printvars(item)
 	return 1 #success
 
 #arglist is ['url',"with","text"/number]
@@ -184,27 +181,31 @@ from bs4 import BeautifulSoup
 import re
 
 LOGICALS = ['and', 'or', 'not', '(', ')']
+IGNORE = ['with']
 
-def r_findUrl(arglist):
+def r_findurl(arglist):
 	# arglist[0] is the urlList to search (set() removes duplicates)
-	this_urllist = set(arglist[0])
+	this_urllist = set(arglist[1])
 
 	result = []
 	for this_url in this_urllist:
 		soup = BeautifulSoup(urlopen(this_url))
 		truthiList = ""
 		for entry in arglist[1:]:
-			if entry in LOGICALS:
-				truthiList = truthiList + " " + entry
-			elif soup.find_all(text = re.compile(entry)):
-				truthiList = truthiList + " True"
-			else:
-				truthiList = truthiList + " False"
+			if str(type(entry)) != "<type 'list'>":
+				if entry in LOGICALS:
+					truthiList = truthiList + " " + entry
+				elif entry in IGNORE:
+					pass
+				elif soup.find_all(text = re.compile(entry)):
+					truthiList = truthiList + " True"
+				else:
+					truthiList = truthiList + " False"
 		if eval(truthiList): result.append(this_url)
 		
 	return result
 
-def r_findText(arglist):	
+def r_findtext(arglist):	
 	html = urlopen(arglist[0])			
 	soup = BeautifulSoup(html)
 	texts = soup.find_all('p')
@@ -215,11 +216,14 @@ def r_findText(arglist):
 		para = para.get_text()
 		truthiList = ""
 		for entry in arglist[1:]:
-			if entry in LOGICALS:
-				truthiList = truthiList + " " + entry
-			elif entry in para:
-				truthiList = truthiList + " True"
-			else:
-				truthiList = truthiList + " False"
+			if str(type(entry)) != "<type 'list'>":
+				if entry in LOGICALS:
+					truthiList = truthiList + " " + entry
+				elif entry in IGNORE:
+					pass
+				elif entry in para:
+					truthiList = truthiList + " True"
+				else:
+					truthiList = truthiList + " False"
 		if eval(truthiList): keyparas.append(para)
 	return keyparas
