@@ -9,4 +9,5 @@ temp is ['www.cnn.com','www.bbc.com']
 insert 'www.fb.com' into temp
 print temp
 urllist mylist
-mylist is read "temp.txt"
+mylist is read "read_test_file.txt"
+print mylist
