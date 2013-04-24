@@ -181,7 +181,7 @@ from bs4 import BeautifulSoup
 import re
 
 LOGICALS = ['and', 'or', 'not', '(', ')']
-IGNORE = ['with']
+IGNORE = ['with', 'in']
 
 def r_findurl(arglist):
 	# arglist[0] is the urlList to search (set() removes duplicates)
@@ -205,17 +205,16 @@ def r_findurl(arglist):
 		
 	return result
 
-def r_findtext(arglist):	
-	html = urlopen(arglist[0])			
+def r_findtext(arglist):
+	html = urlopen(arglist[1])			
 	soup = BeautifulSoup(html)
 	texts = soup.find_all('p')
-	
 	keyparas = []
 	
 	for para in texts:
 		para = para.get_text()
 		truthiList = ""
-		for entry in arglist[1:]:
+		for entry in arglist[2:]:
 			if str(type(entry)) != "<type 'list'>":
 				if entry in LOGICALS:
 					truthiList = truthiList + " " + entry

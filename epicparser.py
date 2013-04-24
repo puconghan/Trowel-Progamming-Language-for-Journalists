@@ -104,7 +104,7 @@ class pythonwrapper:
 			block = block + self.prod_declaration(prodobject)
 		elif production == 'assignment':
 			block = block + self.prod_assignment(prodobject)
-		elif	production == 'expression':
+		elif production == 'expression':
 			[blockval,expval] = self.prod_expression(prodobject)
 			block = block + blockval
 			
