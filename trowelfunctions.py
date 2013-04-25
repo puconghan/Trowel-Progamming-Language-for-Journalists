@@ -199,11 +199,14 @@ LOGICALS = ['and', 'or', 'not', '(', ')']
 IGNORE = ['with', 'in']
 
 def r_findurl(arglist):
-	# arglist[0] is the urlList to search (set() removes duplicates)
+	# arglist[1] is the urlList to search (set() removes duplicates)
 	this_urllist = set(arglist[1])
 
 	result = []
 	for this_url in this_urllist:
+		parts = urlparse.urlsplit(this_url)
+		if not parts.scheme or not parts.netloc:
+			this_url = "http://" + this_url
 		soup = BeautifulSoup(urlopen(this_url))
 		truthiList = ""
 		for entry in arglist[1:]:
@@ -221,7 +224,11 @@ def r_findurl(arglist):
 	return result
 
 def r_findtext(arglist):
-	html = urlopen(arglist[1])			
+	link = arglist[1]
+	parts = urlparse.urlsplit(link)
+	if not parts.scheme or not parts.netloc:
+		link = "http://" + link
+	html = urlopen(link)	
 	soup = BeautifulSoup(html)
 	texts = soup.find_all('p')
 	keyparas = []

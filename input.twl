@@ -12,9 +12,9 @@ urllist mylist
 mylist is read "read_test_file.txt"
 print mylist
 url tempstory
-tempstory is combine 'http://www.reuters.com/' and "finance"
+tempstory is combine 'www.reuters.com/' and "finance"
 print tempstory
 
-url newurl is "http://www.reuters.com/article/2013/04/25/us-barclays-salz-idUSBRE93O0OP20130425"
+url newurl is "www.reuters.com/article/2013/04/25/us-barclays-salz-idUSBRE93O0OP20130425"
 textlist stories2 is findtext in newurl with "shareholders" and "overhaul"
 print stories2
