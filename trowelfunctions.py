@@ -1,6 +1,7 @@
 import sys
 import trowelglobals as tgl
 import urlparse
+from urllib2 import Request, urlopen, URLError
 
 #Section created by Hareesh and implemented by Pucong Han on April 20, 2013
 
@@ -15,7 +16,21 @@ def isurl(input):
 	if not parts.scheme or not parts.netloc:  
 	    return False
 	else:
-	    return True
+		req = Request(input)
+		try:
+		    response = urlopen(req)
+		except URLError, e:
+		    if hasattr(e, 'reason'):
+		        print 'Failed to reach a server.'
+		        print 'Reason: ', e.reason
+		        return False
+		    elif hasattr(e, 'code'):
+		        print 'The server does not respond request.'
+		        print 'Error code: ', e.code
+		        return False
+		else:
+			print "Yes"
+			return True
 
 def istext(input):
 	if str(type(input)) == "<type 'str'>":
