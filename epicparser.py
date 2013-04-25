@@ -30,8 +30,9 @@ def main():
 	tokenfile.close()
 	aslfile.close()
 	pythonfile.close()
-	print "----------Trowel Compiler----------"
-	print "Trowel source code has been compiled to Python targeted program"
+	print "--------------------------Trowel Compiler--------------------------"
+	print "--Trowel source code has been compiled to Python targeted program--"
+	print "-------------------------------------------------------------------"
 
 class parsewrapper:
 	def __init__(self):
@@ -52,12 +53,13 @@ class parsewrapper:
 	def getline(self, inputfile):
 		line = inputfile.readline()
 		tgl.linenumber = tgl.linenumber + 1
-		if line != "\n":
-			if line:
-				line = line.rstrip()
-				line = line.lower()
-				line = self.filterindentation(line)
-			return line
+		while line == "\n":
+			line = inputfile.readline()
+		if line:
+			line = line.rstrip()
+			line = line.lower()
+			line = self.filterindentation(line)
+		return line
 		
 	def filterindentation(self, inputline):
 		indentlevel = 0
