@@ -25,4 +25,4 @@ print stories3
 url templist is findurl in ['www.reuters.com/article/2013/04/25/us-barclays-salz-idUSBRE93O0OP20130425'] with "shareholders"
 print templist
 
-append "www.puconghan.com" into "pre-commit-save.txt"
+append 'www.puconghan.com' into "pre-commit-save.txt"
