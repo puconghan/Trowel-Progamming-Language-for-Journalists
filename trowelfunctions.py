@@ -151,6 +151,7 @@ def r_save(arglist):
 		outfile = open(filename, 'w')
 		for item in data:
 			outfile.write(item + "\n")
+		return True
 
 ##Append function for Trowel.
 # Append an url to an existing external txt file.
@@ -201,7 +202,6 @@ IGNORE = ['with', 'in']
 def r_findurl(arglist):
 	# arglist[1] is the urlList to search (set() removes duplicates)
 	this_urllist = set(arglist[1])
-
 	result = []
 	for this_url in this_urllist:
 		parts = urlparse.urlsplit(this_url)
@@ -220,7 +220,6 @@ def r_findurl(arglist):
 				else:
 					truthiList = truthiList + " False"
 		if eval(truthiList): result.append(this_url)
-		
 	return result
 
 def r_findtext(arglist):
