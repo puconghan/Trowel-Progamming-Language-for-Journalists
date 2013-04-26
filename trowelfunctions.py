@@ -145,6 +145,7 @@ def r_length(arglist):
 def r_save(arglist):
 	if(arglist[1] != 'into'):
 		tgl.returnError("Save Function Syntax Error", "Wrong format for save function. It should be 'save list of urls (or variables that contains list of urls) into filename'.", False)
+		return False
 	else:
 		data = arglist[0]
 		filename = arglist[2]
@@ -158,22 +159,18 @@ def r_save(arglist):
 def r_append(arglist):
 	if(arglist[1] != 'into'):
 		tgl.returnError("Append Function Syntax Error", "Wrong format for append function. It should be 'append url (or variable contain an url) into filename'.", False)
+		return False
 	else:
 		data = arglist[0]
 		filename = arglist[2]
 		if str(type(data)) == str("<type 'list'>"):
 			for listitem in data:
 				with open(filename, "a") as modifiedfile:
-					modifiedfile.write(listitem + "\n")
+					modifiedfile.write("\n" + listitem)
 		else:
-			if tgl.varlist.get((tgl.indentlevel, data)) != None:
-				storedurllist = tgl.varlist.get((tgl.indentlevel, data))
-				for storeditem in storedurllist:
-					with open(filename, "a") as modifiedfile:
-						modifiedfile.write(storeditem + "\n")
-			else:
-				with open(filename, "a") as modifiedfile:
-					modifiedfile.write(data + "\n")
+			with open(filename, "a") as modifiedfile:
+				modifiedfile.write("\n" + data)
+		return True
 
 ##Read function for Trowel.
 # Read an external txt file and return a list of urls.

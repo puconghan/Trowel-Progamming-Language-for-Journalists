@@ -107,6 +107,10 @@ class TestTrowel(unittest.TestCase):
 
 	def test_function_save(self):
 		self.assertEqual(r_save([['http://www.cnn.com', 'http://www.bbc.com'], "into", "pre-commit-save.txt"]), True)
+
+	def test_function_append(self):
+		self.assertEqual(r_append(['www.puconghan.com','into','pre-commit-save.txt']), True)
+		self.assertEqual(r_append([['www.puconghan.com', 'www.rob.com'],'into','pre-commit-save.txt']), True)
 		
 	def test_function_findurl(self):
 		self.assertEqual(r_findurl(['in', ['http://www.bbc.co.uk/news/business-22251756', 'http://www.bbc.co.uk/news/business-22193398'], 'with', 'Boeing', 'and', 'Larry']), ['http://www.bbc.co.uk/news/business-22251756'])

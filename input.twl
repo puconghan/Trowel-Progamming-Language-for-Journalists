@@ -18,3 +18,11 @@ print tempstory
 url newurl is "www.reuters.com/article/2013/04/25/us-barclays-salz-idUSBRE93O0OP20130425"
 textlist stories2 is findtext in newurl with "shareholders" and "overhaul"
 print stories2
+
+textlist stories3 is findtext in newurl with "shareholders" and "overhaul" and not "hello"
+print stories3
+
+url templist is findurl in ['www.reuters.com/article/2013/04/25/us-barclays-salz-idUSBRE93O0OP20130425'] with "shareholders"
+print templist
+
+append "www.puconghan.com" into "pre-commit-save.txt"
