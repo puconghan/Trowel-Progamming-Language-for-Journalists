@@ -28,6 +28,11 @@ def returnError(error_type, error_message, terminator):
 	print error_type
 	print error_message
 	if terminator == True:
+		for erroritem in errorlist:
+			print "--------------------------------"
+			print "Line Number --> " + erroritem[0]
+			print "Error Type  --> " + erroritem[1]
+			print "Message     --> " + erroritem[2]
 		sys.exit()
 
 def printErrorMessages():
