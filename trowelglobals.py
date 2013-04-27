@@ -30,7 +30,7 @@ def returnError(error_type, error_message, terminator):
 	if terminator == True:
 		for erroritem in errorlist:
 			print "--------------------------------"
-			print "Line Number --> " + erroritem[0]
+			print "Line Number --> " + str(erroritem[0])
 			print "Error Type  --> " + erroritem[1]
 			print "Message     --> " + erroritem[2]
 		sys.exit()
@@ -40,5 +40,8 @@ def printErrorMessages():
 		print "Targeted language does not have error messages"
 	else:
 		print "----------Error-Messages----------"
-		for item in errorlist:
-			print "LINE NUMBER: " + str(item[0]) + " ERROR TYPE: " + item[1] + " ERROR MESSAGE: " + item[2]
+		for erroritem in errorlist:
+			print "----------------------------------"
+			print "Line Number --> " + str(erroritem[0])
+			print "Error Type  --> " + erroritem[1]
+			print "Message     --> " + erroritem[2]
