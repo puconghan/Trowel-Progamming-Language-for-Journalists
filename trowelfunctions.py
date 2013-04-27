@@ -3,6 +3,8 @@ import trowelglobals as tgl
 import urlparse
 from urllib2 import Request, urlopen, URLError
 
+#----------------------------------------------------------------------------------------------
+
 #Section created by Hareesh and implemented by Pucong Han on April 20, 2013
 
 def isnumber(input):
@@ -95,7 +97,7 @@ def checktype(typelist, inputlist):
 	else:
 		return False
 
-#--------------------------------------------------------------------------
+#----------------------------------------------------------------------------------------------
 
 #Section created and implemented by Victoria Mo, Robert Walport and Pucong Han.
 
@@ -136,7 +138,7 @@ def r_insert(arglist):
 def r_length(arglist):
 	return len(arglist[0])
 	
-#--------------------------------------------------------------------------
+#----------------------------------------------------------------------------------------------
 
 #Section created and implemented by Pucong Han on April 13, 2013.
 
@@ -185,9 +187,9 @@ def r_read(arglist):
 		tgl.returnError("Read Function Missing File Error", "Error: can\'t find the txt file or read data from the txt file", True)
 	return read_url_list
 
-#--------------------------------------------------------------------------
+#----------------------------------------------------------------------------------------------
 
-#Section created and implemented by David Tagatac and Robert Walport
+#Section created and implemented by David Tagatac, Robert Walport and Pucong Han.
 
 from urllib2 import urlopen
 from bs4 import BeautifulSoup
