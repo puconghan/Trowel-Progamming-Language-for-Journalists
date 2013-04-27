@@ -1,3 +1,4 @@
+#!/usr/bin/python
 import trowelglobals as tgl
 #import trowelfunctions as tfl
 import ply.lex as lex, ply.yacc as yacc
