@@ -5,8 +5,8 @@ start = 'STATEMENT'
 
 def p_statement(p):
 	'''
-	STATEMENT	: CUSTOM
-			| ROOTEXPRESSION
+	STATEMENT : CUSTOM
+			  | ROOTEXPRESSION
 	'''
 	p[0] = [['indentlevel',tgl.indentlevel],p[1]]
 		
@@ -18,10 +18,10 @@ def p_error(p):
 ##Parsing expressions
 def p_rootexpression(p):
 	'''
-	ROOTEXPRESSION	: EXPRESSION
-				| FUNCTION
-				| DECLARATION
-				| ASSIGNMENT
+	ROOTEXPRESSION : EXPRESSION
+				   | FUNCTION
+				   | DECLARATION
+				   | ASSIGNMENT
 	'''
 	if p[1][0] == 'functioncall':
 		p[1] = ['expression',p[1]]
@@ -35,9 +35,9 @@ def p_expression_1(p):
 		p[0] = ['expression',p[1]]
 def p_expression_2(p):
 	'''
-	EXPRESSION	: VALUE
-				| LIST
-				| LEFTPAREN FUNCTION RIGHTPAREN
+	EXPRESSION : VALUE
+			   | LIST
+			   | LEFTPAREN FUNCTION RIGHTPAREN
 	'''
 	if len(p) == 2:
 		p[0] = ['expression',p[1]]
@@ -62,9 +62,9 @@ def p_custom_function(p):
 
 def p_customargs(p):
 	'''
-	CUSTOMARGS	: CUSTOMARGS LEFTPAREN DATATYPE UNKNOWNWORD RIGHTPAREN
-				| CUSTOMARGS UNKNOWNWORD
-				| EMPTY
+	CUSTOMARGS : CUSTOMARGS LEFTPAREN DATATYPE UNKNOWNWORD RIGHTPAREN
+			   | CUSTOMARGS UNKNOWNWORD
+			   | EMPTY
 	'''
 	if p[1] is None:
 		p[0] = p[2:]
@@ -82,8 +82,8 @@ def p_function(p):
 
 def p_expressionset(p):
 	'''
-	EXPRESSIONSET	: EXPRESSIONSET EXPRESSION
-				| EXPRESSION
+	EXPRESSIONSET : EXPRESSIONSET EXPRESSION
+				  | EXPRESSION
 	'''
 	if len(p) == 3:
 		p[0] = p[1] + [p[2]]
@@ -95,9 +95,9 @@ def p_expressionset(p):
 ##Parsing constants and lists
 def p_value(p):
 	'''
-	VALUE	: _URLVAL
-			| _TEXTVAL
-			| _NUMVAL
+	VALUE : _URLVAL
+		  | _TEXTVAL
+		  | _NUMVAL
 	'''
 	p[0] = p[1]
 	
@@ -144,19 +144,19 @@ def p_declaration(p):
 	
 def p_datatype(p):
 	'''
-	DATATYPE	: URL
-			| TEXT
-			| NUMBER
-			| URLLIST
-			| TEXTLIST
-			| NUMLIST
+	DATATYPE : URL
+			 | TEXT
+			 | NUMBER
+			 | URLLIST
+			 | TEXTLIST
+			 | NUMLIST
 	'''
 	p[0] = ['datatype',p[1]]
 	
 def p_declarationset(p):
 	'''
 	DECLARATIONSET	: DECLAREDVAR COMMA DECLARATIONSET
-				| DECLAREDVAR
+					| DECLAREDVAR
 	'''
 	if len(p) == 2:
 		p[0] = [p[1]]
