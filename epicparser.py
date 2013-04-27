@@ -1,4 +1,13 @@
 #!/usr/bin/python
+###################################################################################################
+# PROGRAM:      Trowel
+# DESCRIPTION:  This epicparser.py program is the main function for trowel.
+#				This program handles the process of program language translation.
+# LICENSE:      PLY
+# REFERENCES:   Python Lex-Yacc Documentation (http://www.dabeaz.com/ply/)
+# OUTPUT:		Targeted Python Language
+###################################################################################################
+
 import trowelglobals as tgl
 #import trowelfunctions as tfl
 import ply.lex as lex, ply.yacc as yacc
@@ -85,7 +94,7 @@ class pythonwrapper:
 		self.tmpvarcount = 0
 		
 	def headblock(self):
-		block = 'import trowelfunctions as tfl\n'
+		block = '#!/usr/bin/python\nimport trowelfunctions as tfl\n'
 		return block
 
 	def checkaslintegrity(self, inputline):

@@ -1,3 +1,11 @@
+###################################################################################################
+# PROGRAM:      Trowel
+# DESCRIPTION:  This trowelfunction.py program implement default functions for trowel.
+#				This program will be imported by both targeted program and the parser.
+# LICENSE:      PLY
+# REFERENCES:   Python Lex-Yacc Documentation (http://www.dabeaz.com/ply/)
+###################################################################################################
+
 import sys
 import trowelglobals as tgl
 import urlparse

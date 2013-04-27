@@ -1,3 +1,11 @@
+###################################################################################################
+# PROGRAM:      Trowel
+# DESCRIPTION:  This lexingrule.py program is the lexer of Trowel used to break inputs into tokens.
+# LICENSE:      PLY
+# REFERENCES:   Python Lex-Yacc Documentation (http://www.dabeaz.com/ply/)
+# OUTPUT:       Tokens
+###################################################################################################
+
 import trowelglobals as tgl
 
 tokens = [
@@ -74,7 +82,6 @@ t_EQUAL    = r'=='
 t_NOTEQUAL = r'=/='
 
 ##Data Types (URL TEXT NUMBER URLLIST TEXTLIST NUMLIST).
-
 def t_URLLIST(t):
 	r'(urllist)'
 	return t
@@ -118,8 +125,6 @@ t_LEFTSQUAREBRACKET   = r'\['
 t_RIGHTSQUAREBRACKET = r'\]'
 t_LEFTPAREN   = r'\('
 t_RIGHTPAREN = r'\)'
-
-
 
 ##Constants
 def t_TEXTVAL(t):

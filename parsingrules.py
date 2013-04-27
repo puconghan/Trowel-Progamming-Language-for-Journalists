@@ -1,3 +1,12 @@
+###################################################################################################
+# PROGRAM:      Trowel
+# DESCRIPTION:  This parsingrules.py program is the parser of Trowel used to put token into abstract
+#				syntax tree.
+# LICENSE:      PLY
+# REFERENCES:   Python Lex-Yacc Documentation (http://www.dabeaz.com/ply/)
+# OUTPUT:       Abstract Syntax Tree
+###################################################################################################
+
 import trowelglobals as tgl
 from lexingrules import *
 

@@ -1,3 +1,11 @@
+###################################################################################################
+# PROGRAM:      Trowel
+# DESCRIPTION:  This trowelglobal.py program stores variables, error messages, default functions.
+#				This program also has an error handler function.
+# LICENSE:      PLY
+# REFERENCES:   Python Lex-Yacc Documentation (http://www.dabeaz.com/ply/)
+###################################################################################################
+
 import sys
 
 indentlevel = 0
