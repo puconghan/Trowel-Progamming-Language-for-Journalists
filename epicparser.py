@@ -19,7 +19,7 @@ def main():
 	inputfile = file(sys.argv[1],'r')
 	tokenfile = file('tokens.twl','w')
 	aslfile = file('asl.twl','w')
-	pythonfile = file('python.twl','w')
+	pythonfile = file(sys.argv[1][:-3]+'py','w')
 	
 	parsebox = parsewrapper()
 	pythonbox = pythonwrapper()
