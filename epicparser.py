@@ -13,6 +13,7 @@ import trowelglobals as tgl
 import ply.lex as lex, ply.yacc as yacc
 import lexingrules, parsingrules
 from copy import copy
+import sys
 
 def main():
 	inputfile = file(sys.argv[1],'r')
