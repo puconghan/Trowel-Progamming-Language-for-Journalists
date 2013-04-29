@@ -15,7 +15,7 @@ import lexingrules, parsingrules
 from copy import copy
 
 def main():
-	inputfile = file('input.twl','r')
+	inputfile = file(sys.argv[1],'r')
 	tokenfile = file('tokens.twl','w')
 	aslfile = file('asl.twl','w')
 	pythonfile = file('python.twl','w')
