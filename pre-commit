@@ -37,7 +37,7 @@ class TestTrowel(unittest.TestCase):
 		
 	def test_lexer_declaration_urllist(self):
 		self.assertEqual(parsewrapper().gettokens("urllist variablename"), [['URLLIST', 'urllist', 1], ['UNKNOWNWORD', 'variablename', 1]])
-	
+		
 	
 	# Print tests
 	def test_lexer_print_number(self):
@@ -50,10 +50,27 @@ class TestTrowel(unittest.TestCase):
 	def test_lexer_print_text(self):
 		self.assertEqual(parsewrapper().gettokens("print \"this is a text\""), [['UNKNOWNWORD', 'print', 1], ['TEXTVAL', '"this is a text"', 1]])
 
-	# Read tests
+	# Read and Save tests
 
 	def test_lexer_save(self):
 		self.assertEqual(parsewrapper().gettokens("save \"this is text\" into \"file.txt\""), [['UNKNOWNWORD', 'save', 1], ['TEXTVAL', '"this is text"', 1], ['UNKNOWNWORD', 'into', 1], ['TEXTVAL', '"file.txt"', 1]])
+		
+	def test_lexer_read(self):
+		self.assertEqual(parsewrapper().gettokens("read \"file.txt\" into urllist"), [['UNKNOWNWORD', 'read', 1], ['TEXTVAL', '"file.txt"', 1], ['UNKNOWNWORD', 'into', 1], ['URLLIST', 'urllist', 1]])
+		self.assertEqual(parsewrapper().gettokens("read \"file.txt\" into textlist"), [['UNKNOWNWORD', 'read', 1], ['TEXTVAL', '"file.txt"', 1], ['UNKNOWNWORD', 'into', 1], ['TEXTLIST', 'textlist', 1]])
+		
+	def test_lexer_append(self):
+		self.assertEqual(parsewrapper().gettokens("append \"this is text\" into \"file.txt\""), [['UNKNOWNWORD', 'append', 1], ['TEXTVAL', '"this is text"', 1], ['UNKNOWNWORD', 'into', 1], ['TEXTVAL', '"file.txt"', 1]])
+		
+	# Find tests
+	
+	def test_lexer_findText(self):
+		self.assertEqual(parsewrapper().gettokens("flighttime is findtext in space with \"time\" and \"flight\""), [['UNKNOWNWORD', 'flighttime', 1], ['IS', 'is', 1], ['UNKNOWNWORD', 'findtext', 1], ['UNKNOWNWORD', 'in', 1], ['UNKNOWNWORD', 'space', 1], ['UNKNOWNWORD', 'with', 1], ['TEXTVAL', '"time"', 1], ['UNKNOWNWORD', 'and', 1], ['TEXTVAL', '"flight"', 1]])
+	
+	def test_lexer_findUrl(self):
+		self.assertEqual(parsewrapper().gettokens("flighttime is findurl in space with \"time\" and \"flight\""), [['UNKNOWNWORD', 'flighttime', 1], ['IS', 'is', 1], ['UNKNOWNWORD', 'findurl', 1], ['UNKNOWNWORD', 'in', 1], ['UNKNOWNWORD', 'space', 1], ['UNKNOWNWORD', 'with', 1], ['TEXTVAL', '"time"', 1], ['UNKNOWNWORD', 'and', 1], ['TEXTVAL', '"flight"', 1]])
+		
+	
 		
 
 	#Error checking Lexer tests
@@ -65,6 +82,8 @@ class TestTrowel(unittest.TestCase):
 		
 
 	# Parser tests
+	
+	#print tests
 	def test_parser_print_number(self):
 		self.assertEqual(parsewrapper().getabstractlist("print 45"), [['indentlevel', 0], ['expression', ['functioncall', ['functionname', 'print'], 'arguments', [['expression', ['value', ['number', 45]]]]]]])
 		self.assertEqual(parsewrapper().getabstractlist("print 4 5"), [['indentlevel', 0], ['expression', ['functioncall', ['functionname', 'print'], 'arguments', [['expression', ['value', ['number', 4]]], ['expression', ['value', ['number', 5]]]]]]])
@@ -74,8 +93,20 @@ class TestTrowel(unittest.TestCase):
 		
 	def test_parser_print_url(self):
 		self.assertEqual(parsewrapper().getabstractlist("print 'this is a url'"), [['indentlevel', 0], ['expression', ['functioncall', ['functionname', 'print'], 'arguments', [['expression', ['value', ['url', 'this is a url']]]]]]])
-	
 		
+	def test_parser_print_list(self):
+		self.assertEqual(parsewrapper().getabstractlist("print [1,2,3]"), [['indentlevel', 0],
+   ['expression', ['functioncall', ['functionname', 'print'], 'arguments', [['expression', ['list', [['expression', ['value', ['number', 1]]], ['expression', ['value', ['number', 2]]], ['expression', ['value', ['number', 3]]]]]]]]]])
+   		self.assertEqual(parsewrapper().getabstractlist("print [\"text\",\"2\",\"more text\"]"), [['indentlevel', 0],
+   ['expression', ['functioncall', ['functionname', 'print'], 'arguments', [['expression', ['list', [['expression', ['value', ['text', 'text']]], ['expression', ['value', ['text', '2']]], ['expression', ['value', ['text', 'more text']]]]]]]]]])
+   
+   #Save and Read tests
+	
+	def test_parser_save(self):
+		self.assertEqual(parsewrapper().getabstractlist("save \"this is text\" into \"file.txt\""), [['indentlevel', 0], ['expression', ['functioncall', ['functionname', 'save'], 'arguments', [['expression', ['value', ['text', 'this is text']]], ['expression', ['insertword', 'into']], ['expression', ['value', ['text', 'file.txt']]]]]]])
+		
+	def test_parser_append(self):
+		self.assertEqual(parsewrapper().getabstractlist("append \"this is text\" into \"file.txt\""), [['indentlevel', 0], ['expression', ['functioncall', ['functionname', 'append'], 'arguments', [['expression', ['value', ['text', 'this is text']]], ['expression', ['insertword', 'into']], ['expression', ['value', ['text', 'file.txt']]]]]]])
 	
 	# Function tests
 	def test_function_printlist(self):
@@ -120,13 +151,18 @@ class TestTrowel(unittest.TestCase):
 
 	def test_function_read(self):
 		self.assertEqual(r_read(["read_test_file.txt"]), ['http://www.cnn.com', 'http://www.bbc.com', 'http://www.reuters.com', 'http://www.nytimes.com'])
-
+		
+	
+	# Function type checking tests
 	def test_function_type_checking(self):
 		self.assertEqual(isnumber(1), True)
 		self.assertEqual(isnumber("string"), False)
+		self.assertEqual(isnumber('url'), False)
 		self.assertEqual(isurl('http://www.bbc.com'), True)
 		self.assertEqual(isurl('cnn.com'), False)
-		self.assertEqual(istext('text'), True)
+		self.assertEqual(isurl(5), False)
+		self.assertEqual(isurl("text"), False)
+		self.assertEqual(istext("text"), True)
 		self.assertEqual(istext(1), False)
 		self.assertEqual(isnumlist([1,2,3,4,5]), True)
 		self.assertEqual(isnumlist(["this", "is", "a", "test"]), False)
@@ -134,6 +170,20 @@ class TestTrowel(unittest.TestCase):
 		self.assertEqual(isurllist(["this", "is", "not"]), False)
 		self.assertEqual(istextlist(["this", "is", "a", "test"]), True)
 		self.assertEqual(istextlist([1,2,3,4,5]), False)
+		
+	# Python Generation Tests
+	def test_python_print_number(self):
+		self.assertEqual(pythonwrapper().buildpython([['indentlevel', 0], ['expression', ['functioncall', ['functionname', 'print'], 'arguments', [['expression', ['value', ['number', 45]]]]]]]), "\ntmp0 = 45\ntfl.r_print([tmp0])\n")
+	
+	def test_python_print_text(self):
+		self.assertEqual(pythonwrapper().buildpython([['indentlevel', 0], ['expression', ['functioncall', ['functionname', 'print'], 'arguments', [['expression', ['value', ['text', "this is text"]]]]]]]), "\ntmp0 = \'this is text\'\ntfl.r_print([tmp0])\n")
+		
+	def test_python_print_url(self):
+		self.assertEqual(pythonwrapper().buildpython([['indentlevel', 0], ['expression', ['functioncall', ['functionname', 'print'], 'arguments', [['expression', ['value', ['url', "this is a url"]]]]]]]), "\ntmp0 = \'this is a url\'\ntfl.r_print([tmp0])\n")
+	
+	#Whole Compiler Tests
+	def test_basicprintprogram_number(self):
+		self.assertEqual(pythonwrapper().buildpython(parsewrapper().getabstractlist("print 45")), "\ntmp0 = 45\ntfl.r_print([tmp0])\n")
 
 if __name__ == '__main__':
 	for f in glob ('*.pyc'):
