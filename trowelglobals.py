@@ -77,5 +77,5 @@ def typeChecking(ast):
 							vartype = "urllist"
 				elif ast[1][2][1][0] == "variable":
 					vartype = varlist[indentationlevel].get(ast[1][2][1][1])
-				if varlist[indentationlevel].get(varname) != vartype:
-					returnError("Type Checking", "Abstract Syntax Tree variable" + varname + "type mismatch", False)
+					if varlist[indentationlevel].get(varname) != vartype:
+						returnError("Type Checking", "Abstract Syntax Tree variable" + varname + "type mismatch", False)
