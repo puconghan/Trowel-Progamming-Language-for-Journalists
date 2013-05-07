@@ -79,10 +79,3 @@ def typeChecking(ast):
 					vartype = varlist[indentationlevel].get(ast[1][2][1][1])
 				if varlist[indentationlevel].get(varname) != vartype:
 					returnError("Type Checking", "Abstract Syntax Tree variable" + varname + "type mismatch", False)
-
-# temp1 = [['indentlevel', 0], ['declaration', ['datatype', 'textlist'], [['flighttime']]]]
-# temp2 = [['indentlevel', 0], ['declaration', ['datatype', 'url'], [['spacearticle', ['expression', ['value', ['url', 'http://www.bbc.co.uk/news/science-environment-22344398']]]]]]]
-# temp3 = [['indentlevel', 0], ['assignment', ['variable', 'flighttime'], ['expression', ['functioncall', ['functionname', 'findtext'], 'arguments', [['expression', ['insertword', 'in']], ['expression', ['variable', 'spacearticle']], ['expression', ['insertword', 'with']], ['expression', ['value', ['text', 'time']]]]]]]]
-# temp4 = [['indentlevel', 0], ['expression', ['functioncall', ['functionname', 'print'], 'arguments', [['expression', ['variable', 'flighttime']]]]]]
-# temp5 = [['indentlevel', 0], ['assignment', ['variable', 'newlist'], ['expression', ['variable', 'flighttime']]]]
-# typeChecking(temp5)

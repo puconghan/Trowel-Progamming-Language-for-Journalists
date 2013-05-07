@@ -30,7 +30,7 @@ def main():
 	while inputline:
 		tokenline = parsebox.gettokens(inputline)
 		aslline = parsebox.getabstractlist(inputline)
-		#Call type checking function from the trowlglobal.py to check for the type consistence.
+		#Type checking function from the trowlglobal.py
 		tgl.typeChecking(aslline)
 		pythonblock = pythonbox.buildpython(aslline)
 
