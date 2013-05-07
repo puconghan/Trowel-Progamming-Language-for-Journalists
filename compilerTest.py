@@ -32,6 +32,21 @@ class TestTrowel(unittest.TestCase):
         self.assertEqual(python, ['#!/usr/bin/python\n', 'import trowelfunctions as tfl\n', '\n', 'tmp0 = 45\n', 'tfl.r_print([tmp0])\n'])
         f.close()
         
+    def test_helloWorld_program(self):
+        os.system("./trowel tests/hello.twl")
+        k = open("tokens.twl")
+        tokens = k.readlines()
+        self.assertEqual(tokens, ["[['TEXTLIST', 'textlist', 1], ['UNKNOWNWORD', 'hellocontents', 1]]\n", '[[\'URL\', \'url\', 1], [\'UNKNOWNWORD\', \'hello\', 1], [\'IS\', \'is\', 1], [\'URLVAL\', "\'www.journotrowel.com/examples/hello.html\'", 1]]\n', "[['UNKNOWNWORD', 'hellocontents', 1], ['IS', 'is', 1], ['UNKNOWNWORD', 'findtext', 1], ['UNKNOWNWORD', 'in', 1], ['UNKNOWNWORD', 'hello', 1]]\n", "[['UNKNOWNWORD', 'print', 1], ['UNKNOWNWORD', 'hellocontents', 1]]\n", '[[\'UNKNOWNWORD\', \'save\', 1], [\'UNKNOWNWORD\', \'hellocontents\', 1], [\'UNKNOWNWORD\', \'into\', 1], [\'TEXTVAL\', \'"output.txt"\', 1]]\n'])
+        k.close()
+        a = open("asl.twl")
+        asl = a.readlines()
+        a.close()
+        self.assertEqual(asl, ["[['indentlevel', 0], ['declaration', ['datatype', 'textlist'], [['hellocontents']]]]\n", "[['indentlevel', 0], ['declaration', ['datatype', 'url'], [['hello', ['expression', ['value', ['url', 'www.journotrowel.com/examples/hello.html']]]]]]]\n", "[['indentlevel', 0], ['assignment', ['variable', 'hellocontents'], ['expression', ['functioncall', ['functionname', 'findtext'], 'arguments', [['expression', ['insertword', 'in']], ['expression', ['variable', 'hello']]]]]]]\n", "[['indentlevel', 0], ['expression', ['functioncall', ['functionname', 'print'], 'arguments', [['expression', ['variable', 'hellocontents']]]]]]\n", "[['indentlevel', 0], ['expression', ['functioncall', ['functionname', 'save'], 'arguments', [['expression', ['variable', 'hellocontents']], ['expression', ['insertword', 'into']], ['expression', ['value', ['text', 'output.txt']]]]]]]\n"])
+        f = open('tests/hello.py')
+        python = f.readlines()
+        self.assertEqual(python, ['#!/usr/bin/python\n', 'import trowelfunctions as tfl\n', '\n', 'hellocontents = ""\n', '\n', 'hello = ""\n', "hello = 'www.journotrowel.com/examples/hello.html'\n", '\n', "tmp0 = 'in'\n", 'tmp1 = hello\n', 'tfl.r_findtext([tmp0,tmp1])\n', 'hellocontents = tfl.r_findtext([tmp0,tmp1])\n', '\n', 'tmp0 = hellocontents\n', 'tfl.r_print([tmp0])\n', '\n', 'tmp0 = hellocontents\n', "tmp1 = 'into'\n", "tmp2 = 'output.txt'\n", 'tfl.r_save([tmp0,tmp1,tmp2])\n'])
+        f.close()
+        
     def test_flighttime_program(self):
         os.system("./trowel tests/flighttime.twl")
         k = open("tokens.twl")

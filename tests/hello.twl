@@ -1,0 +1,8 @@
+textlist helloContents
+
+url hello is 'www.journotrowel.com/examples/hello.html'
+
+helloContents is findtext in hello
+
+print helloContents
+save helloContents into "output.txt"

@@ -3,13 +3,23 @@ import os, unittest
 class TestTrowel(unittest.TestCase):
     
     def test_save_program(self):
+    	print "save program being tested"
         os.system("./trowel tests/save.twl")
         os.system("python tests/save.py")
         output = open("numlist.txt").readlines()
         self.assertEqual(output, ['line 1\n', 'line 2\n', 'line 3\n'])
         os.system("rm numlist.txt")
         
+    def test_helloWorld_program(self):
+    	print "helloWorld program being tested"
+        os.system("./trowel tests/hello.twl")
+        os.system("python tests/hello.py")
+        output = open("output.txt").readlines()
+        self.assertEqual(output, ['Hello World!\n'])
+        os.system("rm output.txt")
+        
     def test_flighttime_program(self):
+    	print "flightTime program being tested"
         os.system("./trowel tests/flighttime.twl")
         os.system("python tests/flighttime.py")
         output = open("output.txt").readlines()
