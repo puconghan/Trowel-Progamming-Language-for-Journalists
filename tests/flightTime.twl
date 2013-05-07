@@ -2,6 +2,6 @@ textlist flightTime
 
 url spaceArticle is 'http://www.bbc.co.uk/news/science-environment-22344398'
 
-flightTime is findText in spaceArticle with "time"
+flightTime is findText in spaceArticle with "time" and "flight"
 
-print flightTime
+save flightTime into "output.txt"
