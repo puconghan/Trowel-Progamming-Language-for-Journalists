@@ -110,25 +110,25 @@ class pythonwrapper:
 				if (inputline[1][1][0] == "datatype") and (inputline[1][1][1] in ["number", "text", "url", "numlist", "textlist", "urllist"]):
 					pass
 				else:
-					tgl.returnError("Syntax Error", "Declaration syntax mismatch", True)
+					tgl.returnError("Syntax Error", "Declaration syntax mismatch", False)
 			elif inputline[1][0] == "assignment":
 				if inputline[1][1][0] == "variable":
 					pass
 				else:
-					tgl.returnError("Syntax Error", "Assignment syntax mismatch", True)
+					tgl.returnError("Syntax Error", "Assignment syntax mismatch", False)
 			elif inputline[1][0] == "expression":
 				if inputline[1][1][0] == "functioncall":
 					if inputline[1][1][1][0] == "functionname":
 						pass
 					else:
-						tgl.returnError("Syntax Error", "Expression function name mismatch", True)
+						tgl.returnError("Syntax Error", "Expression function name mismatch", False)
 				else:
-					tgl.returnError("Syntax Error", "Expression function call mismatch", True)
+					tgl.returnError("Syntax Error", "Expression function call mismatch", False)
 			else:
-				tgl.returnError("Syntax Error", "Missing syntax header", True)
+				tgl.returnError("Syntax Error", "Missing syntax header", False)
 			pass
 		else:
-			tgl.returnError("Syntax Error", "Missing indentation information", True)
+			tgl.returnError("Syntax Error", "Missing indentation information", False)
 	
 	# Function generates target python program.
 	def buildpython(self, listobject):
@@ -158,7 +158,6 @@ class pythonwrapper:
 		for line in blocklines:
 			if line != '':
 				block = block + tab + line + '\n'
-		
 		return '\n' + block
 	
 	# Function translates declaration from the abstract syntax tree.
