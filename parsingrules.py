@@ -20,7 +20,7 @@ def p_statement(p):
 	p[0] = [['indentlevel',tgl.indentlevel],p[1]]
 		
 def p_error(p):
-	print "Syntax error at '%s'" % p.value
+	tgl.returnError("Syntax Error", "Syntax error at '%s'" % p.value, False)
 
 #-----------------------------------------------------
 
