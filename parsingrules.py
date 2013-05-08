@@ -10,6 +10,11 @@
 import trowelglobals as tgl
 from lexingrules import *
 
+precedence = (
+    ('left','PLUS','MINUS'),
+    ('left','MULTIPLY','DIVISION'),
+    )
+
 start = 'STATEMENT'
 
 def p_statement(p):
@@ -31,6 +36,7 @@ def p_rootexpression(p):
 				   | FUNCTION
 				   | DECLARATION
 				   | ASSIGNMENT
+				   | BINOP
 	'''
 	if p[1][0] == 'functioncall':
 		p[1] = ['expression',p[1]]
@@ -47,6 +53,8 @@ def p_expression_2(p):
 	EXPRESSION : VALUE
 			   | LIST
 			   | LEFTPAREN FUNCTION RIGHTPAREN
+			   | BINOP
+			   | LEFTPAREN BINOP RIGHTPAREN
 	'''
 	if len(p) == 2:
 		p[0] = ['expression',p[1]]
@@ -98,6 +106,27 @@ def p_expressionset(p):
 		p[0] = p[1] + [p[2]]
 	else:
 		p[0] = [p[1]]
+		
+#-----------------------------------------------------
+
+##Parsing Binary Operations
+
+def p_binop(p):
+	'''BINOP : EXPRESSION PLUS EXPRESSION
+			| EXPRESSION MINUS EXPRESSION
+			| EXPRESSION MULTIPLY EXPRESSION
+			| EXPRESSION DIVISION EXPRESSION'''
+	if p[2] == "+":
+		p[2] = "plus"
+	if p[2] == "-":
+		p[2] = "minus"
+	if p[2] == "*":
+		p[2] = "multiply"
+	if p[2] == "/":
+		p[2] = "divide"
+
+	p[0] = ['functioncall', ['functionname',p[2]],'arguments', [p[1], p[3]]]
+
 
 #-----------------------------------------------------
 

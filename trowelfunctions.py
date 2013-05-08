@@ -151,6 +151,18 @@ def r_insert(arglist):
 def r_length(arglist):
 	return len(arglist[0])
 	
+def r_plus(arglist):
+	return arglist[0] + arglist[1]
+
+def r_minus(arglist):
+	return arglist[0] - arglist[1]
+
+def r_multiply(arglist):
+	return arglist[0] * arglist[1]
+	
+def r_divide(arglist):
+	return arglist[0] / arglist[1]
+	
 #----------------------------------------------------------------------------------------------
 
 #Section created and implemented by Pucong Han on April 13, 2013.
