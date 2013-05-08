@@ -47,6 +47,7 @@ def main():
 	print "--Trowel source code has been compiled to Python targeted program--"
 	print "-------------------------------------------------------------------"
 
+# Preprocessor of Trowel
 class parsewrapper:
 	def __init__(self):
 		self.lexer = lex.lex(module = lexingrules)
@@ -91,18 +92,45 @@ class parsewrapper:
 			pass
 		self.lastindentlevel = indentlevel
 		return inputline
-		
+
+# Code Generator for Trowel
 class pythonwrapper:
 	def __init__(self):
 		self.tmpvarcount = 0
-		
+	
+	# Function adds headers and declarations to the target program.
 	def headblock(self):
 		block = '#!/usr/bin/python\nimport trowelfunctions as tfl\n'
 		return block
 
+	# Function checks for abstract syntax tree structures.
 	def checkaslintegrity(self, inputline):
-		pass
+		if inputline[0][0] == "indentlevel":
+			if inputline[1][0] == "declaration":
+				if (inputline[1][1][0] == "datatype") and (inputline[1][1][1] in ["number", "text", "url", "numlist", "textlist", "urllist"]):
+					pass
+				else:
+					tgl.returnError("Syntax Error", "Declaration syntax mismatch", True)
+			elif inputline[1][0] == "assignment":
+				if inputline[1][1][0] == "variable":
+					pass
+				else:
+					tgl.returnError("Syntax Error", "Assignment syntax mismatch", True)
+			elif inputline[1][0] == "expression":
+				if inputline[1][1][0] == "functioncall":
+					if inputline[1][1][1][0] == "functionname":
+						pass
+					else:
+						tgl.returnError("Syntax Error", "Expression function name mismatch", True)
+				else:
+					tgl.returnError("Syntax Error", "Expression function call mismatch", True)
+			else:
+				tgl.returnError("Syntax Error", "Missing syntax header", True)
+			pass
+		else:
+			tgl.returnError("Syntax Error", "Missing indentation information", True)
 	
+	# Function generates target python program.
 	def buildpython(self, listobject):
 		self.checkaslintegrity(listobject)
 		indentlevel = listobject[0][1]
@@ -132,7 +160,8 @@ class pythonwrapper:
 				block = block + tab + line + '\n'
 		
 		return '\n' + block
-			
+	
+	# Function translates declaration from the abstract syntax tree.
 	def prod_declaration(self, listobject):
 		block = ''
 		datatype = listobject[1][1]
@@ -150,6 +179,7 @@ class pythonwrapper:
 				block = block + self.prod_assignment(assignobject)
 		return block
 
+	# Function translate assignments from the abstract syntax tree.
 	def prod_assignment(self, listobject):
 		varname = listobject[1][1]
 		vartype = tgl.varlist[tgl.indentlevel][varname]
@@ -157,6 +187,7 @@ class pythonwrapper:
 		block = block + varname + ' = ' + expval + '\n'
 		return block
 
+	# Function translates expressions from the abstract syntax tree.
 	def prod_expression(self, listobject):
 		exptype  = listobject[1][0]
 		block = ''
@@ -182,7 +213,8 @@ class pythonwrapper:
 		elif exptype == 'insertword':
 			expval = '\'' + str(listobject[1][1]) + '\''
 		return [block,expval]
-		
+	
+	# Function translates function calls from the abstract syntax tree.
 	def prod_functioncall(self, listobject):
 		block = ''
 		functionname = listobject[1][1]

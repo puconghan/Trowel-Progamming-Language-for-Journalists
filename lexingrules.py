@@ -145,7 +145,7 @@ t_UNKNOWNWORD = r'[a-z_][a-z0-9_]*'
 ##Ignored characters
 t_ignore  = ' '
 
-##Error handling.
+##Error handling for illegal characters.
 def t_error(t):
-    print "Lexer illegal character '%s'" % t.value[0]
+    tgl.returnError("Lexing Error", "Encounter illegal character '%s'" % t.value[0], False)
     t.lexer.skip(1)

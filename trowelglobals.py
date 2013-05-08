@@ -42,6 +42,13 @@ def returnError(error_type, error_message, terminator):
 			print "Error Type  --> " + erroritem[1]
 			print "Message     --> " + erroritem[2]
 		sys.exit()
+	if len(errorlist) >= 3:
+		for erroritem in errorlist:
+			print "--------------------------------"
+			print "Line Number --> " + str(erroritem[0])
+			print "Error Type  --> " + erroritem[1]
+			print "Message     --> " + erroritem[2]
+		sys.exit()
 
 def printErrorMessages():
 	if not errorlist:
