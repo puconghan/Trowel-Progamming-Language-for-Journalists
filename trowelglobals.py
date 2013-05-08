@@ -37,24 +37,30 @@ def returnError(error_type, error_message, terminator):
 	print error_type
 	print error_message
 	if terminator == True:
-		printErrorMessages()
+		printErrorMessages(error_type)
 		sys.exit()
 	# Set the error list threshold to three. More than three error, the compiler will terminate.
 	if len(errorlist) >= 3:
-		printErrorMessages()
+		printErrorMessages(error_type)
 		sys.exit()
 
 # Error printing function for the compiler
-def printErrorMessages():
+def printErrorMessages(typeerror):
 	if not errorlist:
 		print "Targeted language does not have error messages"
 	else:
 		print "----------Error-Messages----------"
-		for erroritem in errorlist:
-			print "----------------------------------"
-			print "Line Number --> " + str(erroritem[0])
-			print "Error Type  --> " + erroritem[1]
-			print "Message     --> " + erroritem[2]
+		if typeerror == "Run Time Error":
+			for erroritem in errorlist:
+				print "----------------------------------"
+				print "Error Type  --> " + erroritem[1]
+				print "Message     --> " + erroritem[2]
+		else:
+			for erroritem in errorlist:
+				print "----------------------------------"
+				print "Line Number --> " + str(erroritem[0])
+				print "Error Type  --> " + erroritem[1]
+				print "Message     --> " + erroritem[2]
 
 # Type checking function for the compiler. This function will check for type errors.
 def typeChecking(ast):
