@@ -1,4 +1,4 @@
-[['TEXTLIST', 'textlist', 1], ['UNKNOWNWORD', 'hellocontents', 1]]
-[['URL', 'url', 1], ['UNKNOWNWORD', 'hello', 1], ['IS', 'is', 1], ['URLVAL', "'http://pythonweb.org/projects/webmodules/doc/0.5.3/html_multipage/web/node20.html'", 1]]
-[['UNKNOWNWORD', 'hellocontents', 1], ['IS', 'is', 1], ['UNKNOWNWORD', 'findtext', 1], ['UNKNOWNWORD', 'in', 1], ['UNKNOWNWORD', 'hello', 1]]
-[['UNKNOWNWORD', 'print', 1], ['UNKNOWNWORD', 'hellocontents', 1]]
+[['URLLIST', 'urllist', 1], ['UNKNOWNWORD', 'stories', 1], ['IS', 'is', 1], ['LEFTSQUAREBRACKET', '[', 1], ['URLVAL', "'http://www.bbc.co.uk/news/business-21857393'", 1], ['COMMA', ',', 1], ['URLVAL', "'http://www.bbc.co.uk/news/uk-northern-ireland-21855357'", 1], ['RIGHTSQUAREBRACKET', ']', 1], ['COMMA', ',', 1], ['UNKNOWNWORD', 'filteredresult', 1]]
+[['TEXT', 'text', 1], ['UNKNOWNWORD', 'term1', 1], ['IS', 'is', 1], ['TEXTVAL', '"obama"', 1], ['COMMA', ',', 1], ['UNKNOWNWORD', 'term2', 1], ['IS', 'is', 1], ['TEXTVAL', '"congress"', 1]]
+[['UNKNOWNWORD', 'filteredresult', 1], ['IS', 'is', 1], ['UNKNOWNWORD', 'findurl', 1], ['UNKNOWNWORD', 'in', 1], ['UNKNOWNWORD', 'stories', 1], ['UNKNOWNWORD', 'with', 1], ['UNKNOWNWORD', 'term1', 1], ['UNKNOWNWORD', 'and', 1], ['UNKNOWNWORD', 'term2', 1]]
+[['UNKNOWNWORD', 'print', 1], ['UNKNOWNWORD', 'filteredresult', 1]]

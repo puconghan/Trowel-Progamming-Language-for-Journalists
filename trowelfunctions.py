@@ -254,6 +254,8 @@ def r_findurl(arglist):
 							pass
 						elif soup.find_all(text = re.compile(entry)):
 							truthiList = truthiList + " True"
+						elif soup.find_all(text = re.compile(entry.title())):
+							truthiList = truthiList + " True"
 						else:
 							truthiList = truthiList + " False"
 				if eval(truthiList): result.append(this_url)

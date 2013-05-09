@@ -1,4 +1,4 @@
-[['indentlevel', 0], ['declaration', ['datatype', 'textlist'], [['hellocontents']]]]
-[['indentlevel', 0], ['declaration', ['datatype', 'url'], [['hello', ['expression', ['value', ['url', 'http://pythonweb.org/projects/webmodules/doc/0.5.3/html_multipage/web/node20.html']]]]]]]
-[['indentlevel', 0], ['assignment', ['variable', 'hellocontents'], ['expression', ['functioncall', ['functionname', 'findtext'], 'arguments', [['expression', ['insertword', 'in']], ['expression', ['variable', 'hello']]]]]]]
-[['indentlevel', 0], ['expression', ['functioncall', ['functionname', 'print'], 'arguments', [['expression', ['variable', 'hellocontents']]]]]]
+[['indentlevel', 0], ['declaration', ['datatype', 'urllist'], [['stories', ['expression', ['list', [['expression', ['value', ['url', 'http://www.bbc.co.uk/news/business-21857393']]], ['expression', ['value', ['url', 'http://www.bbc.co.uk/news/uk-northern-ireland-21855357']]]]]]], ['filteredresult']]]]
+[['indentlevel', 0], ['declaration', ['datatype', 'text'], [['term1', ['expression', ['value', ['text', 'obama']]]], ['term2', ['expression', ['value', ['text', 'congress']]]]]]]
+[['indentlevel', 0], ['assignment', ['variable', 'filteredresult'], ['expression', ['functioncall', ['functionname', 'findurl'], 'arguments', [['expression', ['insertword', 'in']], ['expression', ['variable', 'stories']], ['expression', ['insertword', 'with']], ['expression', ['variable', 'term1']], ['expression', ['insertword', 'and']], ['expression', ['variable', 'term2']]]]]]]
+[['indentlevel', 0], ['expression', ['functioncall', ['functionname', 'print'], 'arguments', [['expression', ['variable', 'filteredresult']]]]]]
