@@ -20,8 +20,8 @@ class TestTrowel(unittest.TestCase):
         
     def test_addcombine_program(self):
     	print "add and combine program being tested"
-        os.system("./trowel tests/addCombine.twl")
-        os.system("python tests/addCombine.py")
+        os.system("./trowel tests/addcombine.twl")
+        os.system("python tests/addcombine.py")
         output = open("output.txt").readlines()
         self.assertEqual(output, ['www.bbc.co.uk?7\n'])
         os.system("rm output.txt")
