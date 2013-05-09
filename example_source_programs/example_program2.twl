@@ -1,0 +1,9 @@
+#ManyUrls Trowel Example Program 2
+
+urlList stories is ['http://www.bbc.co.uk/news/business-21857393', 'http://www.bbc.co.uk/news/uk-northern-ireland-21855357'], filteredResult
+
+text term1 is "Obama", term2 is "Congress"
+
+filteredresult is findUrl in stories with term1 and term2
+
+print filteredresult
