@@ -151,6 +151,18 @@ def r_insert(arglist):
 def r_length(arglist):
 	return len(arglist[0])
 	
+def r_plus(arglist):
+	return arglist[0] + arglist[1]
+
+def r_minus(arglist):
+	return arglist[0] - arglist[1]
+
+def r_multiply(arglist):
+	return arglist[0] * arglist[1]
+	
+def r_divide(arglist):
+	return int(round((float(arglist[0]) / float(arglist[1]))))
+	
 #----------------------------------------------------------------------------------------------
 
 #Section created and implemented by Pucong Han on April 13, 2013.
@@ -166,8 +178,11 @@ def r_save(arglist):
 			data = arglist[0]
 			filename = arglist[2]
 			outfile = open(filename, 'w')
-			for item in data:
-				outfile.write(item + "\n")
+			if str(type(data)) == str("<type 'str'>"):
+				outfile.write(data + "\n")
+			else:
+				for item in data:
+					outfile.write(item + "\n")
 			return True
 		except:
 			tgl.returnError("Run Time Error", "Cannot save " + arglist[0] + " into " + arglist[2], True)

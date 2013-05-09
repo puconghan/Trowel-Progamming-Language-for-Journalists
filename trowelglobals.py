@@ -26,6 +26,7 @@ prebuiltfunctions = {
 	'findurl' : ['urllist'],
 	'findtext' : ['textlist'],
 	'combine' : ['url'],
+	'binop' : ['number']
 }
 
 funclist = prebuiltfunctions

@@ -139,14 +139,29 @@ def r_combine(arglist):
 #arglist is ['url'/"text", "into", urllist/textlist]
 def r_insert(arglist):
 	if len(arglist) != 3:
-		tgl.returnError("Insert Function Syntax Error", "Format for insert in \"url/text\" into \"urllist/textlist\"", False)
+		tgl.returnError("Run Time Error", "Insert function invalid. Correct syntax should be insert \"url/text\" into \"urllist/textlist\"", True)
 		return 0
-	arglist[2].append(arglist[0])
-	return arglist[2]
+	try:
+		arglist[2].append(arglist[0])
+		return arglist[2]
+	except:
+		tgl.returnError("Run Time Error", "Cannot append " + arglist[0] + " to " + arglist[2], True)
 
 #returns length of a list
 def r_length(arglist):
 	return len(arglist[0])
+	
+def r_plus(arglist):
+	return arglist[0] + arglist[1]
+
+def r_minus(arglist):
+	return arglist[0] - arglist[1]
+
+def r_multiply(arglist):
+	return arglist[0] * arglist[1]
+	
+def r_divide(arglist):
+	return int(round((float(arglist[0]) / float(arglist[1]))))
 	
 #----------------------------------------------------------------------------------------------
 
@@ -156,33 +171,43 @@ def r_length(arglist):
 # Save a list of urls to an external txt file.
 def r_save(arglist):
 	if(arglist[1] != 'into'):
-		tgl.returnError("Save Function Syntax Error", "Wrong format for save function. It should be 'save list of urls (or variables that contains list of urls) into filename'.", False)
+		tgl.returnError("Run Time Error", "Save function illegal syntax. Correct syntax should be save list of urls (or variables that contains list of urls) into filename", True)
 		return False
 	else:
-		data = arglist[0]
-		filename = arglist[2]
-		outfile = open(filename, 'w')
-		for item in data:
-			outfile.write(item + "\n")
-		return True
+		try:
+			print arglist
+			data = arglist[0]
+			filename = arglist[2]
+			outfile = open(filename, 'w')
+			if str(type(data)) == str("<type 'str'>"):
+				outfile.write(data + "\n")
+			else:
+				for item in data:
+					outfile.write(item + "\n")
+			return True
+		except:
+			tgl.returnError("Run Time Error", "Cannot save " + arglist[0] + " into " + arglist[2], True)
 
 ##Append function for Trowel.
 # Append an url to an existing external txt file.
 def r_append(arglist):
 	if(arglist[1] != 'into'):
-		tgl.returnError("Append Function Syntax Error", "Wrong format for append function. It should be 'append url (or variable contain an url) into filename'.", False)
+		tgl.returnError("Function Error", "Append function illegal syntax. Correct syntax should be append url (or variable contain an url) into filename", False)
 		return False
 	else:
-		data = arglist[0]
-		filename = arglist[2]
-		if str(type(data)) == str("<type 'list'>"):
-			for listitem in data:
+		try:
+			data = arglist[0]
+			filename = arglist[2]
+			if str(type(data)) == str("<type 'list'>"):
+				for listitem in data:
+					with open(filename, "a") as modifiedfile:
+						modifiedfile.write("\n" + listitem)
+			else:
 				with open(filename, "a") as modifiedfile:
-					modifiedfile.write("\n" + listitem)
-		else:
-			with open(filename, "a") as modifiedfile:
-				modifiedfile.write("\n" + data)
-		return True
+					modifiedfile.write("\n" + data)
+			return True
+		except:
+			tgl.returnError("Run Time Error", "Cannot append " + arglist[0] + " to " + arglist[2], True)
 
 ##Read function for Trowel.
 # Read an external txt file and return a list of urls.
@@ -193,9 +218,9 @@ def r_read(arglist):
 		with open(filename, "r") as inputfile:
 			for item in inputfile:
 				read_url_list.append(item.rstrip('\n'))
+		return read_url_list
 	except IOError:
-		tgl.returnError("Read Function Missing File Error", "Error: can\'t find the txt file or read data from the txt file", True)
-	return read_url_list
+		tgl.returnError("Run Time Error", "Can\'t find the txt file or read data from the txt file", True)
 
 #----------------------------------------------------------------------------------------------
 

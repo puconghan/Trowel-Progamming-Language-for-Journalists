@@ -1,0 +1,4 @@
+url x
+number y is 5
+x is combine 'www.bbc.co.uk?' with (y + 2)
+save x into "output.txt"
