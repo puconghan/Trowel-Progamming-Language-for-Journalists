@@ -29,6 +29,8 @@ prebuiltfunctions = {
 	'binop' : ['number']
 }
 
+customfunctions = []
+
 funclist = prebuiltfunctions
 
 # Error handler function for the compiler.

@@ -159,25 +159,27 @@ class pythonwrapper:
 		
 		block = ''
 		for line in blocklines:
+			if line.split(' ')[0] == 'def':
+				tab = tab[:-2]
 			if line != '':
 				block = block + tab + line + '\n'
 		return '\n' + block
 
 	#custom function handler
 	def prod_custom(self, listobject):
-		print listobject
 		block = 'def ' + listobject[1] + '('
-		print listobject[2]
 		next_type = []
 		nt = 'text'
 		for arg in listobject[2]:
 			if type(arg) is str:
 				block = block + arg + ','
 				next_type.append(nt)
+				nt = 'text'
 			else:
 				nt = str(arg[1])
 		block = block[:-1] + ')' + ':' + '\n' 
-		block = block + 'if not checktype(list(reversed(locals().values())),' + str(next_type) + '): return \'' + listobject[1] + ' is used improperly\''
+		block = block + '\tif not tfl.checktype('+ str(next_type) +',list(reversed(locals().values()))): return \'' + listobject[1] + ' is used improperly\''
+		tgl.customfunctions.append(listobject[1])
 		return block
 
 	# Function translates declaration from the abstract syntax tree.
@@ -247,7 +249,10 @@ class pythonwrapper:
 			self.tmpvarcount = self.tmpvarcount + 1
 			
 		pythonarglist = '([' + ','.join(tmplist) + '])'
-		expval = 'tfl.r_' + functionname + pythonarglist
+		if functionname in tgl.customfunctions:
+			expval = functionname + '(' + ','.join(tmplist) + ')'
+		else:
+			expval = 'tfl.r_' + functionname + pythonarglist
 		return [block,expval]
 		
 if __name__ == '__main__':
