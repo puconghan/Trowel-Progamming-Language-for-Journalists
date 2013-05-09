@@ -1,1 +1,0 @@
-textlist thing is read "text.txt" #text.txt not existing!

@@ -1,4 +1,0 @@
-number x is 5
-
-for y in x: #Should fail as x is not an iterable
-	print y
