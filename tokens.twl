@@ -1,4 +1,5 @@
-[['URLLIST', 'urllist', 1], ['UNKNOWNWORD', 'stories', 1], ['IS', 'is', 1], ['LEFTSQUAREBRACKET', '[', 1], ['URLVAL', "'http://www.bbc.co.uk/news/business-21857393'", 1], ['COMMA', ',', 1], ['URLVAL', "'http://www.bbc.co.uk/news/uk-northern-ireland-21855357'", 1], ['RIGHTSQUAREBRACKET', ']', 1], ['COMMA', ',', 1], ['UNKNOWNWORD', 'filteredresult', 1]]
-[['TEXT', 'text', 1], ['UNKNOWNWORD', 'term1', 1], ['IS', 'is', 1], ['TEXTVAL', '"obama"', 1], ['COMMA', ',', 1], ['UNKNOWNWORD', 'term2', 1], ['IS', 'is', 1], ['TEXTVAL', '"congress"', 1]]
+[['URLLIST', 'urllist', 1], ['UNKNOWNWORD', 'stories', 1], ['COMMA', ',', 1], ['UNKNOWNWORD', 'filteredresult', 1]]
+[['TEXT', 'text', 1], ['UNKNOWNWORD', 'term1', 1], ['IS', 'is', 1], ['TEXTVAL', '"obama"', 1], ['COMMA', ',', 1], ['UNKNOWNWORD', 'term2', 1], ['IS', 'is', 1], ['TEXTVAL', '"ireland"', 1]]
+[['UNKNOWNWORD', 'stories', 1], ['IS', 'is', 1], ['UNKNOWNWORD', 'read', 1], ['TEXTVAL', '"example_source_programs/example3.txt"', 1]]
 [['UNKNOWNWORD', 'filteredresult', 1], ['IS', 'is', 1], ['UNKNOWNWORD', 'findurl', 1], ['UNKNOWNWORD', 'in', 1], ['UNKNOWNWORD', 'stories', 1], ['UNKNOWNWORD', 'with', 1], ['UNKNOWNWORD', 'term1', 1], ['UNKNOWNWORD', 'and', 1], ['UNKNOWNWORD', 'term2', 1]]
-[['UNKNOWNWORD', 'print', 1], ['UNKNOWNWORD', 'filteredresult', 1]]
+[['UNKNOWNWORD', 'save', 1], ['UNKNOWNWORD', 'filteredresult', 1], ['UNKNOWNWORD', 'into', 1], ['TEXTVAL', '"example_source_programs/example3_output.txt"', 1]]

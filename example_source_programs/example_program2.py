@@ -10,7 +10,7 @@ filteredresult = ""
 term1 = ""
 term1 = 'obama'
 term2 = ""
-term2 = 'congress'
+term2 = 'ireland'
 
 tmp0 = 'in'
 tmp1 = stories
