@@ -1,3 +1,4 @@
-[['indentlevel', 0], ['declaration', ['datatype', 'textlist'], [['x', ['expression', ['list', [['expression', ['value', ['text', 'line 1']]], ['expression', ['value', ['text', 'line 2']]], ['expression', ['value', ['text', 'line 3']]]]]]]]]]
+[['indentlevel', 0], ['declaration', ['datatype', 'url'], [['x']]]]
+[['indentlevel', 0], ['declaration', ['datatype', 'number'], [['y', ['expression', ['value', ['number', 5]]]]]]]
+[['indentlevel', 0], ['assignment', ['variable', 'x'], ['expression', ['functioncall', ['functionname', 'minus'], 'arguments', [['expression', ['functioncall', ['functionname', 'plus'], 'arguments', [['expression', ['value', ['number', 5]]], ['expression', ['value', ['number', 3]]]]]], ['expression', ['functioncall', ['functionname', 'multiply'], 'arguments', [['expression', ['variable', 'y']], ['expression', ['functioncall', ['functionname', 'minus'], 'arguments', [['expression', ['value', ['number', 3]]], ['expression', ['value', ['number', 4]]]]]]]]]]]]]]
 [['indentlevel', 0], ['expression', ['functioncall', ['functionname', 'print'], 'arguments', [['expression', ['variable', 'x']]]]]]
-[['indentlevel', 0], ['expression', ['functioncall', ['functionname', 'save'], 'arguments', [['expression', ['variable', 'x']], ['expression', ['insertword', 'into']], ['expression', ['value', ['text', 'numlist.txt']]]]]]]
