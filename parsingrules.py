@@ -13,6 +13,7 @@ from lexingrules import *
 precedence = (
     ('left','PLUS','MINUS'),
     ('left','MULTIPLY','DIVISION'),
+    ('right','UMINUS'),
     )
 
 start = 'STATEMENT'
@@ -125,6 +126,14 @@ def p_binop(p):
 		p[2] = "divide"
 
 	p[0] = ['functioncall', ['functionname',p[2]],'arguments', [p[1], p[3]]]
+	
+def p_expression_uminus(p):
+    'EXPRESSION : MINUS EXPRESSION %prec UMINUS'
+    if (p[2][1][0] == "value"):
+    	p[2][1][1][1] = -p[2][1][1][1]
+    else:
+    	p[2][1][1] = "-" + p[2][1][1]
+    p[0] = p[2]
 
 
 #-----------------------------------------------------

@@ -1,4 +1,1 @@
-[['indentlevel', 0], ['declaration', ['datatype', 'url'], [['x']]]]
-[['indentlevel', 0], ['declaration', ['datatype', 'number'], [['y', ['expression', ['value', ['number', 5]]]]]]]
-[['indentlevel', 0], ['assignment', ['variable', 'x'], ['expression', ['functioncall', ['functionname', 'minus'], 'arguments', [['expression', ['functioncall', ['functionname', 'plus'], 'arguments', [['expression', ['value', ['number', 5]]], ['expression', ['value', ['number', 3]]]]]], ['expression', ['functioncall', ['functionname', 'multiply'], 'arguments', [['expression', ['variable', 'y']], ['expression', ['functioncall', ['functionname', 'minus'], 'arguments', [['expression', ['value', ['number', 3]]], ['expression', ['value', ['number', 4]]]]]]]]]]]]]]
-[['indentlevel', 0], ['expression', ['functioncall', ['functionname', 'print'], 'arguments', [['expression', ['variable', 'x']]]]]]
+[['indentlevel', 0], ['expression', ['functioncall', ['functionname', 'print'], 'arguments', [['expression', ['value', ['number', 45]]]]]]]
