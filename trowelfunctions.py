@@ -225,7 +225,10 @@ def r_findurl(arglist):
 		parts = urlparse.urlsplit(this_url)
 		if not parts.scheme or not parts.netloc:
 			this_url = "http://" + this_url
-		soup = BeautifulSoup(urlopen(this_url))
+		try:
+			soup = BeautifulSoup(urlopen(this_url))
+		except:
+			tgl.returnError("Run Time Error", "Can\'t open the link: " + this_url + " in findurl", False)
 		truthiList = ""
 		if len(arglist[1:]) == 0:
 			result.append(this_url)
@@ -248,7 +251,10 @@ def r_findtext(arglist):
 	parts = urlparse.urlsplit(link)
 	if not parts.scheme or not parts.netloc:
 		link = "http://" + link
-	html = urlopen(link)	
+	try:
+		html = urlopen(link)
+	except:
+		tgl.returnError("Run Time Error", "Can\'t open the link: " + link + " in findtext", False)	
 	soup = BeautifulSoup(html)
 	texts = soup.find_all('p')
 	keyparas = []
