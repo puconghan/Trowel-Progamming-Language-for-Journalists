@@ -52,6 +52,8 @@ tokens = [
 	'URLVAL',
 	#Custom Function
 	'DEFINE',
+	#Return statement
+	'RETURN',
 	#Unknown word captures everything else.
 	'UNKNOWNWORD',
 
@@ -60,6 +62,10 @@ tokens = [
 ##Custom function
 def t_DEFINE(t):
 	r'(define)'
+	return t
+
+def t_RETURN(t):
+	r'(return)'
 	return t
 
 ##Tab (\t)

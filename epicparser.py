@@ -167,19 +167,23 @@ class pythonwrapper:
 
 	#custom function handler
 	def prod_custom(self, listobject):
-		block = 'def ' + listobject[1] + '('
-		next_type = []
-		nt = 'text'
-		for arg in listobject[2]:
-			if type(arg) is str:
-				block = block + arg + ','
-				next_type.append(nt)
-				nt = 'text'
-			else:
-				nt = str(arg[1])
-		block = block[:-1] + ')' + ':' + '\n' 
-		block = block + '\tif not tfl.checktype('+ str(next_type) +',list(reversed(locals().values()))): return \'' + listobject[1] + ' is used improperly\''
-		tgl.customfunctions.append(listobject[1])
+		if listobject[1] is 'return':
+			block = 'return ' + listobject[2][1][1]
+		else:
+			block = 'def ' + listobject[1] + '('
+			next_type = []
+			nt = 'text'
+			for arg in listobject[2]:
+				if type(arg) is str:
+					block = block + arg + ','
+					next_type.append(nt)
+					nt = 'text'
+				else:
+					nt = str(arg[1])
+					
+			block = block[:-1] + ')' + ':' + '\n' 
+			block = block + '\tif not tfl.checktype('+ str(next_type) +',list(reversed(locals().values()))): return \'' + listobject[1] + ' is used improperly\''
+			tgl.customfunctions.append(listobject[1])
 		return block
 
 	# Function translates declaration from the abstract syntax tree.

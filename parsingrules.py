@@ -87,6 +87,10 @@ def p_customargs(p):
 	else:
 		p[0] = p[1] + [x for x in p[2:] if x is not '(' and x is not ')']
 
+def p_return(p):
+	'CUSTOM : RETURN ROOTEXPRESSION'
+	p[0] = ['custom', 'return', p[2]]
+
 
 
 #-----------------------------------------------------
