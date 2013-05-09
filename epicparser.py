@@ -151,6 +151,8 @@ class pythonwrapper:
 		elif production == 'expression':
 			[blockval,expval] = self.prod_expression(prodobject)
 			block = block + blockval
+		elif production == 'custom':
+			block = block + self.prod_custom(prodobject)
 			
 		block = block.strip()
 		blocklines = block.split('\n')
@@ -160,7 +162,24 @@ class pythonwrapper:
 			if line != '':
 				block = block + tab + line + '\n'
 		return '\n' + block
-	
+
+	#custom function handler
+	def prod_custom(self, listobject):
+		print listobject
+		block = 'def ' + listobject[1] + '('
+		print listobject[2]
+		next_type = []
+		nt = 'text'
+		for arg in listobject[2]:
+			if type(arg) is str:
+				block = block + arg + ','
+				next_type.append(nt)
+			else:
+				nt = str(arg[1])
+		block = block[:-1] + ')' + ':' + '\n' 
+		block = block + 'if not checktype(list(reversed(locals().values())),' + str(next_type) + '): return \'' + listobject[1] + ' is used improperly\''
+		return block
+
 	# Function translates declaration from the abstract syntax tree.
 	def prod_declaration(self, listobject):
 		block = ''
