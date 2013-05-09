@@ -81,8 +81,8 @@ def istextlist(inputlist):
 def checktype(typelist, inputlist):
 	if len(typelist) == len(inputlist):
 		flag = True
-		for idx, val in typelist:
-			if var in ['number', 'url', 'text', 'numlist', 'textlist', 'urllist']:
+		for idx, val in enumerate(typelist):
+			if val in ['number', 'url', 'text', 'numlist', 'textlist', 'urllist']:
 				if val == 'number':
 					flag = flag and isnumber(inputlist[idx])
 				if val == 'url':
@@ -96,7 +96,7 @@ def checktype(typelist, inputlist):
 				if val == 'textlist':
 					flag = flag and istextlist(inputlist[idx])
 			else:
-				if var == inputlist[idx]:
+				if val == inputlist[idx]:
 					flag = True
 				else:
 					flag = False
