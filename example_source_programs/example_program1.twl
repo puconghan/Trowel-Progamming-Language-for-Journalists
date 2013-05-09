@@ -1,0 +1,9 @@
+#Hello World! Trowel Example Program 1
+
+textlist helloContents
+
+url hello is 'http://pythonweb.org/projects/webmodules/doc/0.5.3/html_multipage/web/node20.html'
+
+helloContents is findText in hello
+
+print helloContents

@@ -242,23 +242,23 @@ def r_findurl(arglist):
 			this_url = "http://" + this_url
 		try:
 			soup = BeautifulSoup(urlopen(this_url))
+			truthiList = ""
+			if len(arglist[1:]) == 0:
+				result.append(this_url)
+			else:
+				for entry in arglist[1:]:
+					if str(type(entry)) != "<type 'list'>":
+						if entry in LOGICALS:
+							truthiList = truthiList + " " + entry
+						elif entry in IGNORE:
+							pass
+						elif soup.find_all(text = re.compile(entry)):
+							truthiList = truthiList + " True"
+						else:
+							truthiList = truthiList + " False"
+				if eval(truthiList): result.append(this_url)
 		except:
 			tgl.returnError("Run Time Error", "Can\'t open the link: " + this_url + " in findurl", False)
-		truthiList = ""
-		if len(arglist[1:]) == 0:
-			result.append(this_url)
-		else:
-			for entry in arglist[1:]:
-				if str(type(entry)) != "<type 'list'>":
-					if entry in LOGICALS:
-						truthiList = truthiList + " " + entry
-					elif entry in IGNORE:
-						pass
-					elif soup.find_all(text = re.compile(entry)):
-						truthiList = truthiList + " True"
-					else:
-						truthiList = truthiList + " False"
-			if eval(truthiList): result.append(this_url)
 	return result
 
 def r_findtext(arglist):
@@ -266,28 +266,28 @@ def r_findtext(arglist):
 	parts = urlparse.urlsplit(link)
 	if not parts.scheme or not parts.netloc:
 		link = "http://" + link
-	try:
+	try:	
 		html = urlopen(link)
+		soup = BeautifulSoup(html)
+		texts = soup.find_all('p')
+		keyparas = []
+		for para in texts:
+			para = para.get_text()
+			truthiList = ""
+			if len(arglist[2:]) == 0:
+				keyparas.append(para)
+			else:
+				for entry in arglist[2:]:
+					if str(type(entry)) != "<type 'list'>":
+						if entry in LOGICALS:
+							truthiList = truthiList + " " + entry
+						elif entry in IGNORE:
+							pass
+						elif entry in para:
+							truthiList = truthiList + " True"
+						else:
+							truthiList = truthiList + " False"
+				if eval(truthiList): keyparas.append(para)
+		return keyparas
 	except:
-		tgl.returnError("Run Time Error", "Can\'t open the link: " + link + " in findtext", False)	
-	soup = BeautifulSoup(html)
-	texts = soup.find_all('p')
-	keyparas = []
-	for para in texts:
-		para = para.get_text()
-		truthiList = ""
-		if len(arglist[2:]) == 0:
-			keyparas.append(para)
-		else:
-			for entry in arglist[2:]:
-				if str(type(entry)) != "<type 'list'>":
-					if entry in LOGICALS:
-						truthiList = truthiList + " " + entry
-					elif entry in IGNORE:
-						pass
-					elif entry in para:
-						truthiList = truthiList + " True"
-					else:
-						truthiList = truthiList + " False"
-			if eval(truthiList): keyparas.append(para)
-	return keyparas
+		tgl.returnError("Run Time Error", "Can\'t open the link: " + link + " in findtext", False)

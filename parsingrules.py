@@ -223,6 +223,15 @@ def p_assignment(p):
 
 #-----------------------------------------------------
 
+##Parsing comments
+def p_comment(p):
+	'''
+	STATEMENT : COMMENT
+	'''
+	pass
+
+#-----------------------------------------------------
+
 ##Empty handle
 def p_empty(p):
 	'EMPTY :'

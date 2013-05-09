@@ -30,13 +30,14 @@ def main():
 	while inputline:
 		tokenline = parsebox.gettokens(inputline)
 		aslline = parsebox.getabstractlist(inputline)
-		#Type checking function from the trowlglobal.py
-		tgl.typeChecking(aslline)
-		pythonblock = pythonbox.buildpython(aslline)
+		if aslline is not None:
+			#Type checking function from the trowlglobal.py
+			tgl.typeChecking(aslline)
+			pythonblock = pythonbox.buildpython(aslline)
 
-		tokenfile.write(str(tokenline) + '\n')
-		aslfile.write(str(aslline) + '\n')
-		pythonfile.write(pythonblock)
+			tokenfile.write(str(tokenline) + '\n')
+			aslfile.write(str(aslline) + '\n')
+			pythonfile.write(pythonblock)
 		inputline = parsebox.getline(inputfile)
 
 	inputfile.close()
