@@ -173,17 +173,23 @@ class pythonwrapper:
 			block = 'def ' + listobject[1] + '('
 			next_type = []
 			nt = 'text'
+			new_var = False
 			for arg in listobject[2]:
 				if type(arg) is str:
 					block = block + arg + ','
 					next_type.append(nt)
 					nt = 'text'
+					if new_var:
+						tgl.varlist[1][arg] = nt
+					new_var = False
 				else:
 					nt = str(arg[1])
-					
+					new_var = True
+
 			block = block[:-1] + ')' + ':' + '\n' 
 			block = block + '\tif not tfl.checktype('+ str(next_type) +',list(reversed(locals().values()))): return \'' + listobject[1] + ' is used improperly\''
 			tgl.customfunctions.append(listobject[1])
+		print tgl.varlist
 		return block
 
 	# Function translates declaration from the abstract syntax tree.
