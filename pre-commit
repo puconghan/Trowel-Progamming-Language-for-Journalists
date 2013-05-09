@@ -71,6 +71,11 @@ class TestTrowel(unittest.TestCase):
 		self.assertEqual(parsewrapper().gettokens("flighttime is findurl in space with \"time\" and \"flight\""), [['UNKNOWNWORD', 'flighttime', 1], ['IS', 'is', 1], ['UNKNOWNWORD', 'findurl', 1], ['UNKNOWNWORD', 'in', 1], ['UNKNOWNWORD', 'space', 1], ['UNKNOWNWORD', 'with', 1], ['TEXTVAL', '"time"', 1], ['UNKNOWNWORD', 'and', 1], ['TEXTVAL', '"flight"', 1]])
 		
 	
+	# Print tests
+	def test_lexer_binop_(self):
+		self.assertEqual(parsewrapper().gettokens("2 + 2"), [['NUMVAL', '2', 1], ['PLUS', '+', 1], ['NUMVAL', '2', 1]])
+		self.assertEqual(parsewrapper().gettokens("2 + 2 - (4 * 5)"), [['NUMVAL', '2', 1], ['PLUS', '+', 1], ['NUMVAL', '2', 1], ['MINUS', '-', 1], ['LEFTPAREN', '(', 1], ['NUMVAL', '4', 1], ['MULTIPLY', '*', 1], ['NUMVAL', '5', 1], ['RIGHTPAREN', ')', 1]])
+		self.assertEqual(parsewrapper().gettokens("2 + - 2"), [['NUMVAL', '2', 1], ['PLUS', '+', 1], ['MINUS', '-', 1], ['NUMVAL', '2', 1]])
 		
 
 	#Error checking Lexer tests
@@ -107,6 +112,13 @@ class TestTrowel(unittest.TestCase):
 		
 	def test_parser_append(self):
 		self.assertEqual(parsewrapper().getabstractlist("append \"this is text\" into \"file.txt\""), [['indentlevel', 0], ['expression', ['functioncall', ['functionname', 'append'], 'arguments', [['expression', ['value', ['text', 'this is text']]], ['expression', ['insertword', 'into']], ['expression', ['value', ['text', 'file.txt']]]]]]])
+		
+	#Binop tests
+	
+	def test_lexer_binop_(self):
+		self.assertEqual(parsewrapper().getabstractlist("2 + 2"), [['indentlevel', 0], ['expression', ['functioncall', ['functionname', 'plus'], 'arguments', [['expression', ['value', ['number', 2]]], ['expression', ['value', ['number', 2]]]]]]])
+		self.assertEqual(parsewrapper().getabstractlist("2 + 2 - (4 * 5)"), [['indentlevel', 0], ['expression', ['functioncall', ['functionname', 'minus'], 'arguments', [['expression', ['functioncall', ['functionname', 'plus'], 'arguments', [['expression', ['value', ['number', 2]]], ['expression', ['value', ['number', 2]]]]]], ['expression', ['functioncall', ['functionname', 'multiply'], 'arguments', [['expression', ['value', ['number', 4]]], ['expression', ['value', ['number', 5]]]]]]]]]])
+		self.assertEqual(parsewrapper().getabstractlist("2 + - 2"), [['indentlevel', 0], ['expression', ['functioncall', ['functionname', 'plus'], 'arguments', [['expression', ['value', ['number', 2]]], ['expression', ['value', ['number', -2]]]]]]])
 	
 	# Function tests
 	

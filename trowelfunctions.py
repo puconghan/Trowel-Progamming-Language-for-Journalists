@@ -152,13 +152,13 @@ def r_length(arglist):
 	return len(arglist[0])
 	
 def r_plus(arglist):
-	return arglist[0] + arglist[1]
+	return int(arglist[0]) + int(arglist[1])
 
 def r_minus(arglist):
-	return arglist[0] - arglist[1]
+	return int(arglist[0]) - int(arglist[1])
 
 def r_multiply(arglist):
-	return arglist[0] * arglist[1]
+	return int(arglist[0]) * int(arglist[1])
 	
 def r_divide(arglist):
 	return int(round((float(arglist[0]) / float(arglist[1]))))

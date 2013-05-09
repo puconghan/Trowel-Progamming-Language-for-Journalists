@@ -1,4 +1,1 @@
-[['URL', 'url', 1], ['UNKNOWNWORD', 'x', 1]]
-[['NUMBER', 'number', 1], ['UNKNOWNWORD', 'y', 1], ['IS', 'is', 1], ['NUMVAL', '5', 1]]
-[['UNKNOWNWORD', 'x', 1], ['IS', 'is', 1], ['NUMVAL', '5', 1], ['PLUS', '+', 1], ['NUMVAL', '3', 1], ['MINUS', '-', 1], ['UNKNOWNWORD', 'y', 1], ['MULTIPLY', '*', 1], ['LEFTPAREN', '(', 1], ['NUMVAL', '3', 1], ['MINUS', '-', 1], ['NUMVAL', '4', 1], ['RIGHTPAREN', ')', 1]]
-[['UNKNOWNWORD', 'print', 1], ['UNKNOWNWORD', 'x', 1]]
+[['UNKNOWNWORD', 'print', 1], ['NUMVAL', '45', 1]]
