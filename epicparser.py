@@ -28,11 +28,8 @@ def main():
 
 	inputline = parsebox.getline(inputfile)
 	while inputline:
-		print inputline
 		tokenline = parsebox.gettokens(inputline)
-		print tokenline
 		aslline = parsebox.getabstractlist(inputline)
-		print aslline
 		#Type checking function from the trowlglobal.py
 		tgl.typeChecking(aslline)
 		pythonblock = pythonbox.buildpython(aslline)

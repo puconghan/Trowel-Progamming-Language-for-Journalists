@@ -109,6 +109,18 @@ class TestTrowel(unittest.TestCase):
 		self.assertEqual(parsewrapper().getabstractlist("append \"this is text\" into \"file.txt\""), [['indentlevel', 0], ['expression', ['functioncall', ['functionname', 'append'], 'arguments', [['expression', ['value', ['text', 'this is text']]], ['expression', ['insertword', 'into']], ['expression', ['value', ['text', 'file.txt']]]]]]])
 	
 	# Function tests
+	
+	def test_function_arithmetic(self):
+		self.assertEqual(r_plus([2, 3]), 5)
+		self.assertEqual(r_plus([2, 71]), 73)
+		self.assertEqual(r_minus([2, 71]), -69)
+		self.assertEqual(r_minus([14, 6]), 8)
+		self.assertEqual(r_multiply([2, 6]), 12)
+		self.assertEqual(r_multiply([4, 7]), 28)
+		self.assertEqual(r_divide([7, 4]), 2)
+		self.assertEqual(r_divide([20, 5]), 4)
+		self.assertEqual(r_divide([27, 5]), 5)
+		
 	def test_function_printlist(self):
 		self.assertEqual(r_printlist([['this','is','a','list'],['url.com']]), 1)
 
@@ -134,9 +146,13 @@ class TestTrowel(unittest.TestCase):
 	def test_function_insert(self):
 		self.assertEqual(r_insert(["text","into",["text","list"]]), ["text","list","text"])
 		self.assertEqual(r_insert([1,"into",[2,3]]), [2,3,1])
+		
+	def test_function_read(self):
+		self.assertEqual(r_read(["read_test_file.txt"]), ['http://www.cnn.com', 'http://www.bbc.com', 'http://www.reuters.com', 'http://www.nytimes.com'])
 
 	def test_function_save(self):
 		self.assertEqual(r_save([['http://www.cnn.com', 'http://www.bbc.com'], "into", "pre-commit-save.txt"]), True)
+		self.assertEqual(r_save(["this is a string", "into", "pre-commit-save.txt"]), True)
 
 	def test_function_append(self):
 		self.assertEqual(r_append(['www.puconghan.com','into','pre-commit-save.txt']), True)
@@ -147,9 +163,6 @@ class TestTrowel(unittest.TestCase):
 		
 	def test_function_findtext(self):
 		self.assertEqual(r_findtext(['in', 'www.reuters.com/article/2013/04/25/us-barclays-salz-idusbre93o0op20130425', 'with', 'shareholders', 'and', 'overhaul', 'and', 'not', 'hello']), [u"Chief Executive Antony Jenkins, drafted in last year to tear up Barclays' profits-at-all-costs culture, told shareholders it would take time for them to see the benefits of his multi-billion-pound overhaul."])
-
-	def test_function_read(self):
-		self.assertEqual(r_read(["read_test_file.txt"]), ['http://www.cnn.com', 'http://www.bbc.com', 'http://www.reuters.com', 'http://www.nytimes.com'])
 		
 	
 	# Function type checking tests

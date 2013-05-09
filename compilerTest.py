@@ -32,6 +32,21 @@ class TestTrowel(unittest.TestCase):
         self.assertEqual(python, ['#!/usr/bin/python\n', 'import trowelfunctions as tfl\n', '\n', 'tmp0 = 45\n', 'tfl.r_print([tmp0])\n'])
         f.close()
         
+    def test_addcombine_program(self):
+        os.system("./trowel tests/addCombine.twl")
+        k = open("tokens.twl")
+        tokens = k.readlines()
+        self.assertEqual(tokens, ["[['URL', 'url', 1], ['UNKNOWNWORD', 'x', 1]]\n", "[['NUMBER', 'number', 1], ['UNKNOWNWORD', 'y', 1], ['IS', 'is', 1], ['NUMVAL', '5', 1]]\n", '[[\'UNKNOWNWORD\', \'x\', 1], [\'IS\', \'is\', 1], [\'UNKNOWNWORD\', \'combine\', 1], [\'URLVAL\', "\'www.bbc.co.uk?\'", 1], [\'UNKNOWNWORD\', \'with\', 1], [\'LEFTPAREN\', \'(\', 1], [\'UNKNOWNWORD\', \'y\', 1], [\'PLUS\', \'+\', 1], [\'NUMVAL\', \'2\', 1], [\'RIGHTPAREN\', \')\', 1]]\n', '[[\'UNKNOWNWORD\', \'save\', 1], [\'UNKNOWNWORD\', \'x\', 1], [\'UNKNOWNWORD\', \'into\', 1], [\'TEXTVAL\', \'"output.txt"\', 1]]\n'])
+        k.close()
+        a = open("asl.twl")
+        asl = a.readlines()
+        a.close()
+        self.assertEqual(asl, ["[['indentlevel', 0], ['declaration', ['datatype', 'url'], [['x']]]]\n", "[['indentlevel', 0], ['declaration', ['datatype', 'number'], [['y', ['expression', ['value', ['number', 5]]]]]]]\n", "[['indentlevel', 0], ['assignment', ['variable', 'x'], ['expression', ['functioncall', ['functionname', 'combine'], 'arguments', [['expression', ['value', ['url', 'www.bbc.co.uk?']]], ['expression', ['insertword', 'with']], ['expression', ['functioncall', ['functionname', 'plus'], 'arguments', [['expression', ['variable', 'y']], ['expression', ['value', ['number', 2]]]]]]]]]]]\n", "[['indentlevel', 0], ['expression', ['functioncall', ['functionname', 'save'], 'arguments', [['expression', ['variable', 'x']], ['expression', ['insertword', 'into']], ['expression', ['value', ['text', 'output.txt']]]]]]]\n"])
+        f = open('tests/addCombine.py')
+        python = f.readlines()
+        self.assertEqual(python, ['#!/usr/bin/python\n', 'import trowelfunctions as tfl\n', '\n', 'x = ""\n', '\n', 'y = 0\n', 'y = 5\n', '\n', "tmp0 = 'www.bbc.co.uk?'\n", "tmp1 = 'with'\n", 'tmp2 = y\n', 'tmp3 = 2\n', 'tfl.r_plus([tmp2,tmp3])\n', 'tmp4 = tfl.r_plus([tmp2,tmp3])\n', 'tfl.r_combine([tmp0,tmp1,tmp4])\n', 'x = tfl.r_combine([tmp0,tmp1,tmp4])\n', '\n', 'tmp0 = x\n', "tmp1 = 'into'\n", "tmp2 = 'output.txt'\n", 'tfl.r_save([tmp0,tmp1,tmp2])\n'])
+        f.close()
+        
     def test_helloWorld_program(self):
         os.system("./trowel tests/hello.twl")
         k = open("tokens.twl")

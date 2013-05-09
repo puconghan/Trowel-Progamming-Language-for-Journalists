@@ -18,6 +18,14 @@ class TestTrowel(unittest.TestCase):
         self.assertEqual(output, ['Hello World!\n'])
         os.system("rm output.txt")
         
+    def test_addcombine_program(self):
+    	print "add and combine program being tested"
+        os.system("./trowel tests/addCombine.twl")
+        os.system("python tests/addCombine.py")
+        output = open("output.txt").readlines()
+        self.assertEqual(output, ['www.bbc.co.uk?7\n'])
+        os.system("rm output.txt")
+        
     def test_flighttime_program(self):
     	print "flightTime program being tested"
         os.system("./trowel tests/flighttime.twl")
