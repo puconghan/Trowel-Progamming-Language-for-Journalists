@@ -33,7 +33,7 @@ class TestTrowel(unittest.TestCase):
         f.close()
         
     def test_addcombine_program(self):
-        os.system("./trowel tests/addCombine.twl")
+        os.system("./trowel tests/addcombine.twl")
         k = open("tokens.twl")
         tokens = k.readlines()
         self.assertEqual(tokens, ["[['URL', 'url', 1], ['UNKNOWNWORD', 'x', 1]]\n", "[['NUMBER', 'number', 1], ['UNKNOWNWORD', 'y', 1], ['IS', 'is', 1], ['NUMVAL', '5', 1]]\n", '[[\'UNKNOWNWORD\', \'x\', 1], [\'IS\', \'is\', 1], [\'UNKNOWNWORD\', \'combine\', 1], [\'URLVAL\', "\'www.bbc.co.uk?\'", 1], [\'UNKNOWNWORD\', \'with\', 1], [\'LEFTPAREN\', \'(\', 1], [\'UNKNOWNWORD\', \'y\', 1], [\'PLUS\', \'+\', 1], [\'NUMVAL\', \'2\', 1], [\'RIGHTPAREN\', \')\', 1]]\n', '[[\'UNKNOWNWORD\', \'save\', 1], [\'UNKNOWNWORD\', \'x\', 1], [\'UNKNOWNWORD\', \'into\', 1], [\'TEXTVAL\', \'"output.txt"\', 1]]\n'])

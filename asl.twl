@@ -1,5 +1,3 @@
-[['indentlevel', 0], ['declaration', ['datatype', 'urllist'], [['stories'], ['filteredresult']]]]
-[['indentlevel', 0], ['declaration', ['datatype', 'text'], [['term1', ['expression', ['value', ['text', 'obama']]]], ['term2', ['expression', ['value', ['text', 'ireland']]]]]]]
-[['indentlevel', 0], ['assignment', ['variable', 'stories'], ['expression', ['functioncall', ['functionname', 'read'], 'arguments', [['expression', ['value', ['text', 'example_source_programs/example3.txt']]]]]]]]
-[['indentlevel', 0], ['assignment', ['variable', 'filteredresult'], ['expression', ['functioncall', ['functionname', 'findurl'], 'arguments', [['expression', ['insertword', 'in']], ['expression', ['variable', 'stories']], ['expression', ['insertword', 'with']], ['expression', ['variable', 'term1']], ['expression', ['insertword', 'and']], ['expression', ['variable', 'term2']]]]]]]
-[['indentlevel', 0], ['expression', ['functioncall', ['functionname', 'save'], 'arguments', [['expression', ['variable', 'filteredresult']], ['expression', ['insertword', 'into']], ['expression', ['value', ['text', 'example_source_programs/example3_output.txt']]]]]]]
+[['indentlevel', 0], ['declaration', ['datatype', 'textlist'], [['x', ['expression', ['list', [['expression', ['value', ['text', 'line 1']]], ['expression', ['value', ['text', 'line 2']]], ['expression', ['value', ['text', 'line 3']]]]]]]]]]
+[['indentlevel', 0], ['expression', ['functioncall', ['functionname', 'print'], 'arguments', [['expression', ['variable', 'x']]]]]]
+[['indentlevel', 0], ['expression', ['functioncall', ['functionname', 'save'], 'arguments', [['expression', ['variable', 'x']], ['expression', ['insertword', 'into']], ['expression', ['value', ['text', 'numlist.txt']]]]]]]

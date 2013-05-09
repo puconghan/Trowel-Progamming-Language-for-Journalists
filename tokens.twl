@@ -1,5 +1,3 @@
-[['URLLIST', 'urllist', 1], ['UNKNOWNWORD', 'stories', 1], ['COMMA', ',', 1], ['UNKNOWNWORD', 'filteredresult', 1]]
-[['TEXT', 'text', 1], ['UNKNOWNWORD', 'term1', 1], ['IS', 'is', 1], ['TEXTVAL', '"obama"', 1], ['COMMA', ',', 1], ['UNKNOWNWORD', 'term2', 1], ['IS', 'is', 1], ['TEXTVAL', '"ireland"', 1]]
-[['UNKNOWNWORD', 'stories', 1], ['IS', 'is', 1], ['UNKNOWNWORD', 'read', 1], ['TEXTVAL', '"example_source_programs/example3.txt"', 1]]
-[['UNKNOWNWORD', 'filteredresult', 1], ['IS', 'is', 1], ['UNKNOWNWORD', 'findurl', 1], ['UNKNOWNWORD', 'in', 1], ['UNKNOWNWORD', 'stories', 1], ['UNKNOWNWORD', 'with', 1], ['UNKNOWNWORD', 'term1', 1], ['UNKNOWNWORD', 'and', 1], ['UNKNOWNWORD', 'term2', 1]]
-[['UNKNOWNWORD', 'save', 1], ['UNKNOWNWORD', 'filteredresult', 1], ['UNKNOWNWORD', 'into', 1], ['TEXTVAL', '"example_source_programs/example3_output.txt"', 1]]
+[['TEXTLIST', 'textlist', 1], ['UNKNOWNWORD', 'x', 1], ['IS', 'is', 1], ['LEFTSQUAREBRACKET', '[', 1], ['TEXTVAL', '"line 1"', 1], ['COMMA', ',', 1], ['TEXTVAL', '"line 2"', 1], ['COMMA', ',', 1], ['TEXTVAL', '"line 3"', 1], ['RIGHTSQUAREBRACKET', ']', 1]]
+[['UNKNOWNWORD', 'print', 1], ['UNKNOWNWORD', 'x', 1]]
+[['UNKNOWNWORD', 'save', 1], ['UNKNOWNWORD', 'x', 1], ['UNKNOWNWORD', 'into', 1], ['TEXTVAL', '"numlist.txt"', 1]]
