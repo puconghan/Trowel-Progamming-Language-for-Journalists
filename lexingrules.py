@@ -133,12 +133,12 @@ def t_IF(t):
 	r'(if)'
 	return t
 
-def t_ELSE(t):
-	r'(else)'
-	return t
-
 def t_ELSEIF(t):
 	r'(elseif)'
+	return t
+
+def t_ELSE(t):
+	r'(else)'
 	return t
 
 def t_FOR(t):
