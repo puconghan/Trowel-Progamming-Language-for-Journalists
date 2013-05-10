@@ -39,7 +39,11 @@ def main():
 			pythonfile.write(pythonblock)
 		inputline = parsebox.getline(inputfile)
 	print "---------------------------------------------------------------------"
-	print "**  Trowel compiler has successfully compiled your source program  **"
+	print "****************   Program is built successfully   ******************"
+	print ""
+	print "**  Excutable file: " + str(sys.argv[1]).replace("twl", "py")
+	print ""
+	print "****************         Now start excuting        ******************"
 	print "---------------------------------------------------------------------"
 	inputfile.close()
 	tokenfile.close()
