@@ -77,5 +77,20 @@ class TestTrowel(unittest.TestCase):
         self.assertEqual(python, ['#!/usr/bin/python\n', 'import trowelfunctions as tfl\n', '\n', 'flighttime = ""\n', '\n', 'spacearticle = ""\n', "spacearticle = 'http://journotrowel.com/examples/science-environment-22344398.html'\n", '\n', "tmp0 = 'in'\n", 'tmp1 = spacearticle\n', "tmp2 = 'with'\n", "tmp3 = 'time'\n", "tmp4 = 'and'\n", "tmp5 = 'flight'\n", 'tfl.r_findtext([tmp0,tmp1,tmp2,tmp3,tmp4,tmp5])\n', 'flighttime = tfl.r_findtext([tmp0,tmp1,tmp2,tmp3,tmp4,tmp5])\n', '\n', 'tmp0 = flighttime\n', "tmp1 = 'into'\n", "tmp2 = 'output.txt'\n", 'tfl.r_save([tmp0,tmp1,tmp2])\n'])
         f.close()
         
+    def test_custom_program(self):
+        os.system("./trowel tests/custom.twl")
+        k = open("tokens.twl")
+        tokens = k.readlines()
+        self.assertEqual(tokens, 1)
+        k.close()
+        a = open("asl.twl")
+        asl = a.readlines()
+        a.close()
+        self.assertEqual(asl, 1)
+        f = open('tests/custom.py')
+        python = f.readlines()
+        self.assertEqual(python, 1)
+        f.close()
+        
 if __name__ == '__main__':
     unittest.main()

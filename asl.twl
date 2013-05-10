@@ -1,1 +1,3 @@
-[['indentlevel', 0], ['expression', ['functioncall', ['functionname', 'print'], 'arguments', [['expression', ['value', ['number', 45]]]]]]]
+[['indentlevel', 1], ['custom', 'getpolitician', ['using', ['datatype', 'text'], 'person']]]
+[['indentlevel', 1], ['custom', 'return', ['expression', ['variable', 'person']]]]
+[['indentlevel', 0], ['expression', ['functioncall', ['functionname', 'print'], 'arguments', [['expression', ['insertword', 'getpolitician']], ['expression', ['insertword', 'using']], ['expression', ['value', ['text', 'romney']]]]]]]
