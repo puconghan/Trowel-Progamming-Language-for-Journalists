@@ -32,7 +32,7 @@ def main():
 		aslline = parsebox.getabstractlist(inputline)
 		if aslline is not None:
 			#Type checking function from the trowlglobal.py
-			tgl.typeChecking(aslline)
+			#tgl.typeChecking(aslline)
 			pythonblock = pythonbox.buildpython(aslline)
 
 			tokenfile.write(str(tokenline) + '\n')
@@ -44,9 +44,6 @@ def main():
 	tokenfile.close()
 	aslfile.close()
 	pythonfile.close()
-	print "--------------------------Trowel Compiler--------------------------"
-	print "--Trowel source code has been compiled to Python targeted program--"
-	print "-------------------------------------------------------------------"
 
 # Preprocessor of Trowel
 class parsewrapper:
@@ -78,15 +75,19 @@ class parsewrapper:
 		
 	def filterindentation(self, inputline):
 		indentlevel = 0
+		tgl.indentback = 0
 		while inputline[0] == '\t':
 			inputline = inputline[1:]
 			indentlevel = indentlevel + 1
-		if len(inputline) > 6 and inputline[0:6] == 'define':
-			indentlevel = indentlevel + 1
-		tgl.indentlevel = indentlevel
 		if indentlevel < self.lastindentlevel:
 			tgl.varlist = tgl.varlist[0:indentlevel+1]
-		elif indentlevel == self.lastindentlevel + 1:
+			
+		if len(inputline) > 6 and (inputline[0:6] == 'define' or inputline[0:3] == 'for'):
+			indentlevel = indentlevel + 1
+			tgl.indentback = -1
+		tgl.indentlevel = indentlevel
+
+		if indentlevel == self.lastindentlevel + 1:
 			tgl.varlist.append(copy(tgl.varlist[self.lastindentlevel]))
 		elif indentlevel > self.lastindentlevel + 1:
 			#Throw error. Cannot indent forward by more than one level at at time.
@@ -133,7 +134,7 @@ class pythonwrapper:
 	
 	# Function generates target python program.
 	def buildpython(self, listobject):
-		self.checkaslintegrity(listobject)
+		#self.checkaslintegrity(listobject)
 		indentlevel = listobject[0][1]
 		prodobject = listobject[1]
 		production = listobject[1][0]
@@ -141,7 +142,7 @@ class pythonwrapper:
 		
 		block = ''
 		tab = ''
-		for i in range(indentlevel):
+		for i in range(indentlevel + tgl.indentback):
 			tab = tab + '\t'
 		
 		if production == 'declaration':
@@ -151,6 +152,8 @@ class pythonwrapper:
 		elif production == 'expression':
 			[blockval,expval] = self.prod_expression(prodobject)
 			block = block + blockval
+		elif production == 'forstatement':
+			block = block + self.prod_forstatement(prodobject)
 		elif production == 'custom':
 			block = block + self.prod_custom(prodobject)
 			
@@ -159,11 +162,18 @@ class pythonwrapper:
 		
 		block = ''
 		for line in blocklines:
-			if line.split(' ')[0] == 'def':
-				tab = tab[:-2]
 			if line != '':
 				block = block + tab + line + '\n'
 		return '\n' + block
+		#return block
+
+	#for statement handler
+	def prod_forstatement(self, listobject):
+		block = ''
+		varname = listobject[1][1]
+		[block,expval] = self.prod_expression(listobject[2])
+		block = block + 'for ' + varname + ' in ' + expval + '\n'
+		return block
 
 	#custom function handler
 	def prod_custom(self, listobject):

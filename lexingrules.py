@@ -116,7 +116,10 @@ def t_NUMLIST(t):
 t_IF = r'(if)'
 t_ELSE = r'(else)'
 t_ELSEIF = r'(elseif)'
-t_FOR = r'(for)'
+
+def t_FOR(t):
+	r'(for)'
+	return t
 
 ##Assignment Operator (IS).
 def t_IS(t):

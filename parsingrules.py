@@ -20,8 +20,11 @@ start = 'STATEMENT'
 
 def p_statement(p):
 	'''
-	STATEMENT : CUSTOM
-			  | ROOTEXPRESSION
+	STATEMENT : ROOTEXPRESSION
+			  | DECLARATION
+			  | ASSIGNMENT
+			  | FORSTATEMENT
+			  | CUSTOM
 	'''
 	p[0] = [['indentlevel',tgl.indentlevel],p[1]]
 		
@@ -35,8 +38,7 @@ def p_rootexpression(p):
 	'''
 	ROOTEXPRESSION : EXPRESSION
 				   | FUNCTION
-				   | DECLARATION
-				   | ASSIGNMENT
+
 	'''
 	if p[1][0] == 'functioncall':
 		p[1] = ['expression',p[1]]
@@ -91,8 +93,25 @@ def p_customargs(p):
 def p_return(p):
 	'CUSTOM : RETURN ROOTEXPRESSION'
 	p[0] = ['custom', 'return', p[2]]
+	
+#-----------------------------------------------------
 
-
+##Parsing for
+def p_for(p):
+	'FORSTATEMENT : FOR UNKNOWNWORD UNKNOWNWORD ROOTEXPRESSION'
+	if p[3] != 'in':
+		#throw error - systax of for should be
+		pass
+	elif (tgl.funclist.get(p[3]) != None) or (tgl.varlist[tgl.indentlevel].get(p[3]) != None):
+		#Error. Variable already defined.		
+		pass
+	else:
+		tgl.varlist[tgl.indentlevel][p[2]] = 'list'
+		p[0] = ['forstatement',['variable',p[2]],p[4]]
+		
+#def p_lambdavar(p):		
+#	'LAMBDAVAR: LEFTPAREN DATATYPE UNKNOWNWORD RIGHTPAREN'
+#	p[0] = ['lambdavar',[p[2],p[3]]]
 
 #-----------------------------------------------------
 
@@ -221,7 +240,7 @@ def p_declarationassign(p):
 	if (tgl.funclist.get(p[1]) != None) or (tgl.varlist[tgl.indentlevel].get(p[1]) != None):
 		#Error. Variable already defined.		
 		pass
-	if len(p) == 2:
+	elif len(p) == 2:
 		p[0] = [p[1]]
 	else:
 		p[0] = [p[1],p[3]]

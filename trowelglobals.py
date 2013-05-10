@@ -9,6 +9,7 @@
 import sys
 
 indentlevel = 0
+indentback = 0
 linenumber = 0
 errorlist = []
 errorflag = False
