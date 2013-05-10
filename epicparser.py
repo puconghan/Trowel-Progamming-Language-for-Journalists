@@ -87,7 +87,7 @@ class parsewrapper:
 		if indentlevel < self.lastindentlevel:
 			tgl.varlist = tgl.varlist[0:indentlevel+1]
 			
-		if len(inputline) > 6 and (inputline[0:6] == 'define' or inputline[0:3] == 'for'):
+		if len(inputline) > 6 and (inputline[0:6] == 'define' or inputline[0:3] == 'for' or inputline[0:2] == 'if'):
 			indentlevel = indentlevel + 1
 			tgl.indentback = -1
 		tgl.indentlevel = indentlevel
