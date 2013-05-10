@@ -8,9 +8,10 @@ textlist filteredresult
 
 for storyitem in stories:
 
-    filteredresult is findText in storyitem with term1 not term2
+	filteredresult is findText in storyitem with term1 not term2
 
-    if (filteredresult):
+	if (filteredresult):
 
-        append storyitem into "example_source_programs/example4_output.txt"
-        append filteredresult into "example_source_programs/example4_output.txt"
+		append storyitem into "example_source_programs/example4_output.txt"
+
+		append filteredresult into "example_source_programs/example4_output.txt"

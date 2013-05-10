@@ -185,7 +185,7 @@ class pythonwrapper:
 		block = ''
 		varname = listobject[1][1]
 		[block,expval] = self.prod_expression(listobject[2])
-		block = block + 'for ' + varname + ' in ' + expval + '\n'
+		block = block + 'for ' + varname + ' in ' + expval + ':\n'
 		return block
 
 	#custom function handler
