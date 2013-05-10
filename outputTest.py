@@ -34,5 +34,13 @@ class TestTrowel(unittest.TestCase):
         self.assertEqual(output, ['SpaceShipTwo ignites its engine in flight for the first time\n', 'Sir Richard said in a statement: "For the first time, we were able to prove the key components of the system, fully integrated and in flight. Today\'s supersonic success opens the way for a rapid expansion of the spaceship\'s powered flight envelope, with a very realistic goal of full space flight by the year\'s end." \n'])
         os.system("rm output.txt")
         
+    def test_if_program(self):
+    	print "if program being tested"
+        os.system("./trowel tests/boom.twl")
+        os.system("python tests/boom.py")
+        output = open("output.txt").readlines()
+        self.assertEqual(output, ['boomshakalaka\n'])
+        os.system("rm output.txt")
+        
 if __name__ == '__main__':
     unittest.main()

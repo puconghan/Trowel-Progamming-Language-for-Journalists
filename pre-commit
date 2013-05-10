@@ -141,6 +141,16 @@ class TestTrowel(unittest.TestCase):
 		self.assertEqual(r_divide([20, 5]), 4)
 		self.assertEqual(r_divide([27, 5]), 5)
 		
+	def test_function_relop(self):
+		self.assertEqual(r_greater([2,3]), False);
+		self.assertEqual(r_greater([12, 5]), True);
+		self.assertEqual(r_less([12, 5]), False);
+		self.assertEqual(r_less([5, 10]), True);
+		self.assertEqual(r_equal([12, 5]), False);
+		self.assertEqual(r_equal([5, 5]), True);
+		self.assertEqual(r_notequal([12, 5]), True);
+		self.assertEqual(r_notequal([5, 5]), False);
+		
 	def test_function_printlist(self):
 		self.assertEqual(r_printlist([['this','is','a','list'],['url.com']]), 1)
 

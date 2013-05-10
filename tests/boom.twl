@@ -1,3 +1,4 @@
 textlist hello
 if 4 > 3:
 	print "boomshakalaka"
+	save "boomshakalaka" into "output.txt"
