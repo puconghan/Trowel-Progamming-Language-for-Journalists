@@ -38,6 +38,7 @@ def p_rootexpression(p):
 				| ASSIGNMENT
 				| BINOP
 				| CONDITIONAL
+				| RELOP
 	'''
 	if p[1][0] == 'functioncall':
 		p[1] = ['expression',p[1]]
@@ -51,11 +52,12 @@ def p_expression_1(p):
 		p[0] = ['expression',p[1]]
 def p_expression_2(p):
 	'''
-	EXPRESSION : VALUE
-			   | LIST
-			   | LEFTPAREN FUNCTION RIGHTPAREN
-			   | BINOP
-			   | LEFTPAREN BINOP RIGHTPAREN
+	EXPRESSION :	VALUE
+			| LIST
+			| LEFTPAREN FUNCTION RIGHTPAREN
+			| BINOP
+			| LEFTPAREN BINOP RIGHTPAREN
+			| RELOP
 	'''
 	if len(p) == 2:
 		p[0] = ['expression',p[1]]
@@ -109,6 +111,27 @@ def p_expressionset(p):
 		p[0] = [p[1]]
 		
 #-----------------------------------------------------
+
+
+##Parsing Relational Operations
+
+def p_relop(p):
+	'''
+	RELOP :	EXPRESSION GREATER EXPRESSION
+		| EXPRESSION LESS EXPRESSION
+		| EXPRESSION EQUIV EXPRESSION
+	'''
+	if p[2] == ">":
+		p[2] = "greater"
+	if p[2] == "<":
+		p[2] = "less"
+	if p[2] == "==":
+		p[2] = "equiv"
+
+	p[0] = ['functioncall', ['functionname', p[2]], 'arguments', [p[1], p[3]]]
+
+#-----------------------------------------------------
+
 
 ##Parsing Binary Operations
 

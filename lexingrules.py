@@ -17,6 +17,10 @@ tokens = [
 	'AND',
 	'OR',
 	'NOT',
+	#Relational Operators
+	'GREATER',
+	'LESS',
+	'EQUIV',
 	#Arithmetic Operators (* / + -).
 	'MULTIPLY',
 	'DIVISION',
@@ -74,13 +78,17 @@ t_AND = r'and'
 t_OR = r'or'
 t_NOT = r'not'
 
+##Relational Operators
+t_GREATER = r'>'
+t_LESS = r'<'
+t_EQUAL    = r'=='
+t_NOTEQUAL = r'=/='
+
 ##Arithmetic Operators (* / + - == =/=).
 t_MULTIPLY = r'\*'
 t_DIVISION = r'\/'
 t_PLUS     = r'\+'
 t_MINUS    = r'-'
-t_EQUAL    = r'=='
-t_NOTEQUAL = r'=/='
 
 ##Data Types (URL TEXT NUMBER URLLIST TEXTLIST NUMLIST).
 def t_URLLIST(t):
