@@ -285,6 +285,7 @@ def p_boolean(p):
 	BOOLEAN :	LEFTPAREN BOOLEAN_LIST RIGHTPAREN
 			| NOT BOOLEAN
 			| EXPRESSION
+			| EMPTY
 	'''
 	p[0] = p[1:]
 

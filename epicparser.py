@@ -28,7 +28,9 @@ def main():
 	inputline = parsebox.getline(inputfile)
 	while inputline:
 		tokenline = parsebox.gettokens(inputline)
+		#print tokenline
 		aslline = parsebox.getabstractlist(inputline)
+		#print aslline
 		if aslline is not None:
 			#Type checking function from the trowlglobal.py
 			tgl.typeChecking(aslline)
@@ -277,18 +279,21 @@ class pythonwrapper:
 	# Translate conditionals from the AST
 	def prod_conditional(self, listobject):
 		control = listobject[1][1]
+		if control == 'elseif': control = 'elif'
 		result = self.prod_boolean_list(listobject[2])
-		print result
-		return result[0] + control + ' ' + result[1] + ':\n'
+		if not result: return control + ':\n'
+		else: return result[0] + control + ' ' + result[1] + ':\n'
 
 	def prod_boolean_list(self, listobject):
 		this_list = listobject[1]
+		print this_list
+		if not this_list[0][0]:
+			return None
 		if len(this_list) > 1:
 			# uses a logical (AND/OR/NOT)
 			result1 = self.prod_boolean_list(this_list[0])
 			result2 = self.prod_boolean_list(this_list[2])
 			result = [result1[0] + result2[0]]
-			print result
 			result.append(result1[1] + ' ' + this_list[1] + ' ' + result2[1])
 		else:
 			# single boolean expression

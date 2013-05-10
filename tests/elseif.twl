@@ -1,0 +1,7 @@
+textlist hello
+if 3 > 4:
+	print "boomshakalaka"
+elseif 4 > 3:
+	print "boomelseif"
+else:
+	print "boomelse"
