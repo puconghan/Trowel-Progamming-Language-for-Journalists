@@ -1,0 +1,27 @@
+Parser and AST
+==============
+- Indentation
+- If/Else
+- For
+- Booleans
+- Custom functions
+
+Function
+========
+- Standard function for argument checking
+
+Errors
+======
+- Error types and handling
+
+Input
+=====
+- Convert whitespaces to tabs
+
+General
+=======
+
+Style
+=====
+- more comments
+- constant indexes in epicparser are quite cryptic, consider more descriptive variables

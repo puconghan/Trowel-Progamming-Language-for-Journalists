@@ -1,6 +1,9 @@
 *.pyc
 *.out
 parsetab.py
+asl.twl
+tokens.twl
+output.txt
 
 #################
 ## Eclipse

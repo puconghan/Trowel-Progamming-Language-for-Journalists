@@ -162,7 +162,19 @@ def r_multiply(arglist):
 	
 def r_divide(arglist):
 	return int(round((float(arglist[0]) / float(arglist[1]))))
-	
+
+def r_greater(arglist):
+	return arglist[0] > arglist[1]
+
+def r_less(arglist):
+	return arglist[0] < arglist[1]
+
+def r_equal(arglist):
+	return arglist[0] == arglist[1]
+
+def r_notequal(arglist):
+	return arglist[0] !=  arglist[1]
+
 #----------------------------------------------------------------------------------------------
 
 #Section created and implemented by Pucong Han on April 13, 2013.
@@ -171,7 +183,7 @@ def r_divide(arglist):
 # Save a list of urls to an external txt file.
 def r_save(arglist):
 	if(arglist[1] != 'into'):
-		tgl.returnError("Run Time Error", "Save function illegal syntax. Correct syntax should be save list of urls (or variables that contains list of urls) into filename", True)
+		tgl.returnError("Run Time Error", "Save function illegal syntax. Correct syntax should be save list of urls (or variable that contains a list of urls) into filename", True)
 		return False
 	else:
 		try:
@@ -191,7 +203,7 @@ def r_save(arglist):
 # Append an url to an existing external txt file.
 def r_append(arglist):
 	if(arglist[1] != 'into'):
-		tgl.returnError("Function Error", "Append function illegal syntax. Correct syntax should be append url (or variable contain an url) into filename", False)
+		tgl.returnError("Function Error", "Append function illegal syntax. Correct syntax should be append url (or variable containing a url) into filename", False)
 		return False
 	else:
 		try:

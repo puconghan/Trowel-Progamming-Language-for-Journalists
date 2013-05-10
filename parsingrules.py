@@ -38,7 +38,6 @@ def p_rootexpression(p):
 	'''
 	ROOTEXPRESSION : EXPRESSION
 				   | FUNCTION
-
 	'''
 	if p[1][0] == 'functioncall':
 		p[1] = ['expression',p[1]]
@@ -52,11 +51,13 @@ def p_expression_1(p):
 		p[0] = ['expression',p[1]]
 def p_expression_2(p):
 	'''
-	EXPRESSION : VALUE
-			   | LIST
-			   | LEFTPAREN FUNCTION RIGHTPAREN
-			   | BINOP
-			   | LEFTPAREN BINOP RIGHTPAREN
+	EXPRESSION :	VALUE
+			| LIST
+			| LEFTPAREN FUNCTION RIGHTPAREN
+			| BINOP
+			| LEFTPAREN BINOP RIGHTPAREN
+			| RELOP
+			| LEFTPAREN RELOP RIGHTPAREN
 	'''
 	if len(p) == 2:
 		p[0] = ['expression',p[1]]
@@ -64,7 +65,8 @@ def p_expression_2(p):
 		p[0] = ['expression',p[2]]
 
 def p_identifier(p):
-	'IDENTIFIER : UNKNOWNWORD'
+	'''IDENTIFIER : UNKNOWNWORD
+				| LOGICAL'''
 	if tgl.funclist.get(p[1]) != None:
 		p[0] = ['functionname',p[1]]
 	elif tgl.varlist[tgl.indentlevel].get(p[1]) != None:
@@ -76,7 +78,7 @@ def p_identifier(p):
 
 ##Parsing custom functions
 def p_custom_function(p):
-	'CUSTOM : DEFINE UNKNOWNWORD CUSTOMARGS'
+	'CUSTOM : DEFINE UNKNOWNWORD CUSTOMARGS COLON'
 	p[0] = ['custom',p[2],p[3]]
 
 def p_customargs(p):
@@ -98,7 +100,7 @@ def p_return(p):
 
 ##Parsing for
 def p_for(p):
-	'FORSTATEMENT : FOR UNKNOWNWORD UNKNOWNWORD ROOTEXPRESSION'
+	'FORSTATEMENT : FOR UNKNOWNWORD UNKNOWNWORD ROOTEXPRESSION COLON'
 	if p[3] != 'in':
 		#throw error - systax of for should be
 		pass
@@ -131,6 +133,27 @@ def p_expressionset(p):
 		p[0] = [p[1]]
 		
 #-----------------------------------------------------
+
+
+##Parsing Relational Operations
+
+def p_relop(p):
+	'''
+	RELOP :	EXPRESSION GREATER EXPRESSION
+		| EXPRESSION LESS EXPRESSION
+		| EXPRESSION EQUAL EXPRESSION
+		| EXPRESSION NOTEQUAL EXPRESSION
+	'''
+	if p[2] == ">": p[2] = "greater"
+	elif p[2] == "<": p[2] = "less"
+	elif p[2] == "==": p[2] = "equal"
+	elif p[2] == '=/=': p[2] = "notequal"
+	else: raise Exception('Illegal relational operator')
+
+	p[0] = ['functioncall', ['functionname', p[2]], 'arguments', [p[1], p[3]]]
+
+#-----------------------------------------------------
+
 
 ##Parsing Binary Operations
 
@@ -253,6 +276,43 @@ def p_assignment(p):
 	p[0] = ['assignment', p[1], p[3]]
 
 #-----------------------------------------------------
+
+##Parsing conditionals
+def p_conditional(p):
+	'CONDITIONAL : CONTROL BOOLEAN_LIST COLON'
+	p[0] = ['conditional', p[1], p[2]]
+
+def p_control(p):
+	'''
+	CONTROL :	IF
+			| ELSEIF
+			| ELSE
+	'''
+	p[0] = ['control', p[1]]
+
+def p_boolean_list(p):
+	'''
+	BOOLEAN_LIST :	BOOLEAN_LIST LOGICAL BOOLEAN
+			| BOOLEAN
+	'''
+	p[0] = ['boolean_list', p[1:]]
+
+def p_boolean(p):
+	'''
+	BOOLEAN :	LEFTPAREN BOOLEAN_LIST RIGHTPAREN
+			| NOT BOOLEAN
+			| EXPRESSION
+	'''
+	p[0] = p[1:]
+
+def p_logical(p):
+	'''
+	LOGICAL :	AND
+			| OR
+	'''
+	p[0] = p[1]
+
+#----------------------------------------------------
 
 ##Parsing comments
 def p_comment(p):

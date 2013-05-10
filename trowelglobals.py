@@ -27,7 +27,8 @@ prebuiltfunctions = {
 	'findurl' : ['urllist'],
 	'findtext' : ['textlist'],
 	'combine' : ['url'],
-	'binop' : ['number']
+	'binop' : ['number'],
+	'length' : ['number']
 }
 
 customfunctions = []

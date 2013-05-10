@@ -11,9 +11,8 @@
 import trowelglobals as tgl
 #import trowelfunctions as tfl
 import ply.lex as lex, ply.yacc as yacc
-import lexingrules, parsingrules
+import lexingrules, parsingrules, sys, os
 from copy import copy
-import sys
 
 def main():
 	inputfile = file(sys.argv[1],'r')
@@ -40,6 +39,7 @@ def main():
 			pythonfile.write(pythonblock)
 		inputline = parsebox.getline(inputfile)
 
+	#sys.exit()
 	inputfile.close()
 	tokenfile.close()
 	aslfile.close()
@@ -102,7 +102,9 @@ class pythonwrapper:
 	
 	# Function adds headers and declarations to the target program.
 	def headblock(self):
-		block = '#!/usr/bin/python\nimport trowelfunctions as tfl\n'
+		#block = '#!/usr/bin/python\nimport imp\nimp.load_source("tfl", "' + os.getcwd() + '/trowelfunctions.py")\n'
+		block = '#!/usr/bin/python\nimport os, sys\nsys.path.append("'+os.getcwd()+'")\nimport trowelfunctions as tfl\n'
+		#block = '#!/usr/bin/python\nimport trowelfunctions as tfl\n'
 		return block
 
 	# Function checks for abstract syntax tree structures.
@@ -125,7 +127,14 @@ class pythonwrapper:
 					else:
 						tgl.returnError("Syntax Error", "Expression function name mismatch", False)
 				else:
-					tgl.returnError("Syntax Error", "Expression function call mismatch", False)
+					tgl.returnError("Syntax Error", "Expression function syntax mismatch", False)
+			elif inputline[1][0] == "conditional":
+				if inputline[1][1][0] == "control":
+					pass
+				else:
+					tgl.returnError("Syntax Error", "Conditional function syntax mismatch", False)
+			elif inputline[1][0] == "custom":
+				pass
 			else:
 				tgl.returnError("Syntax Error", "Missing syntax header", False)
 			pass
@@ -156,6 +165,8 @@ class pythonwrapper:
 			block = block + self.prod_forstatement(prodobject)
 		elif production == 'custom':
 			block = block + self.prod_custom(prodobject)
+		elif production == 'conditional':
+			block += self.prod_conditional(prodobject)
 			
 		block = block.strip()
 		blocklines = block.split('\n')
@@ -274,6 +285,43 @@ class pythonwrapper:
 		else:
 			expval = 'tfl.r_' + functionname + pythonarglist
 		return [block,expval]
-		
+
+	# Translate conditionals from the AST
+	def prod_conditional(self, listobject):
+		control = listobject[1][1]
+		result = self.prod_boolean_list(listobject[2])
+		print result
+		return result[0] + control + ' ' + result[1] + ':\n'
+
+	def prod_boolean_list(self, listobject):
+		this_list = listobject[1]
+		if len(this_list) > 1:
+			# uses a logical (AND/OR/NOT)
+			result1 = self.prod_boolean_list(this_list[0])
+			result2 = self.prod_boolean_list(this_list[2])
+			result = [result1[0] + result2[0]]
+			print result
+			result.append(result1[1] + ' ' + this_list[1] + ' ' + result2[1])
+		else:
+			# single boolean expression
+			return self.prod_boolean(this_list[0])
+
+	def prod_boolean(self, listobject):
+		if len(listobject) == 3:
+			# parenthesized boolean list
+			result = self.prod_boolean_list(listobject[1])
+			result[1] = '(' + self.prod_boolean_list(listobject[1]) + ')'
+			return result
+		elif len(listobject) == 2:
+			# negation
+			result = self.prod_boolean(listobject[1])
+			result[1] = 'not ' + result[1]
+			return result
+		elif len(listobject) == 1:
+			# expression
+			return self.prod_expression(listobject[0])
+		else:
+			raise Exception('Illegal boolean format')
+
 if __name__ == '__main__':
 	main()
