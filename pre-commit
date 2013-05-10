@@ -69,10 +69,10 @@ class TestTrowel(unittest.TestCase):
 	# Find tests
 	
 	def test_lexer_findText(self):
-		self.assertEqual(parsewrapper().gettokens("flighttime is findtext in space with \"time\" and \"flight\""), [['UNKNOWNWORD', 'flighttime', 1], ['IS', 'is', 1], ['UNKNOWNWORD', 'findtext', 1], ['UNKNOWNWORD', 'in', 1], ['UNKNOWNWORD', 'space', 1], ['UNKNOWNWORD', 'with', 1], ['TEXTVAL', '"time"', 1], ['UNKNOWNWORD', 'and', 1], ['TEXTVAL', '"flight"', 1]])
+		self.assertEqual(parsewrapper().gettokens("flighttime is findtext in space with \"time\" and \"flight\""), [['UNKNOWNWORD', 'flighttime', 1], ['IS', 'is', 1], ['UNKNOWNWORD', 'findtext', 1], ['UNKNOWNWORD', 'in', 1], ['UNKNOWNWORD', 'space', 1], ['UNKNOWNWORD', 'with', 1], ['TEXTVAL', '"time"', 1], ['AND', 'and', 1], ['TEXTVAL', '"flight"', 1]])
 	
 	def test_lexer_findUrl(self):
-		self.assertEqual(parsewrapper().gettokens("flighttime is findurl in space with \"time\" and \"flight\""), [['UNKNOWNWORD', 'flighttime', 1], ['IS', 'is', 1], ['UNKNOWNWORD', 'findurl', 1], ['UNKNOWNWORD', 'in', 1], ['UNKNOWNWORD', 'space', 1], ['UNKNOWNWORD', 'with', 1], ['TEXTVAL', '"time"', 1], ['UNKNOWNWORD', 'and', 1], ['TEXTVAL', '"flight"', 1]])
+		self.assertEqual(parsewrapper().gettokens("flighttime is findurl in space with \"time\" and \"flight\""), [['UNKNOWNWORD', 'flighttime', 1], ['IS', 'is', 1], ['UNKNOWNWORD', 'findurl', 1], ['UNKNOWNWORD', 'in', 1], ['UNKNOWNWORD', 'space', 1], ['UNKNOWNWORD', 'with', 1], ['TEXTVAL', '"time"', 1], ['AND', 'and', 1], ['TEXTVAL', '"flight"', 1]])
 		
 	
 	# Print tests
@@ -173,6 +173,7 @@ class TestTrowel(unittest.TestCase):
 	def test_function_save(self):
 		self.assertEqual(r_save([['http://www.cnn.com', 'http://www.bbc.com'], "into", "pre-commit-save.txt"]), True)
 		self.assertEqual(r_save(["this is a string", "into", "pre-commit-save.txt"]), True)
+		os.remove('pre-commit-save.txt')
 
 	def test_function_append(self):
 		self.assertEqual(r_append(['www.puconghan.com','into','pre-commit-save.txt']), True)

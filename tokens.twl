@@ -1,3 +1,0 @@
-[['DEFINE', 'define', 1], ['UNKNOWNWORD', 'getpolitician', 1], ['UNKNOWNWORD', 'using', 1], ['LEFTPAREN', '(', 1], ['TEXT', 'text', 1], ['UNKNOWNWORD', 'person', 1], ['RIGHTPAREN', ')', 1]]
-[['RETURN', 'return', 1], ['UNKNOWNWORD', 'person', 1]]
-[['UNKNOWNWORD', 'print', 1], ['UNKNOWNWORD', 'getpolitician', 1], ['UNKNOWNWORD', 'using', 1], ['TEXTVAL', '"romney"', 1]]
