@@ -28,20 +28,19 @@ def main():
 	inputline = parsebox.getline(inputfile)
 	while inputline:
 		tokenline = parsebox.gettokens(inputline)
-		#print tokenline
 		aslline = parsebox.getabstractlist(inputline)
-		#print aslline
 		if aslline is not None:
 			#Type checking function from the trowlglobal.py
-			#tgl.typeChecking(aslline)
+			tgl.typeChecking(aslline)
 			pythonblock = pythonbox.buildpython(aslline)
 
 			tokenfile.write(str(tokenline) + '\n')
 			aslfile.write(str(aslline) + '\n')
 			pythonfile.write(pythonblock)
 		inputline = parsebox.getline(inputfile)
-
-	#sys.exit()
+	print "---------------------------------------------------------------------"
+	print "**  Trowel compiler has successfully compiled your source program  **"
+	print "---------------------------------------------------------------------"
 	inputfile.close()
 	tokenfile.close()
 	aslfile.close()
@@ -93,6 +92,7 @@ class parsewrapper:
 			tgl.varlist.append(copy(tgl.varlist[self.lastindentlevel]))
 		elif indentlevel > self.lastindentlevel + 1:
 			#Throw error. Cannot indent forward by more than one level at at time.
+			tgl.returnError("Syntax Error", "Cannot indent forward by more than one level at at time", False)
 			pass
 		self.lastindentlevel = indentlevel
 		return inputline
@@ -104,9 +104,7 @@ class pythonwrapper:
 	
 	# Function adds headers and declarations to the target program.
 	def headblock(self):
-		#block = '#!/usr/bin/python\nimport imp\nimp.load_source("tfl", "' + os.getcwd() + '/trowelfunctions.py")\n'
 		block = '#!/usr/bin/python\nimport os, sys\nsys.path.append("'+os.getcwd()+'")\nimport trowelfunctions as tfl\n'
-		#block = '#!/usr/bin/python\nimport trowelfunctions as tfl\n'
 		return block
 
 	# Function checks for abstract syntax tree structures.
@@ -135,6 +133,8 @@ class pythonwrapper:
 					pass
 				else:
 					tgl.returnError("Syntax Error", "Conditional function syntax mismatch", False)
+			elif inputline[1][0] == "forstatement":
+				pass
 			elif inputline[1][0] == "custom":
 				pass
 			else:
@@ -145,7 +145,7 @@ class pythonwrapper:
 	
 	# Function generates target python program.
 	def buildpython(self, listobject):
-		#self.checkaslintegrity(listobject)
+		self.checkaslintegrity(listobject)
 		indentlevel = listobject[0][1]
 		prodobject = listobject[1]
 		production = listobject[1][0]
@@ -177,8 +177,8 @@ class pythonwrapper:
 		for line in blocklines:
 			if line != '':
 				block = block + tab + line + '\n'
-		return '\n' + block
-		#return block
+		#return '\n' + block
+		return block
 
 	#for statement handler
 	def prod_forstatement(self, listobject):
@@ -212,7 +212,6 @@ class pythonwrapper:
 			block = block[:-1] + ')' + ':' + '\n' 
 			block = block + '\tif not tfl.checktype('+ str(next_type) +',list(reversed(locals().values()))): return \'' + listobject[1] + ' is used improperly\''
 			tgl.customfunctions.append(listobject[1])
-		print tgl.varlist
 		return block
 
 	# Function translates declaration from the abstract syntax tree.
@@ -298,7 +297,6 @@ class pythonwrapper:
 
 	def prod_boolean_list(self, listobject):
 		this_list = listobject[1]
-		print this_list
 		if not this_list[0][0]:
 			return None
 		if len(this_list) > 1:
