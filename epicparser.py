@@ -11,9 +11,8 @@
 import trowelglobals as tgl
 #import trowelfunctions as tfl
 import ply.lex as lex, ply.yacc as yacc
-import lexingrules, parsingrules
+import lexingrules, parsingrules, sys, os
 from copy import copy
-import sys
 
 def main():
 	inputfile = file(sys.argv[1],'r')
@@ -30,8 +29,8 @@ def main():
 	while inputline:
 		tokenline = parsebox.gettokens(inputline)
 		aslline = parsebox.getabstractlist(inputline)
-		print aslline
-		'''
+		#print aslline
+		#'''
 		if aslline is not None:
 			#Type checking function from the trowlglobal.py
 			tgl.typeChecking(aslline)
@@ -40,10 +39,10 @@ def main():
 			tokenfile.write(str(tokenline) + '\n')
 			aslfile.write(str(aslline) + '\n')
 			pythonfile.write(pythonblock)
-		'''
+		#'''
 		inputline = parsebox.getline(inputfile)
 
-	sys.exit()
+	#sys.exit()
 	inputfile.close()
 	tokenfile.close()
 	aslfile.close()
@@ -105,6 +104,7 @@ class pythonwrapper:
 	
 	# Function adds headers and declarations to the target program.
 	def headblock(self):
+		#block = '#!/usr/bin/python\nimport ' + os.path.cwd() + '/trowelfunctions as tfl\n'
 		block = '#!/usr/bin/python\nimport trowelfunctions as tfl\n'
 		return block
 
