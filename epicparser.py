@@ -244,15 +244,19 @@ class pythonwrapper:
 	# Translate conditionals from the AST
 	def prod_conditional(self, listobject):
 		control = listobject[1][1]
-		print control
-		print self.prod_boolean_list(listobject[2])
-		return control + ' ' + self.prod_boolean_list(listobject[2]) + ':\n'
+		result = self.prod_boolean_list(listobject[2])
+		print result
+		return result[0] + control + ' ' + result[1] + ':\n'
 
 	def prod_boolean_list(self, listobject):
 		this_list = listobject[1]
 		if len(this_list) > 1:
 			# uses a logical (AND/OR/NOT)
-			return self.prod_boolean_list(this_list[0]) + ' ' + this_list[1] + self.prod_boolean(this_list[2])
+			result1 = self.prod_boolean_list(this_list[0])
+			result2 = self.prod_boolean_list(this_list[2])
+			result = [result1[0] + result2[0]]
+			print result
+			result.append(result1[1] + ' ' + this_list[1] + ' ' + result2[1])
 		else:
 			# single boolean expression
 			return self.prod_boolean(this_list[0])
@@ -260,14 +264,19 @@ class pythonwrapper:
 	def prod_boolean(self, listobject):
 		if len(listobject) == 3:
 			# parenthesized boolean list
-			return '(' + self.prod_boolean_list(listobject[1]) + ')'
+			result = self.prod_boolean_list(listobject[1])
+			result[1] = '(' + self.prod_boolean_list(listobject[1]) + ')'
+			return result
 		elif len(listobject) == 2:
 			# negation
-			return 'not ' + self.prod_boolean(listobject[1])
+			result = self.prod_boolean(listobject[1])
+			result[1] = 'not ' + result[1]
+			return result
 		elif len(listobject) == 1:
 			# expression
-			return self.prod_expression(listobject[0])[1]
-		else: raise Exception('Illegal boolean format')
+			return self.prod_expression(listobject[0])
+		else:
+			raise Exception('Illegal boolean format')
 
 if __name__ == '__main__':
 	main()
