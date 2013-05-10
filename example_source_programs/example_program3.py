@@ -1,6 +1,6 @@
 #!/usr/bin/python
 import os, sys
-sys.path.append("/Users/puconghan/Desktop/plt")
+sys.path.append("/Users/RWalport/Desktop/Rob_CS/PLT/plt")
 import trowelfunctions as tfl
 stories = ""
 filteredresult = ""
