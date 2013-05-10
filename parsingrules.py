@@ -32,11 +32,12 @@ def p_error(p):
 ##Parsing expressions
 def p_rootexpression(p):
 	'''
-	ROOTEXPRESSION : EXPRESSION
-				   | FUNCTION
-				   | DECLARATION
-				   | ASSIGNMENT
-				   | BINOP
+	ROOTEXPRESSION :	EXPRESSION
+				| FUNCTION
+				| DECLARATION
+				| ASSIGNMENT
+				| BINOP
+				| CONDITIONAL
 	'''
 	if p[1][0] == 'functioncall':
 		p[1] = ['expression',p[1]]
@@ -222,6 +223,47 @@ def p_assignment(p):
 	p[0] = ['assignment', p[1], p[3]]
 
 #-----------------------------------------------------
+
+##Parsing conditionals
+def p_conditional(p):
+	'''
+	CONDITIONAL :	CONTROL BOOLEAN_LIST COLON
+	'''
+	p[0] = ['conditional', p[1], p[2]]
+
+def p_control(p):
+	'''
+	CONTROL :	IF
+			| ELSEIF
+			| ELSE
+	'''
+	p[0] = ['control', p[1]]
+
+def p_boolean_list(p):
+	'''
+	BOOLEAN_LIST :	BOOLEAN_LIST LOGICAL BOOLEAN
+			| BOOLEAN
+	'''
+	p[0] = ['boolean_list', p[1:]]
+
+def p_boolean(p):
+	'''
+	BOOLEAN :	LEFTPAREN BOOLEAN_LIST RIGHTPAREN
+			| NOT BOOLEAN
+			| EXPRESSION
+	'''
+	if len(p) == 4: p[0] = p[2]
+	elif len(p) == 3: p[0] = ['not', p[2]]
+	else: p[0] = p[1]
+
+def p_logical(p):
+	'''
+	LOGICAL :	AND
+			| OR
+	'''
+	p[0] = p[1]
+
+#----------------------------------------------------
 
 ##Parsing comments
 def p_comment(p):
