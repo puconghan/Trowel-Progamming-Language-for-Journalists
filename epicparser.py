@@ -29,7 +29,6 @@ def main():
 	while inputline:
 		tokenline = parsebox.gettokens(inputline)
 		aslline = parsebox.getabstractlist(inputline)
-		print aslline
 		if aslline is not None:
 			#Type checking function from the trowlglobal.py
 			tgl.typeChecking(aslline)
