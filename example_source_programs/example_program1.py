@@ -1,4 +1,6 @@
 #!/usr/bin/python
+import os, sys
+sys.path.append("/Users/puconghan/Desktop/plt")
 import trowelfunctions as tfl
 
 hellocontents = ""

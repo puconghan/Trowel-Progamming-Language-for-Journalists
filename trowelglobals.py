@@ -39,8 +39,6 @@ funclist = prebuiltfunctions
 def returnError(error_type, error_message, terminator):
 	errorflag = True
 	errorlist.append([linenumber, error_type, error_message])
-	print error_type
-	print error_message
 	if terminator == True:
 		printErrorMessages(error_type)
 		sys.exit()
