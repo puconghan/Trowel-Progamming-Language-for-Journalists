@@ -8,12 +8,12 @@ text term1 is "obama", term2 is "Ireland"
 
 stories is read "example_source_programs/example3.txt"
 
-filteredresult is findUrl in stories with term1 and (term2 or "Barack")
+filteredresult is findUrl in stories with term1 and term2 or "Barack"
 
 if (length of filteredresult) > 10:
 
-    for entry in filteredresult:
+	for entry in filteredresult:
 
-        insert (findText in entry with "Obama said") into obamaT
+		insert (findText in entry with "Obama said") into obamaT
 
 save obamaT into "example_source_programs/example5_output.txt"
