@@ -16,7 +16,6 @@ class TestTrowel(unittest.TestCase):
         self.assertEqual(asl, ["[['indentlevel', 0], ['declaration', ['datatype', 'numlist'], [['x'], ['j']]]]\n", "[['indentlevel', 0], ['declaration', ['datatype', 'number'], [['lengthcheck']]]]\n", "[['indentlevel', 0], ['declaration', ['datatype', 'numlist'], [['z', ['expression', ['list', [['expression', ['value', ['number', 6]]], ['expression', ['value', ['number', 7]]], ['expression', ['value', ['number', 8]]], ['expression', ['value', ['number', 9]]], ['expression', ['value', ['number', 10]]]]]]]]]]\n", "[['indentlevel', 0], ['assignment', ['variable', 'x'], ['expression', ['list', [['expression', ['value', ['number', 1]]], ['expression', ['value', ['number', 2]]], ['expression', ['value', ['number', 3]]], ['expression', ['value', ['number', 4]]], ['expression', ['value', ['number', 5]]]]]]]]\n"])
         f = open('tests/decassign.py')
         python = f.readlines()
-        print python[5:]
         self.assertEqual(python[5:], ['x = ""\n', 'j = ""\n', '\n', 'lengthcheck = 0\n', '\n', 'z = ""\n', 'tmp0 = 6\n', 'tmp1 = 7\n', 'tmp2 = 8\n', 'tmp3 = 9\n', 'tmp4 = 10\n', 'z = [tmp0,tmp1,tmp2,tmp3,tmp4]\n', '\n', 'tmp0 = 1\n', 'tmp1 = 2\n', 'tmp2 = 3\n', 'tmp3 = 4\n', 'tmp4 = 5\n', 'x = [tmp0,tmp1,tmp2,tmp3,tmp4]\n'])
         f.close()
         
