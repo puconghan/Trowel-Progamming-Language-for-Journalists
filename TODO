@@ -1,0 +1,30 @@
+Parser and AST
+==============
+- Indentation
+- Control flows
+- Booleans
+- Custom functions
+- Arithmetic operations
+
+Function
+========
+- Standard function for argument checking
+
+Errors
+======
+- Error types and handling
+
+Input
+=====
+- Remove blank lines and whitespaces except tabs
+- Convert whitespaces to tabs
+
+General
+=======
+- make the generated Python file executable after creation
+- specify full paths for importing external modules (e.g. bs4)
+
+Style
+=====
+- more comments
+- constant indexes in epicparser are quite cryptic, consider more descriptive variables
