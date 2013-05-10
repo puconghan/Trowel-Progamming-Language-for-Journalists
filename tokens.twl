@@ -1,1 +1,4 @@
-[['UNKNOWNWORD', 'print', 1], ['NUMVAL', '45', 1]]
+[['NUMBER', 'number', 1], ['UNKNOWNWORD', 'p', 1], ['IS', 'is', 1], ['NUMVAL', '3', 1]]
+[['UNKNOWNWORD', 'print', 1], ['UNKNOWNWORD', 'p', 1]]
+[['FOR', 'for', 1], ['UNKNOWNWORD', 'i', 1], ['UNKNOWNWORD', 'in', 1], ['LEFTSQUAREBRACKET', '[', 1], ['NUMVAL', '1', 1], ['COMMA', ',', 1], ['NUMVAL', '2', 1], ['COMMA', ',', 1], ['NUMVAL', '3', 1], ['RIGHTSQUAREBRACKET', ']', 1]]
+[['UNKNOWNWORD', 'print', 1], ['UNKNOWNWORD', 'i', 1]]

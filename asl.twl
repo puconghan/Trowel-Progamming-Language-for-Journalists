@@ -1,1 +1,4 @@
-[['indentlevel', 0], ['expression', ['functioncall', ['functionname', 'print'], 'arguments', [['expression', ['value', ['number', 45]]]]]]]
+[['indentlevel', 0], ['declaration', ['datatype', 'number'], [['p', ['expression', ['value', ['number', 3]]]]]]]
+[['indentlevel', 0], ['expression', ['functioncall', ['functionname', 'print'], 'arguments', [['expression', ['variable', 'p']]]]]]
+[['indentlevel', 1], ['forstatement', ['variable', 'i'], ['expression', ['list', [['expression', ['value', ['number', 1]]], ['expression', ['value', ['number', 2]]], ['expression', ['value', ['number', 3]]]]]]]]
+[['indentlevel', 1], ['expression', ['functioncall', ['functionname', 'print'], 'arguments', [['expression', ['variable', 'i']]]]]]
