@@ -17,13 +17,16 @@ tokens = [
 	'AND',
 	'OR',
 	'NOT',
+	#Relational Operators
+	'GREATER',
+	'LESS',
+	'EQUAL',
+	'NOTEQUAL',
 	#Arithmetic Operators (* / + -).
 	'MULTIPLY',
 	'DIVISION',
 	'PLUS',
 	'MINUS',
-	'EQUAL',
-	'NOTEQUAL',
 	#Data Types (URL TEXT NUMBER URLLIST TEXTLIST NUMLIST).
 	'URL',
 	'TEXT',
@@ -46,6 +49,7 @@ tokens = [
 	'LEFTSQUAREBRACKET',
 	'LEFTPAREN',
 	'RIGHTPAREN',
+	'COLON',
 	#Constants
 	'NUMVAL',
 	'TEXTVAL',
@@ -75,17 +79,29 @@ t_TAB = r'\t'
 t_COMMENT = r'\#.*'
     
 ##Logical Operators (AND OR NOT).
-t_AND = r'and' 
-t_OR = r'or'
-t_NOT = r'not'
+def t_AND(t):
+	r'(and)'
+	return t
+
+def t_OR(t):
+	r'(or)'
+	return t
+
+def t_NOT(t):
+	r'(not)'
+	return t
+
+##Relational Operators
+t_GREATER = r'>'
+t_LESS = r'<'
+t_EQUAL    = r'=='
+t_NOTEQUAL = r'=/='
 
 ##Arithmetic Operators (* / + - == =/=).
 t_MULTIPLY = r'\*'
 t_DIVISION = r'\/'
 t_PLUS     = r'\+'
 t_MINUS    = r'-'
-t_EQUAL    = r'=='
-t_NOTEQUAL = r'=/='
 
 ##Data Types (URL TEXT NUMBER URLLIST TEXTLIST NUMLIST).
 def t_URLLIST(t):
@@ -113,10 +129,21 @@ def t_NUMLIST(t):
 	return t
 
 #Control Operators (IF ELSE FOR).
-t_IF = r'(if)'
-t_ELSE = r'(else)'
-t_ELSEIF = r'(elseif)'
-t_FOR = r'(for)'
+def t_IF(t):
+	r'(if)'
+	return t
+
+def t_ELSE(t):
+	r'(else)'
+	return t
+
+def t_ELSEIF(t):
+	r'(elseif)'
+	return t
+
+def t_FOR(t):
+	r'(for)'
+	return t
 
 ##Assignment Operator (IS).
 def t_IS(t):
@@ -131,6 +158,7 @@ t_LEFTSQUAREBRACKET   = r'\['
 t_RIGHTSQUAREBRACKET = r'\]'
 t_LEFTPAREN   = r'\('
 t_RIGHTPAREN = r'\)'
+t_COLON = r':'
 
 ##Constants
 def t_TEXTVAL(t):

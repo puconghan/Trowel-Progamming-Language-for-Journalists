@@ -162,7 +162,19 @@ def r_multiply(arglist):
 	
 def r_divide(arglist):
 	return int(round((float(arglist[0]) / float(arglist[1]))))
-	
+
+def r_greater(arglist):
+	return arglist[0] > arglist[1]
+
+def r_less(arglist):
+	return arglist[0] < arglist[1]
+
+def r_equal(arglist):
+	return arglist[0] == arglist[1]
+
+def r_notequal(arglist):
+	return arglist[0] !=  arglist[1]
+
 #----------------------------------------------------------------------------------------------
 
 #Section created and implemented by Pucong Han on April 13, 2013.

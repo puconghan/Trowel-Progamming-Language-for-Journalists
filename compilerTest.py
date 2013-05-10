@@ -1,3 +1,5 @@
+#!/usr/bin/python
+
 import os, unittest
 
 class TestTrowel(unittest.TestCase):
@@ -63,10 +65,10 @@ class TestTrowel(unittest.TestCase):
         f.close()
         
     def test_flighttime_program(self):
-        os.system("./trowel tests/flighttime.twl")
+        os.system("./trowel tests/flightTime.twl")
         k = open("tokens.twl")
         tokens = k.readlines()
-        self.assertEqual(tokens, ["[['TEXTLIST', 'textlist', 1], ['UNKNOWNWORD', 'flighttime', 1]]\n", '[[\'URL\', \'url\', 1], [\'UNKNOWNWORD\', \'spacearticle\', 1], [\'IS\', \'is\', 1], [\'URLVAL\', "\'http://journotrowel.com/examples/science-environment-22344398.html\'", 1]]\n', '[[\'UNKNOWNWORD\', \'flighttime\', 1], [\'IS\', \'is\', 1], [\'UNKNOWNWORD\', \'findtext\', 1], [\'UNKNOWNWORD\', \'in\', 1], [\'UNKNOWNWORD\', \'spacearticle\', 1], [\'UNKNOWNWORD\', \'with\', 1], [\'TEXTVAL\', \'"time"\', 1], [\'UNKNOWNWORD\', \'and\', 1], [\'TEXTVAL\', \'"flight"\', 1]]\n', '[[\'UNKNOWNWORD\', \'save\', 1], [\'UNKNOWNWORD\', \'flighttime\', 1], [\'UNKNOWNWORD\', \'into\', 1], [\'TEXTVAL\', \'"output.txt"\', 1]]\n'])
+        self.assertEqual(tokens, ["[['TEXTLIST', 'textlist', 1], ['UNKNOWNWORD', 'flighttime', 1]]\n", '[[\'URL\', \'url\', 1], [\'UNKNOWNWORD\', \'spacearticle\', 1], [\'IS\', \'is\', 1], [\'URLVAL\', "\'http://www.bbc.co.uk/news/science-environment-22344398\'", 1]]\n', '[[\'UNKNOWNWORD\', \'flighttime\', 1], [\'IS\', \'is\', 1], [\'UNKNOWNWORD\', \'findtext\', 1], [\'UNKNOWNWORD\', \'in\', 1], [\'UNKNOWNWORD\', \'spacearticle\', 1], [\'UNKNOWNWORD\', \'with\', 1], [\'TEXTVAL\', \'"time"\', 1], [\'AND\', \'and\', 1], [\'TEXTVAL\', \'"flight"\', 1]]\n', '[[\'UNKNOWNWORD\', \'save\', 1], [\'UNKNOWNWORD\', \'flighttime\', 1], [\'UNKNOWNWORD\', \'into\', 1], [\'TEXTVAL\', \'"output.txt"\', 1]]\n'])
         k.close()
         a = open("asl.twl")
         asl = a.readlines()
