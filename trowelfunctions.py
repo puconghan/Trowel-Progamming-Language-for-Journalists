@@ -171,7 +171,7 @@ def r_divide(arglist):
 # Save a list of urls to an external txt file.
 def r_save(arglist):
 	if(arglist[1] != 'into'):
-		tgl.returnError("Run Time Error", "Save function illegal syntax. Correct syntax should be save list of urls (or variables that contains list of urls) into filename", True)
+		tgl.returnError("Run Time Error", "Save function illegal syntax. Correct syntax should be save list of urls (or variable that contains a list of urls) into filename", True)
 		return False
 	else:
 		try:
@@ -191,7 +191,7 @@ def r_save(arglist):
 # Append an url to an existing external txt file.
 def r_append(arglist):
 	if(arglist[1] != 'into'):
-		tgl.returnError("Function Error", "Append function illegal syntax. Correct syntax should be append url (or variable contain an url) into filename", False)
+		tgl.returnError("Function Error", "Append function illegal syntax. Correct syntax should be append url (or variable containing a url) into filename", False)
 		return False
 	else:
 		try:
