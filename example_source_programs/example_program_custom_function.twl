@@ -1,0 +1,8 @@
+define getTweets of (text person) searching twitter:
+	text prefix is 'http://twitter.com/?api='
+	url twitterurl is combine prefix and person
+	textlist results is findText in twitterurl
+	return results
+
+textlist tweets is getTweets of "BarackObama" searching twitter
+print tweets
