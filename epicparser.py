@@ -30,7 +30,7 @@ def main():
 		tokenline = parsebox.gettokens(inputline)
 		aslline = parsebox.getabstractlist(inputline)
 		print aslline
-		'''
+		#'''
 		if aslline is not None:
 			#Type checking function from the trowlglobal.py
 			tgl.typeChecking(aslline)
@@ -39,10 +39,10 @@ def main():
 			tokenfile.write(str(tokenline) + '\n')
 			aslfile.write(str(aslline) + '\n')
 			pythonfile.write(pythonblock)
-		'''
+		#'''
 		inputline = parsebox.getline(inputfile)
 
-	sys.exit()
+	#sys.exit()
 	inputfile.close()
 	tokenfile.close()
 	aslfile.close()
@@ -155,6 +155,8 @@ class pythonwrapper:
 		elif production == 'expression':
 			[blockval,expval] = self.prod_expression(prodobject)
 			block = block + blockval
+		elif production == 'conditional':
+			block += self.prod_conditional(prodobject)
 			
 		block = block.strip()
 		blocklines = block.split('\n')
@@ -234,6 +236,34 @@ class pythonwrapper:
 		pythonarglist = '([' + ','.join(tmplist) + '])'
 		expval = 'tfl.r_' + functionname + pythonarglist
 		return [block,expval]
-		
+
+	# Translate conditionals from the AST
+	def prod_conditional(self, listobject):
+		control = listobject[1][1]
+		print control
+		print self.prod_boolean_list(listobject[2])
+		return control + ' ' + self.prod_boolean_list(listobject[2]) + ':\n'
+
+	def prod_boolean_list(self, listobject):
+		this_list = listobject[1]
+		if len(this_list) > 1:
+			# uses a logical (AND/OR/NOT)
+			return self.prod_boolean_list(this_list[0]) + ' ' + this_list[1] + self.prod_boolean(this_list[2])
+		else:
+			# single boolean expression
+			return self.prod_boolean(this_list[0])
+
+	def prod_boolean(self, listobject):
+		if len(listobject) == 3:
+			# parenthesized boolean list
+			return '(' + self.prod_boolean_list(listobject[1]) + ')'
+		elif len(listobject) == 2:
+			# negation
+			return 'not ' + self.prod_boolean(listobject[1])
+		elif len(listobject) == 1:
+			# expression
+			return self.prod_expression(listobject[0])
+		else: raise Exception('Illegal boolean format')
+
 if __name__ == '__main__':
 	main()

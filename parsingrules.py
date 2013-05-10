@@ -58,6 +58,7 @@ def p_expression_2(p):
 			| BINOP
 			| LEFTPAREN BINOP RIGHTPAREN
 			| RELOP
+			| LEFTPAREN RELOP RIGHTPAREN
 	'''
 	if len(p) == 2:
 		p[0] = ['expression',p[1]]
@@ -120,13 +121,13 @@ def p_relop(p):
 	RELOP :	EXPRESSION GREATER EXPRESSION
 		| EXPRESSION LESS EXPRESSION
 		| EXPRESSION EQUAL EXPRESSION
+		| EXPRESSION NOTEQUAL EXPRESSION
 	'''
-	if p[2] == ">":
-		p[2] = "greater"
-	if p[2] == "<":
-		p[2] = "less"
-	if p[2] == "==":
-		p[2] = "equiv"
+	if p[2] == ">": p[2] = "greater"
+	elif p[2] == "<": p[2] = "less"
+	elif p[2] == "==": p[2] = "equal"
+	elif p[2] == '=/=': p[2] = "notequal"
+	else: raise Exception('Illegal relational operator')
 
 	p[0] = ['functioncall', ['functionname', p[2]], 'arguments', [p[1], p[3]]]
 
@@ -249,9 +250,7 @@ def p_assignment(p):
 
 ##Parsing conditionals
 def p_conditional(p):
-	'''
-	CONDITIONAL :	CONTROL BOOLEAN_LIST COLON
-	'''
+	'CONDITIONAL : CONTROL BOOLEAN_LIST COLON'
 	p[0] = ['conditional', p[1], p[2]]
 
 def p_control(p):
@@ -275,9 +274,7 @@ def p_boolean(p):
 			| NOT BOOLEAN
 			| EXPRESSION
 	'''
-	if len(p) == 4: p[0] = p[2]
-	elif len(p) == 3: p[0] = ['not', p[2]]
-	else: p[0] = p[1]
+	p[0] = p[1:]
 
 def p_logical(p):
 	'''
