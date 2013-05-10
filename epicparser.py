@@ -30,7 +30,6 @@ def main():
 		tokenline = parsebox.gettokens(inputline)
 		aslline = parsebox.getabstractlist(inputline)
 		print aslline
-		#'''
 		if aslline is not None:
 			#Type checking function from the trowlglobal.py
 			tgl.typeChecking(aslline)
@@ -39,7 +38,6 @@ def main():
 			tokenfile.write(str(tokenline) + '\n')
 			aslfile.write(str(aslline) + '\n')
 			pythonfile.write(pythonblock)
-		#'''
 		inputline = parsebox.getline(inputfile)
 
 	#sys.exit()
@@ -129,7 +127,12 @@ class pythonwrapper:
 					else:
 						tgl.returnError("Syntax Error", "Expression function name mismatch", False)
 				else:
-					tgl.returnError("Syntax Error", "Expression function call mismatch", False)
+					tgl.returnError("Syntax Error", "Expression function syntax mismatch", False)
+			elif inputline[1][0] == "conditional":
+				if inputline[1][1][0] == "control":
+					pass
+				else:
+					tgl.returnError("Syntax Error", "Conditional function syntax mismatch", False)
 			else:
 				tgl.returnError("Syntax Error", "Missing syntax header", False)
 			pass

@@ -73,9 +73,17 @@ t_TAB = r'\t'
 t_COMMENT = r'\#.*'
     
 ##Logical Operators (AND OR NOT).
-t_AND = r'and' 
-t_OR = r'or'
-t_NOT = r'not'
+def t_AND(t):
+	r'(and)'
+	return t
+
+def t_OR(t):
+	r'(or)'
+	return t
+
+def t_NOT(t):
+	r'(not)'
+	return t
 
 ##Relational Operators
 t_GREATER = r'>'

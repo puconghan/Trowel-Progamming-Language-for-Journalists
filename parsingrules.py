@@ -54,7 +54,6 @@ def p_expression_2(p):
 	EXPRESSION :	VALUE
 			| LIST
 			| LEFTPAREN FUNCTION RIGHTPAREN
-			| BINOP
 			| LEFTPAREN BINOP RIGHTPAREN
 			| RELOP
 			| LEFTPAREN RELOP RIGHTPAREN
@@ -65,7 +64,8 @@ def p_expression_2(p):
 		p[0] = ['expression',p[2]]
 
 def p_identifier(p):
-	'IDENTIFIER : UNKNOWNWORD'
+	'''IDENTIFIER : UNKNOWNWORD
+				| LOGICAL'''
 	if tgl.funclist.get(p[1]) != None:
 		p[0] = ['functionname',p[1]]
 	elif tgl.varlist[tgl.indentlevel].get(p[1]) != None:
