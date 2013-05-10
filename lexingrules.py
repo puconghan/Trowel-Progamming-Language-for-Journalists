@@ -20,14 +20,13 @@ tokens = [
 	#Relational Operators
 	'GREATER',
 	'LESS',
-	'EQUIV',
+	'EQUAL',
+	'NOTEQUAL',
 	#Arithmetic Operators (* / + -).
 	'MULTIPLY',
 	'DIVISION',
 	'PLUS',
 	'MINUS',
-	'EQUAL',
-	'NOTEQUAL',
 	#Data Types (URL TEXT NUMBER URLLIST TEXTLIST NUMLIST).
 	'URL',
 	'TEXT',
@@ -116,10 +115,21 @@ def t_NUMLIST(t):
 	return t
 
 #Control Operators (IF ELSE FOR).
-t_IF = r'(if)'
-t_ELSE = r'(else)'
-t_ELSEIF = r'(elseif)'
-t_FOR = r'(for)'
+def t_IF(t):
+	r'(if)'
+	return t
+
+def t_ELSE(t):
+	r'(else)'
+	return t
+
+def t_ELSEIF(t):
+	r'(elseif)'
+	return t
+
+def t_FOR(t):
+	r'(for)'
+	return t
 
 ##Assignment Operator (IS).
 def t_IS(t):
