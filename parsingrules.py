@@ -66,8 +66,10 @@ def p_expression_2(p):
 		p[0] = ['expression',p[2]]
 
 def p_identifier(p):
-	'''IDENTIFIER : UNKNOWNWORD
-				| LOGICAL'''
+	'''
+	IDENTIFIER :	UNKNOWNWORD
+			| LOGICAL
+	'''
 	if tgl.funclist.get(p[1]) != None:
 		p[0] = ['functionname',p[1]]
 	elif tgl.varlist[tgl.indentlevel].get(p[1]) != None:
@@ -94,6 +96,7 @@ def p_customargs(p):
 		p[0] = p[1] + [x for x in p[2:] if x is not '(' and x is not ')']
 
 def p_return(p):
+
 	'CUSTOM : RETURN ROOTEXPRESSION'
 	p[0] = ['custom', 'return', p[2]]
 	
@@ -311,6 +314,7 @@ def p_logical(p):
 	'''
 	LOGICAL :	AND
 			| OR
+			| NOT
 	'''
 	p[0] = p[1]
 

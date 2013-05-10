@@ -315,7 +315,7 @@ class pythonwrapper:
 		if len(listobject) == 3:
 			# parenthesized boolean list
 			result = self.prod_boolean_list(listobject[1])
-			result[1] = '(' + self.prod_boolean_list(listobject[1]) + ')'
+			result[1] = '(' + result[1] + ')'
 			return result
 		elif len(listobject) == 2:
 			# negation
