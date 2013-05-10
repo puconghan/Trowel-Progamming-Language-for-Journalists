@@ -183,7 +183,7 @@ def r_notequal(arglist):
 # Save a list of urls to an external txt file.
 def r_save(arglist):
 	if(arglist[1] != 'into'):
-		tgl.returnError("Run Time Error", "Save function illegal syntax. Correct syntax should be save list of urls (or variable that contains a list of urls) into filename", True)
+		tgl.returnError("Function Error", "Save function illegal syntax. Correct syntax should be save list of urls (or variable that contains a list of urls) into filename", True)
 		return False
 	else:
 		try:
@@ -245,63 +245,74 @@ LOGICALS = ['and', 'or', 'not', '(', ')']
 IGNORE = ['with', 'in']
 
 def r_findurl(arglist):
-	# arglist[1] is the urlList to search (set() removes duplicates)
-	this_urllist = set(arglist[1])
-	result = []
-	for this_url in this_urllist:
-		parts = urlparse.urlsplit(this_url)
-		if not parts.scheme or not parts.netloc:
-			this_url = "http://" + this_url
-		try:
-			soup = BeautifulSoup(urlopen(this_url))
-			truthiList = ""
-			if len(arglist[1:]) == 0:
-				result.append(this_url)
-			else:
-				for entry in arglist[1:]:
-					if str(type(entry)) != "<type 'list'>":
-						if entry in LOGICALS:
-							truthiList = truthiList + " " + entry
-						elif entry in IGNORE:
-							pass
-						elif soup.find_all(text = re.compile(entry)):
-							truthiList = truthiList + " True"
-						elif soup.find_all(text = re.compile(entry.title())):
-							truthiList = truthiList + " True"
-						else:
-							truthiList = truthiList + " False"
-				if eval(truthiList): result.append(this_url)
-		except:
-			tgl.returnError("Run Time Error", "Can\'t open the link: " + this_url + " in findurl", False)
-	return result
+	if(arglist[0] != 'in'):
+		tgl.returnError("Function Error", "FindUrl function illegal syntax. Correct syntax should be findUrl in urllist with [keyword expression]", False)
+		return False
+	elif(arglist[2] != 'with'):
+		tgl.returnError("Function Error", "FindUrl function illegal syntax. Correct syntax should be findUrl in urllist with [keyword expression]", False)
+		return False
+	else:
+		# arglist[1] is the urlList to search (set() removes duplicates)
+		this_urllist = set(arglist[1])
+		result = []
+		for this_url in this_urllist:
+			parts = urlparse.urlsplit(this_url)
+			if not parts.scheme or not parts.netloc:
+				this_url = "http://" + this_url
+			try:
+				soup = BeautifulSoup(urlopen(this_url))
+				truthiList = ""
+				if len(arglist[1:]) == 0:
+					result.append(this_url)
+				else:
+					for entry in arglist[1:]:
+						if str(type(entry)) != "<type 'list'>":
+							if entry in LOGICALS:
+								truthiList = truthiList + " " + entry
+							elif entry in IGNORE:
+								pass
+							elif soup.find_all(text = re.compile(entry)):
+								truthiList = truthiList + " True"
+							elif soup.find_all(text = re.compile(entry.title())):
+								truthiList = truthiList + " True"
+							else:
+								truthiList = truthiList + " False"
+					if eval(truthiList): result.append(this_url)
+			except:
+				tgl.returnError("Run Time Error", "Can\'t open the link: " + this_url + " in findurl", False)
+		return result
 
 def r_findtext(arglist):
-	link = arglist[1]
-	parts = urlparse.urlsplit(link)
-	if not parts.scheme or not parts.netloc:
-		link = "http://" + link
-	try:	
-		html = urlopen(link)
-		soup = BeautifulSoup(html)
-		texts = soup.find_all('p')
-		keyparas = []
-		for para in texts:
-			para = para.get_text()
-			truthiList = ""
-			if len(arglist[2:]) == 0:
-				keyparas.append(para)
-			else:
-				for entry in arglist[2:]:
-					if str(type(entry)) != "<type 'list'>":
-						if entry in LOGICALS:
-							truthiList = truthiList + " " + entry
-						elif entry in IGNORE:
-							pass
-						elif entry in para:
-							truthiList = truthiList + " True"
-						else:
-							truthiList = truthiList + " False"
-				if eval(truthiList): keyparas.append(para)
-		return keyparas
-	except:
-		tgl.returnError("Run Time Error", "Can\'t open the link: " + link + " in findtext", False)
+	if(arglist[0] != 'in'):
+		tgl.returnError("Function Error", "FindText function illegal syntax. Correct syntax should be findText in url with [keyword expression]", False)
+		return False
+	else:
+		link = arglist[1]
+		parts = urlparse.urlsplit(link)
+		if not parts.scheme or not parts.netloc:
+			link = "http://" + link
+		try:	
+			html = urlopen(link)
+			soup = BeautifulSoup(html)
+			texts = soup.find_all('p')
+			keyparas = []
+			for para in texts:
+				para = para.get_text()
+				truthiList = ""
+				if len(arglist[2:]) == 0:
+					keyparas.append(para)
+				else:
+					for entry in arglist[2:]:
+						if str(type(entry)) != "<type 'list'>":
+							if entry in LOGICALS:
+								truthiList = truthiList + " " + entry
+							elif entry in IGNORE:
+								pass
+							elif entry in para:
+								truthiList = truthiList + " True"
+							else:
+								truthiList = truthiList + " False"
+					if eval(truthiList): keyparas.append(para)
+			return keyparas
+		except:
+			tgl.returnError("Run Time Error", "Can\'t open the link: " + link + " in findtext", False)
