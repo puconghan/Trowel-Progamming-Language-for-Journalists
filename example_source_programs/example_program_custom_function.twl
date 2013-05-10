@@ -1,5 +1,5 @@
 define getTweets of (text person) searching twitter:
-	text prefix is 'http://twitter.com/?api='
+	text prefix is 'https://twitter.com/'
 	url twitterurl is combine prefix and person
 	textlist results is findText in twitterurl
 	return results
