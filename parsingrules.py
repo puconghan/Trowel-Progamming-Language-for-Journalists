@@ -78,7 +78,7 @@ def p_identifier(p):
 
 ##Parsing custom functions
 def p_custom_function(p):
-	'CUSTOM : DEFINE UNKNOWNWORD CUSTOMARGS'
+	'CUSTOM : DEFINE UNKNOWNWORD CUSTOMARGS COLON'
 	p[0] = ['custom',p[2],p[3]]
 
 def p_customargs(p):

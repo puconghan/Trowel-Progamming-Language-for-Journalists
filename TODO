@@ -1,10 +1,10 @@
 Parser and AST
 ==============
 - Indentation
-- Control flows
+- If/Else
+- For
 - Booleans
 - Custom functions
-- Arithmetic operations
 
 Function
 ========
@@ -16,13 +16,10 @@ Errors
 
 Input
 =====
-- Remove blank lines and whitespaces except tabs
 - Convert whitespaces to tabs
 
 General
 =======
-- make the generated Python file executable after creation
-- specify full paths for importing external modules (e.g. bs4)
 
 Style
 =====

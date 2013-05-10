@@ -49,6 +49,10 @@ class TestTrowel(unittest.TestCase):
 
 	def test_lexer_print_text(self):
 		self.assertEqual(parsewrapper().gettokens("print \"this is a text\""), [['UNKNOWNWORD', 'print', 1], ['TEXTVAL', '"this is a text"', 1]])
+		
+	#Length tests
+	def test_lexer_length_list(self):
+		self.assertEqual(parsewrapper().gettokens("length of [4, 5, 6]"), [['UNKNOWNWORD', 'length', 1], ['UNKNOWNWORD', 'of', 1], ['LEFTSQUAREBRACKET', '[', 1], ['NUMVAL', '4', 1], ['COMMA', ',', 1], ['NUMVAL', '5', 1], ['COMMA', ',', 1], ['NUMVAL', '6', 1], ['RIGHTSQUAREBRACKET', ']', 1]])
 
 	# Read and Save tests
 
@@ -105,6 +109,10 @@ class TestTrowel(unittest.TestCase):
    		self.assertEqual(parsewrapper().getabstractlist("print [\"text\",\"2\",\"more text\"]"), [['indentlevel', 0],
    ['expression', ['functioncall', ['functionname', 'print'], 'arguments', [['expression', ['list', [['expression', ['value', ['text', 'text']]], ['expression', ['value', ['text', '2']]], ['expression', ['value', ['text', 'more text']]]]]]]]]])
    
+   #Length tests
+	def test_lexer_length_list(self):
+		self.assertEqual(parsewrapper().getabstractlist("length of [4, 5, 6]"), [['indentlevel', 0], ['expression', ['functioncall', ['functionname', 'length'], 'arguments', [['expression', ['insertword', 'of']], ['expression', ['list', [['expression', ['value', ['number', 4]]], ['expression', ['value', ['number', 5]]], ['expression', ['value', ['number', 6]]]]]]]]]])
+   
    #Save and Read tests
 	
 	def test_parser_save(self):
@@ -132,6 +140,16 @@ class TestTrowel(unittest.TestCase):
 		self.assertEqual(r_divide([7, 4]), 2)
 		self.assertEqual(r_divide([20, 5]), 4)
 		self.assertEqual(r_divide([27, 5]), 5)
+		
+	def test_function_relop(self):
+		self.assertEqual(r_greater([2,3]), False);
+		self.assertEqual(r_greater([12, 5]), True);
+		self.assertEqual(r_less([12, 5]), False);
+		self.assertEqual(r_less([5, 10]), True);
+		self.assertEqual(r_equal([12, 5]), False);
+		self.assertEqual(r_equal([5, 5]), True);
+		self.assertEqual(r_notequal([12, 5]), True);
+		self.assertEqual(r_notequal([5, 5]), False);
 		
 	def test_function_printlist(self):
 		self.assertEqual(r_printlist([['this','is','a','list'],['url.com']]), 1)
@@ -205,10 +223,11 @@ class TestTrowel(unittest.TestCase):
 		
 	def test_python_print_url(self):
 		self.assertEqual(pythonwrapper().buildpython([['indentlevel', 0], ['expression', ['functioncall', ['functionname', 'print'], 'arguments', [['expression', ['value', ['url', "this is a url"]]]]]]]), "\ntmp0 = \'this is a url\'\ntfl.r_print([tmp0])\n")
+		
+		#Length tests
+	def test_python_length_list(self):
+		self.assertEqual(pythonwrapper().buildpython([['indentlevel', 0], ['expression', ['functioncall', ['functionname', 'length'], 'arguments', [['expression', ['insertword', 'of']], ['expression', ['list', [['expression', ['value', ['number', 4]]], ['expression', ['value', ['number', 5]]], ['expression', ['value', ['number', 6]]]]]]]]]]), "\ntmp0 = 'of'\ntmp1 = 4\ntmp2 = 5\ntmp3 = 6\ntmp4 = [tmp1,tmp2,tmp3]\ntfl.r_length([tmp0,tmp4])\n")
 	
-	#Whole Compiler Tests
-	def test_basicprintprogram_number(self):
-		self.assertEqual(pythonwrapper().buildpython(parsewrapper().getabstractlist("print 45")), "\ntmp0 = 45\ntfl.r_print([tmp0])\n")
 
 if __name__ == '__main__':
 	for f in glob ('*.pyc'):

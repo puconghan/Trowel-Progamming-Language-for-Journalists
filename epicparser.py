@@ -134,6 +134,8 @@ class pythonwrapper:
 					pass
 				else:
 					tgl.returnError("Syntax Error", "Conditional function syntax mismatch", False)
+			elif inputline[1][0] == "custom":
+				pass
 			else:
 				tgl.returnError("Syntax Error", "Missing syntax header", False)
 			pass
