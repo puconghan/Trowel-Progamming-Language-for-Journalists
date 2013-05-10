@@ -104,8 +104,9 @@ class pythonwrapper:
 	
 	# Function adds headers and declarations to the target program.
 	def headblock(self):
-		#block = '#!/usr/bin/python\nimport ' + os.path.cwd() + '/trowelfunctions as tfl\n'
-		block = '#!/usr/bin/python\nimport trowelfunctions as tfl\n'
+		#block = '#!/usr/bin/python\nimport imp\nimp.load_source("tfl", "' + os.getcwd() + '/trowelfunctions.py")\n'
+		block = '#!/usr/bin/python\nimport os, sys\nsys.path.append("'+os.getcwd()+'")\nimport trowelfunctions as tfl\n'
+		#block = '#!/usr/bin/python\nimport trowelfunctions as tfl\n'
 		return block
 
 	# Function checks for abstract syntax tree structures.
@@ -262,7 +263,7 @@ class pythonwrapper:
 			return 'not ' + self.prod_boolean(listobject[1])
 		elif len(listobject) == 1:
 			# expression
-			return self.prod_expression(listobject[0])
+			return self.prod_expression(listobject[0])[1]
 		else: raise Exception('Illegal boolean format')
 
 if __name__ == '__main__':

@@ -38,7 +38,6 @@ def p_rootexpression(p):
 				| ASSIGNMENT
 				| BINOP
 				| CONDITIONAL
-				| RELOP
 	'''
 	if p[1][0] == 'functioncall':
 		p[1] = ['expression',p[1]]
