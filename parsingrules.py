@@ -20,11 +20,12 @@ start = 'STATEMENT'
 
 def p_statement(p):
 	'''
-	STATEMENT : ROOTEXPRESSION
-			  | DECLARATION
-			  | ASSIGNMENT
-			  | FORSTATEMENT
-			  | CUSTOM
+	STATEMENT :	ROOTEXPRESSION
+			| DECLARATION
+			| ASSIGNMENT
+			| CONDITIONAL
+			| FORSTATEMENT
+			| CUSTOM
 	'''
 	p[0] = [['indentlevel',tgl.indentlevel],p[1]]
 		
