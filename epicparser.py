@@ -126,7 +126,12 @@ class pythonwrapper:
 					else:
 						tgl.returnError("Syntax Error", "Expression function name mismatch", False)
 				else:
-					tgl.returnError("Syntax Error", "Expression function call mismatch", False)
+					tgl.returnError("Syntax Error", "Expression function syntax mismatch", False)
+			elif inputline[1][0] == "conditional":
+				if inputline[1][1][0] == "control":
+					pass
+				else:
+					tgl.returnError("Syntax Error", "Conditional function syntax mismatch", False)
 			else:
 				tgl.returnError("Syntax Error", "Missing syntax header", False)
 			pass
