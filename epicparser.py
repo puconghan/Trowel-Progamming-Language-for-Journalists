@@ -146,17 +146,17 @@ class pythonwrapper:
 		block = ''
 		datatype = listobject[1][1]
 		for varobject in listobject[2]:
-			block = block + varobject[0] + ' = '
-			if datatype == 'number':
-				block = block + '0'
-			elif datatype == 'text' or 'url':
-				block = block + '""'
-			else:
-				block = block + '[]'
-			block = block + '\n'
 			if  len(varobject) == 2:
 				assignobject = ['assignment', ['variable', varobject[0]], varobject[1]]
 				block = block + self.prod_assignment(assignobject)
+			else:
+				block = block + varobject[0] + ' = '
+				if datatype == 'number':
+					block = block + '0\n'
+				elif datatype == 'text' or 'url':
+					block = block + '""\n'
+				else:
+					block = block + '[]\n'
 		return block
 
 	def prod_assignment(self, listobject):
@@ -178,8 +178,9 @@ class pythonwrapper:
 			for item in listobject[1][1]:
 				[blockval,expval] = self.prod_expression(item)
 				block = block + blockval
-				block = block + 'tmp' + str(self.tmpvarcount) + ' = ' + expval + '\n'
-				tmplist = tmplist + ['tmp' + str(self.tmpvarcount)]
+				#block = block + 'tmp' + str(self.tmpvarcount) + ' = ' + expval + '\n'
+				#tmplist = tmplist + ['tmp' + str(self.tmpvarcount)]
+				tmplist = tmplist + [expval]
 				self.tmpvarcount = self.tmpvarcount + 1
 			expval = '[' + ','.join(tmplist) + ']'
 		elif exptype == 'variable':
@@ -200,8 +201,9 @@ class pythonwrapper:
 		for item in argumentlist:
 			[blockval,expval] = self.prod_expression(item)
 			block = block + blockval
-			block = block + 'tmp' + str(self.tmpvarcount) + ' = ' + expval + '\n'
-			tmplist = tmplist + ['tmp' + str(self.tmpvarcount)]
+			#block = block + 'tmp' + str(self.tmpvarcount) + ' = ' + expval + '\n'
+			#tmplist = tmplist + ['tmp' + str(self.tmpvarcount)]
+			tmplist = tmplist + [expval]
 			self.tmpvarcount = self.tmpvarcount + 1
 			
 		pythonarglist = '([' + ','.join(tmplist) + '])'
