@@ -35,6 +35,7 @@ def main():
 			pythonfile.write(pythonblock)
 			
 		inputline = parsebox.getline(inputfile)
+	print ""
 	print "****************   Program is built successfully   ******************"
 	print ""
 	print "**  Excutable file: " + str(sys.argv[1]).replace("twl", "py")
