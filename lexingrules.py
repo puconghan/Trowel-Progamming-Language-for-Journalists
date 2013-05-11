@@ -1,3 +1,10 @@
+###################################################################################################
+# PROGRAM:      Trowel
+# DESCRIPTION:  This lexingrules.py program is the lexer.
+# LICENSE:      PLY
+# REFERENCES:   Python Lex-Yacc Documentation (http://www.dabeaz.com/ply/)
+###################################################################################################
+
 import trowelglobals as tgl
 
 tokens = [

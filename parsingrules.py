@@ -1,3 +1,10 @@
+###################################################################################################
+# PROGRAM:      Trowel
+# DESCRIPTION:  This parsingrules.py is the parser.
+# LICENSE:      PLY
+# REFERENCES:   Python Lex-Yacc Documentation (http://www.dabeaz.com/ply/)
+###################################################################################################
+
 import trowelglobals as tgl
 from lexingrules import *
 
