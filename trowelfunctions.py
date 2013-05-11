@@ -4,6 +4,7 @@
 #				This program will be imported by both targeted program and the parser.
 # LICENSE:      PLY
 # REFERENCES:   Python Lex-Yacc Documentation (http://www.dabeaz.com/ply/)
+#				Python BeautifulSoup (http://www.crummy.com/software/BeautifulSoup/)
 # AUTHORS:
 #               Pucong Han (ph2369@columbia.edu)
 #               Victoria Mo (vm2355@columbia.edu)
