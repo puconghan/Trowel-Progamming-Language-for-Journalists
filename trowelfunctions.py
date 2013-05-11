@@ -4,6 +4,12 @@
 #				This program will be imported by both targeted program and the parser.
 # LICENSE:      PLY
 # REFERENCES:   Python Lex-Yacc Documentation (http://www.dabeaz.com/ply/)
+# AUTHORS:
+#               Pucong Han (ph2369@columbia.edu)
+#               Victoria Mo (vm2355@columbia.edu)
+#				Hareesh Radhakrishnan (hr2318@columbia.edu)
+#				David Tagatac (dtagatac@cs.columbia.edu)
+#				Robert Walport (robertwalport@gmail.com)
 ###################################################################################################
 
 import sys

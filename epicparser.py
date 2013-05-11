@@ -1,5 +1,19 @@
 #!/usr/bin/python
 
+###################################################################################################
+# PROGRAM:      Trowel
+# DESCRIPTION:  This epicparser.py contains the preprocessor of the compiler. It read source programs
+#				and compile to target python language.
+# LICENSE:      PLY
+# REFERENCES:   Python Lex-Yacc Documentation (http://www.dabeaz.com/ply/)
+# AUTHORS:
+#               Pucong Han (ph2369@columbia.edu)
+#               Victoria Mo (vm2355@columbia.edu)
+#				Hareesh Radhakrishnan (hr2318@columbia.edu)
+#				David Tagatac (dtagatac@cs.columbia.edu)
+#				Robert Walport (robertwalport@gmail.com)
+###################################################################################################
+
 import sys, os
 from copy import copy
 import ply.lex as lex, ply.yacc as yacc
