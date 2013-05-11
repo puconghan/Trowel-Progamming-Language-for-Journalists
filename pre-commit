@@ -75,19 +75,24 @@ class TestTrowel(unittest.TestCase):
 		self.assertEqual(parsewrapper().gettokens("flighttime is findurl in space with \"time\" and \"flight\""), [['UNKNOWNWORD', 'flighttime', 1], ['IS', 'is', 1], ['UNKNOWNWORD', 'findurl', 1], ['UNKNOWNWORD', 'in', 1], ['UNKNOWNWORD', 'space', 1], ['UNKNOWNWORD', 'with', 1], ['TEXTVAL', '"time"', 1], ['AND', 'and', 1], ['TEXTVAL', '"flight"', 1]])
 		
 	
-	# Print tests
+	# Binop Tests
 	def test_lexer_binop_(self):
 		self.assertEqual(parsewrapper().gettokens("2 + 2"), [['NUMVAL', '2', 1], ['PLUS', '+', 1], ['NUMVAL', '2', 1]])
 		self.assertEqual(parsewrapper().gettokens("2 + 2 - (4 * 5)"), [['NUMVAL', '2', 1], ['PLUS', '+', 1], ['NUMVAL', '2', 1], ['MINUS', '-', 1], ['LEFTPAREN', '(', 1], ['NUMVAL', '4', 1], ['MULTIPLY', '*', 1], ['NUMVAL', '5', 1], ['RIGHTPAREN', ')', 1]])
 		self.assertEqual(parsewrapper().gettokens("2 + - 2"), [['NUMVAL', '2', 1], ['PLUS', '+', 1], ['MINUS', '-', 1], ['NUMVAL', '2', 1]])
 		
-
-	#Error checking Lexer tests
-	# Print tests
-	def test_lexer_print_variable_Error(self):
-		self.assertEqual(parsewrapper().gettokens("print x"), [['UNKNOWNWORD', 'print', 1], ['UNKNOWNWORD', 'x', 1]])
+	# Control Flow tests
+	def test_lexer_if(self):
+		self.assertEqual(parsewrapper().gettokens("if 1 < 2:"), [['IF', 'if', 1], ['NUMVAL', '1', 1], ['LESS', '<', 1], ['NUMVAL', '2', 1], ['COLON', ':', 1]])
+		self.assertEqual(parsewrapper().gettokens("if x =/= y:"), [['IF', 'if', 1], ['UNKNOWNWORD', 'x', 1], ['NOTEQUAL', '=/=', 1], ['UNKNOWNWORD', 'y', 1], ['COLON', ':', 1]])
+		self.assertEqual(parsewrapper().gettokens("if x == 5:"), [['IF', 'if', 1], ['UNKNOWNWORD', 'x', 1], ['EQUAL', '==', 1], ['NUMVAL', '5', 1], ['COLON', ':', 1]])
 		
+	def test_lexer_else(self):
+		self.assertEqual(parsewrapper().gettokens("else:"), [['ELSE', 'else', 1], ['COLON', ':', 1]])
 		
+	def test_lexer_for(self):
+		self.assertEqual(parsewrapper().gettokens("for x in [1,2,3,4]"), [['FOR', 'for', 1], ['UNKNOWNWORD', 'x', 1], ['UNKNOWNWORD', 'in', 1], ['LEFTSQUAREBRACKET', '[', 1], ['NUMVAL', '1', 1], ['COMMA', ',', 1], ['NUMVAL', '2', 1], ['COMMA', ',', 1], ['NUMVAL', '3', 1], ['COMMA', ',', 1], ['NUMVAL', '4', 1], ['RIGHTSQUAREBRACKET', ']', 1]])
+		self.assertEqual(parsewrapper().gettokens("for x in z"), [['FOR', 'for', 1], ['UNKNOWNWORD', 'x', 1], ['UNKNOWNWORD', 'in', 1], ['UNKNOWNWORD', 'z', 1]])
 		
 
 	# Parser tests
@@ -123,10 +128,20 @@ class TestTrowel(unittest.TestCase):
 		
 	#Binop tests
 	
-	def test_lexer_binop_(self):
+	def test_parser_binop_(self):
 		self.assertEqual(parsewrapper().getabstractlist("2 + 2"), [['indentlevel', 0], ['expression', ['functioncall', ['functionname', 'plus'], 'arguments', [['expression', ['value', ['number', 2]]], ['expression', ['value', ['number', 2]]]]]]])
 		self.assertEqual(parsewrapper().getabstractlist("2 + 2 - (4 * 5)"), [['indentlevel', 0], ['expression', ['functioncall', ['functionname', 'minus'], 'arguments', [['expression', ['functioncall', ['functionname', 'plus'], 'arguments', [['expression', ['value', ['number', 2]]], ['expression', ['value', ['number', 2]]]]]], ['expression', ['functioncall', ['functionname', 'multiply'], 'arguments', [['expression', ['value', ['number', 4]]], ['expression', ['value', ['number', 5]]]]]]]]]])
 		self.assertEqual(parsewrapper().getabstractlist("2 + - 2"), [['indentlevel', 0], ['expression', ['functioncall', ['functionname', 'plus'], 'arguments', [['expression', ['value', ['number', 2]]], ['expression', ['value', ['number', -2]]]]]]])
+		
+	# Control Flow tests
+	def test_parser_if(self):
+		self.assertEqual(parsewrapper().getabstractlist("if 1 < 2:"), [['indentlevel', 0], ['conditional', ['control', 'if'], ['boolean_list', [[['expression', ['functioncall', ['functionname', 'less'], 'arguments', [['expression', ['value', ['number', 1]]], ['expression', ['value', ['number', 2]]]]]]]]]]])
+		self.assertEqual(parsewrapper().getabstractlist("if x =/= y:"), [['indentlevel', 0], ['conditional', ['control', 'if'], ['boolean_list', [[['expression', ['functioncall', ['functionname', 'notequal'], 'arguments', [['expression', ['insertword', 'x']], ['expression', ['insertword', 'y']]]]]]]]]])
+		self.assertEqual(parsewrapper().getabstractlist("if x == 5:"), [['indentlevel', 0], ['conditional', ['control', 'if'], ['boolean_list', [[['expression', ['functioncall', ['functionname', 'equal'], 'arguments', [['expression', ['insertword', 'x']], ['expression', ['value', ['number', 5]]]]]]]]]]])
+		
+	def test_parser_else(self):
+		self.assertEqual(parsewrapper().getabstractlist("else:"), [['indentlevel', 0], ['conditional', ['control', 'else'], ['boolean_list', [[None]]]]])
+		
 	
 	# Function tests
 	

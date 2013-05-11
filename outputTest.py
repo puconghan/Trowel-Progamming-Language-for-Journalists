@@ -32,11 +32,8 @@ class TestTrowel(unittest.TestCase):
         
     def test_if_program(self):
     	print "if program being tested"
-        os.system("./trowel tests/boom.twl")
-        try:
-        	output = open("output.txt").readlines()
-        except:
-        	raise Exception("If program failing")
+        os.system("./trowel tests/if.twl")
+        output = open("output.txt").readlines()
         self.assertEqual(output, ['boomshakalaka\n'])
         os.system("rm output.txt")
         

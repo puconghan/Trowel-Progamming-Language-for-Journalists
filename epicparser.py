@@ -39,11 +39,11 @@ def main():
 			pythonfile.write(pythonblock)
 		inputline = parsebox.getline(inputfile)
 	print "---------------------------------------------------------------------"
-	print "****************   Program is built successfully   ******************"
+	print "****************   Program created successfully   ******************"
 	print ""
-	print "**  Excutable file: " + str(sys.argv[1]).replace("twl", "py")
+	print "**  Executable file: " + str(sys.argv[1]).replace("twl", "py")
 	print ""
-	print "****************         Now start excuting        ******************"
+	print "****************          Executing now           ******************"
 	print "---------------------------------------------------------------------"
 	inputfile.close()
 	tokenfile.close()
