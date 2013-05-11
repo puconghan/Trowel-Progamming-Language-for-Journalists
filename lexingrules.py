@@ -1,11 +1,3 @@
-###################################################################################################
-# PROGRAM:      Trowel
-# DESCRIPTION:  This lexingrule.py program is the lexer of Trowel used to break inputs into tokens.
-# LICENSE:      PLY
-# REFERENCES:   Python Lex-Yacc Documentation (http://www.dabeaz.com/ply/)
-# OUTPUT:       Tokens
-###################################################################################################
-
 import trowelglobals as tgl
 
 tokens = [
