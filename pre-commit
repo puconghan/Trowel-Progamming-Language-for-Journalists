@@ -262,17 +262,17 @@ class TestTrowel(unittest.TestCase):
 	# Python Generation Tests
 	
 	def test_python_print_number(self):
-		self.assertEqual(pythonwrapper().buildpython([['indentlevel', 0], ['expression', ['functioncall', ['functionname', 'print'], 'arguments', [['expression', ['value', ['number', 45]]]]]]]), "tmp0 = 45\ntfl.r_print([tmp0])\n")
+		self.assertEqual(pythonwrapper().buildpython([['indentlevel', 0], ['expression', ['functioncall', ['functionname', 'print'], 'arguments', [['expression', ['value', ['number', 45]]]]]]]), 'tfl.r_print([45])\n')
 	
 	def test_python_print_text(self):
-		self.assertEqual(pythonwrapper().buildpython([['indentlevel', 0], ['expression', ['functioncall', ['functionname', 'print'], 'arguments', [['expression', ['value', ['text', "this is text"]]]]]]]), "tmp0 = \'this is text\'\ntfl.r_print([tmp0])\n")
+		self.assertEqual(pythonwrapper().buildpython([['indentlevel', 0], ['expression', ['functioncall', ['functionname', 'print'], 'arguments', [['expression', ['value', ['text', "this is text"]]]]]]]), "tfl.r_print(['this is text'])\n")
 		
 	def test_python_print_url(self):
-		self.assertEqual(pythonwrapper().buildpython([['indentlevel', 0], ['expression', ['functioncall', ['functionname', 'print'], 'arguments', [['expression', ['value', ['url', "this is a url"]]]]]]]), "tmp0 = \'this is a url\'\ntfl.r_print([tmp0])\n")
+		self.assertEqual(pythonwrapper().buildpython([['indentlevel', 0], ['expression', ['functioncall', ['functionname', 'print'], 'arguments', [['expression', ['value', ['url', "this is a url"]]]]]]]), "tfl.r_print(['this is a url'])\n")
 		
 		#Length tests
 	def test_python_length_list(self):
-		self.assertEqual(pythonwrapper().buildpython([['indentlevel', 0], ['expression', ['functioncall', ['functionname', 'length'], 'arguments', [['expression', ['insertword', 'of']], ['expression', ['list', [['expression', ['value', ['number', 4]]], ['expression', ['value', ['number', 5]]], ['expression', ['value', ['number', 6]]]]]]]]]]), "tmp0 = 'of'\ntmp1 = 4\ntmp2 = 5\ntmp3 = 6\ntmp4 = [tmp1,tmp2,tmp3]\ntfl.r_length([tmp0,tmp4])\n")
+		self.assertEqual(pythonwrapper().buildpython([['indentlevel', 0], ['expression', ['functioncall', ['functionname', 'length'], 'arguments', [['expression', ['insertword', 'of']], ['expression', ['list', [['expression', ['value', ['number', 4]]], ['expression', ['value', ['number', 5]]], ['expression', ['value', ['number', 6]]]]]]]]]]), "tfl.r_length(['of',[4,5,6]])\n")
 	
 
 if __name__ == '__main__':
