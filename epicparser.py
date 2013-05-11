@@ -124,7 +124,7 @@ class pythonwrapper:
 			block = block + self.prod_assignment(prodobject)
 		elif production == 'expression':
 			[blockval,expval] = self.prod_expression(prodobject)
-			block = block + blockval
+			block = block + blockval + expval + '\n'
 		elif production == 'forstatement':
 			block = block + self.prod_forstatement(prodobject)
 		elif production == 'custom':
@@ -172,7 +172,7 @@ class pythonwrapper:
 		expval = ''
 		if exptype == 'functioncall':
 			[blockval,expval] = self.prod_functioncall(listobject[1])
-			block  = block + blockval + expval + '\n'
+			block  = block + blockval
 		elif exptype == 'list':
 			tmplist = []
 			for item in listobject[1][1]:
