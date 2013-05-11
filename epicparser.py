@@ -1,56 +1,49 @@
 #!/usr/bin/python
-###################################################################################################
-# PROGRAM:      Trowel
-# DESCRIPTION:  This epicparser.py program is the main function for trowel.
-#				This program handles the process of program language translation.
-# LICENSE:      PLY
-# REFERENCES:   Python Lex-Yacc Documentation (http://www.dabeaz.com/ply/)
-# OUTPUT:		Targeted Python Language
-###################################################################################################
 
-import trowelglobals as tgl
-#import trowelfunctions as tfl
-import ply.lex as lex, ply.yacc as yacc
-import lexingrules, parsingrules, sys, os
+import sys, os
 from copy import copy
+import ply.lex as lex, ply.yacc as yacc
+import lexingrules, parsingrules, trowelglobals as tgl
 
 def main():
-	inputfile = file(sys.argv[1],'r')
+	if len(sys.argv) != 2 or sys.argv[1][-4:] != '.twl':
+		sys.exit('The input argument provided is not a .twl file')
+	infilename = sys.argv[1]
+	outfilename = sys.argv[1][:-4]+'.py'
+	
+	inputfile = file(infilename,'r')
 	tokenfile = file('tokens.twl','w')
 	aslfile = file('asl.twl','w')
-	pythonfile = file(sys.argv[1][:-3]+'py','w')
+	pythonfile = file(outfilename,'w')
 	
 	parsebox = parsewrapper()
 	pythonbox = pythonwrapper()
-	
 	pythonfile.write(pythonbox.headblock())
 
 	inputline = parsebox.getline(inputfile)
 	while inputline:
 		tokenline = parsebox.gettokens(inputline)
 		aslline = parsebox.getabstractlist(inputline)
-		if aslline is not None:
-			#Type checking function from the trowlglobal.py
-			tgl.typeChecking(aslline)
-			pythonblock = pythonbox.buildpython(aslline)
 
-			tokenfile.write(str(tokenline) + '\n')
-			aslfile.write(str(aslline) + '\n')
+		aslfile.write(str(aslline) + '\n')
+		tokenfile.write(str(tokenline) + '\n')		
+
+		if aslline:
+			tgl.typeChecking(aslline)
+
+			pythonblock = pythonbox.buildpython(aslline)
 			pythonfile.write(pythonblock)
+			
 		inputline = parsebox.getline(inputfile)
-	print "---------------------------------------------------------------------"
-	print "****************   Program created successfully   ******************"
-	print ""
-	print "**  Executable file: " + str(sys.argv[1]).replace("twl", "py")
-	print ""
-	print "****************          Executing now           ******************"
-	print "---------------------------------------------------------------------"
+
 	inputfile.close()
 	tokenfile.close()
 	aslfile.close()
 	pythonfile.close()
 
-# Preprocessor of Trowel
+
+
+
 class parsewrapper:
 	def __init__(self):
 		self.lexer = lex.lex(module = lexingrules)
@@ -66,6 +59,8 @@ class parsewrapper:
 	
 	def getabstractlist(self, inputline):
 		return self.parser.parse(input = inputline, lexer = self.lexer)
+
+
 
 	def getline(self, inputfile):
 		line = inputfile.readline()
@@ -95,59 +90,22 @@ class parsewrapper:
 		if indentlevel == self.lastindentlevel + 1:
 			tgl.varlist.append(copy(tgl.varlist[self.lastindentlevel]))
 		elif indentlevel > self.lastindentlevel + 1:
-			#Throw error. Cannot indent forward by more than one level at at time.
 			tgl.returnError("Syntax Error", "Cannot indent forward by more than one level at at time", False)
 			pass
 		self.lastindentlevel = indentlevel
 		return inputline
 
-# Code Generator for Trowel
+
+
+
 class pythonwrapper:
 	def __init__(self):
 		self.tmpvarcount = 0
-	
-	# Function adds headers and declarations to the target program.
+
 	def headblock(self):
 		block = '#!/usr/bin/python\nimport os, sys\nsys.path.append("'+os.getcwd()+'")\nimport trowelfunctions as tfl\n'
 		return block
 
-	# Function checks for abstract syntax tree structures.
-	def checkaslintegrity(self, inputline):
-		if inputline[0][0] == "indentlevel":
-			if inputline[1][0] == "declaration":
-				if (inputline[1][1][0] == "datatype") and (inputline[1][1][1] in ["number", "text", "url", "numlist", "textlist", "urllist"]):
-					pass
-				else:
-					tgl.returnError("Syntax Error", "Declaration syntax mismatch", False)
-			elif inputline[1][0] == "assignment":
-				if inputline[1][1][0] == "variable":
-					pass
-				else:
-					tgl.returnError("Syntax Error", "Assignment syntax mismatch", False)
-			elif inputline[1][0] == "expression":
-				if inputline[1][1][0] == "functioncall":
-					if inputline[1][1][1][0] == "functionname":
-						pass
-					else:
-						tgl.returnError("Syntax Error", "Expression function name mismatch", False)
-				else:
-					tgl.returnError("Syntax Error", "Expression function syntax mismatch", False)
-			elif inputline[1][0] == "conditional":
-				if inputline[1][1][0] == "control":
-					pass
-				else:
-					tgl.returnError("Syntax Error", "Conditional function syntax mismatch", False)
-			elif inputline[1][0] == "forstatement":
-				pass
-			elif inputline[1][0] == "custom":
-				pass
-			else:
-				tgl.returnError("Syntax Error", "Missing syntax header", False)
-			pass
-		else:
-			tgl.returnError("Syntax Error", "Missing indentation information", False)
-	
-	# Function generates target python program.
 	def buildpython(self, listobject):
 		self.checkaslintegrity(listobject)
 		indentlevel = listobject[0][1]
@@ -184,41 +142,6 @@ class pythonwrapper:
 		#return '\n' + block
 		return block
 
-	#for statement handler
-	def prod_forstatement(self, listobject):
-		block = ''
-		varname = listobject[1][1]
-		[block,expval] = self.prod_expression(listobject[2])
-		block = block + 'for ' + varname + ' in ' + expval + ':\n'
-		return block
-
-	#custom function handler
-	def prod_custom(self, listobject):
-		if listobject[1] is 'return':
-			block = 'return ' + listobject[2][1][1]
-		else:
-			block = 'def ' + listobject[1] + '('
-			next_type = []
-			nt = 'text'
-			new_var = False
-			for arg in listobject[2]:
-				if type(arg) is str:
-					block = block + arg + ','
-					next_type.append(nt)
-					nt = 'text'
-					if new_var:
-						tgl.varlist[1][arg] = nt
-					new_var = False
-				else:
-					nt = str(arg[1])
-					new_var = True
-
-			block = block[:-1] + ')' + ':' + '\n' 
-			block = block + '\tif not tfl.checktype('+ str(next_type) +',list(reversed(locals().values()))): return \'' + listobject[1] + ' is used improperly\''
-			tgl.customfunctions.append(listobject[1])
-		return block
-
-	# Function translates declaration from the abstract syntax tree.
 	def prod_declaration(self, listobject):
 		block = ''
 		datatype = listobject[1][1]
@@ -236,7 +159,6 @@ class pythonwrapper:
 				block = block + self.prod_assignment(assignobject)
 		return block
 
-	# Function translate assignments from the abstract syntax tree.
 	def prod_assignment(self, listobject):
 		varname = listobject[1][1]
 		vartype = tgl.varlist[tgl.indentlevel][varname]
@@ -244,7 +166,6 @@ class pythonwrapper:
 		block = block + varname + ' = ' + expval + '\n'
 		return block
 
-	# Function translates expressions from the abstract syntax tree.
 	def prod_expression(self, listobject):
 		exptype  = listobject[1][0]
 		block = ''
@@ -271,7 +192,6 @@ class pythonwrapper:
 			expval = '\'' + str(listobject[1][1]) + '\''
 		return [block,expval]
 	
-	# Function translates function calls from the abstract syntax tree.
 	def prod_functioncall(self, listobject):
 		block = ''
 		functionname = listobject[1][1]
@@ -291,7 +211,15 @@ class pythonwrapper:
 			expval = 'tfl.r_' + functionname + pythonarglist
 		return [block,expval]
 
-	# Translate conditionals from the AST
+	def prod_forstatement(self, listobject):
+		block = ''
+		varname = listobject[1][1]
+		[block,expval] = self.prod_expression(listobject[2])
+		block = block + 'for ' + varname + ' in ' + expval + ':\n'
+		return block
+
+
+
 	def prod_conditional(self, listobject):
 		control = listobject[1][1]
 		if control == 'elseif': control = 'elif'
@@ -329,6 +257,73 @@ class pythonwrapper:
 			return self.prod_expression(listobject[0])
 		else:
 			raise Exception('Illegal boolean format')
+
+
+			
+	#custom function handler
+	def prod_custom(self, listobject):
+		if listobject[1] is 'return':
+			block = 'return ' + listobject[2][1][1]
+		else:
+			block = 'def ' + listobject[1] + '('
+			next_type = []
+			nt = 'text'
+			new_var = False
+			for arg in listobject[2]:
+				if type(arg) is str:
+					block = block + arg + ','
+					next_type.append(nt)
+					nt = 'text'
+					if new_var:
+						tgl.varlist[1][arg] = nt
+					new_var = False
+				else:
+					nt = str(arg[1])
+					new_var = True
+
+			block = block[:-1] + ')' + ':' + '\n' 
+			block = block + '\tif not tfl.checktype('+ str(next_type) +',list(reversed(locals().values()))): return \'' + listobject[1] + ' is used improperly\''
+			tgl.customfunctions.append(listobject[1])
+		return block
+
+
+
+	# Function checks for abstract syntax tree structures.
+	def checkaslintegrity(self, inputline):
+		if inputline[0][0] == "indentlevel":
+			if inputline[1][0] == "declaration":
+				if (inputline[1][1][0] == "datatype") and (inputline[1][1][1] in ["number", "text", "url", "numlist", "textlist", "urllist"]):
+					pass
+				else:
+					tgl.returnError("Syntax Error", "Declaration syntax mismatch", False)
+			elif inputline[1][0] == "assignment":
+				if inputline[1][1][0] == "variable":
+					pass
+				else:
+					tgl.returnError("Syntax Error", "Assignment syntax mismatch", False)
+			elif inputline[1][0] == "expression":
+				if inputline[1][1][0] == "functioncall":
+					if inputline[1][1][1][0] == "functionname":
+						pass
+					else:
+						tgl.returnError("Syntax Error", "Expression function name mismatch", False)
+				else:
+					tgl.returnError("Syntax Error", "Expression function syntax mismatch", False)
+			elif inputline[1][0] == "conditional":
+				if inputline[1][1][0] == "control":
+					pass
+				else:
+					tgl.returnError("Syntax Error", "Conditional function syntax mismatch", False)
+			elif inputline[1][0] == "forstatement":
+				pass
+			elif inputline[1][0] == "custom":
+				pass
+			else:
+				tgl.returnError("Syntax Error", "Missing syntax header", False)
+			pass
+		else:
+			tgl.returnError("Syntax Error", "Missing indentation information", False)
+
 
 if __name__ == '__main__':
 	main()

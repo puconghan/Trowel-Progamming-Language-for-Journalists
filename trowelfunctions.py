@@ -13,7 +13,7 @@ from urllib2 import Request, urlopen, URLError
 
 #----------------------------------------------------------------------------------------------
 
-#Section created by Hareesh and implemented by Pucong Han on April 20, 2013
+#Section outlined by Hareesh and implemented by Pucong Han
 
 def isnumber(input):
 	if str(type(input)) == "<type 'int'>":

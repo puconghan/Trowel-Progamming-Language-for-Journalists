@@ -31,9 +31,9 @@ prebuiltfunctions = {
 	'length' : ['number']
 }
 
-customfunctions = []
-
 funclist = prebuiltfunctions
+
+customfunctions = []
 
 # Error handler function for the compiler.
 def returnError(error_type, error_message, terminator):

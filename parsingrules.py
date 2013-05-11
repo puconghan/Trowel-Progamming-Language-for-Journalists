@@ -1,12 +1,3 @@
-###################################################################################################
-# PROGRAM:      Trowel
-# DESCRIPTION:  This parsingrules.py program is the parser of Trowel used to put token into abstract
-#				syntax tree.
-# LICENSE:      PLY
-# REFERENCES:   Python Lex-Yacc Documentation (http://www.dabeaz.com/ply/)
-# OUTPUT:       Abstract Syntax Tree
-###################################################################################################
-
 import trowelglobals as tgl
 from lexingrules import *
 
@@ -20,7 +11,7 @@ start = 'STATEMENT'
 
 def p_statement(p):
 	'''
-	STATEMENT :	ROOTEXPRESSION
+	STATEMENT : ROOTEXPRESSION
 			| DECLARATION
 			| ASSIGNMENT
 			| CONDITIONAL
@@ -65,6 +56,13 @@ def p_expression_2(p):
 	else:
 		p[0] = ['expression',p[2]]
 
+#-----------------------------------------------------
+
+##Parsing assignments
+def p_assignment(p):
+	'ASSIGNMENT : IDENTIFIER IS ROOTEXPRESSION'
+	p[0] = ['assignment', p[1], p[3]]
+
 def p_identifier(p):
 	'''
 	IDENTIFIER :	UNKNOWNWORD
@@ -77,28 +75,20 @@ def p_identifier(p):
 	else:
 		p[0] = ['insertword',p[1]]
 
-#-----------------------------------------------------
+##Parsing functions
+def p_function(p):
+	'FUNCTION : IDENTIFIER EXPRESSIONSET'
+	p[0] = ['functioncall',p[1],'arguments',p[2]]
 
-##Parsing custom functions
-def p_custom_function(p):
-	'CUSTOM : DEFINE UNKNOWNWORD CUSTOMARGS COLON'
-	p[0] = ['custom',p[2],p[3]]
-
-def p_customargs(p):
+def p_expressionset(p):
 	'''
-	CUSTOMARGS : CUSTOMARGS LEFTPAREN DATATYPE UNKNOWNWORD RIGHTPAREN
-			   | CUSTOMARGS UNKNOWNWORD
-			   | EMPTY
+	EXPRESSIONSET : EXPRESSIONSET EXPRESSION
+				  | EXPRESSION
 	'''
-	if p[1] is None:
-		p[0] = p[2:]
+	if len(p) == 3:
+		p[0] = p[1] + [p[2]]
 	else:
-		p[0] = p[1] + [x for x in p[2:] if x is not '(' and x is not ')']
-
-def p_return(p):
-
-	'CUSTOM : RETURN ROOTEXPRESSION'
-	p[0] = ['custom', 'return', p[2]]
+		p[0] = [p[1]]
 	
 #-----------------------------------------------------
 
@@ -121,23 +111,6 @@ def p_for(p):
 
 #-----------------------------------------------------
 
-##Parsing functions
-def p_function(p):
-	'FUNCTION : IDENTIFIER EXPRESSIONSET'
-	p[0] = ['functioncall',p[1],'arguments',p[2]]
-
-def p_expressionset(p):
-	'''
-	EXPRESSIONSET : EXPRESSIONSET EXPRESSION
-				  | EXPRESSION
-	'''
-	if len(p) == 3:
-		p[0] = p[1] + [p[2]]
-	else:
-		p[0] = [p[1]]
-		
-#-----------------------------------------------------
-
 
 ##Parsing Relational Operations
 
@@ -155,36 +128,6 @@ def p_relop(p):
 	else: raise Exception('Illegal relational operator')
 
 	p[0] = ['functioncall', ['functionname', p[2]], 'arguments', [p[1], p[3]]]
-
-#-----------------------------------------------------
-
-
-##Parsing Binary Operations
-
-def p_binop(p):
-	'''BINOP : EXPRESSION PLUS EXPRESSION
-			| EXPRESSION MINUS EXPRESSION
-			| EXPRESSION MULTIPLY EXPRESSION
-			| EXPRESSION DIVISION EXPRESSION'''
-	if p[2] == "+":
-		p[2] = "plus"
-	if p[2] == "-":
-		p[2] = "minus"
-	if p[2] == "*":
-		p[2] = "multiply"
-	if p[2] == "/":
-		p[2] = "divide"
-
-	p[0] = ['functioncall', ['functionname',p[2]],'arguments', [p[1], p[3]]]
-	
-def p_expression_uminus(p):
-    'EXPRESSION : MINUS EXPRESSION %prec UMINUS'
-    if (p[2][1][0] == "value"):
-    	p[2][1][1][1] = -p[2][1][1][1]
-    else:
-    	p[2][1][1] = "-" + p[2][1][1]
-    p[0] = p[2]
-
 
 #-----------------------------------------------------
 
@@ -274,13 +217,35 @@ def p_declarationassign(p):
 
 #-----------------------------------------------------
 
-##Parsing assignments
-def p_assignment(p):
-	'ASSIGNMENT : IDENTIFIER IS ROOTEXPRESSION'
-	p[0] = ['assignment', p[1], p[3]]
+def p_expression_uminus(p):
+    'EXPRESSION : MINUS EXPRESSION %prec UMINUS'
+    if (p[2][1][0] == "value"):
+    	p[2][1][1][1] = -p[2][1][1][1]
+    else:
+    	p[2][1][1] = "-" + p[2][1][1]
+    p[0] = p[2]
+
+
+##Parsing Binary Operations
+
+def p_binop(p):
+	'''BINOP : EXPRESSION PLUS EXPRESSION
+			| EXPRESSION MINUS EXPRESSION
+			| EXPRESSION MULTIPLY EXPRESSION
+			| EXPRESSION DIVISION EXPRESSION'''
+	if p[2] == "+":
+		p[2] = "plus"
+	if p[2] == "-":
+		p[2] = "minus"
+	if p[2] == "*":
+		p[2] = "multiply"
+	if p[2] == "/":
+		p[2] = "divide"
+
+	p[0] = ['functioncall', ['functionname',p[2]],'arguments', [p[1], p[3]]]
 
 #-----------------------------------------------------
-
+	
 ##Parsing conditionals
 def p_conditional(p):
 	'CONDITIONAL : CONTROL BOOLEAN_LIST COLON'
@@ -320,14 +285,37 @@ def p_logical(p):
 
 #----------------------------------------------------
 
+
+##Parsing custom functions
+def p_custom_function(p):
+	'CUSTOM : DEFINE UNKNOWNWORD CUSTOMARGS COLON'
+	p[0] = ['custom',p[2],p[3]]
+
+def p_customargs(p):
+	'''
+	CUSTOMARGS : CUSTOMARGS LEFTPAREN DATATYPE UNKNOWNWORD RIGHTPAREN
+			   | CUSTOMARGS UNKNOWNWORD
+			   | EMPTY
+	'''
+	if p[1] is None:
+		p[0] = p[2:]
+	else:
+		p[0] = p[1] + [x for x in p[2:] if x is not '(' and x is not ')']
+
+def p_return(p):
+
+	'CUSTOM : RETURN ROOTEXPRESSION'
+	p[0] = ['custom', 'return', p[2]]
+	
+	
+#----------------------------------------------------
+
 ##Parsing comments
 def p_comment(p):
 	'''
 	STATEMENT : COMMENT
 	'''
 	pass
-
-#-----------------------------------------------------
 
 ##Empty handle
 def p_empty(p):
