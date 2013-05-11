@@ -35,7 +35,12 @@ def main():
 			pythonfile.write(pythonblock)
 			
 		inputline = parsebox.getline(inputfile)
-
+	print "****************   Program is built successfully   ******************"
+	print ""
+	print "**  Excutable file: " + str(sys.argv[1]).replace("twl", "py")
+	print ""
+	print "****************         Now start excuting        ******************"
+	print "---------------------------------------------------------------------" 
 	inputfile.close()
 	tokenfile.close()
 	aslfile.close()
@@ -139,7 +144,6 @@ class pythonwrapper:
 		for line in blocklines:
 			if line != '':
 				block = block + tab + line + '\n'
-		#return '\n' + block
 		return block
 
 	def prod_declaration(self, listobject):
@@ -201,8 +205,6 @@ class pythonwrapper:
 		for item in argumentlist:
 			[blockval,expval] = self.prod_expression(item)
 			block = block + blockval
-			#block = block + 'tmp' + str(self.tmpvarcount) + ' = ' + expval + '\n'
-			#tmplist = tmplist + ['tmp' + str(self.tmpvarcount)]
 			tmplist = tmplist + [expval]
 			self.tmpvarcount = self.tmpvarcount + 1
 			
@@ -219,8 +221,6 @@ class pythonwrapper:
 		[block,expval] = self.prod_expression(listobject[2])
 		block = block + 'for ' + varname + ' in ' + expval + ':\n'
 		return block
-
-
 
 	def prod_conditional(self, listobject):
 		control = listobject[1][1]
@@ -260,8 +260,6 @@ class pythonwrapper:
 		else:
 			raise Exception('Illegal boolean format')
 
-
-			
 	#custom function handler
 	def prod_custom(self, listobject):
 		if listobject[1] is 'return':
@@ -287,8 +285,6 @@ class pythonwrapper:
 			block = block + '\tif not tfl.checktype('+ str(next_type) +',list(reversed(locals().values()))): return \'' + listobject[1] + ' is used improperly\''
 			tgl.customfunctions.append(listobject[1])
 		return block
-
-
 
 	# Function checks for abstract syntax tree structures.
 	def checkaslintegrity(self, inputline):
@@ -325,7 +321,6 @@ class pythonwrapper:
 			pass
 		else:
 			tgl.returnError("Syntax Error", "Missing indentation information", False)
-
 
 if __name__ == '__main__':
 	main()
