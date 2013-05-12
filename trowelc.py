@@ -63,7 +63,9 @@ def main():
 			
 		inputline = parsebox.getline(inputfile)
 	
-	print "\n", infilename, "has been successfully compiled to", outfilename
+	print ""
+	print "                 Program built successfully"
+	print "        Executable file: " + outfilename + ": Now executing\n\n"
 	
 	inputfile.close()
 	tokenfile.close()
