@@ -52,7 +52,7 @@ class TestTrowel(unittest.TestCase):
         os.system("./trowel example_source_programs/example_program3.twl")
         output = open("example_source_programs/example3_output.txt").readlines()
         self.assertEqual(output, ['http://www.bbc.co.uk/news/uk-northern-ireland-21855357\n'])
-        os.system("example_source_programs/example3_output.txt")
+        os.system("rm example_source_programs/example3_output.txt")
         
 if __name__ == '__main__':
     unittest.main()
