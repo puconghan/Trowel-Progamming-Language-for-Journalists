@@ -81,6 +81,7 @@ class parsewrapper:
 		self.lastindentlevel = 0
 	
 	def gettokens(self, inputline):
+		#The PLY lexer is called here
 		self.lexer.input(inputline)
 		tokenlist = []
 		for token in self.lexer:
@@ -88,8 +89,8 @@ class parsewrapper:
 		return tokenlist
 	
 	def getabstractlist(self, inputline):
+		#The PLY parser is called here
 		return self.parser.parse(input = inputline, lexer = self.lexer)
-
 
 	def getline(self, inputfile):
 		line = inputfile.readline()
@@ -103,6 +104,7 @@ class parsewrapper:
 		return line
 		
 	def filterindentation(self, inputline):
+		#This is the preprocessor that handles indentations
 		indentlevel = 0
 		tgl.indentback = 0
 		while inputline[0] == '\t':
