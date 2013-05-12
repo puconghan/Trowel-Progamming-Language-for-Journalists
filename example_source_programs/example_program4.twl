@@ -1,15 +1,10 @@
 # Control Structures Trowel Example Program 4
 
 urllist stories is read "example_source_programs/election.txt"
-
 text term1 is "obama", term2 is "romney"
-
 textlist filteredresult
 
 for storyitem in stories:
-
 	filteredresult is findText in storyitem with term1
-
 	if filteredresult:
-
 		append storyitem into "example_source_programs/example4_output.txt"

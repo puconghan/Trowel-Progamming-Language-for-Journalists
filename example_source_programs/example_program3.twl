@@ -1,11 +1,8 @@
 # File I/O Trowel Example Program 3
 
 urlList stories, filteredResult
-
 text term1 is "Obama", term2 is "Ireland"
-
 stories is read "example_source_programs/example3.txt"
-
 filteredresult is findUrl in stories with term1 and term2
 
 save filteredresult into "example_source_programs/example3_output.txt"

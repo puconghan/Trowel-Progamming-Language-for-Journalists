@@ -1,19 +1,13 @@
 #Find logic Trowel Example Program 5
 
 urlList stories, filteredResult
-
 textList obamaT
-
 text term1 is "obama", term2 is "Ireland"
-
 stories is read "example_source_programs/example3.txt"
-
 filteredresult is findUrl in stories with term1 and term2 or "Barack"
 
 if (length of filteredresult) > 10:
-
 	for entry in filteredresult:
-
 		insert (findText in entry with "Obama said") into obamaT
 
 save obamaT into "example_source_programs/example5_output.txt"
