@@ -1,27 +1,21 @@
-###################################################################################################
-# PROGRAM:      Trowel
-# DESCRIPTION:  This trowelfunction.py program implement default functions for trowel.
-#				This program will be imported by both targeted program and the parser.
-# LICENSE:      PLY
-# REFERENCES:   Python Lex-Yacc Documentation (http://www.dabeaz.com/ply/)
-#				Python BeautifulSoup (http://www.crummy.com/software/BeautifulSoup/)
-# AUTHORS:
-#               Pucong Han (ph2369@columbia.edu)
-#               Victoria Mo (vm2355@columbia.edu)
-#				Hareesh Radhakrishnan (hr2318@columbia.edu)
-#				David Tagatac (dtagatac@cs.columbia.edu)
-#				Robert Walport (robertwalport@gmail.com)
-###################################################################################################
+# -----------------------------------------------------------------------------
+# trowelfunctions.py
+# This file contains the definitions of all the
+#  inbuilt functions that are available in Trowel.
+# -----------------------------------------------------------------------------
+# Authors ->
+#	This file was written by David, Pucong, Victoria, and Robert.
+#	The author names are listed above each subsection
+# -----------------------------------------------------------------------------
 
 import sys
 import trowelglobals as tgl
 import urlparse
 from urllib2 import Request, urlopen, URLError
 
-#----------------------------------------------------------------------------------------------
+#-----------------------------------------------------
 
 #Section outlined by Hareesh and implemented by Pucong Han
-
 def isnumber(input):
 	if str(type(input)) == "<type 'int'>":
 		return True
@@ -114,7 +108,7 @@ def checktype(typelist, inputlist):
 	else:
 		return False
 
-#----------------------------------------------------------------------------------------------
+#-----------------------------------------------------
 
 #Section created and implemented by Victoria Mo, Robert Walport and Pucong Han.
 
@@ -182,9 +176,9 @@ def r_equal(arglist):
 def r_notequal(arglist):
 	return arglist[0] !=  arglist[1]
 
-#----------------------------------------------------------------------------------------------
+#-----------------------------------------------------
 
-#Section created and implemented by Pucong Han on April 13, 2013.
+#Section created and implemented by Pucong Han.
 
 ##Save function for Trowel.
 # Save a list of urls to an external txt file.
@@ -240,7 +234,7 @@ def r_read(arglist):
 	except IOError:
 		tgl.returnError("Run Time Error", "Can\'t find the txt file or read data from the txt file", True)
 
-#----------------------------------------------------------------------------------------------
+#-----------------------------------------------------
 
 #Section created and implemented by David Tagatac, Robert Walport and Pucong Han.
 

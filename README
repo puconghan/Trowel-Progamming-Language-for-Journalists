@@ -1,0 +1,20 @@
+THIS IS THE README FOR TROWEL
+-----------------------------
+
+Input programs can be compiled in Trowel using:
+./trowel filename.twl
+
+The output will be saved as filename.py, and executed at the same time.
+(The tokens will be saved to tokens.twl, and AST will be saved to asl.twl)
+
+The source files of trowel are:
+-------------------------------
+1. trowelc.py - This is the main controller for the compiler
+2. lexingrules.py - Contains the rules for token generation using PLY
+3. parsingrules.py - Contains the grammar for generating the AST using PLY
+4. trowelglobals.py - Contains the global objects that are shared, and modules for error handling
+5. trowelfunctions.py - Contains the implementation for inbuilt functions
+
+Additionally
+5. compilerTest.py - Contains tests to verify that each module is working correctly
+5. outputTest.py - Contains tests to verify that the output of the compiler is correct

@@ -9,7 +9,7 @@ from stat import *
 
 filename = sys.argv[1]
 
-subprocess.call(['./epicparser.py', filename])
+subprocess.call(['./trowelc.py', filename])
 target_filename = filename.split('.')[0] + '.py'
 os.chmod(target_filename, S_IRUSR+S_IWUSR+S_IXUSR) # give owner execute permissions
 subprocess.call(target_filename)

@@ -1,4 +1,12 @@
 #!/usr/bin/python
+# -----------------------------------------------------------------------------
+# compilerTest.py
+# This file contains tests to verify that
+# each module in the compiler is working correctly.
+# -----------------------------------------------------------------------------
+# Authors ->
+#	This file was written by Robert.
+# -----------------------------------------------------------------------------
 
 import os, unittest
 

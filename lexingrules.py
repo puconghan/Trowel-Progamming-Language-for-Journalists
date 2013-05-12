@@ -1,15 +1,12 @@
-###################################################################################################
-# PROGRAM:      Trowel
-# DESCRIPTION:  This lexingrules.py program is the lexer.
-# LICENSE:      PLY
-# REFERENCES:   Python Lex-Yacc Documentation (http://www.dabeaz.com/ply/)
-# AUTHORS:
-#               Pucong Han (ph2369@columbia.edu)
-#               Victoria Mo (vm2355@columbia.edu)
-#				Hareesh Radhakrishnan (hr2318@columbia.edu)
-#				David Tagatac (dtagatac@cs.columbia.edu)
-#				Robert Walport (robertwalport@gmail.com)
-###################################################################################################
+# -----------------------------------------------------------------------------
+# lexingrules.py
+# This file contains the rules that are used for 
+# generating tokens by the lex module of PLY.
+# -----------------------------------------------------------------------------
+# Authors ->
+#	This file was originally written by Puchong.
+#		Modifications were made by Hareesh and Robert.
+# -----------------------------------------------------------------------------
 
 import trowelglobals as tgl
 

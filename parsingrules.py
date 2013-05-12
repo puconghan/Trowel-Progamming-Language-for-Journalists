@@ -1,25 +1,23 @@
-###################################################################################################
-# PROGRAM:      Trowel
-# DESCRIPTION:  This parsingrules.py is the parser.
-# LICENSE:      PLY
-# REFERENCES:   Python Lex-Yacc Documentation (http://www.dabeaz.com/ply/)
-# AUTHORS:
-#               Pucong Han (ph2369@columbia.edu)
-#               Victoria Mo (vm2355@columbia.edu)
-#				Hareesh Radhakrishnan (hr2318@columbia.edu)
-#				David Tagatac (dtagatac@cs.columbia.edu)
-#				Robert Walport (robertwalport@gmail.com)
-###################################################################################################
+# -----------------------------------------------------------------------------
+# parsingrules.py
+# This file contains the rules that are used for parsing
+# and generation of the abstract syntax tree by the yacc module of PLY.
+# -----------------------------------------------------------------------------
+# Authors ->
+#	This file was originally written by Hareesh.
+#		Robert wrote the grammar for binary operations.
+#		David wrote the grammar for conditionals.
+#		Victoria wrote the grammar for custom functions.
+#		All error handling was taken care of by Pucong.
+#
+#	The author names are listed above each subsection
+# -----------------------------------------------------------------------------
 
 import trowelglobals as tgl
 from lexingrules import *
 
-precedence = (
-    ('left','PLUS','MINUS'),
-    ('left','MULTIPLY','DIVISION'),
-    ('right','UMINUS'),
-    )
-
+##~~~~~ Section author 1: Hareesh
+#-----------------------------------------------------
 start = 'STATEMENT'
 
 def p_statement(p):
@@ -35,8 +33,8 @@ def p_statement(p):
 		
 def p_error(p):
 	tgl.returnError("Syntax Error", "Syntax error at '%s'" % p.value, False)
-
-#-----------------------------------------------------
+	
+#---------------------
 
 ##Parsing expressions
 def p_rootexpression(p):
@@ -69,7 +67,7 @@ def p_expression_2(p):
 	else:
 		p[0] = ['expression',p[2]]
 
-#-----------------------------------------------------
+#---------------------
 
 ##Parsing assignments
 def p_assignment(p):
@@ -87,6 +85,8 @@ def p_identifier(p):
 		p[0] = ['variable',p[1]]
 	else:
 		p[0] = ['insertword',p[1]]
+		
+#---------------------
 
 ##Parsing functions
 def p_function(p):
@@ -103,7 +103,7 @@ def p_expressionset(p):
 	else:
 		p[0] = [p[1]]
 	
-#-----------------------------------------------------
+#---------------------
 
 ##Parsing for
 def p_for(p):
@@ -122,27 +122,8 @@ def p_for(p):
 #	'LAMBDAVAR: LEFTPAREN DATATYPE UNKNOWNWORD RIGHTPAREN'
 #	p[0] = ['lambdavar',[p[2],p[3]]]
 
-#-----------------------------------------------------
 
-
-##Parsing Relational Operations
-
-def p_relop(p):
-	'''
-	RELOP :	EXPRESSION GREATER EXPRESSION
-		| EXPRESSION LESS EXPRESSION
-		| EXPRESSION EQUAL EXPRESSION
-		| EXPRESSION NOTEQUAL EXPRESSION
-	'''
-	if p[2] == ">": p[2] = "greater"
-	elif p[2] == "<": p[2] = "less"
-	elif p[2] == "==": p[2] = "equal"
-	elif p[2] == '=/=': p[2] = "notequal"
-	else: raise Exception('Illegal relational operator')
-
-	p[0] = ['functioncall', ['functionname', p[2]], 'arguments', [p[1], p[3]]]
-
-#-----------------------------------------------------
+#---------------------
 
 ##Parsing constants and lists
 def p_value(p):
@@ -184,7 +165,7 @@ def p_valuelist(p):
 		list = list + [item]
 	p[0] = ['list',list]
 
-#-----------------------------------------------------
+#---------------------
 
 ##Parsing declarations	
 def p_declaration(p):
@@ -229,6 +210,13 @@ def p_declarationassign(p):
 		p[0] = [p[1],p[3]]
 
 #-----------------------------------------------------
+##~~~~~ Section author 2: Robert
+
+precedence = (
+    ('left','PLUS','MINUS'),
+    ('left','MULTIPLY','DIVISION'),
+    ('right','UMINUS'),
+    )
 
 def p_expression_uminus(p):
     'EXPRESSION : MINUS EXPRESSION %prec UMINUS'
@@ -258,7 +246,26 @@ def p_binop(p):
 	p[0] = ['functioncall', ['functionname',p[2]],'arguments', [p[1], p[3]]]
 
 #-----------------------------------------------------
+##~~~~~ Section author 3: David
+
+##Parsing Relational Operations
+def p_relop(p):
+	'''
+	RELOP :	EXPRESSION GREATER EXPRESSION
+		| EXPRESSION LESS EXPRESSION
+		| EXPRESSION EQUAL EXPRESSION
+		| EXPRESSION NOTEQUAL EXPRESSION
+	'''
+	if p[2] == ">": p[2] = "greater"
+	elif p[2] == "<": p[2] = "less"
+	elif p[2] == "==": p[2] = "equal"
+	elif p[2] == '=/=': p[2] = "notequal"
+	else: raise Exception('Illegal relational operator')
+
+	p[0] = ['functioncall', ['functionname', p[2]], 'arguments', [p[1], p[3]]]
 	
+#---------------------
+
 ##Parsing conditionals
 def p_conditional(p):
 	'CONDITIONAL : CONTROL BOOLEAN_LIST COLON'
@@ -297,7 +304,7 @@ def p_logical(p):
 	p[0] = p[1]
 
 #----------------------------------------------------
-
+##~~~~~ Section author 4: Victoria
 
 ##Parsing custom functions
 def p_custom_function(p):
@@ -319,7 +326,6 @@ def p_return(p):
 
 	'CUSTOM : RETURN ROOTEXPRESSION'
 	p[0] = ['custom', 'return', p[2]]
-	
 	
 #----------------------------------------------------
 

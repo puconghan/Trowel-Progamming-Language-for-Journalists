@@ -1,16 +1,14 @@
-###################################################################################################
-# PROGRAM:      Trowel
-# DESCRIPTION:  This trowelglobal.py program stores variables, error messages, default functions.
-#				This program also has an error handler function.
-# LICENSE:      PLY
-# REFERENCES:   Python Lex-Yacc Documentation (http://www.dabeaz.com/ply/)
-# AUTHORS:
-#               Pucong Han (ph2369@columbia.edu)
-#               Victoria Mo (vm2355@columbia.edu)
-#				Hareesh Radhakrishnan (hr2318@columbia.edu)
-#				David Tagatac (dtagatac@cs.columbia.edu)
-#				Robert Walport (robertwalport@gmail.com)
-###################################################################################################
+# -----------------------------------------------------------------------------
+# trowelfunctions.py
+# This file contains
+#	a. Global objects that are shared between 
+#		all the modules of Trowel during compilation.
+#	b. Modules for error handling during compilation.
+# -----------------------------------------------------------------------------
+# Authors ->
+#	Pucong wrote all the modules for error handling.
+#	Hareesh created the rest of this file.
+# -----------------------------------------------------------------------------
 
 import sys
 
@@ -36,10 +34,12 @@ prebuiltfunctions = {
 	'binop' : ['number'],
 	'length' : ['number']
 }
-
+customfunctions = []
 funclist = prebuiltfunctions
 
-customfunctions = []
+
+#-----------------------------------------------------
+##~~~~~ Section author: Pucong
 
 # Error handler function for the compiler.
 def returnError(error_type, error_message, terminator):
